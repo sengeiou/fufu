@@ -1,0 +1,53 @@
+﻿
+<ion-view  title="{{'注册新企业'}}" cache-view="false" ng-controller="compRegCtrl" has-bouncing="true" overflow-scroll="false">
+  <style>
+    .navigation_bar{background-color:#53afff;color:#fff;}
+    .platform-ready .button.button-light.button-clear{color:#fff;}
+    .modify_div{
+      width: 100%;
+      overflow: hidden;
+      height: 44px;
+      background-color: white;
+      margin-top: 10px;
+      line-height: 44px;
+      position: relative;
+    }
+  </style>
+  <ion-content>
+
+    <div class="modify_div" style="border-bottom:1px solid #f5f5f5;" clear-value-box>
+      <input clear-value-input id="forget_tel_no"   style="width: 100%;margin-left: 12px;height: 42px;" ng-model="regModel._phone_num" type="text" placeholder="输入手机号码"/>
+    	<div clear-value-btn style="position: absolute; right: 10px; font-size: 16px; margin-right: 2px;top: 0px; height:44px;line-height: 44px; color: #cccccc;" ></div>     
+	</div>
+
+
+  <div class="modify_div" style="margin-top: 0px;border-top: none;height:46px;line-height:44px;" clear-value-box>
+      <input clear-value-input id="forget_img_valid_code" style="height: 44px;width: 100%;margin-left: 12px;" ng-model="regModel.img_valid_code" type="text" placeholder="输入图形验证码"/>
+    <div clear-value-btn style="position: absolute; right: 100px; font-size: 16px; margin-right: 2px;top: 0px; height:1.18rem;line-height: 1.18rem; color: #cccccc;" ></div>
+      <div  style="position: absolute;top:0px;right: 12px;">
+         <img class="getauth ng-binding effect imgauthcode" style="padding-top:5px;width: 86px;height: 36px;" ng-src="{{valid_img_src}}" ng-click="changeCaptchaCode($event)" alt="看不清，点击换一张">
+      </div>
+    </div>
+
+    <div class="modify_div" style="margin-top: 0px;border-top: 1px solid #f5f5f5;" clear-value-box>
+      <input clear-value-input id="forget_valid_code" style="height: 42px;width: 100%;margin-left: 12px;" ng-model="regModel.valid_code" type="text" placeholder="输入验证码"/>
+      <div clear-value-btn style="position: absolute; right: 100px; font-size: 16px; margin-right: 2px;top: 0px; height:44px;line-height: 44px; color: #cccccc;" ></div>     
+	  <div  style="position: absolute;top:0px;right: 12px;">
+        <button class="button button-small button-positive" style="min-height:20px;height:32px;padding-left: 12px;padding-right: 12px;margin-top: 6px;" id="reg_valid_vcode" ng-click="getValidCode()">获取验证码</button>
+      </div>
+    </div>
+
+    <div style="width: 100%;height: 44px;padding-left: 12px;padding-right: 12px;margin-top: 20px;" ng-click="regCompAcct()">
+      <!--<div style="text-align: center;line-height: 44px;opacity: 0.5;background-color: #53afff;color:white;font-size: 18px;border-radius: 4px;" id="forget_button"></div>-->
+
+      <button style="text-align: center;line-height: 44px;background-color: #53afff;color:white;font-size: 18px;border-radius: 4px;width:100%;border:none; opacity:0.5;" id="_find_pwd_action" >
+        下一步
+      </button>
+    </div>
+    <div ng-hide="regModel._flag"
+         style="height:44px;width:100%;color:white;text-align:center;line-height:44px;background-color:#ff6666;opacity:.9;top:0;position:fixed;">
+      {{regModel._message}}
+    </div>
+  </ion-content>
+  <div style="position: absolute;bottom:36px;height: 20px;width: 100%;color: #999;font-size: 14px;text-align: center" ng-click="path_log()">已有账号，<span style="color: #53afff;">去登录</span></div>
+</ion-view>

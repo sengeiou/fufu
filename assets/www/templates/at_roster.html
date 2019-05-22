@@ -1,0 +1,85 @@
+
+<ion-view id="at_roster_view" style="background-color:#f8f8f8;" title="排班管理" ng-controller="atRosCtrl"  hide-tab-bar>
+
+<style>
+
+    #at_roster_view #at_roster_content {
+      top: 112px;
+    }
+    .platform-win32.platform-cordova #at_roster_view #at_roster_content {
+      top: 92px;
+    }
+    .platform-android.platform-cordova #at_roster_view #at_roster_content {
+      top: 92px;
+    }
+</style>
+
+	<ion-header-bar class="bar-subheader" style="height:46px;padding:0px;width: 100%; background-color:#f8f8f8; background-image:none;" >
+		<label class="item item-input" style="border-radius:4px;height:30px;margin:10px 12px;background-color:#fff;border:none;">
+		  <i class="icon ion-search placeholder-icon"></i>
+		  <input type="text" placeholder="搜索姓名、工号、职位、排班..." ng-model="search_val">
+		</label>
+	</ion-header-bar>
+
+
+    <ion-nav-buttons side="right" has-bouncing="true" overflow-scroll="false">
+      <!--<button class="button button-clear button-light button-icon ion-android-add" ng-click="openPopover($event);"></button>-->
+      <img ng-src="{{icon_filter}}" style="width: 24px;height:24px;margin:5px;" ng-click="openPopover($event);" alt=""/>
+    </ion-nav-buttons>
+
+	
+	
+    <ion-content id="at_roster_content" has-bouncing="true" overflow-scroll="false">
+      <div class="list" style="margin-bottom:0px;">
+
+        <div class="row" style="background-color:#fff;line-height:40px;">
+          <div class="col-20" style="text-align: left;color:#666;padding-left:5px;">
+            <div ng-click="reAtRosData('-1')" style="">上一天</div>
+          </div>
+          <div class="col-60">
+            <div class="item-input">
+              <input type="date"  id="at_roster_1" style="margin-top:-5px;text-align: center;background-color:#fff;width:120px;font-size:17px;color:#333;display: none"/>
+              <div id="at_roster_" style="color:#53afff;line-height: 30px;margin: 0 auto;font-size: 14px;" ng-click="at_roster_()"></div>
+            </div>
+          </div>
+          <div class="col-20" style="text-align: right;color:#666;padding-right:5px;">
+            <div ng-click="reAtRosData('1')">下一天</div>
+          </div>
+        </div>
+      </div>
+      <ion-list>
+        <div ng-show="at_ros_data.data_ready && at_ros_data.roster_data.length==0 && search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+
+        <div ng-show="filterItems.length==0 && (search_val!=''||_flag!='')" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+        <ion-item class="item-avatar-left" ng-click="loadEmplRoster(item.em)" collection-repeat="item in filterItems=(at_ros_data.roster_data|dataAndFilter:'st,en,pn,p_na':search_val|filter:{'fg':_flag})">
+            <img ng-src="{{item.img}}">
+            <div>
+              <span style="font-size:17px;color:#333;">{{item.en}}</span>&nbsp;&nbsp;
+              <span style="font-size:12px;color:#808080">工号:{{item.st}}</span>
+              <span style="float:right;">{{item.p_na}}</span>
+            </div>
+            <p style="font-size:12px;color:#808080;">{{item.pn}}
+              <span style="float:right" ng-if="item.fg=='正常'">{{item.fg}}</span>
+              <span style="float:right;color:#53afff" ng-if="item.fg=='未排班'">{{item.fg}}</span>
+              <span style="float:right;color:#ff6600" ng-if="item.fg=='对班异常'">{{item.fg}}</span>
+            </p>
+            <div style="margin-top:4px;margin-left:-60px;margin-top:12px;line-height:38px;border-top:1px dotted #f0f0f0;margin-bottom:-15px">
+              <label style="font-size:15px;color:#808080;"><!--<i class="icon ion-android-more-vertical positive" style="color:#53afff;"></i>&nbsp;--><!--<i class="icon ion-android-more-vertical positive" style="color:#53afff;"></i>&nbsp;&nbsp;--><img ng-src="{{contract_management_directory1}}" style="width:12px; height:17px;" />排班时间:</label>
+              <label style="float:right;font-size:12px;color:#808080;padding-top:10px;" ng-if="item.dt_f!=''">上午:{{item.dt_f}}&nbsp;&nbsp;&nbsp;&nbsp;下午:{{item.dt_t}}</label>
+            </div>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+
+  <script id="roster-result-popover.html" type="text/ng-template">
+    <ion-popover-view class="light padding pop-style" style="background-color:white;width:140px;height:auto;margin-top:20px;">
+      <p><i class="button icon-left button-light button-full" style="border-bottom:1px solid #f8f8f8;" ng-click="filterStaff('已排班')"><img style="margin-top:10px;float:left;width:22px;height:22px;" ng-src="{{at_the_scheduled}}" />已排班</i></p>
+      <p><i class="button icon-left button-light button-full" style="border-bottom:1px solid #f8f8f8;" ng-click="filterStaff('未排班')"><img style="margin-top:10px;float:left;width:22px;height:22px;" ng-src="{{at_not_scheduling}}" />未排班</i></p>
+	  <!--
+      <p><i class="button icon-left button-light button-full" style="border-bottom:1px solid #f8f8f8;" ng-click="filterStaff('对班异常')"><img style="margin-top:10px;float:left;width:22px;height:22px;" ng-src="{{at_abnormal_class}}" />对班异常</i></p>
+	  -->
+      <p><i class="button icon-left button-light button-full" ng-click="filterStaff('')"><img style="margin-top:10px;float:left;width:22px;height:22px;" ng-src="{{at_all_scheduling}}" />全部排班</i></p>
+    </ion-popover-view>
+  </script>
+
+</ion-view>

@@ -1,0 +1,20 @@
+
+<ion-view style="background-color:#f8f8f8;" title="注销用户" hide-tab-bar>
+  <ion-content ng-controller="resignUserCtrl" has-bouncing="true" overflow-scroll="false">
+
+<div style="text-align:center;padding-top:40px;">
+	<img style="width:114px;height:114px;" ng-src="{{img_cancel}}">
+</div>
+
+<div style="text-align:center;color:#333333;margin-top:20px; font-size:16px">确认注销之后，系统将把您的信息清除</div>
+
+<div style="text-align:center;color:#999;margin-top:10px; font-size:14px;">不要轻易注销个人信息</div>
+
+    <div class="padding" style="margin-top:60px;">
+      <button class="button button-block button-dark" style="margin-top:10px; background-color:#53afff;" ng-click="resign_user_action()">
+        确认注销
+      </button>
+    </div>
+
+  </ion-content>
+</ion-view>

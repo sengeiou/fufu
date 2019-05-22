@@ -1,0 +1,26 @@
+
+
+
+<ion-view title="工资">
+  <style>
+    #_payroll_empl_date:after{right:35%;top:50%;}
+    .item-select:after{color:#fff;}
+    .item-input{padding-left:0;}
+  </style>
+  <ion-content ng-controller="payrollHomeCtrl" has-bouncing="true" overflow-scroll="false">
+
+    <div style="background-color:#53afff;padding:30px 30px 20px 30px;text-align:center;">
+      <div style="width:100%;text-align:center;font-size:14px;color:#fff">{{payroll_home_data.nettext}}</div>
+      <div style="width:100%;text-align:center;font-size:50px;color:#fff;padding-top:30px;">{{payroll_home_data.netpay}}</div>
+    </div>
+    <div class="row" style="text-align: center;color:#fff;background-color:#53afff;">
+      <div class="item-input" style="text-align:center;width:100%;margin-bottom:10px;">
+        <input type="month" class="item-select" id="_payroll_empl_date"  style="font-size:14px;text-align:center;color:#fff;" />
+      </div>
+    </div>
+    <div style="margin-top:10px;">
+      <div id="chart_container"></div>
+    </div>
+  </ion-content>
+</ion-view>
+

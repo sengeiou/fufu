@@ -1,0 +1,40 @@
+
+<style>
+	.btn_next{height:50px;line-height:50px;background-color:#53afff;color:#fff;font-size:17px;text-align:center;bottom:0;}
+	#logo{width:60px;height:120px;margin:0 auto;padding-top:30px;}
+	#logo img{width:60px;}
+	.three_model .organization_and_personnel,.three_model .time_management,.three_model .compensation_management{height:60px;background-color:#fff;border-radius:2px;margin-bottom:20px;background-repeat:no-repeat;background-size:60px 60px;}
+	.three_model .organization_and_personnel{background-image:url(img/register/img_Organization_and_personnel_register@2x.png);}
+	.three_model .time_management{background-image:url(img/register/img_time_management_register@2x.png);}
+	.three_model .compensation_management{background-image:url(img/register/img_Compensation_Management_register@2x.png);}
+	.three_model{line-height:60px;text-indent:80px;overflow:hidden;}
+	.three_model .OP,.three_model .TM,.three_model .CM{color:#333;float:left;}
+	.three_model .OP_btn,.three_model .TM_btn,.three_model .CM_btn{float:right;}
+	.slide_ck{text-indent:0px;}
+    .slide_ck .item{border-color:white;}
+    .itempadding {margin-top:10px;margin-right:15px;}
+    .has-header{bottom:44px;}
+  .navigation_bar{background-color:#fff;color:#53afff;}
+</style>
+<ion-view style="background-color:#f8f8f8;" class="title" view-title="服服" hide-back-button="true">
+  <div ng-controller="registerIndex">
+  <ion-content has-bouncing="true" overflow-scroll="false">
+    <div id="logo"><img src="img/register/img_fufu_logo@2x.png"></div>
+    <div class="three_model padding" >
+      <div ng-repeat="item in reg_index_ck" class="{{item.cls}}">
+        <div class="{{item.clsTil}}">{{item.text}}</div>
+        <div class="{{item.clsTil}}_btn slide_ck itempadding">
+          <label class="toggle toggle-calm">
+            <input type="checkbox" ng-model="item.checked" ng-disabled="item.disabled"  ng-checked="item.checked" >
+            <div class="track"><div class="handle"></div></div>
+          </label>
+        </div>
+      </div>
+      </div>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="btn_next" >
+    <div class="title" ng-click="saveIndex()">下一步</div>
+  </ion-footer-bar>
+  </div>
+</ion-view>
+

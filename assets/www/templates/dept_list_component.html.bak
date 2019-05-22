@@ -1,0 +1,61 @@
+
+<ion-view ng-controller="deptComponentCtrl" style="background-color:#f8f8f8;" cache-view="false" hide-tab-bar hide-back-button="true">
+    
+    <ion-nav-buttons side="left">
+        <div ng-class="{'checkboxLeftBar':!opt.isSingleSelect && searchState}">
+            <button ng-click="back()" class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+            <span ng-click="toggleSearch()" style="line-height: 34px; font-size: 14px; margin-left: 8px;" >取消</span>
+        </div>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right">
+        <span ng-click="allSelect()" ng-if="!opt.isSingleSelect" style="line-height: 34px; font-size: 14px; margin-right: 8px;" ng-bind="opt.isAllSelect?'全选':'全不选'"></span>
+    </ion-nav-buttons>
+
+    <ion-nav-title>
+        <div class="search-title" ng-bind="opt.title"></div>
+        <!-- <div class="search-input" ng-class="{'isCheck':!opt.isSingleSelect}">
+            <div style="width: 95%; height: 28px; background: white; border-radius: 3px;" clear-value-box>
+                <input type="text" clear-value-input ng-model="search_control.search_val" style="height: 28px; width: 100%; border-radius: 3px; padding: 0 10px;">
+                <div clear-value-btn style="position: absolute; right: 28px; font-size: 16px; margin-right: 3px; top: 0;height:1.18rem; color: #cccccc;" id="loginUserBtn"></div>
+            </div>
+        </div> -->
+    </ion-nav-title>
+
+    <ion-content delegate-handle="select_notify_content" i="{{ii}}" has-bouncing="true">
+        <div class="mobile_tree_second_level_title2" ng-show="!search_control.search_val.length">
+            <ion-content delegate-handle="x_nav" direction="x" scrollbar-x="false" style="height: 50px">
+                <div class="mobile_tree_title_x" style="width: 1000px;height: 50px">
+                    <div ng-repeat="item in historyBar" repeat-finish="renderFinish()" style="display: inline-block; height:50px">
+                        <span ng-click="goBack(item.i)" ng-bind="item.title"></span>
+                        <i class="icon ion-ios-arrow-right button-small"></i>
+                    </div>
+                </div>
+            </ion-content>
+        </div>
+
+        <div ng-if="isShow">
+            <ion-list class="mobile_select_notify_tree hideAfter dept selectDept" ng-show="sd[iIndex] && sd[iIndex].length">
+                <div class="msnt_list"
+                     item-width="100%"
+                     item-height="60px"
+                     collection-repeat="item in filterItems=(sd[iIndex]|dataAndFilter:'name':search_control.search_val)"
+                     ng-class="{'is_ar':item.children && item.children.length}"
+                >
+                    <label class="checkbox" style="padding:19px 13px"><input type="checkbox" ng-model="item.checked" ng-checked="item.checked" ng-change="selectOption(item)" class="ng-pristine ng-untouched ng-valid"></label>
+                    <a class="item item-avatar item-icon-right" ng-click="openSubClass(item, $index)" style="min-height: 60px">
+                        <div>
+                            <div class="tit" ng-bind="item.name" style="line-height: 60px"></div>
+                        </div>
+                        <i class="icon ion-ios-arrow-right button-small"></i>
+                    </a>
+                </div>
+            </ion-list>
+        </div>
+        <div style="width:100%;height:44px;" ng-if="!opt.isSingleSelect"></div>
+    </ion-content>
+    <div class="mobile_select_notify_bottom_column ng-hide" ng-show="!opt.isSingleSelect">
+        <div>已选择:<span ng-bind="activeObj.length">0</span>个<span ng-bind="opt.extName"></span></div>
+        <button ng-click="sure()">确认</button>
+    </div>
+</ion-view>

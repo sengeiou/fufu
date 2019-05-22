@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="StyleEditText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">2dp</item>
+        <!--<item name="android:drawableStart">@drawable/ion_search</item>-->
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:imeOptions">actionSearch</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/contents_text</item>
+        <item name="android:textColorHint">@color/gray_white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:hint">搜索</item>
+        <item name="android:selectable">false</item>
+    </style>
+
+    <style name="Transparent">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <!--<item name="android:windowAnimationStyle">@+android:style/Animation.Translucent</item>-->
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="MyTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--状态栏背景色-->
+        <item name="colorPrimaryDark">@color/black</item>
+        <!--导航栏颜色-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!--各控制元件(如：check box、switch 或是 radoi) 被勾选 (checked) 或是选定 (selected) 的颜色-->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--主体文字颜色-->
+        <item name="android:textColorPrimary">@color/black</item>
+        <!--App 的背景色-->
+        <item name="android:windowBackground">@color/colorWindowBackground</item>
+        <item name="android:windowAnimationStyle">@style/Activity_Change_Anim</item>
+    </style>
+    <!--从Activity A 进入 Acitivity B 和 从 B 返回 A 的切换动画-->
+    <style name="Activity_Change_Anim" parent="@android:style/Animation.Activity">
+        <!--A 进入B , Acitivity B 进入效果 -->
+        <item name="android:activityOpenEnterAnimation">@anim/push_right_in</item>
+        <!-- A 进入B , Activity A 退出效果 -->
+        <item name="android:activityOpenExitAnimation">@anim/push_left_out</item>
+        <!-- B 返回 A , Activity A 进入效果 -->
+        <item name="android:activityCloseEnterAnimation">@anim/push_left_in</item>
+        <!-- B 返回 A , Acitivity B 退出效果 -->
+        <item name="android:activityCloseExitAnimation">@anim/push_right_out</item>
+    </style>
+
+    <style name="CustomerDialog">
+        <item name="android:windowBackground">@android:color/transparent
+        </item> <!-- 设置dialog的背景，此处为系统给定的透明值 -->
+        <item name="android:windowFrame">@null</item>               <!--  Dialog的windowFrame框为无 -->
+        <item name="android:windowNoTitle">true</item>　　　　　　　　<!--  是否显示标题 -->
+        <item name="android:windowIsFloating">true</item>            <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">true</item>         <!-- 是否半透明 -->
+        <item name="android:windowContentOverlay">@null</item>       <!-- 是否有覆盖 -->
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog
+        </item>   <!-- 设置Activity出现方式 -->
+        <item name="android:backgroundDimEnabled">true</item>       <!--  背景是否模糊显示 -->
+        <item name="android:radius">20dp</item>
+    </style>
+
+    <!--Center Dialog style-->
+    <style name="CenterDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="Base_Text_Style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/size_12sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Text_Black_24" parent="Base_Text_Style">
+        <item name="android:textSize">@dimen/size_12sp</item>
+    </style>
+
+    <style name="Text_999_26" parent="Base_Text_Style">
+        <item name="android:textSize">@dimen/size_13sp</item>
+        <item name="android:textColor">@color/color_999999</item>
+    </style>
+    <style name="Text_999_30" parent="Text_999_26">
+        <item name="android:textSize">@dimen/size_15sp</item>
+    </style>
+
+    <style name="Text_Black_28" parent="Base_Text_Style">
+        <item name="android:textSize">@dimen/size_14sp</item>
+    </style>
+
+    <style name="Text_White_28" parent="Text_Black_28">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text_333_28" parent="Text_Black_28">
+        <item name="android:textColor">@color/color_333333</item>
+    </style>
+
+    <style name="Text_333_32" parent="Base_Text_Style">
+        <item name="android:textSize">@dimen/size_16sp</item>
+        <item name="android:textColor">@color/color_333333</item>
+    </style>
+
+    <style name="Text_White_34" parent="Text_White_28">
+        <item name="android:textSize">@dimen/size_17sp</item>
+    </style>
+
+    <!--分割线-->
+    <style name="SplitLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/margin_0.5dp</item>
+        <item name="android:background">@color/color_f0f0f0</item>
+    </style>
+
+</resources>

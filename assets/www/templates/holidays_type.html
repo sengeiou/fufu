@@ -1,0 +1,162 @@
+<ion-view title="节假日类型" ng-controller="holidaysTypeCtrl" hide-nav-bar="true" hide-tab-bar >
+
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+	      <h1 class="title">
+            <span ng-bind="holidaysTypeData.zk_holiday_type_name"></span>
+        </h1>
+
+        
+	</ion-header-bar>
+			<style>
+      .add-holiday-btn{
+        background-color: white;
+    height: 44px;
+    border-top: 1px solid #f0f0f0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    font-size: 16px;
+    color: rgb(51,51,51);
+      }
+      .add-holiday-btn img{
+        width: 22px;
+        height: 22px;
+      }
+      .holiday-type-box{
+
+      }
+      .holiday-type-list{
+
+      }
+      .holiday-list-item{
+        height: 44px;
+        border-bottom: 1px solid #f5f5f5;
+        padding: 0 12px;
+      }
+      .holiday-list-item > div{
+        font-size: 16px;
+        color: rgb(51,51,51);
+      }
+      .holiday-list-item.holiday-title > div:nth-child(1) > div{
+        width: 25px;
+        height: 25px;
+        font-size: 16px;
+        color: white;
+        border-radius: 5px;
+        text-align: center;
+        line-height: 25px;
+        margin-right: 10px;
+      }
+      .holiday-type-list .holiday-list-item:last-child(1){
+        border-bottom: none;
+      }
+      .holiday-list-item > div{
+        align-items: center;
+      }
+      .holiday-list-item .edit-box{
+        justify-content: center;
+      }
+      .holiday-list-item img{
+        width: 22px;
+        height: 22px;
+        margin-right: 10px;
+      }
+      .not-mr{
+         margin-right: 0!important;
+      }
+
+     
+      </style>
+
+  	<ion-content has-bouncing="true" overflow-scroll="false">
+
+        <div class="edit-door-box" >
+          <div class="flex-row edit-door-list" style="margin-top:10px" on-tap="editHolidayName()">
+            <div>节假日名称</div>
+            <div class="sdw flex-1" style="text-align: right;">
+              <span ng-bind="holidaysTypeData.zk_holiday_type_name"></span>
+              <i class="ion-ios-arrow-forward"></i>
+            </div>
+          </div>
+
+          <div class="flex-row edit-door-list" on-tap="selectdw()">
+            <div>所属单位</div>
+            <div class="sdw flex-1" style="text-align: right;">
+              <span ng-bind="holidaysTypeData.bu_list[holidaysTypeData.sub_bu_index].value"></span>
+              <i class="ion-ios-arrow-forward"></i>
+            </div>
+          </div>
+
+          <div class="flex-row edit-door-list" on-tap="selectYear()">
+            <div>选择年份</div>
+            <div class="sdw flex-1" style="text-align: right;">
+              <span ng-bind="holidaysTypeData.year_list[holidaysTypeData.year_list_index].value+'年'"></span>
+              <i class="ion-ios-arrow-forward"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="add-holiday-btn" on-tap="addHoliday2()">
+          <img ng-src="{{local_resource + 'resource/holiday/Vacation-add-holiday@2x.png'}}">
+          添加节假日
+        </div>
+        
+        <div class="holiday-list-not-val ng-hide" ng-show="!holidaysTypeData.list_data.length">
+            <img ng-src="{{local_resource + 'resource/holiday/vacation-no-data@2x.png'}}" >
+            <div>暂无节假日</div>
+        </div>
+
+        <div class="holiday-type-box ng-hide" ng-show="holidaysTypeData.list_data.length">
+          <div class="holiday-list" 
+                ng-repeat="item in holidaysTypeData.list_data"
+                ng-init="item.cc=($index>13?'gcl'+$index%13:'gcl'+$index)">
+              <div class="holiday-list-item flex-row holiday-title">
+                <div class="flex-row flex-1">
+                  <div ng-class="[item.cc]" ng-bind="item.holiday_name.slice(0,1)"></div>
+                  {{item.holiday_name}}
+                </div>
+
+                <div class="edit-box flex-row">
+                  <img on-tap="editHoliday(item)" ng-src="{{local_resource + 'resource/holiday/vacation-list-edit@2x.png'}}" >
+                  <img on-tap="delHoliday(item)" class="not-mr" ng-src="{{local_resource + 'resource/holiday/vacation-list-delete@2x.png'}}">
+                </div>
+              </div>
+              <div class="holiday-list-item flex-row">
+                <div class="flex-1 flex-row">
+                <img ng-src="{{local_resource + 'resource/holiday/vacation-list-start-date@2x.png'}}" >
+                  {{item.date_from}}
+                </div>
+                <div class="flex-1 flex-row">
+                <img ng-src="{{local_resource + 'resource/holiday/vacation-list-end-date@2x.png'}}" >
+                  {{item.date_to}}
+                </div>  
+              </div>
+              <div class="holiday-list-item flex-row">
+                <div class="flex-1 flex-row">
+                <img ng-src="{{local_resource + 'resource/holiday/vacation-list-start-time@2x.png'}}" >
+                  {{item.time_from}}
+                </div>
+                <div class="flex-1 flex-row">
+                <img ng-src="{{local_resource + 'resource/holiday/vacation-list-end-time@2x.png'}}" >
+                  {{item.time_to}}
+                </div>
+              </div>
+          </div>
+        </div>
+    </ion-content>
+   
+   
+</ion-view>
+

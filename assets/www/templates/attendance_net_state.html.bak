@@ -1,0 +1,66 @@
+<ion-view title="网络状态" ng-controller="attendanceNetStateCtrl" hide-nav-bar="true" hide-tab-bar >
+    <ion-header-bar align-title="center" class="bar-opacity" >
+        <div class="buttons" back-icon-transition>
+            <a ng-click="back()">
+                <button class="button back-button buttons button-clear button-light">取消</button>
+            </a>
+        </div>
+
+        <h1 class="title">
+            <span>网络状态</span>
+        </h1>
+
+        
+    </ion-header-bar>
+            
+
+    <ion-content has-bouncing="true" overflow-scroll="false" >
+        <ul class="attr-net-box">
+            <li>
+                <img ng-src="{{local_resource + 'img/net_er1.png'}}">
+                <div>
+                    <p>设备<span>黄光</span>闪烁</p>
+                    <p>网络连接异常</p>
+                </div>
+            </li>
+            <li>
+                <img ng-src="{{local_resource + 'img/net_er3.png'}}">
+                <div>
+                    <p>设备<span>红光</span>闪烁</p>
+                    <p>网络连接断开</p>
+                </div>
+            </li>
+            <li>
+                <img ng-src="{{local_resource + 'img/net_er2.png'}}">
+                <div>
+                    <p>设备<span>蓝光</span>闪烁</p>
+                    <p>设备状态正常</p>
+                </div>
+            </li>
+        </ul>
+        
+        <ul class="r-list" style="margin-bottom:30px;">
+                <li class="ad-item">
+                    <div class="ad-item-title">网络连接</div>
+                    <div class="ad-item-text" style="padding-right:0" ng-bind="'sz_citray_new'"></div>
+                </li>
+                <li class="ad-item">
+                    <div class="ad-item-title">IP地址</div>
+                    <div class="ad-item-text" style="padding-right:0" ng-bind="'192.168.2.17'"></div>
+                </li>
+                <li class="ad-item" on-tap="net_state()">
+                    <div class="ad-item-title">MAC地址</div>
+                    <div class="ad-item-text" style="padding-right:0" ng-bind="'30:AE:A4:01:FE:08'"></div>
+                </li>
+        </ul>
+
+        <ul class="r-list">
+                <li class="ad-item">
+                    <div class="ad-item-text" style="text-align:center; color:red;" on-tap="reconfigureNet()">重新配置网络</div>
+                </li>
+
+        </ul>
+    </ion-content>
+
+</ion-view>
+

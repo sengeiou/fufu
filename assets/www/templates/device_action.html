@@ -1,0 +1,55 @@
+
+<ion-view style="background-color:#f8f8f8;" hide-back-button="true" hide-nav-bar="true" title='' ng-controller="DeviceActionCtrl" hide-tab-bar>
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" style="color:#333"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span>选择设备功能</span>
+        </h1>
+
+        <div class="buttons" style="line-height:35px;font-size:14px;margin-right:12px;" on-tap="set_operation_list()">
+           完成
+        </div>
+	</ion-header-bar>
+<style>
+	.triangle_top{
+		border-bottom:6px solid #000;
+		border-top:none;
+		top:-12px;
+	}
+	.triangle_bottom{
+		border-top:6px solid #000 !important;
+		border-bottom:none !important;
+		top:15px !important;
+	}
+	.first_state{
+		background-color:rgb(245,242,242);
+		color:rgb(83,175,255);
+	}
+</style>
+
+
+  <ion-content  has-bouncing="true" overflow-scroll="false">
+	<div style="background-color:#fff;font-size:16px;margin-top:10px;">
+		<div style="height:44px;line-height:44px;padding-left:12px;border-bottom:1px solid #f0f0f0" ng-repeat="item in device_action_data.device_action_list">
+			<label class="checkbox" ng-click="stopPropagation($event)" style="float:left;float:right">
+			<input type="checkbox" ng-model="item.checked" ng-checked="item.checked" ng-change="selectOption(item, true)" ng-click="stopPropagation($event)" class="ng-pristine ng-untouched ng-valid"></label>
+			<div>{{item.devcie_action_name}}</div>
+			
+		</div>
+
+  </div>
+  
+   
+  
+  </ion-content>
+  
+  
+  
+  
+</ion-view>
+

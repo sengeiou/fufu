@@ -1,0 +1,116 @@
+﻿<ion-view  style="background-color:#f8f8f8;" title="选择时区" ng-controller="HolidayTypeCtrl" hide-nav-bar="true" hide-tab-bar>
+  
+  <style>
+		.ion-android-done{
+			font-size: 24px;
+			color: #53afff;
+		}
+
+		.ion-ios-arrow-right{ 
+			    font-size: 20px;
+
+		}
+
+		.ion-ios-arrow-left{
+			color:#333333!important;
+		}
+		
+		.flex {
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+		}
+
+		.def-flex-box{
+			height: 49px;
+			padding: 0 12px;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+			border-bottom: 1px solid #f5f5f5;
+			background-color: white;
+
+		}
+		.def-flex-box:nth-child(1){
+			margin-top: 10px;
+		}
+		.def-flex-content{
+			-webkit-box-flex:1;
+			-webkit-flex:1;
+			flex:1;
+			font-size: 16px;
+    		color: #333;
+    		overflow: hidden;
+			text-overflow:ellipsis;
+			white-space: nowrap;
+			padding-right: 10px;
+		}
+  </style>
+
+  <ion-header-bar align-title="center" class="bar-opacity" >
+        <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+        <h1 class="title">
+            <span>节假日类型</span>
+        </h1>
+	
+        <div class="buttons">
+            <i class="r-icon r-black_search_icon disable-user-behavior" on-tap="openSearchPopover();scrollTop();adSearchIptFocus();"></i>
+        </div>
+    </ion-header-bar>
+
+  <ion-content has-bouncing="true" overflow-scroll="false">
+  	
+  	<div class="flex def-flex-box" ng-repeat="holiday_type_item in holiday_type_data.holiday_type_list"
+  		ng-click="set_time_zone(holiday_type_item)">
+
+		<div class="def-flex-content" ng-bind="holiday_type_item.name"></div>
+
+		<i ng-show="holiday_type_item.key == holiday_type_data.select_holiday_type_key" class="icon ion-android-done ng-hide"></i>
+  	</div>
+	
+    
+  </ion-content>
+	
+
+   <script id="time-zone-popover.html" type="text/ng-template">
+      <div class="search-popover">
+        <ion-header-bar>
+          <h1 class="title" id="search-ai-device-h1" >
+            <div clear-value-box style="right: 34px;left: 2px;">
+                <i class="icon ion-ios-search-strong placeholder-icon"></i>
+                <input id="timeZoneSearchIpt" type="text" placeholder="搜索节假日类型..." ng-model="searchPagingConfig.filter_str" clear-value-input>
+                <i clear-value-btn style="line-height:32px;"></i>
+            </div>
+            
+          </h1>
+
+          <div class="buttons" style="font-size:14px;line-height:35px;" on-tap="closeSearchPopover()">
+            取消
+          </div>
+        </ion-header-bar>
+		
+
+
+        <ion-content delegate-handle="timeZoneSearchScroll">
+	        <div style="margin-top:10px;" class="ng-hide" ng-show="searchPagingConfig.filter_str.length">
+	        	<div class="flex def-flex-box" ng-repeat="staffItem in filterItems=(holiday_type_data.holiday_type_list|dataAndFilter:'name':searchPagingConfig.filter_str)"  ng-click="set_time_zone(staffItem)" >
+
+					<div class="def-flex-content" ng-bind="staffItem.name"></div>
+
+					<i ng-show="staffItem.key == holiday_type_data.select_holiday_type_key" class="icon ion-android-done ng-hide"></i>
+			  	</div>
+	        </div>
+        </ion-content>
+      </div>
+    </script>
+
+</ion-view>
+
+
+
+

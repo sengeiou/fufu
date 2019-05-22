@@ -1,0 +1,389 @@
+﻿
+<ion-view style="background-color:#f8f8f8;" title="基本信息" hide-tab-bar>
+  <style>
+
+    .item-select:after{
+      display: none;
+    }
+  </style>
+    <ion-content ng-controller="staffMsDetailCtrl" has-bouncing="true" overflow-scroll="false">
+    <input type="hidden" id="p_n_i" value="{{staff_master_details.p_n_i}}" />
+    <input type="hidden" id="o_n_i" value="{{staff_master_details.o_n_i}}" />
+      <div style="width: 100%;height: 140px;background-color: #53afff;">
+        <div style="height:105px;width:100%;padding-top:8px ;">
+          <div style="width:70px;height:70px;overflow:hidden;margin-left: 50%;position: relative;left:-30px;border-radius:150px">
+            <img  style="width:70px;height: 70px;" ng-src="{{staff_master_details.img_src}}" ng-click="change_photo()" id="staff_master_details_employee_photo">
+          </div>
+          <p style="margin-top:7px;color:white;text-align:center;font-size: 16px;border-bottom:none;">
+
+            <span ><input id="employee_name_input" style="display: none; font-size:16px; color:#666666; margin-right:0px;text-align:right; border:none; margin-top:12px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis; background-color:#53afff; color:#fff; text-align:center;width:100%;overflow-x:visible;overflow-y:visible;" value="{{staff_master_details.employee_name}}"></span>
+            <span id="employee_name_span">{{staff_master_details.employee_name}}</span>
+            <span id="employee_name_img"><img ng-src="{{edit_data_01}}" style="width:20px; height:20px; margin-left:2px;" /></span>
+          </p>
+          <p style="margin-top:7px;color:#fff;text-align:center;font-size: 12px;">
+            工号:{{staff_master_details.staff_no}}
+          </p>
+        </div>
+      </div>
+
+
+ <div class="list" style="padding-top:10px;margin-bottom:10px;">
+	 
+	 	<!--职位-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;" ng-click="picklist_position()">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">职位</label>
+		</div>
+        <div style="float:right;">
+			<span id="position_name_div" style="margin-right:9px; color:#666; line-height:49px;">{{staff_master_details.position_name}}</span>
+            <div style="float:right;">
+        		<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+			</div>
+
+		</div>
+	</div>
+    <!--职位-->
+	 
+<!--部门-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">部门</label>
+		</div>
+        <div style="float:right;">
+			<span id="dept_name_div" style="margin-right:12px; color:#666; line-height:49px;">{{staff_master_details.dept_name}}</span>
+			<!--
+			<div style="float:right;">
+        		<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+			</div>
+			-->
+		</div>
+	</div>
+    <!--部门-->
+
+    <!--入职时间-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;" ng-click="showDate_join_date()">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">入职日期</label>
+		</div>
+
+		<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+
+        <div style="float:right; margin-right:8px; margin-top:1px;">
+			<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;"  >
+				<!--<input style="text-align:right;color: #666; " type="date" id="join_date" >-->
+        <div id="join_date" style="color:#666;line-height: 35px;">{{staff_master_details.join_date}}</div>
+			</label>
+		</div>
+	</div>
+    <!--入职时间-->
+
+    <!--试用结束时间-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;" ng-click="showDate_p_c_d()">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">试用结束日期</label>
+		</div>
+		<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+
+        <div style="float:right; margin-right:8px; margin-top:1px;"  >
+			<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;" >
+				<!--<input style="text-align:right;color: #666;" type="date" id="p_c_d" >-->
+        <div id="p_c_d" style="color:#666;line-height: 35px;">{{staff_master_details.p_c_d}}</div>
+			</label>
+		</div>
+	</div>
+    <!--试用结束时间-->
+
+    <!--证件类型-->
+	
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;" ng-click="id_type()">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">证件类型</label>
+		</div>
+		<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+
+        <div style="float:right; margin-right:8px; margin-top:1px;"  >
+			<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;" >
+				<!--<input style="text-align:right;color: #666;" type="date" id="p_c_d" >-->
+        <div id="id_type" style="color:#666;line-height: 35px;"></div>
+			</label>
+		</div>
+	</div>
+	
+	
+	<!--
+    <div class="list" style=" margin-bottom:0px;">
+      <div class="item item-input item-select" ng-click="id_type()">
+        <span style="width:70px; font-size:16px; line-height: 36px; color:#333">证件类型
+        </span>
+
+        <div id="id_type" style="line-height: 36px;position: absolute;right: 30px;" ></div>
+            <i class="icon ion-ios-arrow-right" style="margin-right: 12px;vertical-align: middle;font-size: 20px;color: #ccc;position: absolute;top: 14px;bottom: 0;right:-5px;"></i>
+      </div>
+    </div>
+-->
+    <!--证件类型-->
+
+
+
+    <!--证件号码-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">证件号码</label>
+		</div>
+
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px;margin: 0 12px 0 0px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>
+		</div>
+
+        <div style="float:right;">
+			<input type="text" id="id_number" style="font-size:14px; color:#666666; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px;margin-top:8px;" value="{{staff_master_details.id_number}}">
+		</div>
+	</div>
+    <!--证件号码-->
+
+    <!--出生日期-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;" ng-click="date_of_birth()">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">出生日期</label>
+		</div>
+		<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+
+        <div style="float:right; margin-right:8px; margin-top:1px;">
+			<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;" >
+				<!--<input style="text-align:right;color: #666;" type="date" id="date_of_birth" >-->
+        <div id="date_of_birth" style="color:#666;line-height: 35px;">{{staff_master_details.date_of_birth}}</div>
+			</label>
+		</div>
+	</div>
+    <!--出生日期-->
+
+    <!--性别-->
+	<!--
+    <div class="list" style=" margin-bottom:0px;">
+      <div class="item item-input item-select" ng-click="gender()">
+        <span style="width:70px; font-size:16px; line-height: 36px; color:#333">性别
+        </span>
+        <div id="gender" style="line-height: 36px;position: absolute;right: 30px;" ></div>
+            <i class="icon ion-ios-arrow-right" style="margin-right: 12px;vertical-align: middle;font-size: 20px;color: #ccc;position: absolute;top: 14px;bottom: 0;right:-5px;"></i>
+      </div>
+    </div>
+-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;" ng-click="gender()">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">性别</label>
+		</div>
+		<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+
+        <div style="float:right; margin-right:8px; margin-top:1px;">
+			<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;" >
+				
+        <div id="gender" style="color:#666;line-height: 35px;"></div>
+			</label>
+		</div>
+	</div>
+
+    <!--性别-->
+
+    <!--手机号码-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">手机号码</label>
+		</div>
+
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>
+		</div>
+
+        <div style="float:right;">
+			<input type="text" id="mobile_no" style="font-size:14px; color:#666666; margin-right:0px;text-align:right; border:none;-webkit-appearance:none;margin:0px; padding:0px; margin-top:8px;" value="{{staff_master_details.home_tel_no}}">
+		</div>
+	</div>
+    <!--手机号码-->
+
+    <!--邮箱-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">邮箱</label>
+		</div>
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>
+		</div>
+
+        <div style="float:right;">
+			<input type="text" id="email" style="font-size:14px; color:#666666; margin-right:0px;text-align:right; border:none;-webkit-appearance:none;margin:0px; padding:0px; margin-top:8px;" value="{{staff_master_details.email}}">
+		</div>
+	</div>
+    <!--邮箱-->
+
+    <!--居住地址-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">居住地址</label>
+		</div>
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>
+		</div>
+
+        <div style="float:right;">
+			<input type="text" id="address" style="font-size:14px; color:#666666; margin-right:0px;text-align:right; border:none;-webkit-appearance:none;margin:0px; padding:0px; margin-top:8px;" value="{{staff_master_details.address}}">
+		</div>
+	</div>
+    <!--居住地址-->
+
+    <!--国籍-->
+<!--
+    <div class="list" style=" margin-bottom:0px;">
+      <div class="item item-input item-select" ng-click="nationality()">
+        <span style="width:70px; font-size:16px; line-height: 36px; color:#333">国籍
+        </span>
+        <div id="nationality" style="line-height: 36px;position: absolute;right: 30px;"></div>
+            <i class="icon ion-ios-arrow-right" style="margin-right: 12px;vertical-align: middle;font-size: 20px;color: #ccc;position: absolute;top: 14px;bottom: 0;right:-5px;"></i>
+      </div>
+    </div>
+-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;" ng-click="nationality()">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">国籍</label>
+		</div>
+		<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+
+        <div style="float:right; margin-right:8px; margin-top:1px;">
+			<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;" >
+				
+        <div id="nationality" style="color:#666;line-height: 35px;"></div>
+			</label>
+		</div>
+	</div>
+    <!--国籍-->
+
+    <!--籍贯-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+		<div style="float:left; ">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">籍贯</label>
+		</div>
+
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>
+		</div>
+
+        <div style="float:right;">
+			<input type="text" id="p_o_b" style="font-size:14px; color:#666666; margin-right:0px;text-align:right; border:none;-webkit-appearance:none;margin:0px; padding:0px; margin-top:8px;" value="{{staff_master_details.p_o_b}}">
+		</div>
+	</div>
+    <!--籍贯-->
+    <!--民族-->
+    <!--<div class="list" style=" margin-bottom:0px;">
+      <div class="item item-input item-select" ng-click="race()">
+        <span style="width:70px; font-size:16px; line-height: 36px; color:#333">民族
+        </span>
+
+        <div id="race" style="line-height: 36px;position: absolute;right: 30px;"></div>
+            <i class="icon ion-ios-arrow-right" style="margin-right: 12px;vertical-align: middle;font-size: 20px;color: #ccc;position: absolute;top: 14px;bottom: 0;right:-5px;"></i>
+      </div>
+    </div>
+-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;" ng-click="race()">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">民族</label>
+		</div>
+		<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+
+        <div style="float:right; margin-right:8px; margin-top:1px;">
+			<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;" >
+				
+        <div id="race" style="color:#666;line-height: 35px;"></div>
+			</label>
+		</div>
+	</div>
+    <!--民族-->
+
+    <!--学历-->
+     <!--   <div class="list" style=" margin-bottom:0px;">
+      <div class="item item-input item-select" ng-click="education_level()">
+        <span style="width:70px; font-size:16px; line-height: 36px; color:#333">学历
+        </span>
+
+        <div id="education_level" style="line-height: 36px;position: absolute;right: 30px;"></div>
+            <i class="icon ion-ios-arrow-right" style="margin-right: 12px;vertical-align: middle;font-size: 20px;color: #ccc;position: absolute;top: 14px;bottom: 0;right:-5px;"></i>
+      </div>
+    </div>
+	-->
+		<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;" ng-click="education_level()">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">学历</label>
+		</div>
+		<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+
+        <div style="float:right; margin-right:8px; margin-top:1px;">
+			<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;" >
+				
+        <div id="education_level" style="color:#666;line-height: 35px;"></div>
+			</label>
+		</div>
+	</div>
+	
+	<!--学历-->
+
+
+    <!--紧急联系人-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">紧急联系人</label>
+		</div>
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>
+		</div>
+
+        <div style="float:right;">
+			<input type="text" id="emergency_contact_name1" style="font-size:14px; color:#666666; margin-right:0px;text-align:right; border:none;-webkit-appearance:none;margin:0px; padding:0px; margin-top:8px;" value="{{staff_master_details.emergency_contact_name1}}">
+		</div>
+	</div>
+    <!--紧急联系人-->
+
+
+    <!--紧急联络电话-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">紧急联系人电话</label>
+		</div>
+
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>
+		</div>
+
+        <div style="float:right;width:40%;overflow:hidden;">
+			<input type="text" id="emergency_contact_no1" style="float:right;font-size:14px; color:#666666; margin-right:0px;text-align:right; border:none;-webkit-appearance:none;margin:0px; padding:0px; margin-top:8px;" value="{{staff_master_details.emergency_contact_no1}}">
+		</div>
+	</div>
+    <!--紧急联络电话-->
+
+    <!--保存-->
+	<div class="padding">
+		<button class="button button-block button-positive" ng-click="saveStaffDetails()">保存</button>
+	</div>
+    <!--保存-->
+
+
+ </div>
+
+
+
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,64 @@
+﻿<ion-view id="employee_delete_view" style="background-color:#f5f5f5;" title="删除员工" ng-controller="employeeDeleteCtrl" hide-tab-bar>
+<style>
+.item-complex .item-content{padding-top: 14px;}
+
+    #employee_delete_view #employee_delete_content {
+      top: 112px;
+    }
+    .platform-win32.platform-cordova #employee_delete_view #employee_delete_content {
+      top: 92px;
+    }
+    .platform-android.platform-cordova #employee_delete_view #employee_delete_content {
+      top: 92px;
+    }
+</style>
+
+<ion-header-bar class="bar-subheader" style="height:46px;padding:0px;width: 100%; background-color:#f8f8f8; background-image:none;" >
+    <!--搜索-->
+    <div class="list" style="margin: 10px 12px;">
+      <label class="item item-input" style="border-radius:4px;height:30px;background-color:#fff;border:none;" clear-value-box>
+        <i class="icon ion-ios-search-strong placeholder-icon"></i>
+        <input type="text" placeholder="搜索姓名、工号、职位..." ng-model="search_control.search_val" clear-value-input>
+        <div clear-value-btn style="position: absolute; right: 10px; font-size: 16px; margin-right: 2px; top: 0px;color: #cccccc;height: 30px;line-height: 30px;"></div>
+      </label>
+     </div>
+    <!--搜索-->
+</ion-header-bar>
+
+    <ion-content has-bouncing="true" overflow-scroll="false" id="employee_delete_content">
+
+
+    <!--员工-->
+
+    <ion-list>
+      <div ng-show="employeeDeleteData.data_ready&&employeeDeleteData.length==0 && search_control.search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+
+      <div ng-show="filterItems.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+    <ion-item class="item-avatar-left item" collection-repeat="item in filterItems=(employeeDeleteData|dataAndFilter:'st,en,pn':search_control.search_val)" style="transform: translate3d(0px, 0px, 0px); height: 72px; width:100%;" id="employee_delete_id_{{item.em}}">
+          <img ng-src="{{item.img}}">
+          <div>
+              <span style="font-size:16px;color:#333" class="ng-binding">{{item.en}}</span>&nbsp;&nbsp;
+              <span style="font-size:12px;color:#666" class="ng-binding">工号:{{item.st}}</span>
+          </div>
+
+            <!--已离职-->
+            <div style="float:right;position: fixed;right: 30px;top: 16px;" class="" ng-if="item.flag_chart == 2">
+        		<img style="width:70px; height:45px;" ng-src="{{employee_resign_terminated}}">
+        	</div>
+            <!--已离职-->
+            <!--待离职-->
+            <div style="float:right;position: fixed;right: 30px;top: 16px;" class="" ng-if="item.flag_chart == 1">
+        		<img style="width:70px; height:45px;" ng-src="{{employee_resign_pending}}">
+        	</div>
+            <!--待离职-->
+
+          <p style="font-size:12px;color:#666" class="ng-binding">{{item.pn}}</p>
+
+           <ion-option-button class="button-assertive" ng-click="employee_delete(item.em)">删除</ion-option-button>
+        </ion-item>
+    </ion-list>
+
+ 	<!--员工-->
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,47 @@
+<ion-view title="状态" ng-controller="deviceStateCtrl" hide-nav-bar="true" hide-tab-bar>
+  	<ion-header-bar align-title="center" class="bar-opacity">
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">状态</h1>
+	</ion-header-bar>
+
+  	<ion-content has-bouncing="true" overflow-scroll="false">
+
+      	<div class="cannot-connect ng-hide" ng-show="connectDeviceData.stateType == 6">
+			     <img ng-src="{{local_resource + 'img/cannot_connect_icon.png'}}" >
+           <div class="p-tit">无法连接设备！</div>
+           <div class="p-msg">请在设备端长按restore重置后再试</div>
+      	</div>
+
+      	<div class="connect-success ng-hide" ng-show="connectDeviceData.stateType == 5">
+			     <div class="bluetooth-big-icon success"></div>
+           <div class="p-tit"><img ng-src="{{local_resource + 'img/success_icon.png'}}" >蓝牙连接成功啦！</div>
+      	</div>
+
+      	<div class="connect-fail ng-hide" ng-show="connectDeviceData.stateType == 12">
+           <div class="bluetooth-big-icon fail"></div>
+           <div class="p-tit"><img ng-src="{{local_resource + 'img/fail_icon.png'}}" >设备连接失败！</div>
+           <div class="p-refresh" ng-click="refresh()">刷新</div>
+           <div class="p-msg">请将手机靠近设备</div>
+      	</div>
+
+      	<div class="no-authority ng-hide" ng-show="connectDeviceData.stateType == 99">
+			     
+          <img ng-src="{{local_resource + 'img/no_authority_icon.png'}}" >
+          <div class="p-tit">你没有权限配置这台设备！</div>
+
+          <div class="p-item">
+            <div>设备名称</div>
+            <div ng-bind="connectDeviceData.deviceName"></div>
+          </div>
+      	</div>
+
+  	</ion-content>
+
+  	
+</ion-view>
+

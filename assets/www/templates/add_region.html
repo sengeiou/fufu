@@ -1,0 +1,55 @@
+<ion-view title="区域列表" ng-controller="addRegionCtrl" hide-nav-bar="true" hide-tab-bar >
+    <style type="text/css">
+        .sunit{
+            overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+padding-left: 10px;
+        }
+    </style>
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light header-item">取消</button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span>添加区域</span>
+        </h1>
+
+        <div class="buttons">
+            <a ng-click="save()">
+                <button class="button back-button buttons button-clear button-light header-item">完成</button>
+            </a>
+        </div>
+	</ion-header-bar>
+
+  	<ion-content has-bouncing="true" overflow-scroll="false" >
+   
+
+        <ul class="r-list" style="margin-top:10px;">
+                        <li class="ad-item" on-tap="openRegionName()">
+                            <div class="ad-item-title" ng-style="addRegionData.region_name.length?{}:notDataStyle" ng-bind="addRegionData.region_name.length?addRegionData.region_name:'请输入区域名称'" style="overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;"></div>
+                            <i class="icon ion-ios-arrow-right"></i>
+                        </li>
+
+        </ul>
+
+        <ul class="r-list" style="margin-top:10px;">
+                        <li class="ad-item" on-tap="theUnit()">
+                            <div class="ad-item-title">所属单位</div>
+                            <div class="ad-item-text sunit" 
+                            ng-style="addRegionData.sub_bu_json &&  addRegionData.sub_bu_json.length && addRegionData.sub_bu_json_index != null?{}:notDataStyle" 
+                            ng-bind="addRegionData.sub_bu_json &&  addRegionData.sub_bu_json.length && addRegionData.sub_bu_json_index != null?addRegionData.sub_bu_json[addRegionData.sub_bu_json_index].value:'请选择'"></div>
+                            <i class="icon ion-ios-arrow-right"></i>
+                        </li>
+        </ul>
+  	</ion-content>
+
+</ion-view>
+

@@ -1,0 +1,155 @@
+<style>
+  .atcls .checkbox input,.atcls .checkbox-icon {margin-left:30px;}
+  .input_width{width:50px !important;}
+  .platform-ready .button.button-light.button-clear{color:#333;}
+
+  .navigation_bar{background-color:#fff;color:#53afff;}
+</style>
+<ion-view title="考勤参数配置">
+  <div  ng-controller="registerAt2">
+  <ion-content class="atcls" has-bouncing="true" overflow-scroll="false">
+    <div class="card">
+      <li class="item list_title">
+        加班规则设定
+      </li>
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;平时加班打卡
+        <div style="float:right;margin-top:-5px;">
+          <label class="item item-checkbox checkbox-calm">
+            <div class="checkbox checkbox-input-hidden checkbox-circle">
+              <input type="checkbox" ng-model="reg_at2_data.ot1_need_card" ng-checked="reg_at2_data.ot1_need_card" >
+              <i class="checkbox-icon"></i>
+            </div>
+            <div class="item-content"></div>
+          </label>
+        </div>
+      </li>
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;周末加班打卡
+        <div style="float:right;margin-top:-5px;">
+          <label class="item item-checkbox checkbox-calm">
+            <div class="checkbox checkbox-input-hidden checkbox-circle">
+              <input type="checkbox" ng-model="reg_at2_data.ot2_need_card" ng-checked="reg_at2_data.ot2_need_card" >
+              <i class="checkbox-icon"></i>
+            </div>
+            <div class="item-content"></div>
+          </label>
+        </div>
+      </li>
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;法定假加班打卡
+        <div style="float:right;margin-top:-5px;">
+          <label class="item item-checkbox checkbox-calm">
+            <div class="checkbox checkbox-input-hidden checkbox-circle">
+              <input type="checkbox" ng-model="reg_at2_data.ot3_need_card" ng-checked="reg_at2_data.ot3_need_card" >
+              <i class="checkbox-icon"></i>
+            </div>
+            <div class="item-content"></div>
+          </label>
+        </div>
+      </li>
+    </div>
+
+    <div class="card">
+      <li class="item list_title">
+        上下班打卡设定
+      </li>
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上午上班打卡
+        <div style="float:right;margin-top:-5px;">
+          <label class="item item-checkbox checkbox-calm">
+            <div class="checkbox checkbox-input-hidden checkbox-circle">
+              <input type="checkbox" ng-model="reg_at2_data.first_in_need_card" ng-checked="reg_at2_data.first_in_need_card" >
+              <i class="checkbox-icon"></i>
+            </div>
+            <div class="item-content"></div>
+          </label>
+        </div>
+      </li>
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上午下班打卡
+        <div style="float:right;margin-top:-5px;">
+          <label class="item item-checkbox checkbox-calm">
+            <div class="checkbox checkbox-input-hidden checkbox-circle">
+              <input type="checkbox" ng-model="reg_at2_data.first_out_need_card" ng-checked="reg_at2_data.first_out_need_card" >
+              <i class="checkbox-icon"></i>
+            </div>
+            <div class="item-content"></div>
+          </label>
+        </div>
+      </li>
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下午上班打卡
+        <div style="float:right;margin-top:-5px;">
+          <label class="item item-checkbox checkbox-calm">
+            <div class="checkbox checkbox-input-hidden checkbox-circle">
+              <input type="checkbox" ng-model="reg_at2_data.second_in_need_card" ng-checked="reg_at2_data.second_in_need_card" >
+              <i class="checkbox-icon"></i>
+            </div>
+            <div class="item-content"></div>
+          </label>
+        </div>
+      </li>
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下午下班打卡
+        <div style="float:right;margin-top:-5px;">
+          <label class="item item-checkbox checkbox-calm">
+            <div class="checkbox checkbox-input-hidden checkbox-circle">
+              <input type="checkbox" ng-model="reg_at2_data.second_out_need_card" ng-checked="reg_at2_data.second_out_need_card" >
+              <i class="checkbox-icon"></i>
+            </div>
+            <div class="item-content"></div>
+          </label>
+        </div>
+      </li>
+    </div>
+
+    <div class="card">
+      <li class="item list_title">
+        班次政策设定
+      </li>
+      <label class="item item-radio" ng-repeat="item in reg_at2_data.reg_at2_g2">
+        <input type="radio" name="reg_at2_g2" ng-value="item.value" ng-model="reg_at2_data.is_single_policy">
+        <div class="radio-content">
+          <div class="item-content">
+            <span class="ng-binding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.text}}</span>
+          </div>
+          <i class="radio-icon disable-pointer-events icon ion-checkmark calm"></i></div>
+      </label>
+    </div>
+
+    <div class="card" ng-hide="reg_at2_data.is_single_policy=='0'?true:false">
+      <li class="item list_title">
+        上下班时间设定
+      </li>
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上午上班时间
+        <div style="float:right;margin-top:-5px;">
+          <input  ng-model="reg_at2_data.first_in"  type="text" class="text2 input_width" value="{{reg_at2_data.first_in}}" />
+        </div>
+      </li>
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上午下班时间
+        <div style="float:right;margin-top:-5px;">
+          <input  ng-model="reg_at2_data.first_out"  type="text" class="text2 input_width"  value="{{reg_at2_data.first_out}}" />
+        </div>
+      </li>
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下午上班时间
+        <div style="float:right;margin-top:-5px;">
+          <input  ng-model="reg_at2_data.second_in"  type="text" class="text2 input_width"  value="{{reg_at2_data.second_in}}" />
+        </div>
+      </li>
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下午下班时间
+        <div style="float:right;margin-top:-5px;">
+          <input  ng-model="reg_at2_data.second_out"  type="text" class="text2 input_width"  value="{{reg_at2_data.second_out}}" />
+        </div>
+      </li>
+    </div>
+  </ion-content>
+  <ion-footer-bar class="btn_next">
+    <div class="title" ng-click="saveRegAt2()">下一步</div>
+  </ion-footer-bar>
+  </div>
+</ion-view>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/imageDetailFrame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <org.apache.cordova.image.view.MeityitianViewPager
+        android:id="@+id/imgs_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top" />
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/imageDetailTwoTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_above="@+id/imgs_viewpager"
+        android:layout_gravity="top"
+        android:alpha="0.75"
+        android:background="#000000">
+
+        <ImageView
+            android:id="@+id/left_btn"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_gravity="start|center_vertical"
+            android:contentDescription="imagetBtn"
+            android:src="@drawable/back_arrow" />
+
+        <TextView
+            android:id="@+id/imageDetailTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/right_check_View"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/unselect" />
+    </FrameLayout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/imageDetailTwoBottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_above="@+id/imgs_viewpager"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:alpha="0.75"
+        android:background="#000000"
+        android:paddingBottom="0dp">
+
+        <TextView
+            android:id="@+id/checkImageBtn"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_above="@+id/testttt"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginRight="6dp"
+            android:alpha="1"
+            android:background="@drawable/image_check_style"
+            android:gravity="center"
+            android:text="选择(0/9)"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+    </FrameLayout>
+
+</FrameLayout>

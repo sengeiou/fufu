@@ -1,0 +1,277 @@
+<ion-view title="考勤成员管理" ng-controller="attendanceMemberCtrl" hide-nav-bar="true" hide-tab-bar >
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title" >考勤成员管理</h1>
+
+        <div class="buttons">
+            <i class="r-icon r-black_search_icon disable-user-behavior" on-tap="openSearchPopover();adSearchIptFocus();scrollTop();"></i>
+            <i class="r-icon r-black_add_icon disable-user-behavior" on-tap="addStaff()"></i>
+        </div>
+	</ion-header-bar>
+
+    
+
+  	<ion-content has-bouncing="true" overflow-scroll="false" >
+            
+    
+
+            <ul class="r-list r-staff-list">
+                <li class="ad-staff-tit ng-hide" ng-show="adData.empl_data &&adData.empl_data.length">
+                    <div>成员列表</div>
+                    
+                </li>
+
+                <ion-list>
+
+                    <ion-item ng-repeat="staffItem in adData.empl_data" 
+                              item="item" class="item-remove-animate ad-staff-item">
+                      <div>
+                            <div class="ad-staff-item-ct">
+                                <img ng-src="{{staffItem.img_src}}" err-src="http://120.24.153.50/cb_hrms/views/photos/nophoto.jpg" class="ad-staff-item-hp">
+                                <div class="ad-staff-item-info">
+                                    <div ng-bind-html="staffItem.employee_name" style="overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;padding-right: 10px;"></div>
+                                    <div ng-bind="'('+staffItem.staff_no+')'"></div>
+                                </div>
+                                <button
+                                    class="button button-outline"
+                                    ng-class="{'button-positive':staffItem.fingerprint1 == '0' || staffItem.fingerprint2 == '0' }"
+                                    on-tap="(staffItem.fingerprint1 == '0' || staffItem.fingerprint2 == '0') && addFingerTemplate(staffItem,$index,false)"
+                                >录入模版</button>
+                            </div>
+                            <div class="ad-staff-item-ft">
+                                <div class="ad-staff-fp" on-tap="staffItem.fingerprint1 == '1' && delFinger(0,staffItem.employee_no,$index,false)" ng-class="{'active':staffItem.fingerprint1 == '1'}">
+                                    <div class="zw_icon"></div>
+                                    指纹1
+                                    <div class="zw_del_icon"></div>
+                                </div>
+                                <div class="ad-staff-fp" on-tap="staffItem.fingerprint2 == '1' && delFinger(1,staffItem.employee_no,$index,false)" ng-class="{'active':staffItem.fingerprint2 == '1'}">
+                                    <div class="zw_icon"></div>
+                                    指纹2
+                                    <div class="zw_del_icon"></div>
+                                </div>
+                            </div>
+                      </div>
+                      <ion-option-button class="button-light"
+                                         on-tap="delStaff(staffItem,$index)">
+                        <div>
+                            <i class="r-icon r-unbundling-icon"></i>
+                            <div>删除</div>
+                        </div>
+                      </ion-option-button>
+                    </ion-item>
+
+                </ion-list>
+
+                
+            </ul>
+
+            <div class="ng-hide search-device-icon-box" ng-show="adData.empl_data.length == 0">
+                    <img ng-src="{{local_resource + 'img/not-staff.png'}}" >
+                    <div>暂无员工</div>
+            </div>
+
+            <ion-infinite-scroll
+                ng-if="pagingConfig.is_init && !pagingConfig.end_status && adData.empl_data.length >= 20"
+                on-infinite="loadMore()"
+                distance="1%"
+                immediate-check="false">
+            </ion-infinite-scroll>
+
+            <div ng-if="pagingConfig.is_init && pagingConfig.end_status" style="text-align: center;color: rgb(153, 153, 153);font-size: 0.32rem;padding: 8px 0 8px 0;">没有更多数据</div>
+
+
+            
+
+  	</ion-content>
+    
+
+
+    <script id="search-attendance-device-popover.html" type="text/ng-template">
+      <div class="search-popover" ng-class="{'isSearchStr':searchPagingConfig.filter_str.length}">
+        <ion-header-bar>
+          <h1 class="title" >
+            <div clear-value-box>
+                <i class="icon ion-ios-search-strong placeholder-icon"></i>
+                <input id="admSearchIpt" type="text" placeholder="搜索姓名、工号..." ng-model="searchPagingConfig.filter_str" clear-value-input>
+                <i clear-value-btn></i>
+            </div>
+            
+          </h1>
+
+          <div class="buttons" on-tap="closeSearchPopover()">
+            取消
+          </div>
+        </ion-header-bar>
+        
+        <div class="search-msg-bar" on-tap="search()">
+            <i class="r-icon r-search-bar-icon"></i>
+            <div class="search-msg-text">搜索“<span ng-bind="searchPagingConfig.filter_str"></span>”</div>
+            <i class="icon ion-ios-arrow-right"></i>
+        </div>
+
+        <ion-content delegate-handle="attendanceSearchScroll">
+            <div class="ng-hide search-device-icon-box" ng-show="!searchObj.list.length && searchObj.state && !searchCarryOn">
+                <img ng-src="{{local_resource + 'img/not-staff-device-big-icon.png'}}" >
+                <div>查无此人</div>
+            </div>
+            
+            <div class="ng-hide search-device-icon-box" ng-show="!searchObj.state  && !searchCarryOn">
+                <img ng-src="{{local_resource + 'img/staff-device-big-icon.png'}}" >
+                <div>搜索员工</div>
+            </div>
+            
+            <ul class="r-list r-staff-list ng-hide" ng-show="searchObj.list.length" style="margin-top:10px;">
+                
+                <ion-list>
+
+                    <ion-item ng-repeat="staffItem in searchObj.list" 
+                              item="item" class="item-remove-animate ad-staff-item">
+                      <div>
+                            <div class="ad-staff-item-ct">
+                                <img ng-src="{{staffItem.img_src}}" err-src="http://120.24.153.50/cb_hrms/views/photos/nophoto.jpg" class="ad-staff-item-hp">
+                                <div class="ad-staff-item-info">
+                                    <div ng-bind-html="staffItem.employee_name" style="overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;padding-right: 10px;"></div>
+                                    <div ng-bind="'('+staffItem.staff_no+')'"></div>
+                                </div>
+                                
+                                <button
+                                    class="button button-outline"
+                                    ng-class="{'button-positive':staffItem.fingerprint1 == '0' || staffItem.fingerprint2 == '0' }"
+                                    on-tap="(staffItem.fingerprint1 == '0' || staffItem.fingerprint2 == '0') && addFingerTemplate(staffItem,$index,true)"
+                                >录入模版</button>
+                            </div>
+                            <div class="ad-staff-item-ft">
+                                <div class="ad-staff-fp" on-tap="staffItem.fingerprint1 == '1' && delFinger(0,staffItem.employee_no,$index,true)" ng-class="{'active':staffItem.fingerprint1 == '1'}">
+                                    <div class="zw_icon"></div>
+                                    指纹1
+                                    <div class="zw_del_icon"></div>
+                                </div>
+                                <div class="ad-staff-fp" on-tap="staffItem.fingerprint2 == '1' && delFinger(1,staffItem.employee_no,$index,true)" ng-class="{'active':staffItem.fingerprint2 == '1'}">
+                                    <div class="zw_icon"></div>
+                                    指纹2
+                                    <div class="zw_del_icon"></div>
+                                </div>
+                            </div>
+                      </div>
+                      <ion-option-button class="button-light"
+                                         on-tap="delStaff(staffItem,$index,true)">
+                        <div>
+                            <i class="r-icon r-unbundling-icon"></i>
+                            <div>删除</div>
+                        </div>
+                      </ion-option-button>
+                    </ion-item>
+
+                </ion-list>
+            </ul>
+
+            <ion-infinite-scroll
+                ng-if="searchObj.state && searchPagingConfig.is_init && !searchPagingConfig.end_status"
+                on-infinite="searchLoadMore()"
+                distance="1%"
+                immediate-check="false">
+            </ion-infinite-scroll>
+
+            <div ng-if="searchObj.state && searchPagingConfig.is_init && searchObj.list.length &&searchPagingConfig.end_status" style="text-align: center;color: rgb(153, 153, 153);font-size: 0.32rem;padding: 8px 0 8px 0;">没有更多数据</div>
+        </ion-content>
+      </div>
+    </script>
+
+
+    <script id="attendance-device-popover.html" type="text/ng-template">
+    <div style="position: fixed;top: 0;left: 0; right:0; bottom:0">
+      <div class="select-attendance-device-box">
+        <div class="select-attendance-device-head">
+            请选择设备
+        </div>
+
+        <div class="select-attendance-device-content">
+           <ion-content delegate-handle="small">
+                <ul class="select-attendance-device-list ng-hide" ng-show="adData.device_data && adData.device_data.length">
+                   <li ng-repeat="deviceItem in adData.device_data" on-tap="adData.def_device = deviceItem.device_sn" ng-hide="deviceItem.isOld">
+                        <div class="r-radio" ng-class="{'r-select-radio':deviceItem.device_sn == adData.def_device}">
+                            <div></div>
+                        </div>
+                        <div class="select-attendance-device-msg" >
+                            <img ng-src="{{local_resource + 'img/kqj0.png'}}" >
+                            <div >
+                                <div ng-bind="deviceItem.device_name"></div>
+                                <div ng-bind="deviceItem.zone_name&&deviceItem.zone_name.length?deviceItem.zone_name:'未配置区域'"></div>
+                                <div ng-bind="deviceItem.device_sn"></div>
+                            </div>
+                        </div>
+                   </li>
+               </ul>
+
+               <div class="select-attendance-not-device ng-hide" ng-show="!adData.device_data || !adData.device_data.length">
+                    <img ng-src="{{local_resource + 'img/not-search-device-big-icon.png'}}" >
+                    <div>暂无设备</div>
+               </div>
+           </ion-content>
+
+
+        </div>
+
+        <div class="select-attendance-device-footer" >
+            <div on-tap="cancelInput()">取消</div>
+            <div on-tap="startInput(adData.def_device)" class="ng-hide" ng-show="adData.device_data && adData.device_data.length">开始录入</div>
+        </div>
+            
+
+      </div>
+      </div>
+    </script>
+
+    <script id="my-popover.html" type="text/ng-template">
+    <div style="position: fixed;top: 0;left: 0; right:0; bottom:0">
+      <div class="input-finger-box">
+        <div class="input-finger-head">
+            <img ng-src="{{local_resource + 'img/input_finger_icon.png'}}" >
+            <div>建议使用指腹录入指纹，打卡更精准</div>
+        </div>
+
+        <div class="input-finger-content">
+            <div>请“<span ng-bind-html="inputFingerData.input_finger_name"></span>”录入指纹</div>
+
+            <div class="ng-hide input-finger-state0" ng-show="inputFingerData.input_finger_state == 0"><ion-spinner icon="ios-small"></ion-spinner><span style="position:relative; top:-1px;">进行中(<span ng-bind="inputFingerData.step"></span>/3)</span></div>
+
+            <div class="ng-hide input-finger-state1" ng-show="inputFingerData.input_finger_state == 1">
+                <img ng-src="{{local_resource + 'img/fail_icon.png'}}" ><span ng-bind="inputFingerData.input_finger_error_name" style="position:relative; top:-1.5px;"></span>
+            </div>
+
+            <div class="ng-hide input-finger-state2" ng-show="inputFingerData.input_finger_state == 2">
+                <img ng-src="{{local_resource + 'img/success_icon.png'}}" ><span style="position:relative; top:-1px;">恭喜您，指纹录入成功</span>
+            </div>
+        </div>
+
+        <div class="input-finger-footer ng-hide" ng-show="inputFingerData.input_finger_state == 0" on-tap="cancelFinger()">
+            取消
+        </div>
+
+        <div class="input-finger-footer ng-hide" ng-show="inputFingerData.input_finger_state == 1">
+            <div on-tap="cancelFinger()">取消</div>
+            <div on-tap="resetInputFinger()">重试</div>
+        </div>
+
+        <div class="input-finger-footer ng-hide" ng-show="inputFingerData.input_finger_state == 2" on-tap="popover.hide() && inputFingerSuccess()">
+            我知道了
+        </div>
+      </div>
+      </div>
+    </script>
+
+
+
+
+
+</ion-view>
+

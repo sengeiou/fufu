@@ -1,0 +1,253 @@
+
+<ion-view hide-back-button="true" style="background-color:#f8f8f8;" title='<div style="width:100%;position:fixed; height:62px;line-height:84px; background-color:#53afff;l margin-top:0px;left:0px; top: -20px; background-color: #53afff;z-index:999;"><div id="LvBalanceTeamRecordBack" onclick="window.navbarBackClick()" style="width:30px;float:left;margin-top:25px;margin-left:-5px;" >  <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" ><span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>  </div><div id="LvBalanceTeamRecordSearch" onclick="window.navbarShowSearch(this.id);" sev_name="LvBalanceTeamRecord" style="width:30px;float:right;padding-left:0px;margin-top:25px;" >     <div  style="margin-right:0px;">
+      <i class="ion-ios-search-strong button back-button buttons button-clear button-light ion-ios-arrow-left header-item" style="font-size:20px !important;"></i>
+    </div></div>  团队假期结余</div>
+    <div style="width: 100%;height: 44px;margin-top: 0px;background-color: #53afff;position: absolute;z-index: 999;opacity: 0;text-align: center;line-height: 44px;color: white;transition: all .3s ease-in-out;display: none" id="LvBalanceTeamRecordSearchDiv">
+  <div class="bar bar-header item-input-inset searchclass active" style="background-color: rgb(83, 175, 255);height: 44px;" >
+    <div class="item-input-wrapper" style="margin-top: 0px !important;background-color: #fff;" >
+<div style="width: 100%" >
+      <i class="icon ion-ios-search-strong placeholder-icon" style="position:absolute;left: 20px;top:-12px; margin-top: 12px;"></i>
+        <input  id="LvBalanceTeamRecordSearchInput" type="search" placeholder="搜索..." ng-model="search_control.search_val" class="" style="margin-left:10px;" sev_name="LvBalanceTeamRecord" dept_id="{{dept_id}}" onkeydown="window.leaveBalanceTeamRecordInpKeydown(this.id)" onfocus="window.navbarSearchfocus(this.id)" onblur="window.navbarSearchblur(this.id)"/>
+         <div onclick="window.navbarSearchClearValue(this.id)" sev_name="LvBalanceTeamRecord" id="LvBalanceTeamRecordCloseIonic"  class="ion-android-cancel" style="position: absolute; right: 10px; font-size: 16px; margin-right: 2px;right:60px;display:none; top:7px;height:31px;line-height:31px; color: #cccccc;"></div>
+</div>
+    </div>
+    <button class="button button-clear" style="margin-top: 0px !important; color:#fff;margin-right:-5px;" id="LvBalanceTeamRecordSearchCancelBtn" sev_name="LvBalanceTeamRecord" onclick="window.navbarSearchCancel(this.id)">
+      取消
+    </button>
+  </div>
+</div>'  hide-tab-bar cache-view="true" ng-controller="LvBalanceTeamRecordCtrl" id='leave_balance_team_record'>
+  <style>
+    #leave_balance_team_record .leave_balance_team_record_content {
+      top: 115px;
+    }
+    .platform-win32.platform-cordova #leave_balance_team_record .leave_balance_team_record_content {
+      top: 88px;
+    }
+    .platform-android.platform-cordova #leave_balance_team_record .leave_balance_team_record_content {
+      top: 88px;
+    }
+    #leave_balance_team_record .searchclass {
+      position: relative;
+      top: 0px;
+      z-index: 9999;
+      -webkit-transition: opacity .3s ease-in-out;
+      height: 0;
+      opacity: 0;
+      padding: 0px;
+    }
+    #leave_balance_team_record .searchclass.active {
+      height: 44px;
+      opacity: 1;
+      padding: 10.667px;
+      -webkit-transition: opacity .3s ease-in-out;
+    }
+    .platform-win32.platform-cordova #LvBalanceTeamRecordBack{
+      margin-left:-7px;
+    }
+    .platform-android.platform-cordova #LvBalanceTeamRecordBack{
+      padding-left:10px !important;
+    }
+
+
+
+
+  </style>
+
+  
+  <ion-header-bar id="leave_balance_team_record_header_bar" class="bar-subheader" style="height:50px;padding:0px;width: 100%; background-color:#f8f8f8;background-image:none !important" >
+   	 <div class="empl_search_prompt ng-hide"  ng-click="search()" style="" ng-show="search_control.search_val!=''" >
+		 <div>
+		 <img ng-src="{{search_img}}">
+		 <div style="font-size: 17px;height: 30px;line-height: 30px; padding-left: 12px">
+ 		<span style="padding-right: 8px">搜索</span>		 
+		<span style="color: #53afff;position: absolute;top: 0;bottom: 0;left: 53px;right: 59px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;" ng-bind="search_control.search_val" class="ng-binding">{{search_control.search_val}}</span>
+		 </div>
+		 <div style="font-size: 14px;color: #999999;padding-left: 12px">姓名、工号、职位等</div>
+		 </div>
+	 </div>
+	 
+	 
+    <div id="statistics_content_div" style="overflow: hidden; display: block;">
+		<div style="height:48px;width:45%;float:right;background:white;">
+		<div ng-show="is_show_picklist" class='ng-hide' ng-click="leave_balance_team_record_dept_picklist()" style="background-color:white;  overflow:hidden;width:100%;border-bottom: 1px solid #f5f5f5">
+			<div style=" float:right;">
+				<i class="icon ion-ios-arrow-down" style="line-height:48px;margin-right: 12px;font-size: 0.4266666666667rem;color: #999;"></i>
+			</div>
+			<div style=" float:right; margin-right:6px;width:80%;line-height:48px;">
+				<div id="leave_balance_team_record_dept_picklist" style="font-size:0.3733333333333rem; color:#333; float:right; margin-left:3px;white-space: nowrap;text-overflow:ellipsis; overflow:hidden; width:100%;text-align: right;">请选择部门</div>
+			</div>
+		</div>
+		</div>
+	
+      <div style="height: 49px;width: 55%;background-color: white; border-top:1px solid#f5f5f5;border-bottom: 1px solid #f5f5f5">
+        <div style="float: left; ">
+          <div style="float: left;width: 14px;height: 14px;background-color: #66b8ff;margin: 18px 0px 0px 10px;"></div>
+          <div style="float: left; line-height: 49px;text-indent: 4px; font-size:12px; color:#666;" class="ng-binding">享有数</div>
+        </div>
+        <div style="float: left;">
+          <div style="float: left;width: 14px;height: 14px;background-color: #ff944c;margin: 18px 0px 0px 10px;"></div>
+          <div style="float: left; line-height: 49px;text-indent:4px; font-size:12px; color:#666;" class="ng-binding">已用数<span style="color: #999">(含待批)</span></div>
+        </div>
+      </div>
+    </div>
+</ion-header-bar>
+  
+  
+  <ion-content id="LeaveBalanceTeamRecordContent" class="leave_balance_team_record_content" has-bouncing="true" overflow-scroll="false" style="top:{{content_top}}px;" >
+	
+	<div id="LeaveBalanceTeamRecordDeptId" style="display:none;">{{dept_id}}</div>
+	
+	<div class="empl_search_void ng-hide" style="display:none;margin-top:10px;" ng-show="searchState.flag && LvBalanceTeamRecordData.length=='0' && search_control.search_val!='' ">
+		<div style="margin: 0 auto;display: table;"><img style="width: 16px;position: relative; top: 3px" ng-src="{{cry}}" src="img/cry.png">
+		  <span style="padding-left: 5px; color: #a7a7a7; font-size: 15px">搜索不到数据,您可换个关键词哦~</span>
+		 </div>
+	</div>
+	<div class="empl_search_default" style="" ng-show="searchNodata.is_search && search_control.search_val==''&& !searchState.is_show_wrap " style="">
+		<img style="width: 143px; margin: 0 auto;display: block; padding-top: 70px" ng-src="{{not_data}}">
+	</div>
+
+
+    <div style="width:100%; height:10px; background-color:#f8f8f8;"></div>
+    <!------------------享有数.已用数.待审批数------------------>
+    <!--<div id="statistics_content_div" style="overflow: hidden; display: block;">-->
+      <!--<div style="height: 49px;width: 100%;background-color: white; border-top:1px solid#f5f5f5;">-->
+        <!--<div style="float: left; width:78px;">-->
+          <!--<div style="float: left;width: 14px;height: 14px;background-color: #66b8ff;margin: 18px 0px 0px 12px;"></div>-->
+          <!--<div style="line-height: 49px;text-indent: 4px; font-size:12px; color:#666;" class="ng-binding">享有数</div>-->
+        <!--</div>-->
+        <!--<div>-->
+          <!--<div style="float: left;width: 14px;height: 14px;background-color: #ff944c;margin: 18px 0px 0px 12px;"></div>-->
+          <!--<div style="line-height: 49px;text-indent:4px; font-size:12px; color:#666;" class="ng-binding">已用数<span style="color: #999">(含待审批数)</span></div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!------------------享有数.已用数.待审批数------------------>
+    
+    
+    <!----------------------------员工一--------------------->
+	<div id="LeaveBalanceTeamRecordWrap"  ng-show="searchState.is_show_wrap">
+    <div class="item-avatar-left" ng-click="view_detail(item.employee_no,item.employee_name)" style="overflow:hidden; background-color:#fff; padding:12px; border-bottom:1px solid#f5f5f5;" ng-repeat="item in filterItems=(LvBalanceTeamRecordData)">
+      <!--头像-->
+      <div style="float: left; margin-right:10px; overflow:hidden;">
+        <div style="width: 50px;height: 50px;border-radius: 150px;overflow: hidden;">
+          <img ng-src="{{item.empl_img}}" alt="" style="width: 50px;height: 50px;">
+        </div>
+      </div>
+      <!--头像-->
+      <!--内容-->
+      <div style="float:left; width:79%; overflow:hidden;">
+        <!--名字.结余-->
+        <div style=" width:100%; overflow:hidden;height: 20px;">
+          <div style="float:left;color: #333;font-size:16px;">{{item.employee_name}}</div>
+
+        </div>
+        <!--名字.结余-->
+
+        <!----年假---->
+        <div style="width:100%; overflow:hidden; margin-top:5px;" ng-show="item.lv_balance.length>0">
+          <div style="font-size:14px; color:#999;float:left; line-height:18px; margin-right:5px;width: 44px;">{{item.lv_balance[0].lv_code_name}}</div>
+          <div style=" width:54%; float:left;">
+
+            <div style="float: left;height: 18px;line-height: 18px;text-align: center; width: 45%;margin-right: 4%;" class="">
+              <div style="width: 18px;height: 18px;float: left;background-color:#66b8ff;color: white;border-top-left-radius: 2px;border-bottom-left-radius: 2px;line-height: 16px;"></div>
+              <div style="border: 1px solid #66b8ff;height: 18px;width: 100%;color:#66b8ff;border-radius: 2px;border-radius: 2px;line-height: 16px;" class="ng-binding"> {{item.lv_balance[0].entitle_num}}</div>
+            </div>
+
+            <div style="float: left;height: 18px; line-height: 18px;text-align: center;width: 45%;margin-right: 4%;" class="">
+              <div style="width: 18px;height: 18px;float: left;background-color: #ff944c;color: white;border-top-left-radius: 2px;border-bottom-left-radius: 2px;line-height: 16px;"></div>
+              <div style="border: 1px solid #ff944c;height: 18px;width: 100%;color:#ff944c;border-radius: 2px;border-radius: 2px;line-height: 16px; " class="ng-binding"> {{item.lv_balance[0].used_num}}</div>
+            </div>
+
+
+          </div>
+
+        </div>
+        <!----年假---->
+
+        <!----病假---->
+        <div style="width:100%; overflow:hidden; margin-top:5px;" ng-show="item.lv_balance.length>1">
+          <div style="font-size:14px; color:#999;float:left; line-height:18px; margin-right:5px;width: 44px;">{{item.lv_balance[1].lv_code_name}}</div>
+          <div style=" width:54%; float:left;">
+
+            <div style="float: left;height: 18px;line-height: 18px;text-align: center; width: 45%;margin-right: 4%;" class="">
+              <div style="width: 18px;height: 18px;float: left;background-color:#66b8ff;color: white;border-top-left-radius: 2px;border-bottom-left-radius: 2px; "></div>
+              <div style="border: 1px solid #66b8ff;height: 18px;width: 100%;color:#66b8ff;border-radius: 2px;border-radius: 2px;line-height: 16px;" class="ng-binding"> {{item.lv_balance[1].entitle_num}}</div>
+            </div>
+
+            <div style="float: left;height: 20px; line-height: 20px;text-align: center;width: 45%;margin-right: 4%;" class="">
+              <div style="width: 18px;height: 18px;float: left;background-color: #ff944c;color: white;border-top-left-radius: 2px;border-bottom-left-radius: 2px;"></div>
+              <div style="border: 1px solid #ff944c;height: 18px;width: 100%;color:#ff944c;border-radius: 2px;line-height: 16px; " class="ng-binding"> {{item.lv_balance[1].used_num}}</div>
+            </div>
+
+
+
+          </div>
+
+        </div>
+        <!----病假---->
+
+        <!---调休假--->
+        <div style="width:100%; overflow:hidden; margin-top:5px;"ng-show="item.lv_balance.length>2">
+          <div style="font-size:14px; color:#999;float:left; line-height:18px; margin-right:5px;width: 44px;">{{item.lv_balance[2].lv_code_name}}</div>
+
+          <div style=" width:54%; float:left;">
+
+            <div style="float: left;height: 18px;line-height: 18px;text-align: center; width: 45%;margin-right: 4%;" class="">
+              <div style="width: 18px;height: 18px;float: left;background-color:#66b8ff;color: white;border-top-left-radius: 2px;border-bottom-left-radius: 2px; "></div>
+              <div style="border: 1px solid #66b8ff;height: 18px;width: 100%;color:#66b8ff;border-radius: 2px;border-radius: 2px;line-height: 16px;" class="ng-binding"> {{item.lv_balance[2].entitle_num}}</div>
+            </div>
+
+            <div style="float: left;height: 20px; line-height: 20px;text-align: center;width: 45%;margin-right: 4%;" class="">
+              <div style="width: 18px;height: 18px;float: left;background-color: #ff944c;color: white;border-top-left-radius: 2px;border-bottom-left-radius: 2px;"></div>
+              <div style="border: 1px solid #ff944c;height: 18px;width: 100%;color:#ff944c;border-radius: 2px;border-radius: 2px;line-height: 16px; " class="ng-binding"> {{item.lv_balance[2].used_num}}</div>
+            </div>
+
+
+
+          </div>
+
+        </div>
+        <!---调休假--->
+      </div>
+      <!--内容-->
+
+      <!--天数-->
+      <div style="float:right;position: absolute;
+    right: 12px;">
+        <div style="color:#999; font-size:13px;height: 18px;text-align: right">当前结余</div>
+
+        <div style="height: 18px;margin-top: 7px; line-height:18px;text-align: right;">
+          <div style="font-size:12px; color:#999;float: right;">{{item.lv_balance[0].min_unit}}</div>
+          <div style="font-size:16px; color:#ff6600;float: right">{{item.lv_balance[0].balance_num}}</div>
+        </div>
+
+        <div style="height: 18px;margin-top: 7px; line-height:18px;text-align: right;">
+          <div style="font-size:12px; color:#999;float: right;">{{item.lv_balance[1].min_unit}}</div>
+          <div style="font-size:16px; color:#ff6600;float: right">{{item.lv_balance[1].balance_num}}</div>
+
+        </div>
+
+        <div style="height: 18px;margin-top: 7px;line-height:18px;text-align: right;">
+          <div style="font-size:12px; color:#999;float: right;">{{item.lv_balance[2].min_unit}}</div>
+          <div style="font-size:16px; color:#ff6600;float: right">{{item.lv_balance[2].balance_num}}</div>
+
+        </div>
+      </div>
+      <!--天数-->
+      </div>
+    
+	<div ng-show="LvBalanceTeamRecordData.data_ready && filterItems.length==0" style="text-align:center;color:#999; overflow: hidden; font-size:0.32rem; padding-top:20px;">没有数据</div>
+    <div ng-show="LvBalanceTeamRecordData.data_ready && LvBalanceTeamRecordData.length!=0 && search_control.search_value!='' && end_of_list.status" style="text-align:center;color:#999; overflow: hidden; font-size:0.32rem; padding-top:20px;">没有更多数据</div>
+	
+    </div>
+	<ion-infinite-scroll
+      ng-if="!end_of_list.status  && searchState.is_show_wrap"
+      distance="5%"
+      on-infinite="loadMoreEmployeeData()"
+      immediate-check="false">
+    </ion-infinite-scroll>
+	
+	
+  </ion-content>
+</ion-view>

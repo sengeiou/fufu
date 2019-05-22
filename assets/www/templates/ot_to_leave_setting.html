@@ -1,0 +1,98 @@
+﻿<ion-view style="background-color:#f8f8f8;" title="加班转调休设置" ng-controller="otToLeaveSettingCtrl" hide-tab-bar>
+  <ion-nav-buttons side="right">
+    <div class="button button-clear" style="color:white;font-size:14px" ng-click="ot_to_leave_setting_save()">保存</div>
+  </ion-nav-buttons>
+    <ion-content has-bouncing="true" overflow-scroll="false">
+    <input type="hidden" id="post_date_type" value="{{otToLeaveSettingData.post_date_type}}" />
+    	<div class="scroll" style="transform: translate3d(0px, 0px, 0px) scale(1);">
+
+
+    <ul class="list" style="margin-bottom:0px;">
+
+    <!---------加班转调休----------->
+         <li class="item item-toggle" style="color:#333;font-size:16px; margin-top:10px;">
+          加班转调休
+          <label class="toggle toggle-calm" style=" right:10px;">
+            <input id="is_active" ng-model="otToLeaveSettingData.is_active" ng-checked="otToLeaveSettingData.is_active" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    <!---------加班转调休----------->
+
+
+    <!---------平时加班----------->
+         <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;" ng-show="otToLeaveSettingData.is_active">
+          平时加班
+          <label class="toggle toggle-calm" style=" right:10px;">
+            <input id="ot1" ng-model="otToLeaveSettingData.ot1" ng-checked="otToLeaveSettingData.ot1" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    <!---------平时加班----------->
+
+
+    <!---------周末加班----------->
+         <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;" ng-show="otToLeaveSettingData.is_active">
+          周末加班
+          <label class="toggle toggle-calm" style=" right:10px;">
+            <input id="ot2" ng-model="otToLeaveSettingData.ot2" ng-checked="otToLeaveSettingData.ot2" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    <!---------周末加班----------->
+
+
+    <!---------法定假加班----------->
+         <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;" ng-show="otToLeaveSettingData.is_active">
+          法定假加班
+          <label class="toggle toggle-calm" style=" right:10px;">
+            <input id="ot3" ng-model="otToLeaveSettingData.ot3" ng-checked="otToLeaveSettingData.ot3" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    <!---------法定假加班----------->
+
+
+    <!---------调休假有效开始时间----------->
+    <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;;overflow:hidden" ng-click="picklist_post_date_type()" ng-show="otToLeaveSettingData.is_active">
+      	<div style="float:left;">
+        	<label style="color:#666; font-size:14px; padding: 16px 20px;  line-height:49px">调休假有效开始日期</label>
+            </div>
+        <div style="float:right;">
+        	<a id="post_date_type_name" style=" line-height:49px;font-size:14px; color:#999; margin-right:6px;">{{otToLeaveSettingData.post_date_type_name}}</a>
+            <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:10px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div>
+        </div>
+      </div>
+    <!---------调休假有效开始时间----------->
+
+    <!---------调休有效天数----------->
+   <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;overflow:hidden" ng-show="otToLeaveSettingData.is_active">
+      	<div style="float:left;">
+        	<label style="color:#666; font-size:14px; padding: 16px 20px; line-height:49px">调休有效天数</label>
+            </div>
+            <!--<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:10px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div> -->
+
+        <div style="float:right;">
+        	<input id="post_date_size" type="number" style="font-size:14px; color:#999; margin-right:12px;text-align:right; border:none; margin-top:8px; width:70px" onfocus="if (value =='10'){value =''}" onblur="if (value ==''){value='10'}" value="{{otToLeaveSettingData.post_date_size}}" >
+            </div>
+      </div>
+    <!---------调休有效天数----------->
+	</ul>
+    </div>
+
+
+    </ion-content>
+
+</ion-view>

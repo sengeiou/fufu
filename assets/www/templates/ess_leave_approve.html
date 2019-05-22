@@ -1,0 +1,40 @@
+
+<ion-view style="background-color:#f8f8f8;" title="休假审批" ng-controller="essLvApproveCtrl" cache-view="false" hide-tab-bar>
+  <ion-nav-buttons side="right">
+    <!--<button class="button button-clear button-light button-icon ion-android-add" ng-click="openPopover($event);"></button>-->
+    <img ng-src="{{icon_filter}}" style="width: 24px;height:24px;margin:5px;" ng-click="openPopover($event);" alt=""/>
+  </ion-nav-buttons>
+  <ion-content has-bouncing="true" overflow-scroll="false">
+    <div class="list" style="margin:10px 12px;">
+      <label class="item item-input" style="border-radius:4px;height:30px;background-color:#fff;border:none;">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="搜索" ng-model="search_val">
+      </label>
+    </div>
+    <ion-list>
+      <ion-item class="item-avatar-left" ng-click="loadLvDetails(item.p_inst,item.show_type,item.app_status,item.task_id)" collection-repeat="item in ess_approve_data|dataAndFilter:'em,sn,lv_name,dd,s_d,e_d':search_val|filter:{'app_status':_flag}">
+        <img ng-src="{{item.img}}">
+        <div>
+          <span style="font-size:17px;color:#333;">{{item.em}}</span>&nbsp;&nbsp;
+          <span style="font-size:12px;color:#808080">工号:{{item.sn}}</span>
+          <span style="font-size:17px;color:#808080">
+            <span style="float:right;color:#ff3b30" ng-if="item.app_status=='待处理'">待处理</span>
+            <span style="float:right;" ng-if="item.app_status!='待处理'">已处理</span>
+          </span>
+        </div>
+        <p style="font-size:14px;color:#808080">休假类型:&nbsp;&nbsp;<span style="color:#FB640B;font-size:15px;">{{item.lv_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{item.dd}}</span></p>
+        <p style="font-size:14px;color:#808080">休假开始:&nbsp;&nbsp;{{item.s_d}}</p>
+        <p style="font-size:14px;color:#808080">休假结束:&nbsp;&nbsp;{{item.e_d}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+
+  <script id="ess-leave-approve.html" type="text/ng-template">
+    <ion-popover-view class="light padding pop-style" style="background-color:white;width:130px;height:auto;margin-top:20px;">
+      <p><i class="button icon-left button-light button-full" style="border-bottom:1px solid #f8f8f8;" ng-click="filterLvApprove('待处理')"><img style="margin-top:10px;float:left;width:22px;height:22px;" ng-src="{{ess_pending_treatment}}" /><span style="text-align:left;">待处理</span></i></p>
+      <p><i class="button icon-left button-light button-full" style="border-bottom:1px solid #f8f8f8;" ng-click="filterLvApprove('已处理')"><img style="margin-top:10px;float:left;width:22px;height:22px;" ng-src="{{ess_processed}}" /><span style="text-align:left;">已处理</span></i></p>
+      <p><i class="button icon-left button-light button-full" ng-click="filterLvApprove('')"><img style="margin-top:10px;float:left;width:22px;height:22px;" ng-src="{{ess_approve_unhide_all}}" /><span  style="text-align:left;">显示全部</span></i></p>
+    </ion-popover-view>
+  </script>
+
+</ion-view>

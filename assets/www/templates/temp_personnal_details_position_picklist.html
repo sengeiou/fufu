@@ -1,0 +1,29 @@
+<ion-view hide-back-button="true" ng-controller="tempStaffMasterPositionPicklistCtrl" style="background-color:#f8f8f8;" title="职位架构" hide-tab-bar>
+  <ion-nav-buttons side="left">
+	<button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" ng-click="picklist_submit()">
+      <span class="back-text"></span></button>
+  </ion-nav-buttons>
+<style>
+.picklist_uncheck {
+display: none;
+}
+.picklist_check {
+display: block;
+}
+</style>
+  <ion-content has-bouncing="true" overflow-scroll="false">
+    <div style="margin-top:10px;">
+        <div ng-click="position_clicked(item.p_i,item.p_n,item.o_i,item.o_n)" ng-repeat="item in tempStaffMasterPositionPicklistData" style="height: 49px; width: 100%; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(245, 245, 245); background-color: rgb(255, 255, 255);">
+            <div style="float:left; line-height:49px; margin-left:12px; font-size:16px; color:333;">
+                <span class="ng-binding">{{item.p_n}} ({{item.o_n}})</span>
+            </div>
+
+            <div class="checkbox-calm" style="float:right;margin-top:15px; margin-right:12px; color:#53afff;">
+                <label id="{{item.o_i}}_{{item.p_i}}" style="" class="ion-checkmark-round {{item.p_i==p_i&&item.o_i==o_i?'picklist_check':'picklist_uncheck'}}">
+                </label>
+            </div>
+        </div>
+
+	</div>
+  </ion-content>
+</ion-view>

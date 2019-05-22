@@ -1,0 +1,24 @@
+
+
+<ion-view title="{{model_title}}" ng-controller="menulistCtrl" hide-tab-bar>
+
+
+  <ion-content has-bouncing="true" overflow-scroll="false">
+    <ion-list>
+      <a ng-repeat="item in model_list" collection-item-height="56" collection-item-width="'100%'" class="item item-avatar item-icon-right" style="padding-left:59px;min-height:58px;" ng-click="redirectPage(item.menu_key)">
+        <img ng-src="{{local_resource + item.img_src}}" style="width:35px;height:35px;">
+        <div style="margin-top:1px;">
+        <span style="font-size:16px;color:#333;">{{item.menu_name}}</span>
+        </div>
+        <i class="icon ion-ios-arrow-right button-small"></i>
+      </a>
+    </ion-list>
+
+<!--
+      <ion-refresher
+        on-refresh="refreshData()">
+      </ion-refresher>
+-->      
+  </ion-content>
+</ion-view>
+

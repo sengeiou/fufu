@@ -1,0 +1,326 @@
+﻿
+<ion-view style="background-color:#f5f5f5;" ng-controller="holidayPolicyEditCtrl" hide-tab-bar>
+<style>
+  .row.date .col div{width: 26px;height: 26px;border-radius: 15px;margin: 0 auto;padding-top:4px;}
+  ._ar_n,._ar_p,._ar_o,._ar_c{border-radius:15px;}
+   ._ar_n{height:10px;background:url({{img_national_holiday}}) no-repeat center 3px; background-size: 5px;}
+  ._ar_p{height:10px;background:url({{img_public_holiday}}) no-repeat center 3px; background-size: 5px;}
+  ._ar_o{height:10px;background:url({{img_other_holiday}}) no-repeat center 3px; background-size: 5px;}
+  ._ar_c{background-color:#e60012;color:#fff !important;}
+  .none_bg{background-image:none;}
+  .none_color{background-color:rgba(255, 255, 255, 0);}
+.item-select:after{
+	display: none;
+}
+</style>
+    <ion-nav-title>{{ toolbar_title }}</ion-nav-title>
+  <ion-nav-buttons side="right">
+  <!--
+    <a class="button button-clear" style="color:white;font-size:14px" href="#/home_page/auto_roster/modal_empl_list/holiday_policy_edit_empl_list/holiday_policy_edit_empl_list_hidden">员工列表</a>
+    -->
+    <button class="button button-clear" style="font-size:14px;color:white;" ng-click="holiday_policy_edit_employee_select()">员工列表</button>
+
+  </ion-nav-buttons>
+    <ion-content has-bouncing="true" overflow-scroll="false">
+<div>
+<textarea style="height:190px;background-color:white;border-bottom:1px solid #f0f0f0;" ng-hide="true" id="holiday_policy_edit_empl_list" class="ng-hide"></textarea><textarea ng-hide="true" id="holiday_policy_edit_empl_list_hidden" class="ng-hide" style=""></textarea>
+<input type="hidden" id="holiday_id" value="{{holidayPolicyEditData.current_holiday.holiday_id}}" />
+</div>
+
+      <!--sub bu-->
+
+      <div ng-show="holidayPolicyEditData.is_show_sub_bu!='0'" ng-click="sub_bu_select()" style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; margin-bottom:20px 0;overflow:hidden; border-top:1px solid #f5f5f5;">
+      	<div style="float:left;">
+        	<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">所属单位
+            <div style="border:0; text-align:left; width:80px; color:#53afff; margin-left:12px;"></div>
+            </label>
+
+            </div>
+
+            <div style="float:left;white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:55%;">
+        	<span style=" line-height:49px;font-size:16px; color:#53afff;"></span>
+            </div>
+
+         <i class="icon ion-ios-arrow-right" style="margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; float:right;" ></i>
+        <div style="float:right; color:#999; font-size:14px;line-height:49px; margin-right:5px">
+			{{holidayPolicyEditData.sub_bu_value}}
+        </div>
+      </div>
+
+      <div class="list" style="background-color:#fff;margin-top:10px;margin-bottom:10px; font-size:15px;">
+        <div class="row" style="line-height:40px;">
+          <div class="col-20" style="text-align: left;color:#666;padding-left:5px;">
+            <div ng-click="loadByMonth('p')">上一月</div>
+          </div>
+          <div class="col-60">
+            <div class="item-input">
+              <!--<input type="date" id="calendar_date_input" style="margin-top:-5px;text-align: center;background-color:#fff;width:120px;font-size:17px;color:#333;"/>-->
+              <input type="date" id="calendar_date_input1" style="margin-top:-5px;text-align: center;background-color:#fff;width:120px;font-size:17px;color:#333;display: none">
+              <div id="calendar_date_input" style="color:#53afff;line-height: 35px;margin: 0 auto;font-size: 14px;" ng-click="calendar_date_input()" ></div>
+            </div>
+          </div>
+          <div class="col-20" style="text-align: right;color:#666;padding-right:5px;">
+            <div ng-click="loadByMonth('n')">下一月</div>
+          </div>
+        </div>
+        <div class="row" style="text-align:center;border-bottom:1px solid #f0f0f0">
+          <div class="col">
+            <div style="color:#aaa">日</div>
+          </div>
+          <div class="col">
+            <div>一</div>
+          </div>
+          <div class="col">
+            <div>二</div>
+          </div>
+          <div class="col">
+            <div>三</div>
+          </div>
+          <div class="col">
+            <div>四</div>
+          </div>
+          <div class="col">
+            <div>五</div>
+          </div>
+          <div class="col">
+            <div style="color:#aaa">六</div>
+          </div>
+        </div>
+        <div class="row date" style="text-align: center;background-color:white;margin-top:1px;border-bottom: 1px solid #f8f8f8;padding: 6px 5px;" ng-repeat="item in holidayPolicyEditData.calendar_data">
+          <div class="col">
+            <div ng-click="loadDetail(item.sun.v,$event)" style="color:#aaa" class="{{item.sun.f}} none_bg">{{item.sun.v}}<p class="{{item.sun.f}} none_color"></p></div>
+          </div>
+          <div class="col">
+            <div ng-click="loadDetail(item.mon.v,$event)" class="ios-cal-p {{item.mon.f}} none_bg">{{item.mon.v}} <p class="{{item.mon.f}} none_color"></p></div>
+          </div>
+          <div class="col">
+            <div ng-click="loadDetail(item.thur.v,$event)" class="ios-cal-p {{item.thur.f}} none_bg">{{item.thur.v}} <p class="{{item.thur.f}} none_color"></p></div>
+          </div>
+          <div class="col">
+            <div ng-click="loadDetail(item.wen.v,$event)" class="ios-cal-p {{item.wen.f}} none_bg">{{item.wen.v}} <p class="{{item.wen.f}} none_color"></p></div>
+          </div>
+          <div class="col">
+            <div ng-click="loadDetail(item.thes.v,$event)" class="ios-cal-p {{item.thes.f}} none_bg">{{item.thes.v}} <p class="{{item.thes.f}} none_color"></p></div>
+          </div>
+          <div class="col">
+            <div ng-click="loadDetail(item.fri.v,$event)" class="ios-cal-p {{item.fri.f}} none_bg">{{item.fri.v}}<p class="{{item.fri.f}} none_color"></p></div>
+          </div>
+          <div class="col">
+            <div ng-click="loadDetail(item.sat.v,$event)" style="color:#aaa" class="ios-cal-p {{item.sat.f}} none_bg">{{item.sat.v}}<p class="{{item.sat.f}} none_color"></p></div>
+          </div>
+        </div>
+      </div>
+<!---------------------------------------------------------------->
+<div>
+	<div style="margin-left:12px; width:100%; height:30px;">
+		<!--说明-->
+		<div style=" float:left; font-size:12px; color:#999; margin-right:10px">*说明</div>
+		<!--说明-->
+
+        <!--法定假期-->
+        <div style=" float:left;width:6px; height:6px; background-color:#e97e0d;border-radius:6px 6px 6px 6px; margin-top:7px" >
+        </div>
+
+        <div style="float:left; font-size:12px; color:#999; margin-left:5px">法定假期
+        </div>
+        <!--法定假期-->
+
+        <!--公共假期-->
+        <div style=" float:left;width:6px; height:6px; background-color:#53b0ff;border-radius:6px 6px 6px 6px; margin-top:7px; margin-left:10px;" >
+        </div>
+        <div style="float:left; font-size:12px; color:#999; margin-left:5px">公共假期</div>
+        <!--公共假期-->
+
+
+        <!--其他假期-->
+        <div style=" float:left;width:6px; height:6px; background-color:#666;border-radius:6px 6px 6px 6px; margin-top:7px; margin-left:10px;" >
+        </div>
+        <div style="float:left; font-size:12px; color:#999; margin-left:5px">其它假期
+        </div>
+        <!--其他假期-->
+    </div>
+</div>
+
+<!--开始-->
+
+<!--当前日期-->
+<div style="width:100%; background-color:#fff; height:49px; margin-top:10px;border-bottom:1px solid #f5f5f5;">
+	<!--日历-->
+    <div style="float:left; margin-left:12px;">
+		<span style="color:#53afff; font-size:16px; line-height:49px;">当前日期</span>
+        <span style="color:#53afff; font-size:16px;" class="ng-binding ">
+          <span style=" border:0; font-size:16px; color:#53afff; width:100px; margin-top:10px; margin-left:5px" class="textbox">{{holidayPolicyEditData.current_date_text}}</span>
+
+    	</span>
+    </div>
+	<!--日历-->
+
+    <!--删除-->
+    <div ng-click="holiday_policy_detail_delete()" style="float:right" ng-hide="holidayPolicyEditData.is_new||holidayPolicyEditData.edit_mode">
+    	<span style="float:right; line-height:49px; font-size:14px; color:#666; margin-right:12px;">删除</span>
+        <span style="float:right;"><img style="width:24px; height:24px; margin-top:12px" src="{{img_delete}}"></span>
+    </div>
+ 	<!--删除-->
+
+    <!--编辑-->
+    <div ng-click="holiday_policy_detail_edit_mode()" style="float:right" ng-hide="holidayPolicyEditData.is_new||holidayPolicyEditData.edit_mode">
+    	<span style="float:right; line-height:49px; font-size:14px; color:#53afff; margin-right:5px;">编辑</span>
+        <span style="float:right;"><img style="width:24px; height:24px; margin-top:12px" src="{{img_edit}}"></span>
+
+    </div>
+  	<!--编辑-->
+
+    <!--添加-->
+    <div ng-click="holiday_policy_detail_edit_mode()" style="float:right" ng-hide="!holidayPolicyEditData.is_new||holidayPolicyEditData.edit_mode">
+    	<span  style="float:right; line-height:49px; font-size:14px; color:#53afff; margin-right:12px;">新增</span>
+        <span style="float:right;"><img style="width:20px; height:20px; margin-top:15px; margin-right:4px;" src="{{img_add}}"></span>
+
+    </div>
+    <!--添加-->
+</div>
+<!--当前日期-->
+
+
+<!-- 观看模式 -->
+<div id="holiday_detail_view_div" ng-hide="holidayPolicyEditData.is_new || holidayPolicyEditData.edit_mode">
+	<!--假期名称-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; ">
+      	<div style="float:left;">
+        	<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">假期名称</label>
+		</div>
+		<div style="float:right;">
+			<a style=" line-height:49px;font-size:14px; color:#666; margin-right:12px;">{{holidayPolicyEditData.current_holiday.holiday_name}} </a>
+		</div>
+	</div>
+	<!--假期名称-->
+
+    <!--假期类型-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; ">
+      	<div style="float:left;">
+        	<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">假期类型</label>
+		</div>
+		<div style="float:right;">
+			<a style=" line-height:49px;font-size:14px; color:#666; margin-right:12px;">{{holidayPolicyEditData.current_holiday.Holiday_type}}</a>
+		</div>
+	</div>
+	<!--假期类型-->
+
+    <!--假期天数-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+      	<div style="float:left;">
+        	<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">假期天数</label>
+		</div>
+        <div style="float:right;">
+        	<a style=" line-height:49px;font-size:14px; color:#666; margin-right:12px;">{{holidayPolicyEditData.current_holiday.ct_days}}天</a>
+        </div>
+	</div>
+	<!--假期天数-->
+</div>
+
+
+
+<!-- 编辑模式 -->
+<div id="holiday_detail_edit_div" ng-hide="!holidayPolicyEditData.edit_mode">
+
+	<!--假期名称-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">假期名称</label>
+		</div>
+        <div style="float:right;">
+        	<input id="holiday_name" style="font-size:14px; color:#53afff; margin-right:0px;text-align:right; border:none;margin: 0;padding: 0; margin-top:14px" onfocus="if (value =='无'){value =''}" onblur="if (value ==''){value='无'}" ng-model="holidayPolicyEditData.current_holiday.holiday_name">
+			<div style="float:right; margin-left:9px;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+			</div>
+		</div>
+	</div>
+    <!--假期名称-->
+
+
+<!--
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+		<div style="float:left; ">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">假期类型</label>
+		</div>
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+		<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0; float:right; margin-right:0px;">
+
+            <select id="Holiday_type" style="color:#999; border:0px; background-color: transparent;overflow: hidden; line-height:38px; color:#53afff;" ng-model="holidayPolicyEditData.current_holiday.Holiday_type" >
+          		<option value="NH">法定假期</option>
+                <option value="PH">公共假期</option>
+                <option value="OTHER">其它假期</option>
+        	</select>
+		</label>
+	</div>
+-->
+
+   <!-- <div class="list" style=" margin-bottom:0px;">
+      <div class="item item-input item-select" ng-click="holiday_type()">
+        <span style="width:70px; font-size:16px; line-height: 36px; color:#333">假期类型
+        </span>
+
+        <div id="holiday_type" style="line-height: 36px;position: absolute;right: 30px;" ></div>
+            <i class="icon ion-ios-arrow-right" style="margin-right: 12px;vertical-align: middle;font-size: 20px;color: #ccc;position: absolute;top: 14px;bottom: 0;right:-5px;"></i>
+      </div>
+    </div>
+	-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;" ng-click="holiday_type()">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">假期类型</label>
+		</div>
+
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+        <span id="holiday_type" style="font-size:16px; float:right; line-height:49px; margin-right:4px; "></span>
+
+
+	</div>
+	
+	
+
+
+
+	<!--假期天数-->
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+		<div style="float:left;">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">假期天数</label>
+		</div>
+
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+        <span style="float:right; line-height:49px; margin-right:4px; color:#53afff;display: none">天</span>
+        <div style="float:right;">
+			<input id="ct_days" style="font-size: 14px; color: rgb(102, 102, 102); text-align: right; border: none; -webkit-appearance: none; margin: 8px 0px 0px; padding-right: 8px;" type="number" onfocus="if (value =='0.00'){value =''}" onblur="if (value ==''){value='0.00'}" ng-model="holidayPolicyEditData.current_holiday.ct_days"  >
+
+		</div>
+
+	</div>
+	<!--假期天数-->
+
+<!--按钮-->
+	<div style="width:100%; background-color:#fff; height:49px;" >
+        <div class="list" style="margin-bottom:0px; width:100%; background-color:#FFF;">
+          <div ng-click="holiday_policy_detail_cancel_edit_mode()" style="float:left; width:50%; border-color: #fff; padding: 0px 12px; line-height:49px">
+                <button style="border:0px #fff solid;width:100%; text-align:center;color:#333; font-size:17px; background-color:#fff;">取消</button>
+          </div>
+
+
+          <div ng-click="holiday_policy_detail_save()" style="float:right;width:50%;border-color: #fff; padding: 0px 12px; line-height:49px">
+                <button style="border:0px #fff solid;width:100%; text-align:center;color:#53afff; font-size:17px; background-color:#fff;">确认</button>
+          </div>
+        </div>
+	</div>
+<!--按钮-->
+
+</div>
+
+
+    </ion-content>
+</ion-view>
+
+
+

@@ -1,0 +1,34 @@
+﻿
+<ion-view hide-back-button="true" style="background-color:#f8f8f8;" title="{{picklist_title}}" ng-controller="picklistTemplateCtrl" hide-tab-bar>
+  <ion-nav-buttons side="left">
+	<button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" ng-click="picklist_submit()">
+      <span class="back-text"></span></button>
+  </ion-nav-buttons>
+<style>
+.picklist_uncheck {
+display: none;
+}
+.picklist_check {
+display: block;
+}
+</style>
+    <ion-content has-bouncing="true" overflow-scroll="false">
+
+    <div style="margin-top:10px;">
+    <div ng-click="item_clicked(item,picklist_value_list[$index])" ng-repeat="item in picklist_key_list" style="height: 49px; width: 100%; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(245, 245, 245); background-color: rgb(255, 255, 255);">
+    	<div style="float:left; line-height:49px; margin-left:12px; font-size:16px; color:333;">
+        	<span class="ng-binding">{{picklist_value_list[$index]}}</span>
+        </div>
+        <div class="checkbox-calm" style="float:right;margin-top:7px; margin-right:12px; color:#53afff;">
+        	<label id="{{'picklist_item_' + item}}" class="icon ion-android-done" style="font-size: 24px;color: #53afff;" ng-class="{'picklist_check': item == checked_key, 'picklist_uncheck': item != checked_key}">
+            </label>
+        </div>
+    </div>
+
+
+
+
+
+    </ion-content>
+
+</ion-view>

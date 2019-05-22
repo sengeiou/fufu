@@ -1,0 +1,287 @@
+﻿
+<ion-view style="background-color:#f8f8f8;" hide-back-button="true" ng-controller="atTeamRecordByTypeDetailCtrl" id="at_team_record" hide-back-button="true"  style="background-color:#f8f8f8;" title='<div style="width:100%;position:fixed; height:62px;line-height:84px; background-color:#53afff;l margin-top:0px;left:0px; top: -20px; background-color: #53afff;z-index:999;"><div onclick="window.navbarBackClick()" id="atTeamRecordByTypeDBack" style="width:30px;float:left;margin-top:25px;margin-left:-5px;" >  <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" ><span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>  </div><div id="atTeamRecordByTypeDSearch" sev_name="atTeamRecordByTypeD" onclick="window.navbarShowSearch(this.id);" style="width:30px;float:right;padding-left:0px;margin-top:25px;" >     <div  style="margin-right:0px;">
+      <i class="ion-ios-search-strong button back-button buttons button-clear button-light ion-ios-arrow-left header-item" style="font-size:20px !important;"></i>
+    </div></div> {{title_text}}明细</div>
+    <div style="width: 100%;height: 44px;margin-top: 0px;background-color: #53afff;position: absolute;z-index: 999;opacity: 0;text-align: center;line-height: 44px;color: white;transition: all .3s ease-in-out;display: none" id="atTeamRecordByTypeDSearchDiv">
+  <div class="bar bar-header item-input-inset searchclass active" style="background-color: rgb(83, 175, 255);height: 44px;" >
+    <div class="item-input-wrapper" style="margin-top: 0px !important;background-color: #fff;" >
+<div style="width: 100%" clear-value-box>
+      <i class="icon ion-ios-search-strong placeholder-icon" style="position:absolute;left: 20px;top:-12px; margin-top: 12px;"></i>
+        <input clear-value-input id="atTeamRecordByTypeDSearchInput" type="search" placeholder="搜索..." ng-model="search_control.search_val" class="" style="margin-left:10px;" dept_id="{{dept_id}}" sev_name="atTeamRecordByTypeD" onkeydown="window.atTeamRecordByTypeDInpKeydown(this.id)" date_text="{{curr_date}}" type_name="{{title_type}}" onfocus="window.navbarSearchfocus(this.id)" onblur="window.navbarSearchblur(this.id)">
+         <div onclick="window.navbarSearchClearValue(this.id)" sev_name="atTeamRecordByTypeD" id="atTeamRecordByTypeDCloseIonic" class="ion-android-cancel" style="position: absolute; right: 60px; font-size: 16px; margin-right: 2px; top:7px;height:31px;line-height:31px;color: #cccccc;display:none; z-index:999;"></div>
+</div>
+    </div>
+    <button class="button button-clear" style="margin-top: 0px !important; color:#fff;margin-right:-5px;" id="atTeamRecordByTypeDSearchCancelBtn" sev_name="atTeamRecordByTypeD" type_name="{{title_type}}" date_text="{{curr_date}}" onclick="window.navbarSearchCancel(this.id)">
+      取消
+    </button>
+  </div>
+</div>'  hide-tab-bar >
+<style>
+    .platform-win32.platform-cordova #atTeamRecordByTypeDBack{
+      margin-left:-7px;
+    }
+    .platform-android.platform-cordova #atTeamRecordByTypeDBack{
+      padding-left:10px !important;
+    }
+</style>
+
+  <ion-header-bar id="at_team_record_by_type_detail_headbar" class="bar-subheader" style="height:70px;padding:0px;width: 100%; " ng-show="search_control.search_val!=''">
+   	 <div class="empl_search_prompt"  ng-click="search()" style="" >
+		 <div>
+		 <img ng-src="{{search_img}}" src="img/search_img.png">
+		 <div style="font-size: 17px;height: 30px;line-height: 30px; padding-left: 12px">
+ 		<span style="padding-right: 8px">搜索</span>		 
+		<span style="color: #53afff;position: absolute;top: 0;bottom: 0;left: 53px;right: 59px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;" ng-bind="search_control.search_val" class="ng-binding">{{search_control.search_val}}</span>
+		 </div>
+		 <div style="font-size: 14px;color: #999999;padding-left: 12px">姓名、工号、职位等</div>
+		 </div>
+	 </div>
+</ion-header-bar>
+
+
+  <ion-content has-bouncing="true" overflow-scroll="false" style="top:{{content_top}}px;" class="" id="AtTeamRecordByTypeDetailContent">
+	<div class="empl_search_void ng-hide" style="margin-top:10px;" ng-show="searchState.flag && at_team_record_by_type_detail_data.length=='0'&& search_control.search_val!='' ">
+		<div style="margin: 0 auto;display: table;"><img style="width: 16px;position: relative; top: 3px" ng-src="{{cry}}" src="img/cry.png">
+		  <span style="padding-left: 5px; color: #a7a7a7; font-size: 15px">搜索不到数据,您可换个关键词哦~</span>
+		 </div>
+	</div>
+	<div class="empl_search_default" style="" ng-show="searchNodata.is_search && search_control.search_val==''" style="">
+		<img style="width: 143px; margin: 0 auto;display: block; padding-top: 70px" ng-src="{{not_data}}" src="img/not_data.png">
+	</div>
+	
+	
+	<div id="AtTeamRecordByTypeDetailWrap"  ng-show="searchState.is_show_wrap">
+	
+	<!--<div style="height:40px;background-color:#f8f8f8; line-height:40px;color:#666;font-size:0.3733333333333rem;" ng-show="at_team_record_by_type_detail_data.length!='0'" class="ng-hide">
+	<div style="float:right;margin-right:12px;">{{title_text}}<span style="color:#ff6600;font-size:0.48rem;">{{at_team_record_by_type_detail_data.length}}</span>人</div>
+	<p style="text-indent:12px;">{{current_date_text}}</p>
+	</div>
+-->
+
+    <div style="font-size: 16px;background-color:#f8f8f8;height: 44px;display:block;line-height: 44px; width:100%; padding: 0 12px 0 12px;">
+         <div style="float:left; width:35%; overflow:hidden;">
+            <span id="" style="margin: -3px auto;font-size:0.3733333333333rem;;color:#666; border:0;line-height: 35px;" class="">{{current_date_text}}</span>
+        </div>
+    
+        <div style=" width:65%; overflow:hidden">
+            <div style=" float:right;width:75%;" class="">
+                <div style="float:right;margin-right:0px;color:#666;font-size:0.3733333333333rem;">{{title_text}}<span style="color:#ff6600;font-size:0.48rem;">{{at_team_record_by_type_detail_data.length}}</span>人</div>
+            </div>
+        </div>
+    </div>
+
+  <div ng-click="at_team_record_content(item.employee_name,item.employee_no)" style="width: 100%;border-bottom: 1px solid #f5f5f5;background-color: white;overflow: hidden;padding-bottom:0px;" ng-repeat="item in filterItems=(at_team_record_by_type_detail_data|filter:atStatusFilter)">
+    <div style="height: 100%;padding-left: 10px;margin-top: 0px;height:70px;">
+      <div style="width: 50px;height: 50px;border-radius: 150px;overflow: hidden;float: left;margin-top:10px;">
+        <img ng-src="{{item.empl_img}}" alt="" style="width: 50px;height: 50px;"/>
+      </div>
+	  <div style="float:right;color:#808080;font-size:0.32rem;margin-top:16px;margin-right:12px;">{{item.policy_name}}</div>
+      <div style="float: left;margin-left: 10px;padding-top:16px;">
+        <p style="color: #333;font-size: 16px;text-align: left">{{item.employee_name}} <span style="margin-left:10px;color:#666;font-size:0.32rem;">工号：{{item.staff_no}}</span> </p>
+        <p style="color: #999;font-size: 0.32rem;text-align: left">{{item.position_name}}</p>
+      </div>
+    </div>
+	</div>
+    
+	
+<div ng-show="at_team_record_by_type_detail_data.data_ready && end_of_list.status && search_control.search_value==''" style="text-align:center;color:#999; overflow: hidden; font-size:0.32rem; padding-top:20px;">没有更多数据</div>
+    <div ng-show="at_team_record_by_type_detail_data.data_ready && at_team_record_by_type_detail_data.length!=0 && search_control.search_value!='' && end_of_list.status" style="text-align:center;color:#999; overflow: hidden; font-size:0.32rem; padding-top:20px;">没有更多数据</div>
+	<div ng-show="at_team_record_by_type_detail_data.data_ready && at_team_record_by_type_detail_data.length==0" style="text-align:center;color:#999; overflow: hidden; font-size:0.32rem; padding-top:20px;">没有数据</div>
+</div>
+
+
+
+    <ion-infinite-scroll
+      ng-if="!end_of_list.status"
+      distance="1%"
+      on-infinite="loadMoreEmployeeData()"
+      immediate-check="false">
+    </ion-infinite-scroll>
+
+	  </ion-content>
+</ion-view>
+
+
+<!--
+<ion-view style="background-color:#f8f8f8;" title="团队考勤" ng-controller="atTeamRecordCtrl" hide-tab-bar id="at_team_record">
+<style>
+.checkbox input:after, .checkbox-icon:after{
+    width: 10px !important;
+    height: 5px !important;
+}
+#at_team_record .hide_checkbox{
+  display: none;
+}
+
+#at_team_record .show_checkbox{
+  display: inline-block;
+}
+.at_team_record_has_border {
+	border-left:1px solid #53afff;
+}
+#at_team_record .at_team_record_content {
+  top: 162px;
+
+}
+.platform-win32.platform-cordova #at_team_record .at_team_record_content {
+  top: 122px;
+}
+.platform-android.platform-cordova #at_team_record .at_team_record_content {
+  top: 142px;
+}
+#at_team_record .searchclass {
+  position: relative;
+  top: 0px;
+  z-index: 9999;
+  -webkit-transition: opacity .3s ease-in-out;
+  height: 0;
+  opacity: 0;
+  padding: 0px;
+}
+#at_team_record .searchclass.active {
+  height: 44px;
+  opacity: 1;
+  padding: 10.667px;
+  -webkit-transition: opacity .3s ease-in-out;
+}
+  #at_team_record .at_status_0{
+    width: 0;height: 0;border-top: 8px solid red;border-left: 10px solid transparent;position: absolute;top:0px;right:0px; display: none;
+  }
+#at_team_record .at_status_1{
+  width: 0;height: 0;border-top: 8px solid #f45555;border-left: 10px solid transparent;position: absolute;top:0px;right:0px;
+}
+#at_team_record .at_status_2{
+  width: 0;height: 0;border-top: 8px solid #8ae29f;border-left: 10px solid transparent;position: absolute;top:0px;right:0px;
+}
+#at_team_record .at_status_3{
+  width: 0;height: 0;border-top: 8px solid #85bcf3;border-left: 10px solid transparent;position: absolute;top:0px;right:0px;
+}
+#at_team_record .at_status_4{
+  width: 0;height: 0;border-top: 8px solid #ba91f7;border-left: 10px solid transparent;position: absolute;top:0px;right:0px;
+}
+#at_team_record .at_status_5{
+  width: 0;height: 0;border-top: 8px solid #e2e446;border-left: 10px solid transparent;position: absolute;top:0px;right:0px;
+}
+#at_team_record .at_status_6{
+  width: 0;height: 0;border-top: 8px solid #f4a44e;border-left: 10px solid transparent;position: absolute;top:0px;right:0px;
+}
+#at_team_record .at_status_7{
+  width: 0;height: 0;border-top: 8px solid red;border-left: 10px solid transparent;position: absolute;top:0px;right:0px;
+}
+#at_team_record .at_status_8{
+  width: 0;height: 0;border-top: 8px solid red;border-left: 10px solid transparent;position: absolute;top:0px;right:0px;
+}
+  .at_team_record_repeat_first{
+    padding-top: 98px;
+  }
+</style>
+
+  <ion-nav-buttons side="right">
+
+  </ion-nav-buttons>
+  <ion-header-bar class="bar-subheader" style="height:98px;padding:0px;background-color: #f8f8f8;width: 100%;" id="at_team_record_animate">
+    <div style="font-size: 16px;background-color: white;height: 44px;line-height: 44px;">
+      <img style="width: 25px;height: 25px;position: relative;top:7px;margin-left: 10px;" ng-src="{{img_at_team_record_icon}}"> <span id="target_date1" style="margin: -3px auto;background-color:#fff;font-size:17px;color:#53afff; border:0;line-height: 35px;" ng-click="target_date()" ></span>
+		<div style="float:right">
+        	<div ng-click="at_team_record_path()" style=" float:right;">
+            	<i class="icon ion-ios-arrow-right" style="margin-right: 12px;font-size: 20px;color: #ccc;"></i>
+            </div>
+        	<div style=" float:right; margin-right:12px;" ng-click="at_team_record_path()" class="">
+            	<i id="at_team_record_clear_filter_checkmark" class="ion-ios-checkmark" style="display: none; color:#07b237;font-size:18px;"></i>
+                <div id="at_team_record_clear_filter_text" style="font-size:14px; color:#999; float:right; margin-left:3px;">筛选</div>
+            </div>
+            <div ng-click="at_team_record_clear_filter()" id="at_team_record_clear_filter" style="display:none; float:right; margin-right:12px;">
+            	<i class="ion-ios-close" style=" color:#bfbfbf;font-size:18px;"></i>
+                <div style="font-size:14px; color:#333; float:right; margin-left:3px;">清除</div>
+            </div>
+            <div></div>
+        </div>
+
+    </div>
+    <div style="margin-top: 10px;background-color: white;border-bottom: 1px solid #f5f5f5;height: 44px;" >
+      <div style="float:left;padding-left: 12px; padding-top: 10px;" ng-click="toggle_leakage_card()">
+        <div style="width: 11px;height: 11px;background-color: #f45555;float: left;margin-top:5px;"></div>
+        <div  style="font-size:12px; color:#333; float:left; margin-left:2px;">漏卡</div>
+      </div>
+      <div style="float:left;padding-left: 6px;padding-top: 10px;" ng-click="toggle_late()">
+        <div style="width: 11px;height: 11px;background-color: #e2e446;float: left;margin-top:5px;"></div>
+        <div  style="font-size:12px; color:#333; float:left; margin-left:2px;">迟到</div>
+      </div>
+      <div style="float:left;padding-left: 6px;padding-top: 10px;" ng-click="toggle_leave_early()">
+        <div style="width: 11px;height: 11px;background-color: #f4a44e;float: left;margin-top:5px;"></div>
+        <div style="font-size:12px; color:#333; float:left; margin-left:2px;">早退</div>
+      </div>
+      <div style="float:left;padding-left: 6px;padding-top: 10px;" ng-click="toggle_leave()">
+        <div style="width: 11px;height: 11px;background-color: #85bcf3;float: left;margin-top:5px;"></div>
+        <div  style="font-size:12px; color:#333;float:left; margin-left:2px;">休假</div>
+      </div>
+      <div style="float:left;padding-left: 6px;padding-top: 10px;" ng-click="toggle_outdoor()">
+        <div style="width: 11px;height: 11px;background-color: #ba91f7;float: left;margin-top:5px;"></div>
+        <div  style="font-size:12px; color:#333; float:left; margin-left:2px;">外出</div>
+      </div>
+
+      <div style="float:left;padding-left: 6px;padding-top: 10px;" ng-click="toggle_overtime()">
+        <div style="width: 11px;height: 11px;background-color: #8ae29f;float: left;margin-top:5px;"></div>
+        <div style="font-size:12px; color:#333; float:left;margin-left:2px;">加班</div>
+      </div>
+
+     </div>
+  </ion-header-bar>
+
+<ion-content class="at_team_record_content" on-drag-down="onDragDown()" on-drag-up="onDragUp()" has-bouncing="true" overflow-scroll="false">
+
+
+  <div ng-show="atTeamRecordData.data_ready && atTeamRecordData.length==0  && (search_control.search_val==''&& search_control.at_status=='')" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+
+
+  <div ng-show="filterItems.length==0 && (search_control.search_val!=''||search_control.at_status!='')" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+  <div ng-click="view_detail(item.employee_name,item.staff_no,item.employee_no)" class="at_team_record_repeat_div" style="width: 100%;min-height: 70px;border-bottom: 1px solid #f5f5f5;background-color: white;overflow: hidden;padding-bottom:15px;" ng-repeat="item in filterItems=(atTeamRecordData|filter:atStatusFilter)">
+    <div style="float: left;width: 140px;height: 100%;padding-left: 10px;margin-top: 12px;">
+      <div style="width: 50px;height: 50px;border-radius: 150px;overflow: hidden;float: left;">
+        <img ng-src="{{item.empl_img}}" alt="" style="width: 50px;height: 50px;"/>
+      </div>
+      <div style="float: left;margin-left: 7px;margin-top: 5px;width: 68px;">
+        <p style="color: #333;font-size: 16px;text-align: left">{{item.employee_name}}</p>
+        <p style="color: #999;font-size: 12px;text-align: left">{{item.policy_name}}</p>
+      </div>
+    </div>
+    <div style="height: 100%;min-height:70px;margin-left: 140px;">
+<div class="at_team_record_content_div"  style="overflow: hidden;width:100%;float:right;margin-right:6px;padding-top:15px;text-align: left;" ng-show="item.other_mesg==''">
+
+      <span style="margin-left: 0px;display:inline-block; color: #666; font-size:12px;padding-top: 1px;padding-bottom: 1px;" ng-show="item.first_in!=''||item.first_out!=''">
+        <img ng-src="{{img_contract_management_directory1}}" alt="" style="float: left;width: 11px;height: 17px;margin-top: -3px;">
+        <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;position: relative;" ng-show="item.first_in!=''">{{item.first_in}}<div class="{{item.at_status[0]}}"></div></div>
+        <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;margin-left: 3px;position: relative" ng-show="item.first_out!=''">{{item.first_out}}<div class="{{item.at_status[1]}}"></div></div>
+      </span>
+      <span style="margin-left: 0px;display:inline-block; color: #666; font-size:12px;padding-top: 1px;padding-bottom: 1px;" ng-show="item.second_in!=''||item.second_out!=''">
+        <img ng-src="{{img_contract_management_directory1}}" alt="" style="float: left;width: 11px;height: 17px;margin-top: -3px;">
+        <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;position: relative"  ng-show="item.second_in!=''">{{item.second_in}}<div class="{{item.at_status[2]}}"></div></div>
+        <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;margin-left: 3px;position: relative"  ng-show="item.second_out!=''">{{item.second_out}}<div class="{{item.at_status[3]}}"></div></div>
+      </span>
+  <span style="margin-left: 0px;display:inline-block; color: #666; font-size:12px;padding-top: 3px;padding-bottom: 3px;" ng-show="item.third_in!=''||item.third_out!=''">
+    <img ng-src="{{img_contract_management_directory1}}" alt="" style="float: left;width: 11px;height: 17px;margin-top: -3px;">
+    <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;position: relative" ng-show="item.third_in!=''">{{item.third_in}}<div class="{{item.at_status[4]}}"></div></div>
+    <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;margin-left: 3px;position: relative" ng-show="item.third_out!=''">{{item.third_out}}<div class="{{item.at_status[5]}}"></div></div>
+  </span>
+  <span style="margin-left: 0px;display:inline-block; color: #666; font-size:12px;padding-top: 3px;padding-bottom: 3px;" ng-show="item.forth_in!=''||item.forth_out!=''">
+    <img ng-src="{{img_contract_management_directory1}}" alt="" style="float: left;width: 11px;height: 17px;margin-top: -3px;">
+    <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;position: relative" ng-show="item.forth_in!=''">{{item.forth_in}}<div class="{{item.at_status[6]}}"></div></div>
+    <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;margin-left: 3px;position: relative" ng-show="item.forth_out!=''">{{item.forth_out}}<div class="{{item.at_status[7]}}"></div></div>
+  </span>
+  <span style="margin-left: 0px;display:inline-block; color: #666; font-size:12px;padding-top: 3px;padding-bottom: 3px;" ng-show="item.fifth_in!=''||item.fifth_out!=''">
+    <img ng-src="{{img_contract_management_directory1}}" alt="" style="float: left;width: 11px;height: 17px;margin-top: -3px;">
+    <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;position: relative" ng-show="item.fifth_in!=''">{{item.fifth_in}}<div class="{{item.at_status[8]}}"></div></div>
+    <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;margin-left: 3px;position: relative" ng-show="item.fifth_out!=''">{{item.fifth_out}}<div class="{{item.at_status[9]}}"></div></div>
+  </span>
+  </div>
+      <div class="at_team_record_other_msg_div" style="overflow: hidden;width:100%;float:right;margin-right:12px;padding-top:10px;padding-bottom:10px;text-align: center;color: #666" ng-show="item.other_mesg!=''">{{item.other_mesg}}</div>
+    </div>
+    
+  </div>
+
+
+    </ion-content>
+
+</ion-view>
+-->
+

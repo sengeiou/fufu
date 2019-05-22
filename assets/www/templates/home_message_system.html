@@ -1,0 +1,84 @@
+﻿<ion-view hide-back-button="true" style="background-color:#f8f8f8;" title='<div style="width:100%;position:fixed; height:62px;line-height:84px; background-color:#53afff;l margin-top:0px;left:0px; top: -20px; background-color: #53afff;z-index:999;"><div id="homeMessageSystemBack" onclick="window.navbarBackClick()" style="width:30px;float:left;margin-top:25px;margin-left:-5px;" >  <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" ><span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>  </div><div id="homeMessageSystemSearch" onclick="window.navbarShowSearch(this.id);" sev_name="homeMessageSystem" style="width:30px;float:right;padding-left:0px;margin-top:25px;" >     <div  style="margin-right:0px;">
+      <i class="ion-ios-search-strong button back-button buttons button-clear button-light ion-ios-arrow-left header-item" style="font-size:20px !important;"></i>
+    </div></div>系统提醒</div>
+    <div style="width: 100%;height: 42px;margin-top: 0px;background-color: #53afff;position: absolute;z-index: 999;opacity: 0;text-align: center;line-height: 42px;color: white;transition: all .3s ease-in-out;display: none" id="homeMessageSystemSearchDiv">
+  <div class="bar bar-header item-input-inset searchclass active" style="background-color: rgb(83, 175, 255);height: 42px;" >
+    <div class="item-input-wrapper" style="margin-top: 0px !important;background-color: #fff;" >
+<div style="width: 100%" >
+      <i class="icon ion-ios-search-strong placeholder-icon" style="position:absolute;left: 20px;top:-12px; margin-top: 12px;"></i>
+        <input  id="homeMessageSystemSearchInput" type="search" placeholder="搜索..." ng-model="search_control.search_val" class="" style="margin-left:10px;" sev_name="homeMessageSystem" oninput="window.navbarSearchInput(this.id)" onfocus="window.navbarSearchfocus(this.id)" onblur="window.navbarSearchblur(this.id)"/>
+         <div onclick="window.navbarSearchClearValue(this.id)" sev_name="homeMessageSystem" id="homeMessageSystemCloseIonic" class="ion-ios-close" style="position: absolute; right: 10px; font-size: 16px; right:60px;top: 0px;color: #cccccc;display:none;"></div>
+</div>
+    </div>
+    <button class="button button-clear" style="margin-top: 0px !important; color:#fff;margin-right:-5px;" id="homeMessageSystemSearchCancelBtn" sev_name="homeMessageSystem" onclick="window.navbarSearchCancel(this.id)">
+      取消
+    </button>
+  </div>
+</div>' ng-controller="homeMessageSystemCtrl" cache-view="false" hide-tab-bar id="homeMessageSystemCtrl">
+  <style>
+
+    #homeMessageSystemCtrl .searchclass {
+      position: relative;
+      top: 0px;
+      z-index: 9999;
+      -webkit-transition: opacity .3s ease-in-out;
+      height: 0;
+      opacity: 0;
+      padding: 0px;
+    }
+    #homeMessageSystemCtrl .searchclass.active {
+      height: 44px;
+      opacity: 1;
+      padding: 10.667px;
+      -webkit-transition: opacity .3s ease-in-out;
+    }
+    .platform-win32.platform-cordova #homeMessageSystemBack{
+      margin-left:-7px;
+    }
+    .platform-android.platform-cordova #homeMessageSystemBack{
+      padding-left:10px !important;
+    }
+    .thr_cls{
+      margin-top: 45px;
+    }
+    .two_cls{
+      margin-top: 60px;;
+    }
+
+
+  </style>
+
+  <ion-content has-bouncing="true" overflow-scroll="false">
+	<div style=" width:100%; padding-left:15px;margin-bottom: 6px;" ng-repeat="item in filterItems=(homeMessageSystemDate|dataAndFilter:'create_date,content':search_control.search_val)" >
+	<div style="margin-bottom: 0px;color: #999;margin-top: 14px;position: relative" ng-show="$first||filterItems[$index].create_date!=filterItems[$index-1].create_date"  class=""><img style="width: 20px;height: 20px;position: absolute;left:0px;" ng-src="{{timeline}}">
+		<span style="height: 18px;text-align: center; background-color: #E5E5E5;color: #ffffff;border-radius: 10px;font-size: 0.32rem;line-height: 18px;margin-left: 32px;padding-left: 12px;padding-right: 12px;" class="ng-binding">
+		{{item.create_date}}
+		</span>
+	</div>
+	  <div style="width: 100%;border-radius: 10px;margin-top: 14px; " >
+		<div style="float: left;z-index: 999; width: 30px;line-height: 140%;" class="repeat_left_title">
+		  <div style="width: 20px;vertical-align: middle;display: inline-block;margin-left: 0px;text-align: center;color: black;padding-bottom:5px;padding-top:5px;"><img ng-src="{{system_icon}}" alt="" style="width: 31px;height: 31px;border-radius: 150px;"/></div>
+		</div>
+		<div style="height: 100%;width: 100%;">
+		  <div style="margin-left: 47px;height:100%;width: 100%;color:#666;border-radius: 10px;position:relative">
+		  <img style="width:9px;height:10px;position:absolute;top:3px;left:-6px;z-index:1;" src="{{message_left_icon}}">
+			<div style="padding-top:0px;margin-bottom:6px;overflow: hidden;border-radius: 10px;position: relative;background-color: white;margin-right: 95px;border:1px solid #f0f0f0;">
+			  <div style="padding-top: 0px;font-size: 0.42666rem;padding-left: 15px;color: #000000;margin-top: 8px;margin-bottom: 8px;width: 100%;font-weight:500;padding-right:15px; ">{{item.content}}</div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+	<div ng-show="homeMessageSystemDate.length=='0'" style="overflow: hidden;" class="">
+       <div style="margin-top: 195px;text-align: center">
+         <img ng-src="{{no_notices}}" alt="" style="width:143px;height: 110px;">
+       </div>
+       <div style="margin-top:20px;text-align: center;color: #a7a7a7;font-size: 0.4rem;">暂时没有消息~
+       </div>
+     </div>
+
+
+
+  </ion-content>
+</ion-view>

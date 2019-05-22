@@ -1,0 +1,40 @@
+﻿
+
+<ion-view style="background-color:#f8f8f8;" title="添加班次" ng-controller="shiftGroupAddPolicyPickerCtrl" hide-tab-bar>
+<style>
+.checkbox-icon:after {
+    width: 10px !important;
+    height: 5px !important;
+}
+</style>
+    <ion-nav-buttons side="right">
+      <button class="button button-clear" style="font-size:14px;color:white;" ng-click="rtAction()">确定(<label style="color:#fff">{{selCt}}</label>)</button>
+    </ion-nav-buttons>
+    <ion-content has-bouncing="true" overflow-scroll="false">
+
+
+	<div style="margin-top:10px;"></div>
+    <div ng-repeat="item in shiftGroupAddPolicyPickerData" class="collection-repeat-container" style="height: 49px; width:100%; background-color:#fff; border-bottom:1px solid#f5f5f5">
+    	<div style="float:left; line-height:49px; margin-left:12px; font-size:16px; color:333;">
+        	<span>{{item.policy_name}}</span>
+        </div>
+
+        <div class="checkbox-calm" style="float:right;">
+        	<label class="checkbox">
+
+              <input type="checkbox" ng-click="ckItem(item.checked)" ng-model="item.checked" ng-checked="item.checked" style="float:right;width:22px; height:22px; margin-right:6px; padding-right:0px; margin-top:6px" class="ng-pristine ng-untouched ng-valid checkbox-icon">
+            </label>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+    </ion-content>
+
+</ion-view>

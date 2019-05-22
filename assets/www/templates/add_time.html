@@ -1,0 +1,151 @@
+
+
+<ion-view style="background-color:#f8f8f8;" title="选择加班时间" cache-view="false" hide-tab-bar>
+  <ion-content ng-controller="addTimeCtrl" has-bouncing="true" overflow-scroll="false">
+
+    <div style="width: 100%;height: 100px;background-color: white;position: relative;border-top: 1px solid #f5f5f5;border-bottom: 1px solid #f5f5f5;">
+    <div style="height: 49px;overflow: hidden;">
+    <img ng-src="{{start_ot_icon}}" alt="" style="width: 30px;height: 30px;float: left;margin-top:12px;margin-left:10px;"/>
+    <div style="float: right;line-height: 49px;margin-right: 30px;font-size: 12px;color: #999"><span>需签到</span>
+      <div style="float: right;margin-top: 8px;">
+        <div class="toggle toggle-calm" style=" right:-5px;">
+          <input type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse ot_need_click" style=""  ng-model="ot_app_data._ot_need_clock" id="first_in_need_clock">
+          <div class="track" style="opacity: 0.5">
+            <div class="handle" style=" "></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="height: 49px;line-height: 49px;text-indent: 0px;font-size: 16px;"><div style="float: left;line-height: 49px;color: #333;font-size: 14px;">加班开始</div><div style="color: #53afff;float: left;line-height: 49px;margin-left: 18px" ng-click="show_time_first_in()">{{ot_app_data.add_time_first_in}}</div></div>
+    </div>
+    <div style="height: 1px;margin-left: 38px;margin-right: 30px;border-top:1px solid #f5f5f5;width: 100%"></div>
+    <div style="height: 49px;overflow: hidden;">
+    <img ng-src="{{end_ot_icon}}" alt="" style="width: 30px;height: 30px;float: left;margin-top:10px;margin-left:10px;"/>
+    <div style="float: right;line-height: 49px;margin-right: 30px; font-size: 12px;color: #999"><span>需签退</span>
+      <div style="float: right;margin-top: 8px;">
+        <div class="toggle toggle-calm" style=" right:-5px;">
+          <input type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse ot_need_click" style="" ng-model="ot_app_data._ot_need_clock" id="first_out_need_clock">
+          <div class="track" style="opacity: 0.5">
+            <div class="handle" style=" "></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="height: 49px;line-height: 49px;text-indent: 0px;font-size: 16px;"><div style="float: left;line-height: 49px;color: #333;font-size: 14px;">加班结束</div><div style="margin-left: 18px;color: #53afff;float: left;line-height: 49px;" ng-click="show_time_last_out()">{{ot_app_data.add_time_last_out}}</div></div>
+    </div>
+    </div>
+
+
+
+    <div style="height: 49px;width: 100%;line-height: 49px;border-top: 1px solid #f5f5f5;border-bottom: 1px solid #f5f5f5;margin-top: 10px;background-color: white;overflow: hidden">
+    <span style=" font-size:14px; color:#666;padding-left: 12px;">休息时间</span>
+      <div style="float: right;margin-top: 8px;"  ng-click="add_time_check()">
+        <div class="toggle toggle-calm" style=" right:10px;">
+          <input id="add_time_check"  type="checkbox"  class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+          <div class="track">
+            <div class="handle" style=" "></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div id="add_time_repeat_content">
+    <div style="width: 100%;line-height: 49px;border-bottom: 1px solid #f5f5f5;background-color: white;" ng-repeat="item in add_time_list" >
+      <div style="width: 100%;background-color: white;position: relative">
+              <div style="height: 49px;overflow: hidden">
+                <img ng-src="{{start_rest_icon}}" alt="" style="width: 30px;height: 30px;float: left;margin-top:10px;margin-left:10px;"/>
+                <div style="float: right;line-height: 49px;margin-right: 30px;font-size: 12px;color: #999"><span>需签退</span>
+                  <div style="float: right;margin-top: 8px;">
+                    <div class="toggle toggle-calm" style=" right:-5px;">
+                      <input  type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse ot_break_need_clock" style="" ng-model="ot_app_data._ot_break_need_clock" id="rest_in{{$index}}">
+                      <div class="track" style="opacity: 0.5">
+                        <div class="handle" style=" "></div>
+                      </div>
+                    </div>
+                  </div>
+          </div>
+          <div style="line-height: 49px;text-indent: 0px;font-size: 14px;color: #333">休息开始{{$index+1}}<span style="color: #53afff;margin-left: 12px;font-size: 16px" id="in_time_id{{$index}}" ng-click="showTime_in($index)">{{item.in}}</span></div>
+        </div>
+        <div style="height: 1px;margin-left: 38px;margin-right: 30px;border-top:1px solid #EEEEEE;"></div>
+        <div style="height: 49px;overflow: hidden">
+          <img ng-src="{{end_rest_icon}}" alt="" style="width: 30px;height: 30px;float: left;margin-top:10px;margin-left:10px;"/>
+          <div style="float: right;line-height: 49px;margin-right: 30px;font-size: 12px;color: #999"><span>需签到</span>
+            <div style="float: right;margin-top: 8px;">
+              <div class="toggle toggle-calm" style=" right:-5px;">
+                <input type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse ot_break_need_clock" style="" ng-model="ot_app_data._ot_break_need_clock" id="rest_out{{$index}}">
+                <div class="track" style="opacity: 0.5">
+                  <div class="handle" style=" "></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="line-height: 49px;text-indent: 0px;font-size: 14px;color: #333">休息结束{{$index+1}}<span style="color: #53afff;margin-left: 12px;font-size: 16px" id="out_time_id{{$index}}" ng-click="showTime_out($index)">{{item.out}}</span></div>
+        </div>
+        <img ng-src="{{delete_icon}}" alt="" style="width: 28px;position:absolute;top:34px;right: 0px;" ng-click="delete(item)" ng-show="$index=='3'||!$last"/>
+        <img ng-src="{{add_icon}}" alt="" style="width: 28px;position:absolute;top:34px;right: 0px;" ng-show="$index!='3'&&$last" ng-click="add()"/>
+      </div>
+    </div>
+</div>
+    <!--<div style="height: 49px;width: 100%;line-height: 49px;border-bottom: 1px solid #f5f5f5;background-color: white" id="second_content">-->
+      <!--<div style="float: left;margin-left: 12px;" id="second_content_name">时间段2</div>-->
+      <!--<div style="float: left;margin-left: 22px;">-->
+        <!--<input type="time" value="{{Ot_app_data.second_in}}" style="color: #53afff;margin-top: 4px;" id="second_in_time"/>-->
+      <!--</div>-->
+      <!--<div style="float: left;width: 20px;height: 20px;border: 1px solid #a9a9a9;margin-top: 14px;" ng-click="second_in_need_clock(Ot_app_data.second_in_need_clock)">-->
+        <!--<div style="position: relative" id="second_in_need_clock">-->
+          <!--<i class="icon ion-android-done" style="  font-size:18px;color:#53afff; position:absolute;top:-15px;left:2px; "></i>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div style="float: left;margin-left: 22px;">-->
+        <!--<input type="time" value="{{Ot_app_data.second_out}}" style="color: #53afff;margin-top: 4px;"id="second_out_time"/>-->
+      <!--</div>-->
+      <!--<div style="float: left;width: 20px;height: 20px;border: 1px solid #a9a9a9;margin-top: 14px;" ng-click="second_out_need_clock(Ot_app_data.second_out_need_clock)">-->
+        <!--<div style="position: relative" id="second_out_need_clock">-->
+          <!--<i class="icon ion-android-done" style="  font-size:18px;color:#53afff; position:absolute;top:-15px;left:2px; "></i>-->
+        <!--</div>-->
+
+      <!--</div>-->
+      <!--<div style="float: right;width: 20px;height: 20px;margin-top: 5px;margin-right:15px;">-->
+        <!--<img ng-src="{{delete_icon}}" alt="" style="width: 24px;" ng-click="second_delete()"/>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div style="height: 49px;width: 100%;line-height: 49px;border-bottom: 1px solid #f5f5f5;background-color: white" id="ot_content">-->
+      <!--<div style="float: left;margin-left: 12px;" id="ot_content_name">时间段3</div>-->
+      <!--<div style="float: left;margin-left: 22px;">-->
+        <!--<input type="time" value="" style="color: #53afff;margin-top: 4px;" id="ot_in_time"/>-->
+      <!--</div>-->
+      <!--<div style="float: left;width: 20px;height: 20px;border: 1px solid #a9a9a9;margin-top: 14px;" ng-click="ot_in_need_clock(Ot_app_data.ot_in_need_clock)">-->
+        <!--<div style="position: relative" id="ot_in_need_clock">-->
+          <!--<i class="icon ion-android-done" style="  font-size:18px;color:#53afff; position:absolute;top:-15px;left:2px; "></i>-->
+        <!--</div>-->
+
+      <!--</div>-->
+      <!--<div style="float: left;margin-left: 22px;">-->
+        <!--<input type="time" value="" style="color: #53afff;margin-top: 4px;" id="ot_out_time"/>-->
+      <!--</div>-->
+      <!--<div style="float: left;width: 20px;height: 20px;border: 1px solid #a9a9a9;margin-top: 14px;" ng-click="ot_out_need_clock(Ot_app_data.ot_out_need_clock)">-->
+        <!--<div style="position: relative" id="ot_out_need_clock">-->
+          <!--<i class="icon ion-android-done" style="  font-size:18px;color:#53afff; position:absolute;top:-15px;left:2px; "></i>-->
+        <!--</div>-->
+
+      <!--</div>-->
+      <!--<div style="float: right;width: 20px;height: 20px;margin-top: 5px;margin-right:15px;">-->
+        <!--<img ng-src="{{delete_icon}}" alt="" style="width: 24px;" ng-click="ot_delete()"/>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <div style="height: 49px;margin-top: 10px;margin-bottom: 20px;background-color: white;border-top: 1px solid #f5f5f5;border-bottom: 1px solid #f5f5f5">
+      <div style="height: 49px;">
+        <img ng-src="{{ot_hours_icon}}" alt="" style="width: 28px;height: 28px;float: left;margin-top:10px;margin-left:10px;"/>
+        <div style="float: right;line-height: 49px;margin-right: 12px;color: #999;font-size: 14px;" id="add_ot_hours">{{ot_app_data._ot_hours}}小时</div>
+        <div style="height: 49px;line-height: 49px;text-indent: 0px;font-size: 14px;color: #999;">加班时长</div>
+    </div>
+    </div>
+    <div class="padding" style="margin-top:10px;">
+      <button class="button button-block button-positive" ng-click="add_time_save()" style="font-size:16px;" id="add_time_submit">确认添加</button>
+    </div>
+
+
+
+  </ion-content>
+</ion-view>

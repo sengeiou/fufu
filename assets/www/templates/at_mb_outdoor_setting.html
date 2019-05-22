@@ -1,0 +1,182 @@
+<ion-view style="background-color:#f8f8f8;" ng-controller="atMbOutdoorSettingCtrl" title="外勤设置" cache-view="false" hide-tab-bar >
+
+  <ion-content has-bouncing="true" overflow-scroll="false">
+    <!--<div ng-repeat="item in shiftGroupData" id="{{'shift_group_' + item.shift_group_id}}">-->
+    <!--<div class="shift_management upper" style="height:49px; background-color:#fff;margin-top:10px;border-bottom: 1px solid #f5f5f5; border-top:1px solid #f5f5f5;">-->
+    <!--<div class="shift_management shift_A" style="float:left">-->
+    <!--<a style="font-size:16px;color:#333;line-height:44px;margin-left:12px;">{{item.shift_group_name}}</a>-->
+    <!--</div>-->
+    <!--<div ng-click="shift_group_delete(item.shift_group_id,item.shift_group_name)" class="shift_management delete " style="margin-top:10px;width:30px;height:30px; font-size:24px; color:#666; float:right;">-->
+
+    <!--<div style="float:right; margin-right:8px;">-->
+    <!--<div style="float:right; margin-top:2px;">-->
+    <!--<img style="width:24px; height:24px; " src="{{img_delete}}">-->
+    <!--</div>-->
+    <!--</div>-->
+
+
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--<div ng-click="shift_group_edit(item.shift_group_id)" class="Shift management time father" style="background-color:#fff;border-bottom: 1px solid #f5f5f5; overflow:hidden;">-->
+    <!--<div class="shift_number" style="text-align:center;color:#666;font-size:16px; overflow: hidden;padding: 30px 12px;" ng-bind-html="item.policy_name_list">{{item.policy_name_list}}</div>-->
+    <!--</div>-->
+
+    <!--<div ng-click="shift_group_edit(item.shift_group_id)" class="Shift management time lower father" style="height:44px;-->
+    <!--background-color:#fff;border-bottom: 1px solid #f5f5f5;">-->
+    <!--<div style="float:right; line-height:44px; margin-right:12px; color:#999; font-size:16px;">{{item.ct}}人</div>-->
+    <!--<div class="Shift management time lower son ion-ios-people-outline" style="font-size:24px; color:#999; float:right;float:right; margin-right:8px;line-height:44px;">-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<ul style="list-style-type: none;overflow: hidden;text-align: center;background-color: white;font-size: 18px;">-->
+    <!--<li id="at_mb_setting_in" ng-click="at_mb_setting_in()" style="width: 50%;float: left;height:50px;line-height:50px;color: #3ba5ff;border-bottom: 1px solid #3ba5ff">内勤设置</li>-->
+    <!--<li id="at_mb_setting_out" ng-click="at_mb_setting_out()" style="width: 50%;float: left;height:50px;line-height:50px;">外勤设置</li>-->
+    <!--</ul>-->
+
+  <!--  <div style="width: 90%;margin: 10px auto;height: 35px;background-color: white">
+      <div style="width: 50%; height: 100%; float: left; text-align: center; line-height: 35px; color: white;border-right: none; border: 1px solid rgb(83, 175, 255); font-size: 16px; border-top-left-radius: 4px; border-bottom-left-radius: 4px; background-color: rgb(83, 175, 255);" id="details_div" ng-click="details_click()" >外出申请</div>
+      <div style="width: 50%; height: 100%; border-bottom-width: 1px; border-style: solid solid solid none; border-bottom-color: rgb(238, 238, 238); border-top-width: 1px; border-top-color: rgb(238, 238, 238); border-right-width: 1px; border-right-color: rgb(238, 238, 238); float: left; text-align: center; line-height: 35px; font-size: 16px; color: black; border-top-right-radius: 4px; border-bottom-right-radius: 4px; background-color: white;" id="statistics_div" ng-click="statistics_click()" >上报位置</div>
+    </div>
+-->
+<div style="width: 100%;margin: 0px auto;height: 40px;background-color: white;overflow: hidden;position: relative">
+      <div style="width: 50%; height: 100%; float: left; text-align: center; line-height: 40px;font-size: 14px; color: #53afff;" id="details_div" ng-click="details_click()">外出申请</div>
+      <div style="width: 50%; height: 100%;border-bottom:1px solid #f5f5f5;  float: left; text-align: center; line-height: 40px; font-size: 14px; color: #808080;" id="statistics_div" ng-click="statistics_click()">上报位置</div>
+      <div style="position: absolute;width: 50%;height: 2px;background-color: #53afff;bottom:0px;transition: all .3s ease-in-out;" id="outdoor_setting_animate_div"></div>
+    </div>
+<div id="outdoor_setting_wrap" style="position: relative;-webkit-transition: all .3s ease-in-out;width: 200%;">
+<div id="outdoor_setting_wrap_left" style="width: 50%;padding-top:10px;">
+  <p style="font-size:12px; color:#999; margin-left:20px; margin-bottom:15px; margin-top:5px;margin-right:20px;">*员工外出申请单审批通过后的时间段内不计考勤</p>
+  <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; border-top:1px solid#f5f5f5; border-top:1px solid#f5f5f5;">
+    <div style="float:left;">
+      <label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">审批流程</label>
+    </div>
+    <div style="float:right;">
+      <div style="float: right;margin-top: 8px;">
+        <label class="toggle toggle-calm" style=" right:10px;" ng-click="is_use_work_flow_left()">
+          <input id="is_use_work_flow_left" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+          <div class="track">
+            <div class="handle" style=" "></div>
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:12px; color:#999; margin-left:20px; margin-bottom:15px; margin-top:5px;" ng-show="atMbOutdoorSettingData.i_wf_b==1">*流程规则请到服服Web端配置</p>
+  
+      <div style="width: 100%;height: 49px;text-align: center;line-height: 49px;padding: 12px; margin:8px 0;" ng-click="at_mb_outdoor_setting_save()">
+      <input type="button" style="color: white;text-align: center;background-color: #53afff;width: 100%;height:44px;border: none;border-radius:4px; font-size:16px;" value="保存">
+    </div>
+</div>
+
+
+<div id="outdoor_setting_wrap_right" style="padding-top:10px;width: 50%;position: absolute;left: 50%;top:0px;">
+      <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;border-top:1px solid#f5f5f5;">
+        <div style="float:left;">
+          <label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">上报位置</label>
+        </div>
+
+        <div style="float:right;">
+          <div style="float: right;margin-top: 8px;">
+            <label class="toggle toggle-calm" style=" right:10px;" ng-click="is_active()">
+              <input id="is_active"  type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="" >
+              <div class="track">
+                <div class="handle" style=" "></div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+       <p style="font-size:12px; color:#999; margin-left:12px; margin-bottom:15px; margin-top:5px;margin-right:20px;">*上报位置只用来记录员工的行踪，上报时间不计入上下班时间</p>
+<div  id="is_active_content" style="border-top:1px solid#f5f5f5;">
+      <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+        <div style="float:left;">
+          <label style="font-size:14px; color:#666; margin-left:16px; line-height:49px">拍照检验</label>
+        </div>
+        <div style="float:right;">
+          <div style="float: right;margin-top: 8px;">
+            <label class="toggle toggle-calm" style=" right:10px;" ng-click="is_need_photo()">
+              <input id="is_need_photo" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+              <div class="track">
+                <div class="handle" style=" "></div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+        <div style="float:left;">
+          <label style="font-size:14px; color:#666; margin-left:16px; line-height:49px">审批流程</label>
+        </div>
+        <div style="float:right;">
+          <div style="float: right;margin-top: 8px;">
+            <label class="toggle toggle-calm" style=" right:10px;" ng-click="is_use_work_flow()">
+              <input id="is_use_work_flow" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+              <div class="track">
+                <div class="handle" style=" "></div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+  <p style="font-size:12px; color:#999; margin-left:20px; margin-bottom:15px; margin-top:5px;" ng-show="atMbOutdoorSettingData.i_wf==1">*流程规则请到服服Web端配置</p>
+  
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;margin-top:10px;">
+        <div style="float:left;">
+          <label style="font-size:14px; color:#666; margin-left:16px; line-height:49px">校验外出单位置</label>
+        </div>
+        <div style="float:right;">
+          <div style="float: right;margin-top: 8px;">
+            <label class="toggle toggle-calm" style=" right:10px;" ng-click="is_use_bill_location()">
+              <input id="is_use_bill_location" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+              <div class="track">
+                <div class="handle" style=" "></div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+	  
+	  <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;display:none;" id="is_use_bill_location_div">
+      <div style="float:left;">
+        <label style="font-size:14px; color:#666; margin-left:16px; line-height:49px">误差范围</label>
+      </div>
+
+	  <div style="float:right;">
+        <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>
+      </div>
+      <div style="float:right;">
+        <span style="float: right;line-height: 49px;color: #999">米</span>
+        <input id="location_deviation" type="number" style="font-size:14px; color:#999; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px;margin-top:8px;" ng-model="atMbOutdoorSettingData.with_bill_location_deviation" value="{{atMbOutdoorSettingData.with_bill_location_deviation}}">
+      </div>
+
+    </div>
+	<p style="font-size:12px; color:#999; margin-left:20px; margin-bottom:15px; margin-top:5px;margin-right:20px;" ng-show="atMbOutdoorSettingData.i_wf==1">*上报位置的时候，是否要校验上报地点与外出申请单的位置一样</p>
+     <!-- <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+        <div style="float:left;">
+          <label style="font-size:14px; color:#666; margin-left:16px; line-height:49px">共享位置</label>
+        </div>
+        <div style="float:right;">
+          <div style="float: right;margin-top: 8px;">
+            <label class="toggle toggle-calm" style=" right:10px;" ng-click="is_sent_location()">
+              <input id="is_sent_location" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+              <div class="track">
+                <div class="handle" style=" "></div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>-->
+    </div>
+	
+	    <div style="width: 100%;height: 49px;text-align: center;line-height: 49px;padding: 12px; margin:8px 0;" ng-click="at_mb_outdoor_setting_save()">
+      <input type="button" style="color: white;text-align: center;background-color: #53afff;width: 100%;height:44px;border: none;border-radius:4px; font-size:16px;" value="保存">
+    </div>
+</div>
+</div>
+    <!--<input type="button" value="保存" style="height: 49px;color: #3ba5ff"/>-->
+
+  </ion-content>
+
+</ion-view>

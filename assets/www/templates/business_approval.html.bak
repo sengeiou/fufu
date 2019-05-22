@@ -1,0 +1,169 @@
+
+<ion-view title="出差明细" ng-controller="BusinessApprovalCtrl" hide-nav-bar="true" hide-tab-bar system-setting-to-view-common>
+    <style type="text/css">
+        #businesscontent #notify_list_div.notify_list_active .ng-leave {
+          -webkit-transition: .3s;
+          transition: .3s;
+          opacity: 1;
+        }
+        #businesscontent #notify_list_div.notify_list_active .ng-leave-active {
+          opacity: 0;
+        }
+        #businesscontent #approver_list_div.approver_list_active .ng-leave {
+          -webkit-transition: .3s;
+          transition: .3s;
+          opacity: 1;
+        }
+        #businesscontent #approver_list_div.approver_list_active .ng-leave-active {
+          opacity: 0;
+        }
+        .scroll-content{background-color: #f5f5f5;}
+        .head_bg{position: fixed;top:0px;width: 100%;background-size: 100%;z-index: 2;}
+        .bar{background: #53afff;}
+        .bar .title{color: #fff;}
+        .user_info{position: absolute;bottom: 15px;width: 100%;height: 30px;padding: 0 18px 0 20px;font-size: 17px;font-weight: 500;display: flex;align-items: center;color: #fff;}
+        .user_info img{width: 40px;height: 40px;border-radius: 50%;}
+        #businesscontent .select_images{display: none !important;}
+        #businesscontent .fufu-update-images{padding: 0.4rem 0;}
+        .fufu-update-images ul li{width: 90px;height: 90px;}
+        .applistdiv{box-sizing: border-box;}
+        .app_list{display: flex;width: 100%;padding-top:15px;}
+        .applistdiv:nth-of-type(1) .app_list{margin-top: 0;padding-top: 25px;}
+        .app_line{width: 1px;height: 100%;position:absolute;background-color: #bec6ce;left: 25px;}
+        .applistdiv:last-child .app_line{height: 50%;}
+        .apptit{width: 50px;display: flex;align-items: center;color: #bec6ce;margin-right: 17px;position: relative;}
+        .apptit .apptype{text-align: center;flex: 1;z-index: 2;height:30px;line-height: 30px;}
+        
+        .imgcontainer{width: 100%;overflow: hidden;}
+        .imgbox{width: 33.3333%;float: left;box-sizing:border-box;margin: 8px 0;padding-right: 8px;}
+        .item_imgs{width: 100%;position: relative;overflow: hidden;}
+        .item_imgs:before{content: "";padding-bottom: 100%;display: block;}
+        .item_imgs img{position: absolute;left: 0;top: 0;}
+        
+        .app_people{flex: 1;padding: 15px 13px;background-color: #fff;border-radius:4px;position: relative;}
+        .app_people:before{content: "";width: 10px;height: 10px;position: absolute;left: -5px;transform:rotate(45deg);top: 50%;background-color: #fff;margin-top: -5px;}
+        .app_people_top{display: flex;align-items: center;}
+        .is_app{width: 16px;height: 16px;margin-right: 11px;}
+        .is_app img{width: 100%;height: 100%;}
+        .isapp_people{width: 30px;height: 30px;margin-right:8px;border-radius: 50%;overflow: hidden;background-color: #ccc;}
+        .isapp_people img{width: 100%;height: 100%;}
+        .bgwhite{background-color: #f5f5f5;position:absolute;top: 50%;margin-top: -7.5px;}
+        .applistdiv:nth-of-type(1) .bgwhite{top:50%;margin-top: -2.5px;}
+        .footer{position: fixed;left: 0;bottom: 0;width: 100%;height:50px;box-sizing: border-box;display:flex;z-index: 4;border:none;}
+        .footer div{flex: 1;display: flex;align-items: center;justify-content: center;font-size:17px;}
+        .footer div:nth-child(1){color: #21384d;}
+        .footer div:nth-child(2){color: #f84040;}
+        .footer:before{content: "";width: 2px;height:26px;position:absolute;left: 50%;top:12px;background-color: #ccc;}
+    </style>
+
+    <div style="height: {{height}};color: white;text-align: center;line-height:{{line_height}};font-size: 17px;font-weight:500;position: fixed;top:0px;z-index: 3;width: 100%;opacity: 1;" id="per_navbar_div">
+        
+        <div style="width: 100%;height: 100%;position:relative;">
+            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" style="float: left;width: 15px;height: 15px;margin-right: 12px; margin-top: {{margin_top_left}};font-size:22px;color:#fff;padding-left:12px;padding-right:8px;" ng-click="back()"> </button>
+            <div style="position: absolute;bottom:0;left:50%;transform: translateX(-50%);line-height:{{line_height}};height: {{height}};">出差明细</div>
+            <div ng-if="from_source=='business_detail'" style="position: absolute;right: 12px;bottom: 0;line-height:{{line_height}};height: {{height}};font-size: 14px;" ng-click="more_action()">{{data.action_text}}</div>
+        </div>
+    </div>
+
+    <div class="head_bg" style="height:134px;background-image:url('{{local_resource+'img/model/personnal_data_bg.png'}}');">
+        <div class="user_info">
+            <img ng-src="{{data.empl_img}}">
+            <div style="flex: 1;margin-left: 15px;display:flex;align-items: center;">{{data.employee_name}}</div>
+            <div style="display: flex;align-items: center;">申请出差{{data.duration}}天</div>
+        </div>
+    </div>
+    <ion-content has-bouncing="true" overflow-scroll="false" id="businesscontent" style="top: 134px;bottom:{{bottom}};">
+        <div style="padding: 15px 20px 0;background-color: #fff">
+            <div style="width: 100%;display: flex;align-items:center;color: #21384d;font-size: 17px;font-weight: 600;">
+                <img style="width: 18px;height: 20px;margin-right: 9px;" ng-src="{{local_resource+'img/icon_add_city.png'}}">
+                {{data.city_name}}
+            </div>
+            <div style="font-size: 15px;color:rgba(33,56,77,0.8);margin-top:10px;">{{data.location}}</div>
+            <div style="margin-top:27px;display: flex;">
+                <div style="flex: 1;">
+                    <div style="font-size: 13px;color: #99a6b2;">开始时间</div>
+                    <div style="font-size:16px;color: #21384d;font-weight: 500;margin-top: 13px;">{{data.start_date}}</div>
+                    <div style="font-size:16px;color: #21384d;font-weight: 400;margin-top: 11px;">{{data.start_time}}</div>
+                </div>
+                <div style="width:74px;margin: 0 21px;display: flex;align-items:center;">
+                    <img ng-src="{{local_resource+'img/icon_fly.png'}}" height="21" width="74">
+                </div>
+                <div style="flex: 1;">
+                    <div style="font-size: 13px;color: #99a6b2;">结束时间</div>
+                    <div style="font-size:16px;color: #21384d;font-weight: 500;margin-top: 13px;">{{data.end_date}}</div>
+                    <div style="font-size:16px;color: #21384d;font-weight: 400;margin-top: 11px;">{{data.end_time}}</div>
+                </div>
+            </div>
+            <div style="margin-top:27px;">
+                <div style="font-size: 13px;color: #99a6b2;">备注与附件</div>
+                <div style="font-size: 15px;color: #21384d;margin-top: 13px;">{{data.apply_remark}}</div>
+                <!-- <update-images data="data.attachment"></update-images> -->
+                <div class="imgcontainer">
+                    <div class="imgbox" ng-repeat="item in attachmentimg track by $index">
+                        <div class="item_imgs" on-tap='zoomSlider.show({data:attachmentimg, index:$index})'>
+                            <img id="itemimg{{$index}}" ng-src="{{item}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="padding: 0 17px 28px;" ng-show="{{is_pc == 0}}">
+            <div class="applistdiv" style="position: relative;" ng-repeat="item in data.approver_list">
+                <div class="app_line"></div>
+                <div class="apptit bgwhite">
+                    <div class="apptype">{{item.action}}</div>
+                    <!-- <div class="apptype" ng-if="item.approval_type==1">待审批</div>
+                    <div class="apptype" ng-if="item.approval_type==2">已审批</div>
+                    <div class="apptype" ng-if="item.approval_type==3">已拒绝</div> -->
+                </div>
+                <div class="app_list">
+                    <div class="apptit"></div>
+                    <div class="app_people">
+                        <div class="app_people_top">
+                            <div class="is_app">
+                                <img ng-if="item.flag=='0' || item.flag=='1'" ng-src="{{local_resource+'img/icon_isapp_yes.png'}}">
+                                <img ng-if="item.flag=='2'" ng-src="{{local_resource+'img/icon_isapp_no.png'}}">
+                                <img ng-if="item.flag=='3'" ng-src="{{local_resource+'img/icon_isapp_no.png'}}">
+                            </div>
+                            <div class="isapp_people" style=""><img ng-src="{{item.img}}"></div>
+                            <div style="font-size: 14px;color: #333;flex: 1;display: flex;align-items: center;">{{item.name}}</div>
+                            <div style="font-size: 12px;color: #8d8d95;">{{item.action_date}}</div>
+                        </div>
+                        <div ng-if="item.approval_remark!='' " style="padding-left:27px;color: #555555;font-size: 15px;margin-top: 10px;">{{item.approval_remark}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--知会人开始ng-show="lv_app_data.i_wf=='1'"-->
+        <div ng-if="from_source=='business_approval_detail'" style="margin-top:0;background-color: #ffffff;color: #747474;position: relative;border-bottom:0px solid #f5f5f5; border-top: 0px solid #f5f5f5">
+          <p style="margin-top:0px;height:2.1em;line-height: 2.1em;margin-left:12px;font-size:14px;color:#333333;">知会人<span style="font-size:12px;color:#ccc;" ng-show="data.notify_list.length>0">(点击头像可删除)</span></p>
+          <ion-scroll zooming="false" direction="x" style="width:100%;" delegate-handle="notify_list_scroll" has-bouncing="false" horizontal-scroll-fix scrollbar-x="false" >
+            <div  style="background-color:#fff;min-width:100%;height: 120px; transform: translateZ(0px); overflow-x: scroll;" id="notify_list_div">
+              <div class="" style="width: 100px;height: 80px;float: left;position: relative;text-align: center;top:20px;" ng-repeat="item in data.notify_list">
+                <div style="width:50px;height:50px;border-radius:50px;overflow:hidden;display:inline-block;">
+                  <img style="width:50px;height: 50px;" ng-src="{{item.img}}" ng-click="delete_notify(item.user_id)">
+                </div>
+                <p style=" color:#666666;font-size:14px;">{{item.name}}</p>
+                <img style="position: absolute;top: 25px;right: -15px;height:1px;" ng-src="{{dates_line4x}}">
+              </div>
+              <div>
+                <div ng-click="openModal2()" style="width: 100px;height: 80px;float: left;position: relative;text-align: center;top:20px;">
+                  <img ng-src="{{add_approver_}}" style="width:50px;margin-left:5px;height: 50px;">
+                </div>
+              </div>
+            </div>
+          </ion-scroll>
+        </div>
+        <!--知会人结束-->
+        <div ng-if="from_source=='business_approval_detail'" style="margin-top: 12px;background: #fff;margin-bottom:40px;">
+            <div style="color: #bec6ce;margin-bottom: 10px;padding: 13px 20px 0;font-size: 14px;">备注</div>
+            <textarea style="width: 100%;height:140px;padding: 10px 20px;background-color:white;color:#333;font-size: 15px;" placeholder="说说您的理由吧" ng-model="approval_text.content"></textarea>
+        </div>
+        
+    </ion-content>
+    <div class="footer" ng-if="from_source=='business_approval_detail'">
+        <div class="foot_l" ng-click="approvalres(0)">批准</div>
+        <div class="foot_r" ng-click="approvalres(1)">拒绝</div>
+    </div>
+</ion-view>
+

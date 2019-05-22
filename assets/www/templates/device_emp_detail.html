@@ -1,0 +1,162 @@
+
+<ion-view style="background-color:#f8f8f8;" hide-back-button="true" hide-nav-bar="true" title='' ng-controller="DeviceEmpDetailCtrl" hide-tab-bar>
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" style="color:#333"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span>设备员工详情</span>
+        </h1>
+
+        <div class="buttons" style="line-height:35px;font-size:14px;" on-tap="save()">
+           保存
+        </div>
+	</ion-header-bar>
+<style>
+	.triangle_top{
+		border-bottom:6px solid #000;
+		border-top:none;
+		top:-12px;
+	}
+	.triangle_bottom{
+		border-top:6px solid #000 !important;
+		border-bottom:none !important;
+		top:15px !important;
+	}
+	.haveno_lineH{
+		display:inline-block;position:relative;top:-8px;
+	}
+	.have_lineH{
+		display:inline-block;line-height:40px;
+	}
+	.color_cls{
+		color:#ccc;
+	}
+</style>
+
+
+  <ion-content  has-bouncing="true" overflow-scroll="false">
+	
+<ul class="r-list" style="margin-bottom:20px;margin-top:10px;">
+                <li class="ad-item" on-tap="device_action()">
+                    <div class="ad-item-title">设备功能</div>
+                    <div class="ad-item-text ng-binding" ng-bind="device_emp_detail_data.operation_list_value_str"></div>
+                    <i class="icon ion-ios-arrow-right color_cls" ng-show="device_emp_detail_data.device_action_list.length>1"></i>
+                </li>
+				
+                <li class="ad-item" on-tap="show_valid_rule()" ng-show="device_function=='1'&&device_emp_detail_data.device_action_list.length>1">
+                    <div class="ad-item-title">验证方式</div>
+                    <div class="ad-item-text ng-binding" ng-bind="device_emp_detail_data.valid_list_str" id="valid_rule_div_"></div>
+					<i class="icon ion-ios-arrow-right color_cls"></i>
+                    
+                </li>
+				
+		<!--
+                <li class="ad-item disable-user-behavior" on-tap="openHolidayType()">
+                    <div class="ad-item-title">节假日类型</div>
+                    <div class="ad-item-text ng-binding"></div>
+                    <i class="icon ion-ios-arrow-right"></i>
+                </li>
+		-->
+                <li class="ad-item" ng-show="device_function!='1'&&device_emp_detail_data.device_action_list.length>1">
+					<div style="width: 100%;height: 43px;background-color: #fff;">
+						<div style="float:left;">
+						  <label style="font-size:16px; color:#333; margin-left:0px; line-height:44px">使用门禁组规则</label>
+						</div>
+						<div style="float:right;">
+						  <div style="float: right;margin-top: 6px;">
+							<label class="toggle toggle-calm" style=" right:0px;" ng-click="is_use_group(device_emp_detail_data.is_use_group)">
+							  <input id="is_use_holiday_inp" type="checkbox" ng-model="device_emp_detail_data.is_use_group" ng-checked="device_emp_detail_data.is_use_group" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+							  <div class="track">
+								<div class="handle"></div>
+							  </div>
+							</label>
+						  </div>
+						</div>
+					</div>
+                </li>
+				
+                <li class="ad-item disable-user-behavior ng-hide"  on-tap="openAccessGroup()" ng-show="device_emp_detail_data.is_use_group && device_function!='1'&&device_emp_detail_data.device_action_list.length>1">
+                    <div class="ad-item-title">门禁组</div>
+                    <div class="ad-item-text ng-binding" ng-bind="device_emp_detail_data.guard_group_list_str" id="guard_group_list_str"></div>
+                    <i class="icon ion-ios-arrow-right color_cls"></i>
+                </li>
+        </ul>
+  
+  <div ng-show="device_function!='1'">
+		<ul class="r-list" style="margin-bottom:20px;margin-top:10px;" ng-show="!device_emp_detail_data.is_use_group">
+                <li class="ad-item" on-tap="show_valid_rule()">
+                    <div class="ad-item-title">验证方式</div>
+                    <div class="ad-item-text ng-binding" ng-bind="device_emp_detail_data.valid_list_str" id="valid_rule_div"></div>
+					<i class="icon ion-ios-arrow-right color_cls"></i>
+                    
+                </li>
+                <li class="ad-item" on-tap="add_time_division_picklist()" ng-show="device_emp_detail_data.device_action_list.length>1">
+                    <div class="ad-item-title">开门时间段</div>	
+                    <div class="ad-item-text ng-binding" id="time_division_div" ng-bind="device_emp_detail_data.devision_list_str"></div>
+					<i class="icon ion-ios-arrow-right color_cls"></i>
+                    
+                </li>
+				<li class="" style="padding:0;" ng-show="device_emp_detail_data.weekday.length!=0&&device_emp_detail_data.device_action_list.length>1">
+				
+					<div style="max-height: 370px; overflow: hidden;"  class="">
+						<div id="time_division_wrap" style=" max-height: 44px; border-bottom: 1px solid rgb(245, 245, 245); overflow: hidden;  background-color: rgb(255, 255, 255); font-size: 14px; color: rgb(51, 51, 51);">
+							<div style="height:40px;width: 50%;float:left;" ng-repeat="item in device_emp_detail_data.weekday">
+								<img style="height:22px;width:22px;margin:6px;position:relative;top:3px;" ng-show="$index%2==0" ng-src="{{week_icon}}">
+								<div ng-class="$index%2==0 ? 'haveno_lineH' : 'have_lineH' ">{{item.name}}{{item.from}}~{{item.to}}</div>
+							</div>
+						</div>	
+							<div style="width:100%;height:25px; text-align:center;clear:both;background-color:#fff;" ng-click="toggle_time_division(toggle_time_division_flag)" class="">
+								<i id="toggle_icon" class="icon ion-ios-arrow-down" style="margin-top:10px; margin-right:12px; line-height:25px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+							</div>
+					</div>
+				</li>
+		
+        </ul>
+		
+		
+		<ul class="r-list" style="margin-bottom:20px;margin-top:10px;" ng-show="device_emp_detail_data.is_use_group">
+                <li class="ad-item" >
+                    <div class="ad-item-title">验证方式</div>
+                    <div class="ad-item-text ng-binding" style="padding:0;" ng-bind="device_emp_detail_data.valid_list_str_no_select" id="valid_rule_div_no_select"></div>
+                    
+                </li>
+                <li class="ad-item" ng-show="device_emp_detail_data.device_action_list.length>1">
+                    <div class="ad-item-title">开门时间段</div>
+                    <div class="ad-item-text ng-binding" style="padding:0;" id="time_division_div_no_select" ng-bind="device_emp_detail_data.devision_list_str"></div>
+                    
+                </li>
+				<li class="" style="padding:0;" ng-show="device_emp_detail_data.weekday.length!=0&&device_emp_detail_data.device_action_list.length>1">
+				
+					<div style="max-height: 370px; overflow: hidden;width:100%;"  class="">
+						<div id="time_division_wrap_no_select" style="max-height:44px; border-bottom: 1px solid rgb(245, 245, 245); overflow: hidden; background-color: rgb(255, 255, 255); font-size: 14px; color: rgb(51, 51, 51);">
+							<div style="height:40px;width: 50%;float:left;" ng-repeat="item in device_emp_detail_data.weekday_">
+								<img style="height:22px;width:22px;margin:6px;position:relative;top:3px;" ng-show="$index%2==0" ng-src="{{week_icon}}">
+								<div ng-class="$index%2==0 ? 'haveno_lineH' : 'have_lineH' ">{{item.name}}{{item.from}}~{{item.to}}</div>
+							</div>
+						</div>	
+							<div style="width:100%;height:25px; text-align:center;clear:both;background-color:#fff;" ng-click="toggle_time_division_no_select(toggle_time_division_flag_no_select)" class="">
+								<i id="toggle_icon_no_select" class="icon ion-ios-arrow-down" style="margin-top:10px; margin-right:12px; line-height:25px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+							</div>
+					</div>
+				</li>
+		
+        </ul>
+  </div>
+   
+  <div class='ng-hide' id="picklist_valid_rule_key">{{device_emp_detail_data.vaild_rule_id}}</div>
+  <div class='ng-hide' id="picklist_valid_rule_value">{{device_emp_detail_data.valid_list_str}}</div>
+  <div class='ng-hide' id="picklist_time_division_key">{{device_emp_detail_data.devision_id}}</div>
+  <div class='ng-hide' id="picklist_time_division_value">{{device_emp_detail_data.devision_list_str}}</div>
+  <div class='ng-hide' id="picklist_access_group_key">{{device_emp_detail_data.guard_group_key}}</div>
+  
+  <div class='ng-hide' id="	"></div>
+  
+  
+  
+  </ion-content>  
+</ion-view>
+

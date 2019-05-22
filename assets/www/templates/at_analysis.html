@@ -1,0 +1,91 @@
+
+<ion-view style="background-color:#f8f8f8;" title="考勤分析计算" hide-tab-bar>
+<style>
+    .at_cal_popup .popup-body{
+      margin-bottom: 0px !important;
+    }
+    .at_cal_popup .popup{
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      border: none !important;
+    }
+    .at_cal_popup .popup-head{
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      border: none !important;
+    }
+    .at_cal_popup .popup-buttons{
+      border-top:1px solid #f5f5f5;
+
+    }
+    .at_cal_popup .button-dark{
+      border-right:1px solid #f5f5f5;
+      
+    }
+    .at_cal_popup .button-dark.activated{
+      color: #53afff !important;
+    }
+    .at_cal_popup .popup{
+      width:7.2rem !important;
+      /*border-radius: 10px;*/
+    }
+</style>
+  <ion-content has-bouncing="true" overflow-scroll="false" ng-controller="atAnalyCtrl" >
+  <div ng-show="process_status.process_status=='1'" id="at_task_in_process_div" style="display:block;height:44px;background-color:#FFFFFF;">
+	<div style="float:left;height:44px;"> 
+		<img ng-src="{{img_task_in_process_icon}}" style="width:22px;height:22px;margin-top:11px;margin-left:12px;margin-right:12px; ">
+	</div>
+  <p style="line-height:44px;font-size:0.3733333333333rem; color: #333333">本次考勤计算还未完成，请耐心等待...</p>
+  </div>
+  
+  <div ng-show="process_status.process_status=='2'" id="at_task_complete_div" style="display:block;height:44px;background-color:#FFFFFF;">
+	<div style="float:left;height:44px;">
+	  <img ng-src="{{img_task_complete_icon}}" style="width:22px;height:22px;margin-top:11px;margin-left:12px;margin-right:12px; ">
+	</div>
+	<div ng-click="close_process_div()" style="float:right;height:44px;">
+	  <img ng-src="{{img_task_close}}"style="width:22px;height:22px;float:right;margin:11px;">
+	</div>
+  <p ng-click="redirect_to_result()" style="line-height:44px;font-size:0.3733333333333rem; color: #333333">本次考勤计算已完成，去查看考勤结果</p>
+  </div>
+  
+    <div style="margin-top:0px;padding:10px 0px;">
+      <div class="row" style="background-color:#fff;border:1px solid #f0f0f0;font-size:17px;">
+        <div class="item item-input" style="width:45%;border:none;">
+          <!--<input type="date" id="at_analysis_f" style="text-align:center;font-size:17px;"/>-->
+          <div id="at_analysis_f" style="color:#53afff;line-height: 35px;margin: 0 auto" ng-click="at_analysis_f()"></div>
+        </div>
+        <div style="padding-top:7px;width:8%;margin-right:10px;"><img ng-src="{{dates_line}}" style="width:40px;"></div>
+        <div class="item item-input" style="width:45%;border:none;">
+          <!--<input type="date" id="at_analysis_t" style="text-align:center;font-size:17px;"/>-->
+          <div id="at_analysis_t" style="color:#53afff;line-height: 35px;margin: 0 auto" ng-click="at_analysis_t()"></div>
+        </div>
+      </div>
+      <a class="button button-full button-light icon ion-ios-plus-outline"
+         href="#/home_page/auto_roster/modal_empl_list/at_analysis_empl_list/at_analysis_empl_list_hidden"
+         ng-hide="check_all"  style="border-bottom:1px solid #F0F0F0;font-size:14px;margin-top:0px;padding:5px 0px;">&nbsp;&nbsp;&nbsp;选择员工</a>
+    </div>
+    <ul class="list" style="margin-bottom:0px;">
+      <li class="item item-toggle">
+        全部员工
+        <label class="toggle toggle-calm">
+          <input type="checkbox" ng-model="check_all"  ng-checked="check_all">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+    </ul>
+
+    <div style="margin-top:0px;" ng-hide="check_all">
+      <label class="item-input item-stacked-label" style="padding:10px 0px 0px 0px;">
+        <span class="input-label" style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px;">已选择员工</span>
+        <textarea style="height:100px;background-color:white;border-bottom:1px solid #f0f0f0;" id="at_analysis_empl_list" placeholder="暂无选择员工..." readonly="readonly"></textarea>
+        <textarea ng-hide="true"  id="at_analysis_empl_list_hidden"></textarea>
+      </label>
+    </div>
+    <div style="margin:20px 12px;">
+      <button class="button button-block button-positive" ng-click="runAnalysis()">开始分析</button>
+    </div>
+  </ion-content>
+</ion-view>
+

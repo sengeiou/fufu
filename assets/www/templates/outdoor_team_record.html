@@ -1,0 +1,238 @@
+
+<ion-view hide-back-button="true"  style="background-color:#f8f8f8;" title='<div style="width: 80%;margin: 5px auto;height: 35px;">
+  <div style="width: 50%; height: 100%; float: left; text-align: center; line-height: 35px; color: #53afff;border-right: none; border: 1px solid white; font-size: 16px; border-top-left-radius: 4px; border-bottom-left-radius: 4px; background-color: white;" id="details_div" ng-click="details_click()">外出单</div>
+  <div style="width: 50%; height: 100%; float: left; text-align: center; line-height: 35px; color: #white;border-left: none; border: 1px solid white; font-size: 16px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; background-color: #53afff;" id="statistics_div" ng-click="statistics_click()">上报位置</div>
+</div>'  hide-tab-bar ng-controller="OutdoorTeamRecordCtrl" id='outdoor_team_record'>
+  <style>
+    #outdoor_team_record .searchclass {
+      position: relative;
+      top: 0px;
+      z-index: 9999;
+      -webkit-transition: opacity .3s ease-in-out;
+      height: 0;
+      opacity: 0;
+      padding: 0px;
+    }
+    #outdoor_team_record .searchclass.active {
+      height: 44px;
+      opacity: 1;
+      padding: 10.667px;
+      -webkit-transition: opacity .3s ease-in-out;
+    }
+    .at_team_record_has_border {
+      border-left:1px solid #53afff;
+    }
+    .last{
+      border-left:1px solid #53afff;
+    }
+    .first{
+      border-top: 1px solid #f5f5f5;
+    }
+  </style>
+  <ion-nav-buttons side="left">
+    <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" ng-click="OutdoorTeamRecordBack()">
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <div ng-click="toggle_search();">
+      <i class="ion-ios-search-strong button back-button buttons button-clear button-light ion-ios-arrow-left header-item" style="font-size:20px !important;"></i>
+    </div>
+  </ion-nav-buttons>
+  <ion-content has-bouncing="true" overflow-scroll="false">
+    <!--搜索-->
+    <div class="bar bar-header item-input-inset searchclass" style="background-color:#53afff;" ng-class="{'active':show_search}">
+      <label class="item-input-wrapper" style="margin-top: 0px !important;background-color: #fff;" clear-value-box>
+        <i class="icon ion-ios-search-strong placeholder-icon"></i>
+        <input type="search" placeholder="搜索日期、时间、姓名..." ng-model="search_control.search_val" clear-value-input>
+        <div clear-value-btn style="position: absolute; right: 65px; font-size: 16px; height: 30px;line-height: 30px;  color: #cccccc;"></div>
+      </label>
+      <button class="button button-clear"  style="margin-top: 0px !important; color:#fff;" ng-click="cancel_search();">
+        取消
+      </button>
+    </div>
+    <!--搜索-->
+    <div style="height: 68px;width: 100%;background-color: #53afff;color: white;padding-top: 0px;" >
+      <div style="overflow:hidden; width:22.5%; float:left">
+      <div style="height: 68px;float: left;margin: 0 20%;" ng-click="showDate()">
+        <div style="margin-top: 13px;font-size:12px;">{{date_year}}年</div>
+        <div style="position: relative;font-size: 14px;"><span style="font-size: 18px">{{date_month}}</span><span style="font-size:12px;">月</span>
+        <div style="width: 0;height: 0;border-left: 5px solid transparent;border-right: 5px solid transparent;border-top: 5px solid white;position: absolute;top:7px;left:35px;"></div>
+        </div>
+      </div>
+      </div>
+      <div style="height: 38px;width:1px;float: left;border-right: 1px dashed white; margin-top:16px;"></div>
+      <div style="overflow:hidden; width:77%; float:left">
+      <div style="height: 68px;float: left; margin-left:5%;">
+          <div style="margin-top: 13px; font-size:12px;">团队</div>
+          <div style="position: relative;font-size: 14px;"><span style="font-size: 18px;">{{ot_team_record_data.data1.hc_num}}</span><span style="font-size:12px;">人</span></div>
+      </div>
+      <div style="height: 68px;float: left; margin-left:10%;" class="details_cls">
+        <div style="margin-top: 13px; font-size:12px;">外出统计</div>
+        <div style="position: relative;font-size: 14px;"><span style="font-size: 18px;">{{ot_team_record_data.data1.bill_hc_num}}</span><span style="font-size:12px;">人</span></div>
+      </div>
+        <div style="height: 68px;float: left; margin-left:10%;display: none" class="statistics_cls">
+          <div style="margin-top: 13px; font-size:12px;">上报统计</div>
+          <div style="position: relative;font-size: 14px;"><span style="font-size: 18px;">{{ot_team_record_data.data2.statis_hc_num}}</span><span style="font-size:12px;">人</span></div>
+        </div>
+      <!--<div style="height: 68px;float: left; margin-left:10%;">-->
+        <!--<div style="margin-top: 13px; font-size:12px;">加班总时长</div>-->
+        <!--<div style="position: relative;font-size: 14px;"><span style="font-size: 18px;">{{ot_num}}</span><span style="font-size:12px;">小时</span></div>-->
+      <!--</div>-->
+      </div>
+    </div>
+
+<!--<div style="width: 90%;margin: 10px auto;height: 35px;">-->
+  <!--<div style="width: 50%;height:100%;background-color: #53afff;float: left;text-align: center;line-height: 35px;color: white; font-size:16px;border-top-left-radius: 4px; border-bottom-left-radius: 4px;" id="details_div" ng-click="details_click()">外出单</div>-->
+  <!--<div style="width: 50%;height:100%;background-color: white; border-bottom:1px solid#eee; border-top:1px solid#eee; border-right:1px solid#eee; float: left;text-align: center;line-height: 35px; font-size:16px;color: #333;border-top-right-radius: 4px;border-bottom-right-radius: 4px;" id="statistics_div" ng-click="statistics_click()">上报位置</div>-->
+<!--</div>-->
+
+    <div id="outdoor_team_record_wrap" style="position: relative;-webkit-transition: all .3s ease-in-out;width: 200%;overflow: hidden">
+<div  id="details_content_div" style="width:50%;">
+  <div ng-show="ot_team_record_data.data_ready && ot_team_record_data.data1.bill_data.length==0 && search_control.search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+  <div ng-show="filterItems.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+    <div ng-repeat="item in filterItems=(ot_team_record_data.data1.bill_data|dataAndFilter:'app_date,employee_name,first_in,ot_code_name,ot_hours,first_out,ot_in,ot_out,second_in,second_out,dw,date,reason,customers':search_control.search_val)" ng-show="item.ot_data.length!='0'">
+      <div  style="padding-top: 15px; margin-bottom: 5px;color: #666;font-size: 14px; margin-left: 12px;" ng-show="$first||filterItems[$index].date!=filterItems[$index-1].date">{{item.date}}-{{item.dw}}</div>
+      <div style="width: 100%;height: 1px;border-top: 1px solid #f5f5f5;" ng-show="$first||filterItems[$index].date!=filterItems[$index-1].date"></div>
+      <!--<div ng-repeat="item in item.bill_data|dataAndFilter:'app_date,employee_name,first_in,ot_code_name,ot_hours,first_out,ot_in,ot_out,second_in,second_out':search_control.search_val" style="padding: 12px 12px 12px 12px;border-bottom:1px solid #f5f5f5; background-color:#fff; " ng-click="loadOtteamContent(item.process_instance,item.app_id)" ng-class="$first ? 'first' :''">-->
+          <div style="width: 100%;overflow: hidden;padding: 12px 12px 12px 12px;border-bottom:1px solid #f5f5f5; background-color:#fff;" ng-click="loadOtteamContent(item.process_instance,item.app_id)">
+            <div style="position: relative">
+              <img src="{{icon_wait}}" alt="" style="position: absolute;width: 18px;height: 18px;left: 35px;" ng-show="item.is_processing=='1'" class="">
+            <div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden;">
+              <img src="{{item.empl_img}}" alt="" style="width: 50px;height: 50px;">
+            </div>
+              <img src="{{is_pc_icon}}" alt="" style="position: absolute;width: 18px;height: 18px;left: 35px;" ng-show="item.is_pc=='1'"/>
+            </div>
+            <div style="width: 100%;">
+                  <div style="float: right; color:#bbb; font-size:12px; padding-top:2px;" class="ng-binding">{{item.app_date}}</div>
+                  <div style="text-indent: 12px; color:#333; font-size:16px; padding-top:2px;" class="ng-binding">{{item.employee_name}} <span style="color:#ff6600;">{{item.reason}}</span> <span style="color:#ff6600;" ng-show="item.reason=='拜访客户'">：{{item.customers}}</span></div>
+
+              <div style="overflow: hidden; padding-left:10px; margin-top:4px; font-size:14px; " id="div_time">
+                <div class="" style="">
+                  <div style="margin-left: 2px;float: left;color:#666" ng-show="item.first_in!=''&&item.first_out!=''">
+                    <img ng-src="{{contract_management_directory1}}" alt="" style="float: left;width: 11px;height: 17px; margin-top:1px;" >
+                    <div style="overflow:hidden;float:left; margin-top:3px;">
+                      <span style="margin-left: 2px;float: left" class="ng-binding">{{item.time_from}}</span><span style="float: left">-</span>
+                    </div>
+                    <div style="overflow:hidden;float:left;margin-top:3px;">
+                      <span style="margin-left: 3px;" class="ng-binding">{{item.time_to}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              <div style="color:#999;padding-left: 65px; font-size:14px;">{{item.location}}</div>
+
+            </div>
+        <!--</div>-->
+ </div>
+
+</div>
+
+<div id="statistics_content_div" style="width: 50%;position: absolute;left: 50%;top:0px;" >
+
+
+
+  <div ng-show="ot_team_record_data.data_ready && ot_team_record_data.data2.data_list.length==0 && search_control.search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+  <div ng-show="filterItems_.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+  <div ng-repeat="item_data in filterItems_=(ot_team_record_data.data2.data_list|dataAndFilter:'employee_name,dw,date':search_control.search_val)" ng-click="loadSearchMap(item_data.date_detail,item_data.employee_no)">
+    <div  style="padding-top: 10px; margin-bottom: 5px;color: #666;font-size: 14px; margin-left: 12px;" ng-show="$first||(ot_team_record_data.data2.data_list|dataAndFilter:'employee_name,dw,date':search_control.search_val)[$index].date!=(ot_team_record_data.data2.data_list|dataAndFilter:'employee_name,dw,date':search_control.search_val)[$index-1].date">{{item_data.date}}-{{item_data.dw}}</div>
+
+    <!--<div ng-repeat="item_data in item.data_list|dataAndFilter:'time_from,time_to,reason,employee_name,first_in,first_out,ot_in,ot_out,second_in,second_out,location':search_control.search_val" style="border-bottom:1px solid #f5f5f5; background-color:#fff; padding-bottom: 0px;"  ng-class="$first ? 'first' :''">-->
+      <div style="width: 100%;overflow: hidden;margin-top: 0px;background-color: white;">
+        <div style="position: relative;overflow: hidden;padding:10px;" ng-show="$first||(ot_team_record_data.data2.data_list|dataAndFilter:'employee_name,dw,date':search_control.search_val)[$index].date!=(ot_team_record_data.data2.data_list|dataAndFilter:'employee_name,dw,date':search_control.search_val)[$index-1].date||(ot_team_record_data.data2.data_list|dataAndFilter:'employee_name,dw,date':search_control.search_val)[$index].employee_name!=(ot_team_record_data.data2.data_list|dataAndFilter:'employee_name,dw,date':search_control.search_val)[$index-1].employee_name">
+          <div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden;margin-left:0px;">
+            <img src="{{item_data.empl_img}}" alt="" style="width: 50px;height: 50px;">
+          </div>
+          <img src="{{is_pc_icon}}" alt="" style="position: absolute;width: 18px;height: 18px;left: 35px;" ng-show="item_data.is_pc=='1'"/>
+
+        <div style="width: 100%;" >
+          <div style="text-indent: 12px; color:#333; font-size:16px; padding-top:2px;margin-top: 12px;" class="ng-binding">{{item_data.employee_name}}  上报 <span style="color:#ff6600;">{{item_data.fieldwork_num}}</span>次 </div>
+          <!--<div>{{ot_team_record_statistics_data.data_list.length}}</div>-->
+          <div style="float: right;margin-top: -60px;height: 72px;position: relative;width: 20%;right: -12px;top:4px;" ng-click="expand_item(item_data,$event,'team_outdoor_'+item_data.date+'_'+item_data.employee_no)">
+            <label style="padding-left:36px;padding-bottom: 5px;padding-top: 19px;line-height: 100px;" ng-show="!item_data.is_expand" class=""> <img style="margin-top:5px" ng-src="img/icon/circle_arrow_down.png" width="18px" height="18px" src="img/icon/circle_arrow_down.png"> </label>
+            <label style="padding-left:36px;padding-bottom: 5px;padding-top: 19px;line-height: 100px;" ng-show="item_data.is_expand" class="ng-hide"> <img style="margin-top:5px" ng-src="img/icon/circle_arrow_up.png" width="18px" height="18px" src="img/icon/circle_arrow_up.png">  </label>
+
+            <!--<label ng-show="!item.is_expand" class="ion-ios-arrow-down" style="font-size:20px; color:#ccc;"></label>
+            <label ng-show="item.is_expand" class="ion-ios-arrow-up" style="font-size:20px; color:#ccc;"></label>-->
+          </div>
+          </div>
+        </div>
+        <div style="width: 100%;;height: 1px;border-top: 1px solid #f1f1f1;margin-top: 0px;" ng-show="$first||ot_team_record_data.data2.data_list[$index].date!=ot_team_record_data.data2.data_list[$index-1].date||ot_team_record_data.data2.data_list[$index].employee_name!=ot_team_record_data.data2.data_list[$index-1].employee_name"></div>
+
+
+        <div style="width:100%; overflow:hidden; padding-left:12px; margin-bottom:0px;margin-top: 0px; background-color:#f8f8f8;display: none;position:relative;" class="team_outdoor_{{item_data.date}}_{{item_data.employee_no}}">
+          <img ng-click="show_img(item_data.photo)"  style="position:absolute;width:60px;height:60px;right:12px;top:10px;" ng-src="{{item_data.photo}}" ng-show="item_data.photo!=''" class='ng-hide'>
+		  <!--第一行-->
+          <div style="height: 39px;overflow: hidden; width:100%; margin-top:0px;">
+            <div style="float:left" ng-show="item_data.flag=='0'"><img style=" width:12px; height:39px;" src="{{img_circle6}}" /></div>
+            <div style="float:left" ng-show="item_data.flag=='1'"><img style=" width:12px; height:39px;" src="{{img_circle3}}" /></div>
+            <div style="float:left" ng-show="item_data.flag=='2'"><img style=" width:12px; height:39px;" src="{{img_circle5}}" /></div>
+            <div style="float:left" ng-show="item_data.flag=='3'"><img style=" width:12px; height:39px;" src="{{img_circle4}}" /></div>
+            <div style="float:left; line-height:39px;font-size:18px;margin-left:12px;">{{item_data.time}}</div>
+            <!--<div style="float:left;line-height:39px;border-radius: 51px;width: 24%;height: 22px;line-height: 22px;text-align: center;font-size: 14px;background-color: #e60012; margin-left: 12px; color:#fff;margin-top:7px;margin-left:12px;">迟到3分钟</div>-->
+          </div>
+
+          <div style="overflow:hidden; width:100%; margin-top:-5px;">
+            <div style="width:100%; overflow:hidden; margin-left:6px;padding-bottom: 12px;" ng-class="item_data.flag!='3'&&item_data.flag!='0'? 'last' : ''">
+              <div style="clear:both;">
+                <div style="float:left; margin-right:5px; margin-left:14px;margin-bottom: -5px;"><img src="{{img_team_attendance_iocation}}" width="22px" height="22px" /></div>
+                <div style="float:left; line-height:22px; width: 80%; color:#999;padding-right:60px;">{{item_data.location}}</div>
+              </div>
+              <div ng-show="item_data.type == '1'" style="clear:both;">
+                <div style="float:left; margin-right:5px; margin-left:14px;margin-bottom: -5px;"><img ng-src="{{img_team_attendance_fingerprint}}" width="22px" height="22px"></div>
+                <div style="float:left; line-height:22px; width: 80%; color:#999;">指纹打卡</div>
+              </div>
+              <div ng-show="item_data.type == '99'" style="clear:both;">
+                <div style="float:left; margin-right:5px; margin-left:14px;margin-bottom: -5px;"><img ng-src="{{img_normal_sign_in}}" width="22px" height="22px"></div>
+                <div style="float:left; line-height:22px; width: 80%; color:#999;">内勤打卡</div>
+              </div>
+              <div ng-show="item_data.type == '100'" style="clear:both;">
+                <div style="float:left; margin-right:5px; margin-left:14px;margin-bottom: -5px;"><img ng-src="{{img_fieldwork_sign_in}}" width="22px" height="22px"></div>
+                <div style="float:left; line-height:22px; width: 80%; color:#999;">上报位置</div>
+              </div>
+              <div ng-show="item_data.type == '101'" style="clear:both;">
+                <div style="float:left; margin-right:5px; margin-left:14px;margin-bottom: -5px;"><img ng-src="{{img_fieldwork_sign_in}}" width="22px" height="22px"></div>
+                <div style="float:left; line-height:22px; width: 80%; color:#999;">异地打卡</div>
+              </div>
+              <div ng-show="item_data.type != '1' && item_data.type != '15' && item_data.type != '99' && item_data.type != '100' && item_data.type != '101'" style="clear:both;">
+                <div style="float:left; margin-right:5px; margin-left:14px;margin-bottom: -5px;"><img ng-src="{{img_other_sign_in}}" width="22px" height="22px"></div>
+                <div style="float:left; line-height:22px; width: 80%; color:#999;">其他打卡</div>
+              </div>
+
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+      </div>
+    <!--</div>-->
+  </div>
+
+
+  <!--<div ng-repeat="item in ot_team_record_statistics_data.data_list" style="padding: 10px 12px 10px 12px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(245, 245, 245); background-color: rgb(255, 255, 255);position: relative">-->
+  <!--<div ng-show="$first" style="width: 100%;height: 1px;border-top: 1px solid #f5f5f5;position: absolute;top:0px;left: 0px;"></div>-->
+    <!--<div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden;">-->
+    <!--<img ng-src="{{item.empl_img}}" style="width: 50px;height: 50px;">-->
+    <!--</div>-->
+    <!--<div style="width: 60px;height: 60px;float: right;">-->
+      <!--<div style="text-align: center;color: #ff6600; margin-bottom:12px;padding-top: 2px;">{{item.ot_data[0].ot_time}}次</div>-->
+      <!--<div style="text-align: center;color: #ff6600">{{item.ot_data[0].ot_total}}小时</div>-->
+    <!--</div>-->
+    <!--<div style="width: 60%;height: 60px;margin-left: 60px;">-->
+      <!--<div style="color: #333;font-size: 16px;padding-top: 2px;">{{item.employee_name}}</div>-->
+      <!--<div style="width: 100%;height: 20px;margin-top: 10px;">-->
+      <!--<div style="float: left;height: 24px;background-color:#85D6D5;line-height: 24px;text-align: center; color:#fff; " id="post_num_{{$index}}" ng-show="item.ot_data[0].post_num!='0'">{{item.ot_data[0].post_num}}</div>-->
+        <!--<div style="float: left;height: 24px;background-color:#8FCBFF; line-height: 24px;text-align: center;color:#fff;" id="off_num_{{$index}}" ng-show="item.ot_data[0].off_num!='0'">{{item.ot_data[0].off_num}}</div>-->
+        <!--<div style="float: left;height: 24px;background-color:#F19DE2;line-height: 24px;text-align: center;color:#fff; " id="nh_num_{{$index}}" ng-show="item.ot_data[0].nh_num!='0'">{{item.ot_data[0].nh_num}}</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div ng-init="fireEvent($index,ot_team_record_statistics_data)"></div>-->
+  <!--</div>-->
+</div>
+    </div>
+
+  </ion-content>
+</ion-view>

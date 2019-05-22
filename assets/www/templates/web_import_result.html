@@ -1,0 +1,60 @@
+﻿
+<ion-view style="background-color:#f8f8f8;" title="导入信息" ng-controller="webImportResultCtrl" hide-tab-bar>
+
+<style>
+
+</style>
+
+    <ion-content has-bouncing="true" overflow-scroll="false">
+
+
+    <!--导入失败-->
+	<div style="height:49px; background-color:#fff;margin-top:10px;border-bottom: 1px solid #f5f5f5;">
+		<div style="float:left; margin-left:12px; line-height:49px; font-size:20px; color:#bababa;" class="ion-ios-close"></div>
+        <div style="float:left; line-height:49px; margin-left:5px;">
+        	<span style="font-size:16px; color:#333;">导入失败</span>
+            <span style="font-size:14px; color:#333;">({{failure_employee_count}}人)</span>
+		</div>
+        <div ng-click="import_failure_employee()" ng-hide="failure_employee_count == '0'" style="float:right; margin-right:12px; line-height:49px;">
+        	<span style="font-size:14px; color:#53afff;">重新导入</span>
+        </div>
+	</div>
+    <!--导入失败-->
+    <!--员工-->
+	<div id="item_failure_div" style="background-color:#fff;border-bottom: 1px solid #f5f5f5; width:100%; padding:0 0; overflow:auto">
+
+
+
+
+
+	</div>
+	<!--员工-->
+
+
+    <!--导入成功-->
+	<div style="height:49px; background-color:#fff;margin-top:10px;border-bottom: 1px solid #f5f5f5;" ng-click="back_to_user_admin()">
+		<div style="float:left; margin-left:12px; line-height:49px; font-size:20px; color:#53afff;" class="ion-ios-checkmark"></div>
+        <div style="float:left; line-height:49px; margin-left:5px;">
+        	<span style="font-size:16px; color:#333;">导入成功</span>
+            <span style="font-size:14px; color:#333;">({{success_employee_count}}人)</span>
+		</div>
+		<div style="float:right;">
+			<i class="icon ion-ios-arrow-right" style="margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+	</div>
+    <!--导入成功-->
+    <!--员工-->
+	<div id="item_success_div" style="background-color:#fff;border-bottom: 1px solid #f5f5f5; width:100%; padding:0 0; overflow:auto">
+
+
+
+
+	</div>
+	<!--员工-->
+
+
+    <!--结束-->
+    </ion-content>
+
+
+</ion-view>

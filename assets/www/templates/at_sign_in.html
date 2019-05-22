@@ -1,0 +1,184 @@
+﻿<ion-view  show-tab-bar  cache-view="false" ng-controller="atSignInCtrl" title=' <div style="width:80%; height:43px; background-color:#53afff; margin-top:0px;margin-left:10%; ">   <div ng-click="previous_day()" id="previous_day" style="display:none;width:20%;height:49px; float:left; ">       	<i style="float:right; line-height:49px; color:white;font-size:20px;padding-right:-10px; padding-top:0px"><img style="width:24px; height:24px;margin-bottom: -3px;" src="img/icon/left.png" /></i>        </div>    	<div style="width:60%;height:49px; float:left; margin-top:0px; padding-left:2px">        	<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;padding-left: 0px;" id="at_sign_in_current_date_2">		<span id="at_sign_in_current_date_1" style="line-height: 35px;margin:0 auto;" ></span>		<input style="text-align:center;color: white; font-size:16px;display:none;" type="date" id="at_sign_in_current_date">			</label>        </div>    	  	<div  id="next_day_clickable" style="display:none;width:20%;height:49px; float:right; " ng-click="next_day()">        	<i style="float:left; line-height:49px; color:white;font-size:20px;padding-top:0px"><img style="width:24px; height:24px;margin-bottom: -3px;margin-left: 10px;" src="img/icon/right.png" /</i>        </div>   </div>'>
+
+<!--之前的日期左右切换
+<i class="ion-ios-arrow-left" style="float:right; line-height:49px; color:white;font-size:20px;padding-right:10px; padding-top:0px"></i>
+
+<i class="icon ion-ios-arrow-right" style="float:left; line-height:49px; color:#006dcc;font-size:20px;padding-left:10px;padding-top:0px"></i>
+
+<i class="icon ion-ios-arrow-right" style="float:left; line-height:49px; color:white;font-size:20px;padding-left:10px;padding-top:0px"></i>-->
+
+<style>
+
+.at_sign_in_has_border {
+	border-left:1px solid #53afff;
+}
+</style>
+
+
+  <ion-content class="content-top-height" has-bouncing="true" overflow-scroll="false" >
+
+    <input type="hidden" id="sign_in_wifi_name"/>
+    <input type="hidden" id="sign_in_wifi_mac"/>
+<div style="margin-top: -10px; border-top:1px solid#f5f5f5;">
+
+  <div style="width: 90%;margin: 10px auto;padding-top: 15px;overflow: hidden" id="sign_in_tab">
+    <div style="width: 50%;height:100%;background-color: #53afff;float: left;text-align: center;line-height: 35px;color: white;border: 1px solid #53afff; font-size:16px;border-top-left-radius: 4px; border-bottom-left-radius: 4px;display: none" id="sign_in_tab_1" ng-click="details_click()" >外勤</div>
+    <div style="width: 50%;height:100%;background-color: white; border-bottom:1px solid #eee; border-top:1px solid #eee; border-right:1px solid #eee; float: left;text-align: center;line-height: 35px; font-size:16px;color: #333;border-top-right-radius: 4px;border-bottom-right-radius: 4px;display: none" id="sign_in_tab_2" ng-click="statistics_click()">内勤</div>
+    <div style="width: 50%;height:100%;background-color: #53afff;float: left;text-align: center;line-height: 35px;color: white;border: 1px solid #53afff; font-size:16px;border-top-left-radius: 4px; border-bottom-left-radius: 4px;display: none" id="sign_in_tab_3" ng-click="statistics_click()" >内勤</div>
+    <div style="width: 50%;height:100%;background-color: #eeeeee; border-bottom:1px solid #eee; border-top:1px solid #eee; border-right:1px solid #eee; float: left;text-align: center;line-height: 35px; font-size:16px;color: #333;border-top-right-radius: 4px;border-bottom-right-radius: 4px;display: none"  id="sign_in_tab_4" ng-click="no_out_door_click()">外勤</div>
+
+  </div>
+
+    <!--页签-->
+
+
+
+
+<div id="signindoor" style="margin-top: 10px;display: none " >
+    <div id="sign_in_wrap" style=" background-color:#fff;margin-top:-10px;">
+
+
+    <div  style="width:100%;background-color:#fff; padding-bottom:10px;border-bottom: 1px solid #f5f5f5;margin-top: 20px;">
+      <div style="width: 178px;height: 178px;padding-top:10px;border-radius: 150px;margin: 20px auto;background-image:url('{{signinbgimg}}');background-size: 100%; ">
+        	<div id="shake_outer_div" style="border:2px solid#53afff;border-top-left-radius:245px;border-top-right-radius:245px;border-bottom-left-radius:245px;border-bottom-right-radius:245px;width:138px; height:138px;margin:0 auto;margin-top:10px; margin-bottom:5px;" ng-click="shake_outer_div_click()">
+           <div id="sign_in_content" style="line-height: 25px;margin-top:30px; font-size:12px; color:#666;"> <div id="sign_in_text" style="text-align: center; color:#666;">点击签到</div>
+            <div id="sign_in_clock_div" style="padding:0 5px;text-align: center;font-size:28px;margin:0px; color:#333;  width:100%;"></div>
+            <div style="padding:0 5px;text-align: center; font-size:12px; color:#666;">{{atSignInData.w}}</div>
+             </div>
+            </div>
+</div>
+
+
+    <div style="display: none; text-align: center;margin-top: -25px;padding-bottom: 5px; padding-left:12px; padding-right:12px;" id="wifi_sign_in"><img src="{{img_selected}}" style="height:20px;position:relative;top:5px;right: 4px;">已进入WiFi考勤范围，<img src="{{wifi_img}}" style="height:20px;position:relative;top:5px;">{{atSignInData.wifi_value}}</div>
+
+    <div style="text-align: center;margin-top: -25px; padding-left:12px; padding-right:12px; padding-bottom: 5px;display: none; " id="wifi_sign_in_disable"><img ng-src="{{img_at_disable_sign_in}}" style="height:20px;position:relative;top:5px;right: 4px;">当前设置不允许内勤签到</div>
+
+
+    </div>
+	<!--按一按-->
+
+    <!--disable状态-->
+    <div id="shake_outer_div_disable" style="display:none;width:100%; padding-top:10px; background-color:#f8f8f8;margin-top: 10px;">
+        <span>
+
+        	<div style="border:3px solid#e8e8e8;border-top-left-radius:245px;border-top-right-radius:245px;border-bottom-left-radius:245px;border-bottom-right-radius:245px;width:245px; height:245px;margin:0 auto;margin-top:0px">
+        	<!--<img id="shake_img_disable" ng-src="{{shake_disable}}" style="width:160px; height:160px; margin-left:18%; margin-top:16%;" />-->
+            <!--<img id="shake_img_disable" ng-src="{{press_disable_img}}" style="width:160px; height:160px; margin-left:16%; margin-top:15%;" />-->
+            <div style="margin-top:2px; color:#999; text-align:center; font-size:12px"></div>
+            </div>
+
+        </span>
+
+        </span>
+    </div>
+  </div>
+
+</div>
+
+
+    <div id="signoutdoor" style="margin-top: 10px;display: none" >
+      <div id="sign_in_wrap_outdoor" style=" background-color:#fff;margin-top:-10px;">
+
+        <div  style="width:100%;background-color:#fff; padding-bottom:10px;border-bottom: 1px solid #f5f5f5;">
+        <div style="width: 178px;height: 178px;padding-top:10px;border-radius: 150px;margin: 20px auto;background-image:url('{{signinbgimg}}');background-size: 100%; ">
+        	<div id="shake_outer_div" style="border:2px solid#53afff;border-top-left-radius:245px;border-top-right-radius:245px;border-bottom-left-radius:245px;border-bottom-right-radius:245px;width:138px; height:138px;margin:0 auto;margin-top:10px; margin-bottom:5px;" ng-click="sign_in_outdoor()">
+            <div id="sign_in_content" style="line-height: 25px;margin-top:30px; font-size:12px; color:#666;"> <div id="sign_in_text" style="padding:0 5px;text-align: center;font-size:23px;margin:0px; color:#333;margin-top: 55px;">上报位置</div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+          <div style="text-align: center;margin-top: -25px;padding-bottom: 5px; padding-left:12px; padding-right:12px; width:100%;display: none" id="wifi_sign_in_out" ><img src="{{img_selected}}" style="height:20px;position:relative;top:5px;right: 4px;"><span id="wifi_sign_in_out_address"></span></div>
+
+          <div style="text-align: center;margin-top: -25px;padding-bottom
+
+
+          : 5px;padding-left:12px; padding-right:12px; width:100%; display:none;" id="wifi_sign_in_disable_out"><img ng-src="{{img_at_disable_sign_in}}" style="height:20px;position:relative;top:5px;right: 4px;">当前设置不允许内勤签到</div>
+
+
+        </div>
+        <!--按一按-->
+
+        <!--disable状态-->
+        <div id="shake_outer_div_disable" style="display:none;width:100%; padding-top:10px; background-color:#f8f8f8;margin-top: 10px;margin-top: 20px;">
+
+
+        	<div style="border:3px solid#e8e8e8;border-top-left-radius:245px;border-top-right-radius:245px;border-bottom-left-radius:245px;border-bottom-right-radius:245px;width:245px; height:245px;margin:0 auto;margin-top:0px">
+
+            <div style="margin-top:2px; color:#999; text-align:center; font-size:12px"></div>
+          </div>
+
+
+
+
+        </div>
+      </div>
+
+    </div>
+
+  <div id="no_record_message" style="display:none; text-align:center;color:#999; overflow: hidden; background-color:#f8f8f8; font-size:12px; padding-top:20px;">暂无打卡数据</div>
+  <div style="width:100%; background-color:#f8f8f8; overflow:hidden;">
+    <div style="width:100%; overflow:hidden; padding-left: 12px; margin-bottom:10px; background-color:#f8f8f8; margin-top:15px;">
+      <div ng-repeat="item in atSignInData.ca_r">
+        <div style="height: 39px;overflow: hidden; width:100%;">
+          <div ng-show="atSignInData.ca_r.length > 1 && $first" style="float:left"><img style=" width:12px; height:39px;" ng-src="{{img_circle3}}"></div><!-- 线往下 -->
+          <div ng-show="atSignInData.ca_r.length > 1 && $last" style="float:left"><img style=" width:12px; height:39px;" ng-src="{{img_circle4}}"></div><!-- 线往上 -->
+          <div ng-show="$middle" style="float:left"><img style=" width:12px; height:39px;" ng-src="{{img_circle5}}"></div><!-- 线往上和下 -->
+          <div ng-show="atSignInData.ca_r.length == 1" style="float:left"><img style=" width:12px; height:39px;" ng-src="{{img_circle6}}"></div><!-- 没有线 -->
+
+          <div style="float:left; line-height:39px;font-size:17px;margin-left:12px; color:#333;">{{item.ti}}</div>
+        </div>
+        <div style="overflow:hidden; width:100%; margin-top:-5px;">
+          <div ng-class="atSignInData.ca_r.length == 1 || (atSignInData.ca_r.length > 1 && $last) ? '' : 'at_sign_in_has_border'" style="width:100%; overflow:hidden; margin-left:6px;padding-bottom: 10px;">
+            <div ng-show="item.lo != ''" style="clear:both;">
+              <div style="float:left; margin-right:2px; margin-left:14px; margin-bottom:-5px;"><img ng-src="{{img_team_attendance_iocation}}" width="22px" height="22px" /></div>
+              <div style="float:left; line-height:22px; width: 80%; color:#999; font-size:14px;">{{item.lo}}</div>
+            </div>
+            <div ng-show="item.wifi != ''" style="clear:both;">
+              <div style="float:left; margin-right:2px; margin-left:14px; margin-bottom:-5px;"><img ng-src="{{img_team_attendance_wifi}}" width="22px" height="22px" /></div>
+              <div style=" float:left; line-height:22px; width: 80%; color:#999; font-size:14px;">{{item.wifi}}</div>
+            </div>
+            <div ng-show="item.ty == '1'" style="clear:both;">
+              <div style="float:left; margin-right:2px; margin-left:14px; margin-bottom:-5px;"><img ng-src="{{img_team_attendance_fingerprint}}" width="22px" height="22px"></div>
+              <div style="float:left; line-height:22px; width: 80%; color:#999; font-size:14px;">指纹打卡</div>
+            </div>
+            <div ng-show="item.ty == '99'" style="clear:both;">
+              <div style="float:left; margin-right:2px; margin-left:14px; margin-bottom:-5px;"><img ng-src="{{img_normal_sign_in}}" width="22px" height="22px"></div>
+              <div style="float:left; line-height:22px; width: 80%; color:#999; font-size:14px;">内勤打卡</div>
+            </div>
+            <div ng-show="item.ty == '100'" style="clear:both;">
+              <div style="float:left; margin-right:2px; margin-left:14px; margin-bottom:-5px;"><img ng-src="{{img_fieldwork_sign_in}}" width="22px" height="22px"></div>
+              <div style="float:left; line-height:22px; width: 80%; color:#999; font-size:14px;">上报位置</div>
+            </div>
+            <div ng-show="item.ty == '101'" style="clear:both;">
+              <div style="float:left; margin-right:2px; margin-left:14px; margin-bottom:-5px;"><img ng-src="{{img_fieldwork_sign_in}}" width="22px" height="22px"></div>
+              <div style="float:left; line-height:22px; width: 80%; color:#999; font-size:14px;">异地打卡</div>
+            </div>
+            <div ng-show="item.ty != '1' && item.ty != '15' && item.ty != '99' && item.ty != '100' && item.ty != '101'" style="clear:both;">
+              <div style="float:left; margin-right:2px; margin-left:14px; margin-bottom:-5px;"><img ng-src="{{img_other_sign_in}}" width="22px" height="22px"></div>
+              <div style="float:left; line-height:22px; width: 80%; color:#999; font-size:14px;">其他打卡</div>
+            </div>
+            <div ng-show="item.p_i != '0'" style="clear:both;" ng-click="redirect_to_approval(item.p_i,item.t_id,item.ty,item.is_process)">
+              <div style="float:left; margin-right:2px; margin-left:14px;"><img ng-src="{{img_team_attendance_examination}}" width="22px" height="22px" /></div>
+              <div style="float:left; line-height:22px; width: 80%; color:#ff6600; font-size:14px;">{{item.a_n}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+  </ion-content>
+
+
+
+</ion-view>
+

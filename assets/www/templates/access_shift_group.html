@@ -1,0 +1,169 @@
+
+<ion-view style="background-color:#f8f8f8;" hide-back-button="true" hide-nav-bar="true" title='' hide-tab-bar ng-controller="accessShiftGroupCtrl" system-setting-to-view-common>
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" style="color:#333"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span>门禁组</span>
+        </h1>
+
+        <div class="buttons">
+            <i class="r-icon r-black_search_icon disable-user-behavior" on-tap="openSearchPopover($event);adSearchIptFocus()"></i>
+            <i class="r-icon r-black_add_icon disable-user-behavior" on-tap="addAccessGroup()"></i>
+        </div>
+	</ion-header-bar>
+<style>
+    .payroll_cal_popup .popup-body{
+      margin-bottom: 0px !important;
+    }
+    .payroll_cal_popup .popup{
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      border: none !important;
+    }
+    .payroll_cal_popup .popup-head{
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      border: none !important;
+    }
+    .payroll_cal_popup .popup-buttons{
+      border-top:1px solid #f5f5f5;
+
+    }
+    .payroll_cal_popup .button-dark{
+      border-right:1px solid #f5f5f5;
+      
+    }
+    .payroll_cal_popup .button-dark.activated{
+      color: #53afff !important;
+    }
+    .payroll_cal_popup .popup{
+      width:7.2rem !important;
+      /*border-radius: 10px;*/
+    }
+	ul{
+		list-style-type:none;
+	}
+	ul li{
+		text-indent:12px;;line-height:40px;font-size:16px;
+	}
+	
+
+	
+	.hav_mrg{
+		margin-top:10px;
+	}
+	.triangle_top{
+		border-bottom:6px solid #000;
+		border-top:none;
+		top:-12px;
+	}
+	.triangle_bottom{
+		border-top:6px solid #000 !important;
+		border-bottom:none !important;
+		top:15px !important;
+	}
+	
+</style>
+
+
+
+  <ion-content  has-bouncing="true" overflow-scroll="false">
+	<div ng-show="filterItems.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+	
+	<div  style="background-color:#fff;margin-top:10px;"> 
+		<div style="padding-top:12px;margin-left:12px; color:rgb(51,51,51);font-size:16px;">默认组</div>
+		<div style="padding-top:12px;">  <span style="margin-left:12px;background-color:#E5F3FF;color:rgb(83,175,255);font-size:13px;padding-left:5px;padding-right:5px;padding-top:2px;padding-bottom:2px;border-radius:2px;">设备所有验证方式</span> </div>
+		<div style="padding-top:12px;padding-bottom:10px;overflow:hidden;color:rgb(102,102,102);font-size:14px;"> 
+			<div style="float:left;margin-left:15px;"> <div style="background-color:#53afff;color:#fff;display:inline-block;width:15px;height:15px;line-height:15px;margin-right:6px;font-size:12px; text-align:center;border-radius:2px;">24</div> 24小时通行</div>
+			<div style="float:right;margin-right:12px;margin-top:-5px;"><img style="width:22px;height:22px;position:relative;top:5px;left:0px;" ng-src="{{is_use_holiday_icon}}"> 节假日有效</div>
+		
+		</div>
+	</div>
+	<div ng-repeat="item in access_shift_group_data.list_data[0]" ng-click="accessShiftGroupDetail(item.guard_group_id)" style="background-color:#fff;margin-top:10px;"> 
+		<div style="padding-top:12px;margin-left:12px; color:rgb(51,51,51);font-size:16px;"> {{item.guard_group_name}}
+		<i class="icon ion-ios-arrow-right button-small" style="position:absolute;right:-8px;"></i>
+		</div>
+		<div style="padding-top:12px;">  <span style="margin-left:12px;background-color:#E5F3FF;color:rgb(83,175,255);font-size:13px;padding-left:5px;padding-right:5px;padding-top:2px;padding-bottom:2px;border-radius:2px;">{{item.valid_rule_name}}</span> </div>
+		<div style="padding-top:12px;padding-bottom:10px;overflow:hidden;color:rgb(102,102,102);font-size:14px;"> 
+			<div style="float:left;margin-left:15px;"> <div style="background-color:{{item.bgcolor}};color:#fff;display:inline-block;width:15px;height:15px;line-height:15px;margin-right:6px;font-size:12px; text-align:center;border-radius:2px;">{{item.time_division_str}}</div> {{item.time_division_name}}</div>
+			<div style="float:right;margin-right:12px;margin-top:-5px;" ng-show="item.is_use_holiday == '1'"><img style="width:22px;height:22px;position:relative;top:5px;left:0px;" ng-src="{{is_use_holiday_icon}}"> 节假日有效</div>
+			<div style="float:right;margin-right:12px;margin-top:-5px;" ng-show="item.is_use_holiday != '1'"><img style="width:22px;height:22px;position:relative;top:5px;left:0px;" ng-src="{{not_use_holiday_icon}}">节假日无效</div>
+			
+		</div>
+	</div>
+  
+  
+  
+   
+  
+  </ion-content>
+  
+  
+  
+    <script id="search-device-list-popover.html" type="text/ng-template">
+      <div class="search-popover" ng-class="{'isSearchStr':searchObj.str.length}">
+        <ion-header-bar>
+          <h1 class="title" id="search-device-list-h1">
+            <div clear-value-box style="right: 34px;left: 2px;">
+                <i class="icon ion-ios-search-strong placeholder-icon"></i>
+                <input id="adSearchIpt" type="text" placeholder="搜索门禁组名称等..." ng-model="searchObj.str" clear-value-input>
+                <i clear-value-btn style="line-height:32px;"></i>
+            </div>
+            
+          </h1>
+
+          <div class="buttons" style='font-size:14px;' on-tap="closeSearchPopover()">
+            取消
+          </div>
+        </ion-header-bar>
+        
+  
+        <div class="search-msg-bar" on-tap="search()">
+            <i class="r-icon r-search-bar-icon"></i>
+            <div class="search-msg-text">搜索“<span ng-bind="searchObj.str"></span>”</div>
+            <i class="icon ion-ios-arrow-right"></i>
+        </div>
+
+
+		
+			  
+
+
+
+		
+			  <ion-content  has-bouncing="true" overflow-scroll="false">
+				<div class="ng-hide search-device-icon-box" ng-show="!searchObj.list.length && searchObj.state">
+					<img ng-src="{{local_resource + 'img/search_no_data_img.png'}}" >
+					<div>暂无数据</div>
+				</div>
+
+				<div class="ng-hide search-device-icon-box" ng-show="!searchObj.state">
+					<img ng-src="{{local_resource + 'img/search_data_img.png'}}" >
+					<div>搜索数据</div>
+				</div>
+
+			  
+			  
+				<div ng-repeat="item in searchObj.list" ng-click="accessShiftGroupDetail(item.guard_group_id)" style="background-color:#fff;margin-top:10px;"> 
+					<div style="padding-top:12px;margin-left:12px; color:rgb(51,51,51);font-size:16px;"> {{item.guard_group_name}}</div>
+					<div style="padding-top:12px;">  <span style="margin-left:12px;background-color:#E5F3FF;color:rgb(83,175,255);font-size:13px;padding-left:5px;padding-right:5px;">{{item.valid_rule_name}}</span> </div>
+					<div style="padding-top:12px;color:rgb(102,102,102);font-size:14px;overflow:hidden;padding-bottom:10px;"> 
+						<div style="float:left;margin-left:15px;"> <div style="background-color:{{item.bgcolor}};color:#fff;display:inline-block;width:20px;height:20px;line-height:20px;text-align:center;">{{item.time_division_str}}</div> {{item.time_division_name}}</div>
+						<div style="float:right;margin-right:12px;margin-top:-5px;" ng-show="item.is_use_holiday == '1'"><img style="width:22px;height:22px;position:relative;top:5px;left:0px;" ng-src="{{is_use_holiday_icon}}"> 节假日有效</div>
+						<div style="float:right;margin-right:12px;margin-top:-5px;" ng-show="item.is_use_holiday != '1'"><img style="width:22px;height:22px;position:relative;top:5px;left:0px;" ng-src="{{not_use_holiday_icon}}">节假日无效</div>
+						
+					</div>
+				</div>
+			  
+	
+			  </ion-content>
+      </div>
+    </script>
+  
+</ion-view>
+

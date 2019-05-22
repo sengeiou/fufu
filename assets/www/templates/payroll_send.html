@@ -1,0 +1,28 @@
+
+<ion-view style="background-color:#f8f8f8;" title="发放工资单" hide-tab-bar>
+  <ion-content ng-controller="payrollSendCtrl" has-bouncing="true" overflow-scroll="false">
+    <div style="margin-top:15px;margin-left:12px;font-size:12px;color:#999999;">
+      请选择工资发放周期:
+    </div>
+    <div class="list" style="margin-top:5px;margin-bottom:5px;">
+      <li class="item" style="padding:16px 12px;">
+        <label>开始日期</label>
+        <label style="float:right;color:#999;">
+          {{pay_send_data.st_date}}
+        </label>
+      </li>
+      <li class="item" style="padding:16px 12px;">
+        <label>结束日期</label>
+        <label style="float:right;color:#999;">
+          {{pay_send_data.en_date}}
+        </label>
+      </li>
+    </div>
+    <div class='padding' >
+      <button class="button button-block button-calm" ng-click="sendPayroll()" ng-if="pay_send_data.fg=='0'">发放工资单</button>
+      <div style="text-align:center;font-size:14px;color:#FF6308;" ng-if="pay_send_data.fg!='0'">
+        本期工资单已发放
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

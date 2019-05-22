@@ -1,0 +1,126 @@
+
+<ion-view style="background-color:#f8f8f8;" title="排班" ng-controller="emplAtRosterCtrl" hide-tab-bar>
+
+
+<style>
+  .row.date .col div{width: 26px;height: 26px;border-radius:13px;margin: 0 auto;padding-top:4px;}
+  ._ar_n,._ar_e,._ar_c{border-radius:15px;}
+   ._ar_n{height:10px;background:url({{dot_normal}}) no-repeat center 3px;background-size:5px;}
+  ._ar_e{height:10px;background:url({{dot_abnormal}}) no-repeat center 3px;background-size:5px;}
+  ._ar_c{background-color:#e60012;color:#fff !important;}
+  .none_bg{background-image:none;}
+  .none_color{background-color:rgba(255, 255, 255, 0);}
+</style>
+
+    <ion-content has-bouncing="true" overflow-scroll="false">
+      <div style="width: 100%;height: 70px;background-color: #fff;padding-top:10px;border-bottom:1px solid #f0f0f0;">
+          <div style="width:50px;height:50px;overflow:hidden;margin-left:12px;border-radius:25px">
+            <img style="width:50px;height:50px;" ng-src="{{empl_ar_data.employee_info.img_src}}">
+            <div style="position:absolute;margin-top:-52px;margin-left:62px;text-align:center;font-size: 16px">
+              {{empl_ar_data.employee_info.employee_name}}&nbsp;&nbsp;
+              <label style="margin-top:7px;color:#666;text-align:center;font-size: 12px">
+                工号:{{empl_ar_data.employee_info.staff_no}}
+              </label>
+              <div style="margin-top:7px;color:#666;text-align:left;font-size: 12px">{{empl_ar_data.employee_info.position_name}}</div>
+            </div>
+        </div>
+      </div>
+
+      <div class="list" style="background-color:#fff;margin-top:10px;margin-bottom:10px;">
+        <div class="row" style="line-height:40px;">
+          <div class="col-20" style="text-align: left;color:#666;padding-left:5px;">
+            <div ng-click="reArData('p')">上一月</div>
+          </div>
+          <div class="col-60">
+            <div class="item-input">
+              <input type="date" id="roster_date" style="margin-top:-5px;text-align: center;background-color:#fff;width:120px;font-size:17px;color:#333;display: none"/>
+              <div id="roster_date_" style="color:#53afff;line-height: 30px;margin: 0 auto;font-size: 14px;" ng-click="roster_date_()"></div>
+            </div>
+          </div>
+          <div class="col-20" style="text-align: right;color:#666;padding-right:5px;">
+            <div ng-click="reArData('n')">下一月</div>
+          </div>
+        </div>
+        <div class="row" style="text-align:center;border-bottom:1px solid #f0f0f0">
+          <div class="col">
+            <div style="color:#aaa">日</div>
+          </div>
+          <div class="col">
+            <div>一</div>
+          </div>
+          <div class="col">
+            <div>二</div>
+          </div>
+          <div class="col">
+            <div>三</div>
+          </div>
+          <div class="col">
+            <div>四</div>
+          </div>
+          <div class="col">
+            <div>五</div>
+          </div>
+          <div class="col">
+            <div style="color:#aaa">六</div>
+          </div>
+        </div>
+        <div class="row date" style="text-align: center;background-color:white;margin-top:1px;border-bottom:1px solid #f8f8f8;padding:6px 5px;" ng-repeat="item in empl_ar_data.calendar_data">
+          <div class="col">
+            <div ng-click="loadCurrentAr(item.sun.v,$event)" style="color:#aaa" class="{{item.sun.f}} none_bg">{{item.sun.v}}<p class="{{item.sun.f}} none_color"></p></div>
+          </div>
+          <div class="col">
+            <div ng-click="loadCurrentAr(item.mon.v,$event)" class="ios-cal-p {{item.mon.f}} none_bg">{{item.mon.v}} <p class="{{item.mon.f}} none_color"></p></div>
+          </div>
+          <div class="col">
+            <div ng-click="loadCurrentAr(item.thur.v,$event)" class="ios-cal-p {{item.thur.f}} none_bg">{{item.thur.v}} <p class="{{item.thur.f}} none_color"></p></div>
+          </div>
+          <div class="col">
+            <div ng-click="loadCurrentAr(item.wen.v,$event)" class="ios-cal-p {{item.wen.f}} none_bg">{{item.wen.v}} <p class="{{item.wen.f}} none_color"></p></div>
+          </div>
+          <div class="col">
+            <div ng-click="loadCurrentAr(item.thes.v,$event)" class="ios-cal-p {{item.thes.f}} none_bg">{{item.thes.v}} <p class="{{item.thes.f}} none_color"></p></div>
+          </div>
+          <div class="col">
+            <div ng-click="loadCurrentAr(item.fri.v,$event)" class="ios-cal-p {{item.fri.f}} none_bg">{{item.fri.v}}<p class="{{item.fri.f}} none_color"></p></div>
+          </div>
+          <div class="col">
+            <div ng-click="loadCurrentAr(item.sat.v,$event)" style="color:#aaa" class="ios-cal-p {{item.sat.f}} none_bg">{{item.sat.v}}<p class="{{item.sat.f}} none_color"></p></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-left:12px; width:100%; height:30px;">
+    	<span style=" font-size:12px; color:#999;">*说明:</span>
+        <span style=" font-size:12px; color:#999;margin-right:10px;"><img style="width:12px; height:12px;vertical-align:middle;" ng-src="{{Legal_holiday}}" />异常排班</span>
+        <span style=" font-size:12px; color:#999;"><img style="width:12px; height:12px;vertical-align:middle;" ng-src="{{other_holiday}}" />正常排班</span>
+      </div>
+
+      <div class="list" style="margin-bottom:3px;">
+        <label class="item item-input item-select" ng-click="roster_policy()">
+          <span class="input-label">排班政策</span>
+          <!--<select ng-model="empl_ar_data.current_roster.roster_policy"  ng-change="lArByPolicy()">-->
+            <!--<option ng-selected="item.checked" ng-repeat="item in empl_ar_data.current_roster.roster_data">{{item.key}}</option>-->
+          <!--</select>-->
+          <div id="roster_policy" style="line-height: 36px;position: absolute;right: 30px;" ></div>
+        </label>
+        <label class="item item-input">
+          <span class="input-label">上午</span>
+          <input type="text"  style="text-align:right;margin-right:12px;" ng-model="empl_ar_data.current_roster.roster_from" value="{{empl_ar_data.current_roster.roster_from}}" readonly="readonly">
+        </label>
+        <label class="item item-input" >
+          <span class="input-label">下午</span>
+          <input type="text" style="text-align:right;margin-right:12px;" ng-model="empl_ar_data.current_roster.roster_to" value="{{empl_ar_data.current_roster.roster_to}}" readonly="readonly">
+        </label>
+      </div>
+
+      <div class="row">
+        <label class="col">
+          <button class="button button-block button-light" style="border:1px solid #eee;" ng-click="deleteEmplAr()">删除</button>
+        </label>
+        <label class="col">
+          <button class="button button-block button-positive" ng-click="saveEmplAr()">保存</button>
+        </label>
+      </div>
+    </ion-content>
+
+</ion-view>

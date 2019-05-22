@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/margin_55dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/left_right_10dp"
+    android:paddingRight="@dimen/left_right_10dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txt_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_333333"
+            android:lines="1"
+            android:textSize="@dimen/size_16sp"
+            tools:text="中控智慧" />
+
+        <TextView
+            android:id="@+id/tv_address_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_2dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/size_12sp"
+            android:text="广东省深圳市龙岗区五和大道中控智慧大厦服服事业部" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/selectimage"
+        android:layout_width="@dimen/margin_30dp"
+        android:layout_height="@dimen/margin_30dp"
+        android:layout_marginLeft="@dimen/margin_8dp" />
+
+</LinearLayout>

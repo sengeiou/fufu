@@ -1,0 +1,115 @@
+
+<ion-view class="ccc" ng-controller="emplComponentCtrl" style="background-color:#f8f8f8;" hide-tab-bar cache-view="false" hide-back-button="true">
+	<style type="text/css">
+		.repair-flicker>a{
+			transform: translate3d(0px, 0px, 0px);
+			-webkit-transform: translate3d(0px, 0px, 0px);
+		}
+
+        .searchBtn:before{
+            position: relative;
+    left: 1px;
+        }
+	</style>
+    <style ng-if="opt.isSingleSelect">
+        .has-tabs, .bar-footer.has-tabs {
+            bottom: 0px!important;
+        }
+    </style>
+    <!-- <style  ng-if="!opt.isSingleSelect">
+        .has-tabs, .bar-footer.has-tabs {
+            bottom: 44px!important;
+        }
+    </style> -->
+    <style ng-if="search_control.search_val.length">
+        .mobile_classify_tree .list:after{
+            opacity: 0!important;
+        }
+        .mobile_select_notify_tree .list:after{
+            opacity: 0!important;
+        }
+    </style>
+    <ion-nav-buttons side="left">
+        <button ng-click="back()" style="color:#fff !important; " class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right">
+        <button ng-click="openSearch()" ng-show="opt.isSearch" class="ng-hide button back-button buttons button-clear button-light ion-ios-search-strong header-item searchBtn"></button>
+    </ion-nav-buttons>
+
+    <ion-nav-title>
+        <div class="search-title" ng-bind="opt.title"></div>
+    </ion-nav-title>
+
+    <ion-content delegate-handle="select_notify_content" i="{{ii}}" has-bouncing="true">
+        <div class="mobile_tree_second_level_title2">
+            <ion-content delegate-handle="x_nav" direction="x" scrollbar-x="false" style="height: 50px">
+                <div class="mobile_tree_title_x" style="width: 1000px;">
+                    <div ng-repeat="item in historyBar" style="display: inline-block">
+                        <span ng-click="goBack(item.i)" ng-bind="item.title"></span>
+                        <i class="icon ion-ios-arrow-right button-small"></i>
+                    </div>
+                </div>
+
+            </ion-content>
+
+        </div>
+
+        <div ng-if="isShow">
+            
+            <ion-list class="mobile_classify_tree ng-hide" ng-show="sd.dept && sd.dept.length" >
+                <a ng-repeat="item in filterItems=(sd.dept|dataAndFilter:'name':search_control.search_val)" class="item item-avatar item-icon-right" href="javascript:void(0);" ng-click="openSubClass(item.id, item.name)" >
+                    <img ng-src="{{icon_src}}" >
+                    <div>
+                        <div class="tit" ng-bind="item.name"></div>
+                        <div class="des" ng-bind="item.number+'人'"></div>
+                    </div>
+                    <i class="icon ion-ios-arrow-right button-small"></i>
+                </a>
+            </ion-list>
+
+            <div class="mobile_tree_second_level_title3" ng-show="sd.contact_list && sd.contact_list.length && !search_control.search_val.length && opt.isShowContact" >常用联系人</div>
+
+            <ion-list class="mobile_tree_contact ng-hide" ng-show="sd.contact_list && sd.contact_list.length && !search_control.search_val.length && opt.isShowContact">
+                <ion-item
+                        ng-repeat="item in sd.contact_list"
+                        class="item-avatar-left repair-flicker" href="" ng-click="selectOption(item, true, true)">
+                    <img ng-src="{{item.img_src}}" >
+                    <label class="checkbox" ng-click="stopPropagation($event)" style="padding: 24px 13px;"><input type="checkbox" ng-model="item.checked" ng-checked="item.checked" ng-change="selectOption(item, true)" ng-click="stopPropagation($event)" class="ng-pristine ng-untouched ng-valid"></label>
+
+                    <div style="color: #333333;font-size: 16px;line-height: 26px;padding-top: 10px"> <span ng-bind="item.empl_name"></span><span style="font-size: 12px; color: #666666; padding-left: 8px;">工号:{{item.staff_no}}</span> </div>
+                    <div class="b_l" style="color: #666666;font-size: 12px;padding-bottom: 13px;" ng-bind="item.pos_name"></div>
+
+                    <ion-option-button ng-click="del_contact($index,item.empl_no)" class="button-assertive">删除</ion-option-button>
+                </ion-item>
+            </ion-list>
+
+            <div class="mobile_tree_second_level_title3 ng-hide" ng-show="sd.empl_list && !search_control.search_val.length && sd.empl_list.length && sd.dept" >直属员工</div>
+
+            <ion-list class="mobile_select_notify_tree" ng-class="{'hide_after':!sd.dept || !sd.dept.length}" ng-if="sd.empl_list && sd.empl_list.length">
+                <div class="msnt_list"
+                     item-width="100%"
+                     item-height="70px"
+                     collection-repeat="item in filterItems=(sd.empl_list|dataAndFilter:'empl_name,pos_name':search_control.search_val)">
+
+                    <label class="checkbox" style="padding: 23px 13px"><input type="checkbox" ng-model="item.checked" ng-checked="item.checked" ng-change="selectOption(item, false)" class="ng-pristine ng-untouched ng-valid"></label>
+                    <a class="item item-avatar item-icon-right" ng-click="selectOption(item, false, true)">
+                        <img ng-src="{{item.img_src}}" style="left: 51px">
+                        <div>
+                            <div class="tit"> <span ng-bind="item.empl_name"></span> <span style="font-size: 12px; color: #666666; padding-left: 8px;">工号:{{item.staff_no}}</span> </div>
+                            <div class="des" ng-bind="item.pos_name"></div>
+                        </div>
+                    </a>
+                </div>
+            </ion-list>
+
+        </div>
+
+
+		<div style="width:100%;height:44px;" ng-if="!opt.isSingleSelect"></div>
+    </ion-content>
+    <div class="mobile_select_notify_bottom_column ng-hide" ng-show="!opt.isSingleSelect">
+        <div>已选择：<span ng-bind="activeObj.length">0</span>个<span ng-bind="opt.extName"></span></div>
+        <button ng-click="sure()">确认</button>
+    </div>
+</ion-view>

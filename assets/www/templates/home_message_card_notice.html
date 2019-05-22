@@ -1,0 +1,45 @@
+﻿<ion-view style="background-color:#f8f8f8;" title='打卡提醒' ng-controller="homeMessageCardNoticeCtrl" cache-view="false" hide-tab-bar id="homeMessageSecretaryCtrl">
+  <ion-nav-buttons side="right">
+    <button style="font-size:14px;" class="button button-clear button-light" ng-click="redirect_to_setting()">设置</button>
+  </ion-nav-buttons>
+  <ion-content has-bouncing="true" overflow-scroll="false">
+  <div style="margin-left:15px;margin-right:15px;" ng-repeat="item in filterItems=(homeMessageCardNoticeData|dataAndFilter:'detials,notice_date':search_control.search_val)">
+  
+
+	<div style="margin-bottom: 0px;color: #999;margin-top: 14px;position: relative"   class=""><img style="width: 20px;height: 20px;position: absolute;left:0px;" ng-src="{{timeline}}" >
+		<span style="height: 18px;text-align: center; background-color: #E5E5E5;color: #ffffff;border-radius: 10px;font-size: 0.32rem;line-height: 18px;margin-left: 32px;padding-left: 12px;padding-right: 12px;" class="ng-binding">
+		{{item.date_str}}
+		</span>
+	</div>
+
+	  <div style="width: 100%;border-radius: 5px;margin-top: 14px;height:115px;background-color:white; border:1px solid #f0f0f0;" ng-click="redirect_to_sign_in()" >
+			<div style="color:#000;font-weight:500;font-size:0.4266666666667rem;margin-left:15px;padding-top:15px;">签到打卡</div>
+			<div style="color:#333;font-size:0.4rem;margin-left:15px;padding-top:5px;">{{item.content}}</div>
+			<div style="margin-top:15px;height:1px;margin-left:15px;margin-right:15px;border-top:1px solid #f5f5f5;"></div>
+
+			<div  style="color:#333;font-size:0.4rem;margin-left:15px;height:40px;line-height:40px;">去签到
+			<div style="float:right;">
+				<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:14px; line-height:40px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>
+			</div>
+			</div>
+			
+	  </div>
+	
+	
+	
+	
+	
+	</div>
+
+	
+
+	<div ng-show="homeMessageCardNoticeData.length=='0'" style="overflow: hidden;" class="">
+       <div style="margin-top: 195px;text-align: center">
+         <img ng-src="{{no_notices}}" alt="" style="width:143px;height: 110px;">
+       </div>
+       <div style="margin-top:20px;text-align: center;color: #a7a7a7;font-size: 0.4rem;">暂时没有消息~
+       </div>
+     </div>
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,132 @@
+﻿<ion-view id="ot_to_leave_view" style="background-color:#f8f8f8;" title="加班转调休" ng-controller="otToLeaveCtrl" hide-tab-bar>
+<style>
+.checkbox input:after, .checkbox-icon:after{width: 10px !important;
+    height: 5px !important;
+}
+
+.bar-footer {
+    bottom: 0 !important;
+}
+
+    #ot_to_leave_view #ot_to_leave_ion_content {
+      top: 112px;
+    }
+    .platform-win32.platform-cordova #ot_to_leave_view #ot_to_leave_ion_content {
+      top: 92px;
+    }
+    .platform-android.platform-cordova #ot_to_leave_view #ot_to_leave_ion_content {
+      top: 92px;
+    }
+</style>
+
+	<ion-header-bar class="bar-subheader" style="height:46px;padding:0px;width: 100%; background-color:#f8f8f8; background-image:none;" >
+	<!--搜索-->
+	<div class="list" style="margin: 10px 12px;">
+    <label class="item item-input" style="border-radius:4px;height:30px;background-color:#fff;border:none;" clear-value-box>
+      <i class="icon ion-ios-search-strong placeholder-icon"></i>
+      <input type="text" placeholder="搜索姓名、工号、职位..." ng-model="search_control.search_val" clear-value-input>
+      <div clear-value-btn style="position: absolute; right: 10px; font-size: 16px; margin-right: 2px; top: 0px;height: 30px;line-height: 30px;color: #cccccc;" ></div>
+    </label>
+     </div>
+
+	<!--搜索-->
+	</ion-header-bar>
+
+    <ion-nav-buttons side="right" >
+      <button id="select_all_employee" class="button button-clear" style="font-size:14px;color:white;" ng-click="select_all_employee()" >全选</button>
+      <button id="deselect_all_employee" class="button button-clear" style="font-size:14px;color:white; display:none;" ng-click="cancel()" >全不选</button>
+    </ion-nav-buttons>
+    <ion-content id="ot_to_leave_ion_content" has-bouncing="true" overflow-scroll="false">
+
+
+
+    <!--日历-->
+    <!--<div class="row" style="background-color:#fff;line-height:40px;">-->
+          <!--<div class="col-20" style="text-align: left;color:#666;padding-left:5px;">-->
+            <!--<div ng-click="previous_day()" style="">上一天</div>-->
+          <!--</div>-->
+          <!--<div class="col-60">-->
+            <!--<div class="item-input">-->
+              <!--&lt;!&ndash;<input id="target_date" type="date" value="2016年01月26日" style="text-align: center;background-color:#fff;width:120px;font-size:17px;color:#333; border:0;padding-top:7px;">&ndash;&gt;-->
+              <!--<input type="date" id="target_date1" style="margin-top:-5px;text-align: center;background-color:#fff;width:120px;font-size:17px;color:#333;display: none">-->
+              <!--<div id="target_date" style="color:#53afff;line-height: 30px;margin: 0 auto;font-size: 14px;" ng-click="target_date()" ></div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="col-20" style="text-align: right;color:#666;padding-right:5px;">-->
+            <!--<div ng-click="next_day()">下一天</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <div style="width:100%; height:49px; margin-top:0px;background-color: white ">
+        <div ng-click="previous_day()" id="previous_day" style="display: block; width: 20%; height: 49px; float: left;text-align: right">
+          <!--<i style="float:right; line-height:49px; color:#333;font-size:20px;padding-right:-10px; padding-top:0px">-->
+            <!--<img style="width:24px; height:24px;margin-bottom: -3px;" src="img/icon/left.png"></i>-->
+          <i class="icon ion-ios-arrow-left" style="margin-top:10px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div>
+        <div ng-click="target_date()" style="width:60%;height:49px; float:left; margin-top:0px; padding-left:2px">
+          <label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;padding-left: 0px;" id="at_sign_in_current_date_2">
+            <span id="target_date" style="line-height: 35px;margin:0 auto;"></span>
+            <input style="text-align:center;color: white; font-size:16px;display:none;" type="date" id="target_date1" >
+          </label>
+        </div>
+        <div id="next_day_clickable" style="width:20%;height:49px; float:right; " ng-click="next_day()">
+        <!--<i style="float:left; line-height:49px; color:#333;font-size:20px;padding-top:0px">-->
+          <!--<img style="width:24px; height:24px;margin-bottom: -3px;margin-left: 10px;" src="img/icon/right.png">        </i>-->
+          <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div>
+        <i style="float:left; line-height:49px; color:white;font-size:20px;padding-top:0px">   </i></div>
+    <!--日历-->
+      <div ng-show="otToLeaveData.data_ready && otToLeaveData.data.length==0 &&search_control.search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+
+      <div ng-show="filterItems.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+    <!--员工-->
+    <div ng-repeat="item in filterItems=(otToLeaveData.data|dataAndFilter:'st,en,pn':search_control.search_val)" class="collection-repeat-container" style="transform: translate3d(0px, 0px, 0px);"><ion-item class="item-avatar-left item"  style="transform: translate3d(0px, 0px, 0px); height: 72px; width:108%;">
+          <img ng-src="{{item.img}}" >
+          <div>
+              <span style="font-size:16px;color:#333" class="ng-binding">{{item.en}}</span>&nbsp;&nbsp;
+              <span style="font-size:12px;color:#666" class="ng-binding">工号:{{item.st}}</span>
+          </div>
+          <p style="font-size:12px;color:#666" class="ng-binding">{{item.pn}}</p>
+
+          <div class="item item-checkbox checkbox-calm" style="float:right;margin-top:-52px;border:none; padding-left:0px;margin-right:1px;padding: 16px 0;">
+          	<span style="float:left; margin-right:45px; font-size:15px; color:#666;">{{item.ot}}h<span style="font-size:12px;color:#666; ">({{item.ot_type}})</span></span>
+            <label class="checkbox">
+
+              <input type="checkbox" ng-model="item.checked" ng-checked="item.checked" ng-click="ckItem(item.checked)" style="float:right;width:22px; height:22px; margin-right:2px; padding-right:0px; margin-top:5px" class="ng-pristine ng-untouched ng-valid">
+            </label>
+          </div>
+        </ion-item></div>
+
+    <!--员工-->
+
+    </ion-content>
+
+
+	<!--按钮-->
+    <!--
+    <ul class="list" style="margin-bottom:0px; width:100%; background-color:#FFF; overflow:hidden; position:fixed; bottom:49px; z-index:99999;">
+      <li ng-click="cancel()" class="item" style="float:left; width:50%; border-color: #fff;border-top:2px solid#f5f5f5;">
+        	<button style="border:0px #fff solid;width:100%; text-align:center;color:#999; font-size:16px; background-color:#fff;">取消</button>
+      </li>
+
+
+      <li ng-click="confirm()" class="item" style="float:right;width:50%;border-color: #fff;border-top:2px solid#f5f5f5;">
+        	<button style="border:0px #fff solid;width:100%; text-align:center;color:#53afff; font-size:16px; background-color:#fff;">转调休</button>
+      </li>
+    </ul>
+    -->
+    <!--按钮-->
+<ion-footer-bar ng-if="otToLeaveData.show_footer_bar">
+    <ul style="margin-bottom:0px; width:100%; background-color:#FFF; overflow:hidden; position:fixed; z-index:99999;bottom: 0px; border-top:1px solid#f5f5f5;">
+      <li ng-click="cancel()" class="item" style="float:left; width:50%; border-color: #fff;border-top:2px solid#f5f5f5;padding:10px">
+        	<button style="border:0px #fff solid;width:100%; text-align:center;color:#999; font-size:16px; background-color:#fff;">取消</button>
+      </li>
+
+
+      <li ng-click="ot_to_leave_save()" class="item" style="float:right;width:50%;border-color: #fff;border-top:2px solid#f5f5f5;padding:8px">
+        	<button style="border:0px #fff solid;width:100%; text-align:center;color:#53afff; font-size:16px; background-color:#fff;">转调休</button>
+      </li>
+    </ul>
+</ion-footer-bar>
+</ion-view>
+
+

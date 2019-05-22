@@ -1,0 +1,78 @@
+
+<ion-view style="background-color:#f8f8f8;" ng-controller="SelectFunctionCtrl" hide-back-button="true" hide-nav-bar="true" hide-tab-bar>
+  <ion-header-bar align-title="center" class="bar-opacity" >
+    <div class="buttons" back-icon-transition>
+        <a ng-click="back()">
+            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" style="color:#333"> </button>
+        </a>
+    </div>
+    <h1 class="title">
+          <span>请勾选功能</span>
+      </h1>
+  </ion-header-bar>
+  <style type="text/css">
+    .func_list{background-color: #fff;border-top: 1px #e3e3e3 solid;border-bottom: 1px #e3e3e3 solid;padding-left: 12px;box-sizing: border-box;}
+    .func_item{border-top: 1px #e3e3e3 solid;padding: 14px 12px 14px 0;}
+    .item_main{display: flex;}
+    .func_list .func_item:first-child{border-top: none;}
+    .item_center{flex: 1;}
+    .checkbox{width: auto;padding: 0;display: flex;align-items: center;}
+    .checkbox img{width: 23px;height: 23px;}
+    .add-attendance-wrapper{
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 46px;
+      line-height: 46px;
+      background-color: #fff;
+      font-size: 16px;
+      color: #457bc7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top: 1px solid #e3e3e3;
+  }
+
+  .add-icon{
+      width: 16px;
+      height: 16px;
+  }
+
+  .add-text{
+      margin-left:10px;
+  }
+  .toast{width: auto;background-color: rgba(0,0,0,0.6);color: #fff;font-size: 14px;height: 30px;line-height: 30px;position: fixed;top: 50%;left: 50%;transform: translate(-50%,-50%);z-index: 3;border-radius: 15px;padding: 0 12px;display: none;}
+  </style>
+  <ion-content has-bouncing="true" overflow-scroll="false" style="padding-top: 10px;bottom: 47px;">
+      <div class="func_list">
+        <div class="func_item" ng-click="check(0)">
+            <div class="item_main">
+                <div class="item_center">
+                    <div style="font-size: 17px;">考勤功能</div>
+                    <div style="font-size: 13px;color: #ccc;margin-top: 10px;">员工可通过该设备记录考勤</div>
+                </div>
+                <div class="checkbox">
+                    <img ng-src="{{is_at?local_resource +'img/icon/icon_select.png':local_resource +'img/icon/icon_no_select.png'}}">
+                </div>
+            </div>
+        </div>
+        <div class="func_item" ng-click="check(1)">
+            <div class="item_main">
+                <div class="item_center">
+                    <div style="font-size: 17px;">门禁功能</div>
+                    <div style="font-size: 13px;color: #ccc;margin-top: 10px;">员工在该设备上具有开门及邀请方卡的权限</div>
+                </div>
+                <div class="checkbox">
+                    <img ng-src="{{is_acc?local_resource +'img/icon/icon_select.png':local_resource +'img/icon/icon_no_select.png'}}">
+                </div>
+            </div>
+        </div>
+    </div>
+  </ion-content>
+  <div class="add-attendance-wrapper" ng-click="onAddStaff()">
+      <image class="add-icon" ng-src="{{local_resource +'img/add_staff.png'}}"></image>
+      <div class="add-text">开始添加员工</div>
+  </div>
+  <div id="show_toast" class="toast">请先选择至少一种设备功能</div>
+</ion-view>

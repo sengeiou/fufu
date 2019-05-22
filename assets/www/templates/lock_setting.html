@@ -1,0 +1,102 @@
+﻿<ion-view  style="background-color:#f8f8f8;" title="选择时区" ng-controller="LockSettingCtrl" hide-nav-bar="true" hide-tab-bar>
+  
+  <style>
+		.ion-android-done{
+			font-size: 24px;
+			color: #53afff;
+		}
+
+		.ion-ios-arrow-right{ 
+			    font-size: 20px;
+
+		}
+
+		.ion-ios-arrow-left{
+			color:#333333!important;
+		}
+		
+		.flex {
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+		}
+
+		.def-flex-box{
+			height: 49px;
+			padding: 0 12px;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+			border-bottom: 1px solid #f5f5f5;
+			background-color: white;
+
+		}
+		.def-flex-box:nth-child(1){
+			margin-top: 10px;
+		}
+		.def-flex-content{
+			-webkit-box-flex:1;
+			-webkit-flex:1;
+			flex:1;
+			font-size: 16px;
+    		color: #333;
+    		overflow: hidden;
+			text-overflow:ellipsis;
+			white-space: nowrap;
+			padding-right: 10px;
+		}
+		.color_cls{
+			color:#ccc;
+		}
+  </style>
+
+  <ion-header-bar align-title="center" class="bar-opacity" >
+        <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+        <h1 class="title">
+            <span>门磁设置</span>
+        </h1>
+        <div class="buttons" style="line-height:35px; font-size:14px;margin-right:12px;" ng-click="save()">保存</div>
+
+    </ion-header-bar>
+
+  <ion-content has-bouncing="true" overflow-scroll="false">
+  	
+        <ul class="r-list" style="margin:10px 0;">
+                <li class="ad-item" on-tap="change_lock_type()">
+                    <div class="ad-item-title" style="padding-right:18px;">门磁类型</div>
+                    <div class="ad-item-text" ng-bind-html="lock_setting_data.lock_type_str" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"></div>
+                    <i class="icon ion-ios-arrow-right color_cls"></i>
+                </li>
+                <li class="ad-item"  ng-show="lock_setting_data.lock_type!='2'">
+                    <div class="ad-item-title" style="padding-right: 48px;">门磁延时</div>
+                    <input  class="ad-item-text" min="1" max="255" type="number"  style="padding-right:2px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" ng-model="lock_setting_data.lock_delay"></div>
+                    <span style="font-size:16px;color:#666;padding-right:12px;">秒</span>
+					<i class="icon ion-ios-arrow-right color_cls"></i>
+                </li>
+				<li class="ad-item"  ng-show="lock_setting_data.lock_type!='2'" >
+                    <div class="ad-item-title" style="padding-right: 48px;">门磁报警延时</div>
+                    
+					<input  class="ad-item-text" min="0" max="255" type="number"  style="padding-right:2px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" ng-model="lock_setting_data.alert_delay"></div>
+                    <span style="font-size:16px;color:#666;padding-right:12px;">秒</span>
+					
+                    <i class="icon ion-ios-arrow-right color_cls"></i>
+                </li>
+				
+				
+        </ul>
+	
+    
+  </ion-content>
+	
+
+
+</ion-view>
+
+
+
+

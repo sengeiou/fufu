@@ -1,0 +1,112 @@
+﻿  <ion-tabs  class="tabs-color-active-positive tabs-bottom tabs-icon-top" parallax-tabs-toogle-to-view  cache-view="false" ng-controller="homePageCtrl">
+      <!--parallax-tabs-toogle-to-view-->
+      <style>
+
+  .navigation_bar{background-color:#53afff;color:#fff;}
+  .platform-ready .button.button-light.button-clear{color:#fff;}
+  .bar-header{border-bottom-width:0px;}
+  .bar-home-on {
+    background: url({{img_home}}) no-repeat center 2px;
+    background-size:22px 22px;
+  }
+  .bar-home-off {
+    background: url({{img_home_active}}) no-repeat center 2px;
+    background-size:22px 22px;
+  }
+  .bar-at-on {
+     background: url({{img_at}}) no-repeat center 2px;
+    background-size:22px 22px;
+   }
+  .bar-at-off {
+    background: url({{img_at_active}}) no-repeat center 2px;
+    background-size:22px 22px;
+  }
+  .bar-salary-on {
+    background: url({{img_salary}}) no-repeat center 2px;
+    background-size:22px 22px;
+  }
+  .bar-message-on{
+    background: url({{img_message_on}}) no-repeat center 2px;
+    background-size:22px 22px;
+  }
+  .bar-message-off{
+    background: url({{img_message_off}}) no-repeat center 2px;
+    background-size:22px 22px;
+  }
+  .bar-salary-off {
+    background: url({{img_salary_active}}) no-repeat center 2px;
+    background-size:22px 22px;
+  }
+  .bar-personal-on {
+    background: url({{img_personal}}) no-repeat center 2px;
+    background-size:22px 22px;
+  }
+  .bar-personal-off {
+    background: url({{img_personal_active}}) no-repeat center 2px;
+    background-size:22px 22px;
+  }
+  .bar-at-sign-in-on {
+    background: url({{img_at_sign_in_active}}) no-repeat center 2px;
+    background-size:22px 22px;
+  }
+  .bar-at-sign-in-off {
+    background: url({{img_at_sign_in_normal}}) no-repeat center 2px;
+    background-size:22px 22px;
+  }
+    .badgeClass{
+      /*color:red !important;*/
+      background-color:red !important;
+      /*width:8px !important;*/
+      /*height:8px !important;*/
+      /*font-size: 0px !important;*/
+      /*min-width:5px !important;*/
+      padding: 0px !important;
+      padding-right: 3px !important;
+      padding-left: 3px !important;
+      position: absolute;
+      /*top:5px !important;*/
+      /*right: 15px !important;*/
+      font-weight: lighter;
+
+      min-width:20px !important;
+      height:20px !important;
+      line-height:18px !important;
+      top:0px !important;
+      right: 15% !important;
+      border: 1px solid white !important;
+      /*margin-left: 50% !important;*/
+    }
+  </style>
+
+    <ion-tab title="消息" icon-off="bar-message-on" icon-on="bar-message-off" href="#/home_page/home_message"  badge="home_message_count.message_count" badge-style="badgeClass"  >
+      <ion-nav-view  name="home-message-nav">
+
+      </ion-nav-view>
+    </ion-tab>
+
+    <ion-tab title="考勤" icon-off="bar-at-on" icon-on="bar-at-off" href="#/home_page/home_at" >
+      <ion-nav-view name="home-at-nav">
+      </ion-nav-view>
+    </ion-tab>
+
+
+    <ion-tab title="首页" icon-off="bar-home-on" icon-on="bar-home-off" href="#/home_page/home_default">
+      <ion-nav-view  name="home-default-nav">
+      </ion-nav-view>
+    </ion-tab>
+    <!--<ion-tab title="工资" icon-off="bar-salary-on" icon-on="bar-salary-off" href="#/home_page/home_payroll">-->
+      <!--<ion-nav-view name="home-payroll-nav">-->
+      <!--</ion-nav-view>-->
+    <!--</ion-tab>-->
+
+    <ion-tab title="签到" icon-on="bar-at-sign-in-on" icon-off="bar-at-sign-in-off" href="#/home_page/at_sign_in">
+      <ion-nav-view name="home-at-sign-in-nav">
+      </ion-nav-view>
+    </ion-tab>
+
+    <ion-tab title="我的" icon-off="bar-personal-on" icon-on="bar-personal-off" href="#/home_page/home_person">
+      <ion-nav-view name="home-person-nav">
+      </ion-nav-view>
+    </ion-tab>
+
+  </ion-tabs>

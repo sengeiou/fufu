@@ -1,0 +1,404 @@
+<ion-view id="team_at_exception" style="background-color:#f8f8f8; " hide-tab-bar title='假期冲突列表'  ng-controller="teamAtExceptionCtrl">
+<style>
+	#team_at_exception .team_at_exception_content {
+		top: 189px;
+	}
+	.platform-win32.platform-cordova #team_at_exception .team_at_exception_content {
+		top: 169px;
+	}
+	.platform-android.platform-cordova #team_at_exception .team_at_exception_content {
+		top: 169px;
+	}
+
+	#team_at_exception .hide_checkbox{
+		display: none;
+	}
+
+	#team_at_exception .show_checkbox{
+		display: inline-block;
+	}
+</style>
+<ion-header-bar class="bar-subheader" style="padding:0px;">
+
+
+
+
+<div style="height: 72px;width: 100%;background-color: #083c6a;color: white;padding-top:0px; margin-bottom:10px;">
+	<!--年月日-->
+	<div id="" style="height: 40px;width: 20%; margin-top:17px;float: left; margin-left:1%;  border-right:1px dashed white" ng-click="showDate()">
+    	<div id="team_at_exception_calendar_year" style="margin-left:5px; font-size:12px;" class="ng-binding">2016年</div>
+        <div style="position: relative;font-size: 14px;margin-left:5px;">
+        	<span id="team_at_exception_calendar_month" style="font-size: 18px" class="ng-binding">07</span>
+            <span style="font-size:12px;">月</span>
+            <div style="width: 0;height: 0;border-left: 5px solid transparent;border-right: 5px solid transparent;border-top: 5px solid white;position: absolute;top:8px;left: 38px;"></div>
+        </div>
+    </div>
+    <!--年月日-->
+
+    <!--日期-->
+    <div id="calendar_week_group" style="height:72px; width:78%; overflow:hidden; float:left;  margin-left:1%">
+    <div id="calendar_week_group_translate_div" style="width:300%; -webkit-transform:translateX(-33.3333%); transform:translateX(-33.3333%); overflow: hidden; height:72px;">
+        <div id="calendar_week_page1" on-drag-left="calendar_week_next_week()" on-drag-right="calendar_week_previous_week()" style="float: left;overflow:hidden; width:33.3333%">
+
+          <div id="calendar_week_page1_first_item" ng-click="weekday_select(0)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px;">
+            <div class="calendar_week_page1_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page1_day" style="font-size: 18px; position: relative;"></div>
+          </div>
+
+          <div ng-click="weekday_select(1)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px;">
+            <div class="calendar_week_page1_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page1_day" style="font-size: 18px; position: relative;"></div>
+          </div>
+
+          <div ng-click="weekday_select(2)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px; ">
+            <div class="calendar_week_page1_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page1_day" style="position: relative; font-size: 18px;"></div>
+          </div>
+
+          <div ng-click="weekday_select(3)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px; ">
+            <div class="calendar_week_page1_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page1_day" style="position: relative;font-size: 18px;"></div>
+          </div>
+
+          <div ng-click="weekday_select(4)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px; ">
+            <div class="calendar_week_page1_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page1_day" style="position: relative;font-size: 18px;"></div>
+          </div>
+
+          <div ng-click="weekday_select(5)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px; ">
+            <div class="calendar_week_page1_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page1_day" style="position: relative;font-size: 18px;"></div>
+          </div>
+
+          <div ng-click="weekday_select(6)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px;">
+            <div class="calendar_week_page1_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page1_day" style="position: relative;font-size:18px;"></div>
+          </div>
+        </div>
+
+        <div id="calendar_week_page2" on-drag-left="calendar_week_next_week()" on-drag-right="calendar_week_previous_week()" style="float: left;overflow:hidden; width:33.3333%">
+
+          <div id="calendar_week_page2_first_item" ng-click="weekday_select(0)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px;">
+            <div class="calendar_week_page2_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page2_day" style="position: relative; font-size: 18px;"></div>
+          </div>
+
+          <div ng-click="weekday_select(1)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px; ">
+            <div class="calendar_week_page2_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page2_day" style="position: relative;font-size: 18px;"></div>
+          </div>
+
+          <div ng-click="weekday_select(2)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px; ">
+            <div class="calendar_week_page2_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page2_day" style="position: relative;font-size: 18px;"></div>
+          </div>
+
+          <div ng-click="weekday_select(3)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px; ">
+            <div class="calendar_week_page2_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page2_day" style="position: relative;font-size: 18px;"></div>
+          </div>
+
+          <div ng-click="weekday_select(4)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px; ">
+            <div class="calendar_week_page2_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page2_day" style="position: relative;font-size: 18px;"></div>
+          </div>
+
+          <div ng-click="weekday_select(5)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px;">
+            <div class="calendar_week_page2_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page2_day" style="position: relative;font-size:18px;"></div>
+          </div>
+
+          <div ng-click="weekday_select(6)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right:3px;">
+            <div class="calendar_week_page2_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page2_day" style="position: relative;font-size: 18px;"></div>
+          </div>
+        </div>
+
+        <div id="calendar_week_page3" on-drag-left="calendar_week_next_week()" on-drag-right="calendar_week_previous_week()" style="float: left;overflow:hidden; width:33.3333%">
+          <div id="calendar_week_page3_first_item" ng-click="weekday_select(0)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px;">
+            <div class="calendar_week_page3_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page3_day" style="position: relative;font-size:18px;"></div>
+          </div>
+
+          <div ng-click="weekday_select(1)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px;">
+            <div class="calendar_week_page3_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page3_day" style="position: relative;font-size: 18px;"></div>
+          </div>
+
+          <div ng-click="weekday_select(2)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px;">
+            <div class="calendar_week_page3_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page3_day" style="position: relative;font-size: 18px;"></div>
+          </div>
+
+          <div ng-click="weekday_select(3)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px; ">
+            <div class="calendar_week_page3_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page3_day" style="position: relative;font-size: 18px;"></div>
+          </div>
+
+          <div ng-click="weekday_select(4)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px; ">
+            <div class="calendar_week_page3_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page3_day" style="position: relative;font-size: 18px;"></div>
+          </div>
+
+          <div ng-click="weekday_select(5)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px; ">
+            <div class="calendar_week_page3_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page3_day" style="position: relative;font-size: 18px;"></div>
+          </div>
+
+          <div ng-click="weekday_select(6)" style="height: 42px;width:11.5%;float: left;text-align:center; margin-top:17px;margin-left: 3px;margin-right: 3px; ">
+            <div class="calendar_week_page3_day_of_week" style="font-size:12px;"></div>
+            <div class="calendar_week_page3_day" style="position: relative;font-size: 18px;"></div>
+          </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <!--日期-->
+
+        <div style="width:100%; overflow:hidden; background-color:#fff; padding:8px 0;border-bottom: 1px solid#f5f5f5;border-top: 1px solid#f5f5f5; padding-top: 11px;">
+    	<div style="float:left">
+        	<div style="float:left; margin-left:12px;">
+            	<i ng-click="toggle_leave()" ng-class="is_show_leave? 'hide_checkbox':'show_checkbox'" class="ion-android-checkbox-outline-blank" style="color:#ff9547;font-size:18px;" ></i>
+                <i ng-click="toggle_leave()" ng-class="is_show_leave? 'show_checkbox':'hide_checkbox'" class="ion-android-checkbox" style=" color:#ff9547; font-size:18px;"></i>
+                <div ng-click="toggle_leave()" style="font-size:12px; color:#333; float:right; margin-left:6px;">休假</div>
+            </div>
+            <div style="float:left;margin-left:12px;">
+            	<i ng-click="toggle_attendance()" ng-class="is_show_attendance? 'hide_checkbox':'show_checkbox'" class="ion-android-checkbox-outline-blank" style=" color:#53afff;font-size:18px;" ></i>
+                <i ng-click="toggle_attendance()" ng-class="is_show_attendance? 'show_checkbox':'hide_checkbox'" class="ion-android-checkbox" style=" color:#53afff;font-size:18px;"></i>
+                <div ng-click="toggle_attendance()" style="font-size:12px; color:#333; float:right; margin-left:6px;">外勤</div>
+            </div>
+        </div>
+
+        <div style="float:right">
+        	<div ng-click="team_at_exception_employee_select()" style=" float:right;">
+            	<i class="icon ion-ios-arrow-right" style="margin-right: 12px;font-size: 20px;color: #ccc;" ></i>
+            </div>
+        	<div style=" float:right; margin-right:12px;" ng-click="team_at_exception_employee_select()">
+            	<i id="team_at_exception_clear_filter_checkmark" class="ion-ios-checkmark" style="display:none; color:#07b237;font-size:18px;" ></i>
+                <div id="team_at_exception_clear_filter_text" style="font-size:14px; color:#333; float:right; margin-left:3px;">筛选员工</div>
+            </div>
+            <div ng-click="team_at_exception_clear_filter()" id="team_at_exception_clear_filter" style="display:none; float:right; margin-right:12px;">
+            	<i class="ion-ios-close" style=" color:#bfbfbf;font-size:18px;" ></i>
+                <div style="font-size:14px; color:#333; float:right; margin-left:3px;">清除</div>
+            </div>
+            <div></div>
+        </div>
+    </div>
+</div>
+
+</ion-header-bar>
+
+  <ion-content class="team_at_exception_content" has-bouncing="true" overflow-scroll="false">
+
+<input id="team_at_exception_filter_employee_list" type="hidden">
+<!-----------------------------------团队异勤----------------------------------------->
+<!--
+<div style="height: 72px;width: 100%;#083c6a;color: white;padding-top:0px; margin-bottom:10px;">
+  <div style="width:100%; overflow:hidden; border-top:1px solid#f5f5f5; background-color:#fff;">
+
+  	<div style="width:18%; overflow:hidden; float:left;">
+    	<div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden; margin-top:12px; margin-bottom:12px; margin-left:12px">
+            <img src="http://120.24.153.50/cb_hrms/views/photos/5D5BA5B0-5EBF-49C9-A8A15677D9AE35BB.png" alt="" style="width: 50px;height: 50px;">
+          </div>
+    </div>
+
+    <div style="float:left; width:80%; overflow:hidden;margin-left: 2%; margin-top:10px;">
+    	<div style="color: #333;font-size: 16px;margin-bottom: 2px;margin-left: 1.3%;">Sofia</div>
+
+        <div style="margin-left:1.0%">
+    		<div style="background-color: #ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style=" border:1px dashed#8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;">
+            	<div style="width:56%; height:20px; background-color:#8fcbff;border: 1px solid#8fcdff;margin-top: -1px; margin-left: -1px;"></div>
+            </div>
+        </div>
+    </div>
+
+  </div>
+
+  <div style="width:100%; overflow:hidden; border-top:1px solid#f5f5f5; background-color:#fff;">
+
+  	<div style="width:18%; overflow:hidden; float:left;">
+    	<div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden; margin-top:12px; margin-bottom:12px; margin-left:12px">
+            <img src="http://120.24.153.50/cb_hrms/views/photos/5D5BA5B0-5EBF-49C9-A8A15677D9AE35BB.png" alt="" style="width: 50px;height: 50px;">
+          </div>
+    </div>
+
+    <div style="float:left; width:80%; overflow:hidden;margin-left: 2%; margin-top:10px;">
+    	<div style="color: #333;font-size: 16px;margin-bottom: 2px;margin-left: 1.3%;">Sofia</div>
+
+        <div style="margin-left:1.0%">
+    		<div style="background-color: #fff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #fff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="border:1px dashed#8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;">
+            	<div style="width:56%; height:20px; background-color:#8fcbff;border: 1px solid#8fcdff;margin-top: -1px; margin-left: -1px;"></div>
+            </div>
+            <div style="background-color: #8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="border:1px dashed#8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;">
+            	<div style="width:56%; height:20px; background-color:#8fcbff;border: 1px solid#8fcdff;margin-top: -1px; margin-left: -1px;"></div>
+            </div>
+        </div>
+    </div>
+
+  </div>
+
+
+  <div style="width:100%; overflow:hidden; border-top:1px solid#f5f5f5; background-color:#fff;">
+
+  	<div style="width:18%; overflow:hidden; float:left;">
+    	<div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden; margin-top:12px; margin-bottom:12px; margin-left:12px">
+            <img src="http://120.24.153.50/cb_hrms/views/photos/5D5BA5B0-5EBF-49C9-A8A15677D9AE35BB.png" alt="" style="width: 50px;height: 50px;">
+          </div>
+    </div>
+
+    <div style="float:left; width:80%; overflow:hidden;margin-left: 2%; margin-top:10px;">
+    	<div style="color: #333;font-size: 16px;margin-bottom: 2px;margin-left: 1.3%;">Sofia</div>
+
+        <div style="margin-left:1.0%">
+    		<div style="border:1px dashed#ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;">
+            	<div style="width:56%; height:20px; background-color:#ff9547;border: 1px solid#ff9547;margin-top: -1px; margin-left: -1px;"></div>
+            </div>
+            <div style="background-color: #ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+        </div>
+    </div>
+
+  </div>
+
+
+  <div style="width:100%; overflow:hidden; border-top:1px solid#f5f5f5; background-color:#fff;">
+
+  	<div style="width:18%; overflow:hidden; float:left;">
+    	<div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden; margin-top:12px; margin-bottom:12px; margin-left:12px">
+            <img src="http://120.24.153.50/cb_hrms/views/photos/5D5BA5B0-5EBF-49C9-A8A15677D9AE35BB.png" alt="" style="width: 50px;height: 50px;">
+          </div>
+    </div>
+
+    <div style="float:left; width:80%; overflow:hidden;margin-left: 2%; margin-top:10px;">
+    	<div style="color: #333;font-size: 16px;margin-bottom: 2px;margin-left: 1.3%;">Sofia</div>
+
+        <div style="margin-left:1.0%">
+    		 <div style="border:1px dashed#8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;">
+            	<div style="width:56%; height:20px; background-color:#8fcbff;border: 1px solid#8fcdff;margin-top: -1px; margin-right: -1px; float:right;"></div>
+            </div>
+            <div style="background-color: #8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+        </div>
+    </div>
+
+  </div>
+
+
+  <div style="width:100%; overflow:hidden; border-top:1px solid#f5f5f5; background-color:#fff;">
+
+  	<div style="width:18%; overflow:hidden; float:left;">
+    	<div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden; margin-top:12px; margin-bottom:12px; margin-left:12px">
+            <img src="http://120.24.153.50/cb_hrms/views/photos/5D5BA5B0-5EBF-49C9-A8A15677D9AE35BB.png" alt="" style="width: 50px;height: 50px;">
+          </div>
+    </div>
+
+    <div style="float:left; width:80%; overflow:hidden;margin-left: 2%; margin-top:10px;">
+    	<div style="color: #333;font-size: 16px;margin-bottom: 2px;margin-left: 1.3%;">Sofia</div>
+
+        <div style="margin-left:1.0%; overflow:hidden;">
+    		<div style="background-color: #8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #fff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #fff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #fff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #fff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #fff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #fff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+        </div>
+        <div style=" width:96%; height:1px; background-color:#f0f0f0;margin-top: 5px;margin-bottom: -2px; margin-left:1.3%;"></div>
+        <div style="margin-left:1.0%;overflow:hidden; margin-bottom:14px;">
+    		<div style="background-color: #ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #fff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #fff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #fff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #fff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #fff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+            <div style="background-color: #fff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0.3%;margin-right: 0.3%;"></div>
+        </div>
+    </div>
+
+  </div>
+-->
+
+    <div ng-show="team_at_exception_data.data_ready && team_at_exception_data.length==0" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+
+
+  <div ng-repeat="items in team_at_exception_data" style="width:100%; overflow:hidden; border-top:1px solid#f5f5f5; background-color:#fff;">
+
+  	<div style="width:20%; overflow:hidden; float:left;">
+    	<div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden; margin-top:12px; margin-bottom:12px; margin-left:12px">
+            <img ng-src="{{items.empl_img}}" alt="" style="width: 50px;height: 50px;">
+          </div>
+    </div>
+
+    <div style="float:left; width:78%; overflow:hidden;margin-left: 2%; margin-top:10px;">
+    	<div style="color: #333;font-size: 16px;margin-bottom: 2px;margin-left: 1.3%;">{{items.employee_name}}</div>
+
+        <div style="margin-left:1.0%; overflow:hidden;">
+            <div ng-repeat="item1 in items.list1">
+				<div ng-if="item1.type=='outer'&&item1.num_type=='1'" style="background-color: #8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left:0px;margin-right:1px;"></div>
+    			<div ng-if="item1.type=='lv'&&item1.num_type=='1'" style="background-color: #ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left:0px;margin-right:1px;"></div>
+                <div ng-if="item1.type=='lv'&&item1.num_type=='2'" style="border:1px dashed#ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left:0px;margin-right: 1px;">
+                    <div style="width:56%; height:20px; background-color:#ff9547;border: 1px solid#ff9547;margin-top: -1px; margin-left: -1px;"></div>
+                </div>
+                <div ng-if="item1.type=='outer'&&item1.num_type=='2'" style=" border:1px dashed#8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left:0px;margin-right: 1px;">
+                    <div style="width:56%; height:20px; background-color:#8fcbff;border: 1px solid#8fcdff;margin-top: -1px; margin-left: -1px;"></div>
+                </div>
+                <div ng-if="item1.type=='lv'&&item1.num_type=='3'" style="border:1px dashed#ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0px;margin-right: 1px;">
+                    <div style="width:56%; height:20px; background-color:#ff9547;border: 1px solid#ff9547;margin-top: -1px; margin-right: -1px; float:right;"></div>
+                </div>
+                <div ng-if="item1.type=='outer'&&item1.num_type=='3'" style="border:1px dashed#8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0px;margin-right: 1px;">
+                    <div style="width:56%; height:20px; background-color:#8fcbff;border: 1px solid#8fcdff;margin-top: -1px; margin-right: -1px; float:right;"></div>
+                </div>
+				<div ng-if="item1.type==''" style="background-color: #fff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0px;margin-right: 1px;"></div>
+			</div>
+        </div>
+        <div ng-show="items.list2_has_data=='1'" style=" width:96%; height:1px; background-color:#f0f0f0;margin-top: 5px;margin-bottom: -2px; margin-left:1.3%;"></div>
+        <div ng-show="items.list2_has_data=='1'" style="margin-left:1.0%;overflow:hidden; margin-bottom:14px;">
+            <div ng-repeat="item2 in items.list2">
+				<div ng-if="item2.type=='outer'&&item2.num_type=='1'" style="background-color: #8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 1px%;margin-right: 1px;"></div>
+    			<div ng-if="item2.type=='lv'&&item2.num_type=='1'" style="background-color: #ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0px;margin-right: 1px;"></div>
+                <div ng-if="item2.type=='lv'&&item2.num_type=='2'" style="border:1px dashed#ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0px;margin-right: 1px;">
+                    <div style="width:56%; height:20px; background-color:#ff9547;border: 1px solid#ff9547;margin-top: -1px; margin-left: -1px;"></div>
+                </div>
+                <div ng-if="item2.type=='outer'&&item2.num_type=='2'" style=" border:1px dashed#8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0px;margin-right: 1px;">
+                    <div style="width:56%; height:20px; background-color:#8fcbff;border: 1px solid#8fcdff;margin-top: -1px; margin-left: -1px;"></div>
+                </div>
+                <div ng-if="item2.type=='lv'&&item2.num_type=='3'" style="border:1px dashed#ff9547;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0px;margin-right: 1px;">
+                    <div style="width:56%; height:20px; background-color:#ff9547;border: 1px solid#ff9547;margin-top: -1px; margin-right: -1px; float:right;"></div>
+                </div>
+                <div ng-if="item2.type=='outer'&&item2.num_type=='3'" style="border:1px dashed#8fcbff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0px;margin-right: 1px;">
+                    <div style="width:56%; height:20px; background-color:#8fcbff;border: 1px solid#8fcdff;margin-top: -1px; margin-right: -1px; float:right;"></div>
+                </div>
+				<div ng-if="item2.type==''" style="background-color: #fff;height: 20px;width: 13.5%;float: left;text-align: center; margin-top:8px;margin-left: 0px;margin-right: 1px;"></div>
+			</div>
+        </div>
+    </div>
+
+  </div>
+
+
+
+
+<!-----------------------------------团队异勤----------------------------------------->
+
+  </ion-content>
+</ion-view>

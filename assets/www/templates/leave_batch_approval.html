@@ -1,0 +1,164 @@
+<ion-view hide-back-button="true" style="background-color:#f8f8f8;" title='<div style="width:100%;position:fixed; height:62px;line-height:84px; background-color:#53afff;l margin-top:0px;left:0px; top: -20px; background-color: #53afff;z-index:999;overflow:hidden;"><div onclick="window.navbarBackClick()" id="leaveBatchApprovalBack" style="width:30px;float:left;margin-top:25px;margin-left:-5px;" >  <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" ><span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>  </div><div id="leaveBatchApprovalSearch" onclick="window.navbarShowSearch(this.id);" sev_name="leaveBatchApproval" style="width:30px;float:right;padding-left:0px;margin-top:25px;" >     <div  style="margin-right:0px;">
+    <i class="ion-ios-search-strong button back-button buttons button-clear button-light ion-ios-arrow-left header-item" style="font-size:20px !important;"></i>
+  </div></div>  请假单审批</div>
+  <div style="width: 100%;height: 44px;margin-top: 0px;background-color: #53afff;position: absolute;z-index: 999;opacity: 0;text-align: center;line-height: 44px;color: white;transition: all .3s ease-in-out;display: none" id="leaveBatchApprovalSearchDiv">
+<div class="bar bar-header item-input-inset searchclass active" style="background-color: rgb(83, 175, 255);height: 44px;" >
+  <div class="item-input-wrapper" style="margin-top: 0px !important;background-color: #fff;" >
+<div style="width: 100%" clear-value-box>
+    <i class="icon ion-ios-search-strong placeholder-icon" style="position:absolute;left: 20px;top:-12px; margin-top: 12px;"></i>
+      <input clear-value-input id="leaveBatchApprovalSearchInput" type="search" placeholder="搜索姓名、假期类型、时间..." ng-model="search_control.search_val" class="" style="margin-left:10px;" sev_name="leaveBatchApproval" oninput="window.navbarSearchInput(this.id)" onfocus="window.navbarSearchfocus(this.id)" onblur="window.navbarSearchblur(this.id)"/>
+       <div onclick="window.navbarSearchClearValue(this.id)" sev_name="leaveBatchApproval" id="leaveBatchApprovalCloseIonic" class="ion-ios-close" style="position: absolute; right: 60px; font-size: 16px; margin-right: 2px; top:7px;height:31px;line-height:31px;color: #cccccc;display:none;"></div>
+</div>
+  </div>
+  <button class="button button-clear" style="margin-top: 0px !important; color:#fff;margin-right:-5px;" id="leaveBatchApprovalSearchCancelBtn" sev_name="leaveBatchApproval" onclick="window.navbarSearchCancel(this.id)">
+    取消
+  </button>
+</div>
+</div>'
+    ng-controller="leaveBatchApprovalCtrl" hide-tab-bar id="ess_my_approval_details">
+    <style>
+        #ess_my_approval_details .searchclass {
+            position: relative;
+            top: 0px;
+            z-index: 9999;
+            -webkit-transition: opacity .3s ease-in-out;
+            height: 0;
+            opacity: 0;
+            padding: 0px;
+        }
+
+        #ess_my_approval_details .searchclass.active {
+            height: 44px;
+            opacity: 1;
+            padding: 10.667px;
+            -webkit-transition: opacity .3s ease-in-out;
+        }
+
+        .platform-win32.platform-cordova #leaveBatchApprovalBack {
+            margin-left: -7px;
+        }
+
+        .platform-android.platform-cordova #leaveBatchApprovalBack {
+            padding-left: 10px !important;
+        }
+
+
+        .btn_wrapper {
+            display: flex;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            border-top: 1px solid #e7e7e7;
+            height: 45px;
+            background-color: #fff;
+
+        }
+
+        .btn_group {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn_group:nth-of-type(1) {
+            border-right: 1px solid #e7e7e7;
+        }
+
+        .btn {
+            font-size: 17px;
+        }
+
+        .checkbox_wrapper {
+            float: left;
+            width: 22px;
+            position: relative;
+            top: 18px;
+        }
+
+        .checkbox-circle {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1px solid #e7e7e7;
+        }
+
+        .checkbox-circle.active {
+            background: url("img/icon/icon_select.png") no-repeat;
+            background-size: 100% 100%;
+            background-position: center center;
+            border: none;
+        }
+
+        .select_wrapper {
+            width: 100%;
+            background-color: #fff;
+            height: 36px;
+            color: #000;
+            padding-left: 12px;
+            border-bottom: 1px solid #e7e7e7;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+
+        }
+
+        .all_not_select {
+            display: none;
+        }
+    </style>
+
+    <ion-content has-bouncing="true" overflow-scroll="false" style="margin-bottom:45px;">
+        <div class="select_wrapper" ng-if="filterItems.length!=0">
+            <div class="all_select" ng-click="switchSelect('all')">全选</div>
+            <div class="all_not_select" ng-click="switchSelect('notAll')">全不选</div>
+        </div>
+
+        <div id="ess_my_apply_details_wrap" style="position: relative;transition: all .3s ease-in-out;width: 200%;overflow: hidden">
+            <div id="ess_my_apply_details_noapprove_div" style="width: 50%;">
+                <div ng-show="ess_my_approvalD_data.data_ready && ess_my_approvalD_data.data1.length==0 && search_control.search_val==''"
+                    style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+                <div ng-show="filterItems.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+                <div ng-repeat="item in filterItems = (ess_my_approvalD_data.data1|dataAndFilter:'app_date,em,s_d,lv_name,e_d,p_s,dd':search_control.search_val)"
+                    style="padding:12px;border-bottom:1px solid #f5f5f5;border-top:1px solid #f5f5f5; background-color:#fff;border-bottom-width:0px;"
+                    ng-click="selectItem(item)">
+                    <div style="">
+                        <div style="width: 100%;">
+                            <div class="checkbox_wrapper">
+                                <div class="checkbox-circle" ng-class="item.checked && 'active'"></div>
+                            </div>
+                            <div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden; margin-bottom:20px; margin-top:6px;margin-left:12px;margin-right:12px;">
+                                <img src="{{item.img}}" alt="" style="width: 50px;height: 50px;" />
+                            </div>
+                            <div style="width: 100%;">
+                                <div>
+                                    <div style="float: right;color: #bbb;font-size: 12px;">{{item.app_date}}</div>
+                                    <!--<div style="text-indent: 12px; color:#333; font-size:16px; margin-bottom:2px;">{{item.em}} {{item.lv_name}}{{item.dd}}</div>-->
+
+                                </div>
+                                <div>
+                                    <div style=" margin-left:62px;color:#333; font-size:16px; margin-bottom:2px;">{{item.em}}</div>
+                                    <div style="margin-left:62px;color: #ff6600; margin-bottom:0px; font-size:14px; margin-top:3px;">{{item.lv_name}}{{item.dd}}</div>
+                                    <div style="margin-left:62px; color: #999; font-size:12px;margin-top: -2px; padding-bottom: 3px;">({{item.s_d}}--{{item.e_d}})</div>
+                                </div>
+
+                                <!--<div style="text-indent: 12px;color: #ff6600 " ng-show="item.p_s!='已驳回'">{{item.p_s}}</div>-->
+                                <!--<div style="text-indent: 12px;color: red " ng-show="item.p_s=='已驳回'">已驳回</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <div class="btn_wrapper" ng-if="showBtnGroup">
+        <div class="btn_group" ng-click="agree()">
+            <div class="btn" style="color: #53afff;">批准</div>
+        </div>
+        <div class="btn_group" ng-click="reject()">
+            <div class="btn" style="color: #ff5d5d;">驳回</div>
+        </div>
+    </div>
+</ion-view>

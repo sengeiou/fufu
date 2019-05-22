@@ -1,0 +1,95 @@
+
+<ion-view style="background-color:#f8f8f8;" hide-back-button="true" hide-nav-bar="true" title='' hide-tab-bar ng-controller="SharinglinkCtrl">
+  	<ion-header-bar align-title="center" class="bar-opacity" style="background-color:#fff;" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" style="color:#333"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span style="">分享链接</span>
+        </h1>
+
+
+	</ion-header-bar>
+
+
+
+  <ion-content  has-bouncing="true" overflow-scroll="false">
+	<div id="wrap" style="position:relative;height:{{wrap_height}}px">
+
+		<div style="background-color:#fff;margin-left:12px;margin-right:12px;margin-top:40px;"> 
+
+			<div style="margin-left:12px;margin-right:12px;background-color:#fff;margin-top:15px;border-radius:4px;padding-bottom:12px;"> 
+				<div style="padding:12px;position:relative;border-bottom:1px solid rgb(240,240,240)">
+					<img style="width:40px;height:40px;display:inline-block;border-radius:150%;" ng-src="{{item.img}}">
+					<div style="display:inline-block;position:relative;top:-5px;margin-left:15px;"> 
+						<div style="font-size:15px;color:rgb(51,51,51)">{{share_link_data.name}}</div>
+						<div style="font-size:12px;color:rgb(153,153,153)">{{share_link_data.phone}}</div>
+					</div>
+					
+				</div>
+				
+				<div style="text-indent:12px;font-size:14px;margin-top:12px;font-size:13px;">
+					<span style="color:rgb(153,153,153)">访客事由</span> <span style="margin-left:19px;">{{share_link_data.reason}}</span>
+				</div>
+				<div style="text-indent:12px;font-size:14px;margin-top:8px;font-size:13px;">
+					<span style="color:rgb(153,153,153)">访问日期</span> <span style="margin-left:19px;">{{share_link_data.date_from}}~{{share_link_data.date_to}}</span>
+				</div>
+				<div style="text-indent:12px;font-size:14px;margin-top:8px;font-size:13px;">
+					<span style="color:rgb(153,153,153)">访问时间</span> <span style="margin-left:19px;">{{share_link_data.time_from}}~{{share_link_data.time_to}}</span>
+				</div>
+				
+				<div style="text-indent:12px;font-size:14px;margin-top:8px;font-size:13px;">
+					<span style="color:rgb(153,153,153)">验证方式</span> <span style="margin-left:19px;">{{share_link_data.valid_mode}}</span>
+				</div>
+				
+				<div style="text-indent:12px;font-size:14px;margin-top:8px;font-size:13px;">
+					<div><span style="color:rgb(153,153,153)">设备名称</span> <span style="margin-left:19px;">{{share_link_data.sn_list}}</span></div>
+				</div>
+		
+				<div style="text-indent:12px;font-size:14px;margin-top:8px;font-size:13px;">
+					<div style="color:rgb(153,153,153);display:inline-block;position:absolute;left:25px;">到访地址</div> <div style="margin-left:79px;display:inline-block;text-indent:12px;text-indent:0px;">{{share_link_data.address}}</div>
+				</div>
+				
+				
+			</div>
+		</div>
+			
+			
+			
+			<div style="position:absolute;width:100%;bottom:50px;">
+			<div style="text-align:center;color:rgb(153,153,153);font-size:12px;">将连接分享到</div>
+			<div style="text-align:center;margin-top:15px;">
+				<div style="display:inline-block;margin-left:20px;margin-right:20px;">
+					<div style="width:60px;height:60px;">
+						<img style="width:60px;height:60px;" ng-src="{{phone_icon}}">
+					</div>
+					<div style="margin-top:12px">分享到手机</div>
+				</div>
+				<div style="display:inline-block;margin-left:20px;margin-right:20px;">
+					<div style="width:60px;height:60px;">
+						<img style="width:60px;height:60px;" ng-src="{{wechat_icon}}">
+					</div>
+					<div style="margin-top:12px">分享到微信</div>
+				</div>
+				<div style="display:inline-block;margin-left:20px;margin-right:20px;">
+					<div style="width:60px;height:60px;">
+						<img style="width:60px;height:60px;" ng-src="{{qq_icon}}">
+					</div>
+					<div style="margin-top:12px">分享到QQ</div>
+				</div>
+			</div>
+		</div>
+	
+	
+  </div>
+  
+
+  </ion-content>
+  
+  
+  
+</ion-view>
+

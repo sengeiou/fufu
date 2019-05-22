@@ -1,0 +1,283 @@
+<ion-view ng-controller="homeMessageOpendoorNoticeCtrl" style="background-color:#f8f8f8;" title="开门提醒" cache-view="false"
+    hide-tab-bar>
+    <style>
+        /* 卡片数据的样式 */
+        .block-group {
+            margin-top: 20px;
+        }
+
+        .block-titile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .block-time {
+            background: #e0e0e0;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 12px;
+            padding: 0 8px;
+            height: 20px;
+        }
+
+        .block-wrapper {
+            display: flex;
+            margin-top: 10px;
+            padding: 0 12px;
+        }
+
+        .block-left {
+            margin-right: 10px;
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+        }
+
+        .full-width {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .block-right-title {
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .block-right-content {
+            background-color: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .right-content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 58px;
+            padding: 12px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-avatar {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .name {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .number {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .header-right {
+            margin-top: 13px;
+        }
+
+        .status {
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 2px;
+            font-size: 11px;
+            height: 20px;
+            min-width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            /* 预约中 */
+            background-color: #f0f8ff;
+            color: rgb(83, 175, 255);
+            border-color: #c0dff9;
+
+            /* 已预约 */
+            background-color: rgb(233, 255, 233);
+            color: rgb(54, 201, 109);
+            border-color: rgb(192, 249, 194);
+
+            /* 已撤回 */
+            background-color: rgb(255, 249, 241);
+            color: rgb(255, 135, 5);
+            border-color: rgb(252, 222, 188);
+
+            /* 已拒绝 */
+            background-color: rgb(255, 240, 240);
+            color: rgb(254, 97, 97);
+            border-color: rgb(255, 190, 190);
+
+            /* 已过期 */
+            background-color: rgb(249, 249, 249);
+            color: rgb(160, 160, 160);
+            border-color: rgb(240, 240, 240);
+        }
+
+        .right-content-main {
+            border-top: 1px solid #f0f0f0;
+            width: 261px;
+        }
+
+        .face-img {
+            width: 100%;
+            height: 150px;
+        }
+
+        .main-wrapper {
+            padding: 15px 10px 16px;
+        }
+
+        .main-item {
+            display: flex;
+        }
+
+        .main-item+.main-item {
+            margin-top: 12px;
+        }
+
+        .main-item-label {
+            color: #666;
+            font-size: 13px;
+            margin-right: 20px;
+        }
+
+        .main-item-content {
+            color: #333;
+            font-size: 14px;
+        }
+
+        .right-content-footer {
+            border-top: 1px solid #f0f0f0;
+            height: 44px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-content {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .footer-btn {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .footer-btn+.footer-btn {
+            border-left: 1px solid #f0f0f0;
+        }
+
+        .btn-icon {
+            width: 12px;
+            height: 15px;
+            margin-right: 8px;
+        }
+
+        .btn-text {
+            font-size: 16px;
+        }
+
+        .private {
+            color: #53afff;
+        }
+
+        .reject {
+            color: #f94343;
+        }
+
+        .invalid {
+            background-color: #f2f2f2;
+            color: #aaa;
+        }
+
+        /* 没数据的样式 */
+        .no-data-wrapper {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 105px;
+        }
+
+        .no-data-img {
+            width: 160px;
+            height: 125px;
+        }
+
+        .no-data-text {
+            font-size: 16px;
+            color: #999;
+            margin-top: 10px;
+        }
+    </style>
+    <ion-content>
+        <div class="block-container">
+            <div class="block-group" ng-repeat="item in list track by $index" ng-if="list && list.length">
+                <div class="block-titile">
+                    <div class="block-time">{{item.date_time}}</div>
+                </div>
+                <div class="block-wrapper">
+                    <div class="block-left">
+                        <img ng-src="{{default_avatar}}" class="avatar">
+                    </div>
+                    <div class="block-right">
+                        <div class="block-right-content">
+                            <div class="right-content-main">
+                                <img ng-src="{{item.photo_name}}" class="face-img">
+                                <div class="main-wrapper">
+                                    <div class="main-item">
+                                        <div class="main-item-content">您好,[{{item.device_info}}]有访客到访,是否开门?</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="right-content-footer">
+                                <div class="footer-btn" ng-if="item.opendoor_status == '0'" ng-click="opendoor(item)">
+                                    <img ng-src="{{btn_key_open}}" class="btn-icon">
+                                    <div class="btn-text private">远程开门</div>
+                                </div>
+                                <div class="footer-btn" ng-if="item.opendoor_status == '0'"  ng-click="rejectOpen(item)">
+                                    <img ng-src="{{btn_lock_refuse}}" class="btn-icon">
+                                    <div class="btn-text reject">拒绝开门</div>
+                                </div>
+                                <div class="footer-btn invalid" ng-if="item.opendoor_status == '1'">
+                                    <img ng-src="{{btn_key_opened}}" class="btn-icon">
+                                    <div class="btn-text">已开门</div>
+                                </div>
+                                <div class="footer-btn invalid" ng-if="item.opendoor_status == '2'">
+                                    <img ng-src="{{btn_lock_refused}}" class="btn-icon">
+                                    <div class="btn-text">已拒绝</div>
+                                </div>
+                                <div class="footer-btn invalid" ng-if="item.opendoor_status == '3'">
+                                    <div class="btn-text">超时未响应,已失效</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-data-wrapper" ng-show="list && list.length == '0'">
+            <img ng-src="{{no_data_img}}" class="no-data-img">
+            <div class="no-data-text">暂无开门信息</div>
+        </div>
+
+    </ion-content>
+</ion-view>

@@ -1,0 +1,122 @@
+<ion-view title="添加" ng-controller="addOpenDoorTimeCtrl" hide-nav-bar="true" hide-tab-bar >
+
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span>添加</span>
+        </h1>
+
+        <div class="buttons">
+            <a ng-click="save()">
+                <button class="button back-button buttons button-clear button-light header-item">保存</button>
+            </a>
+        </div>
+	</ion-header-bar>
+			
+  	<ion-content has-bouncing="true" overflow-scroll="false" >
+        <div class="edit-door-box">
+          <div class="flex-row edit-door-list" style="margin-top:10px;">
+            <div>时间段名称</div>
+            <div class="flex-1 flex-row" clear-value-box style="padding-right:10px;">
+              <input type="text" class="flex-1" placeholder="请填写时间段名称" ng-model="addOpenDoorTimeData.time_division_name" clear-value-input>
+              <i clear-value-btn></i>
+            </div>
+          </div>
+
+          <div class="flex-row edit-door-list" on-tap="selectdw()">
+            <div>所属单位</div>
+            <div class="sdw flex-1">
+              <span ng-class="{'not-value':addOpenDoorTimeData.sub_bu_index==undefined}" ng-bind="addOpenDoorTimeData.sub_bu_index!=undefined?addOpenDoorTimeData.sub_bu_list[addOpenDoorTimeData.sub_bu_index].value:'选择所属单位'"></span>
+              <i class="ion-ios-arrow-forward"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="time-door-box" style="margin-top:10px;">
+          <div class="flex-row time-door-list">
+            <div class="flex-1">星期一</div>
+            <div class="flex-1">
+              <img ng-src="{{local_resource + 'resource/opendoortime/time-slot-start-time-icon@2x.png'}}" >
+              <span ng-class="{'not-value':!addOpenDoorTimeData.mon_from}" ng-bind="addOpenDoorTimeData.mon_from?addOpenDoorTimeData.mon_from:'00:00'" on-tap="selectTime('mon_from')">00:00</span>
+            </div>
+            <div class="flex-1">
+              <img ng-src="{{local_resource + 'resource/opendoortime/time-slot-end-time-icon@2x.png'}}" >
+              <span ng-class="{'not-value':!addOpenDoorTimeData.mon_to}" ng-bind="addOpenDoorTimeData.mon_to?addOpenDoorTimeData.mon_to:'00:00'" on-tap="selectTime('mon_to')">00:00</span>
+            </div>
+          </div>
+          <div class="flex-row time-door-list">
+            <div class="flex-1">星期二</div>
+            <div class="flex-1">
+              <img ng-src="{{local_resource + 'resource/opendoortime/time-slot-start-time-icon@2x.png'}}" >
+              <span ng-class="{'not-value':!addOpenDoorTimeData.tue_from}" ng-bind="addOpenDoorTimeData.tue_from?addOpenDoorTimeData.tue_from:'00:00'" on-tap="selectTime('tue_from')">00:00</span>
+            </div>
+            <div class="flex-1">
+              <img ng-src="{{local_resource + 'resource/opendoortime/time-slot-end-time-icon@2x.png'}}" >
+              <span ng-class="{'not-value':!addOpenDoorTimeData.tue_to}" ng-bind="addOpenDoorTimeData.tue_to?addOpenDoorTimeData.tue_to:'00:00'" on-tap="selectTime('tue_to')">00:00</span>
+            </div>
+          </div>
+          <div class="flex-row time-door-list">
+            <div class="flex-1">星期三</div>
+            <div class="flex-1">
+              <img ng-src="{{local_resource + 'resource/opendoortime/time-slot-start-time-icon@2x.png'}}" >
+              <span ng-class="{'not-value':!addOpenDoorTimeData.wed_from}" ng-bind="addOpenDoorTimeData.wed_from?addOpenDoorTimeData.wed_from:'00:00'" on-tap="selectTime('wed_from')">00:00</span>
+            </div>
+            <div class="flex-1">
+              <img ng-src="{{local_resource + 'resource/opendoortime/time-slot-end-time-icon@2x.png'}}" >
+              <span ng-class="{'not-value':!addOpenDoorTimeData.wed_to}" ng-bind="addOpenDoorTimeData.wed_to?addOpenDoorTimeData.wed_to:'00:00'" on-tap="selectTime('wed_to')">00:00</span>
+            </div>
+          </div>
+          <div class="flex-row time-door-list">
+            <div class="flex-1">星期四</div>
+            <div class="flex-1">
+              <img ng-src="{{local_resource + 'resource/opendoortime/time-slot-start-time-icon@2x.png'}}" >
+              <span ng-class="{'not-value':!addOpenDoorTimeData.thu_from}" ng-bind="addOpenDoorTimeData.thu_from?addOpenDoorTimeData.thu_from:'00:00'" on-tap="selectTime('thu_from')">00:00</span>
+            </div>
+            <div class="flex-1">
+              <img ng-src="{{local_resource + 'resource/opendoortime/time-slot-end-time-icon@2x.png'}}" >
+              <span ng-class="{'not-value':!addOpenDoorTimeData.thu_to}" ng-bind="addOpenDoorTimeData.thu_to?addOpenDoorTimeData.thu_to:'00:00'" on-tap="selectTime('thu_to')">00:00</span>
+            </div>
+          </div>
+          <div class="flex-row time-door-list">
+            <div class="flex-1">星期五</div>
+            <div class="flex-1">
+              <img ng-src="{{local_resource + 'resource/opendoortime/time-slot-start-time-icon@2x.png'}}" >
+              <span ng-class="{'not-value':!addOpenDoorTimeData.fri_from}" ng-bind="addOpenDoorTimeData.fri_from?addOpenDoorTimeData.fri_from:'00:00'" on-tap="selectTime('fri_from')">00:00</span>
+            </div>
+            <div class="flex-1">
+              <img ng-src="{{local_resource + 'resource/opendoortime/time-slot-end-time-icon@2x.png'}}" >
+              <span ng-class="{'not-value':!addOpenDoorTimeData.fri_to}" ng-bind="addOpenDoorTimeData.fri_to?addOpenDoorTimeData.fri_to:'00:00'" on-tap="selectTime('fri_to')">00:00</span>
+            </div>
+          </div>
+          <div class="flex-row time-door-list">
+            <div class="flex-1">星期六</div>
+            <div class="flex-1">
+              <img ng-src="{{local_resource + 'resource/opendoortime/time-slot-start-time-icon@2x.png'}}" >
+              <span ng-class="{'not-value':!addOpenDoorTimeData.sat_from}" ng-bind="addOpenDoorTimeData.sat_from?addOpenDoorTimeData.sat_from:'00:00'" on-tap="selectTime('sat_from')">00:00</span>
+            </div>
+            <div class="flex-1">
+              <img ng-src="{{local_resource + 'resource/opendoortime/time-slot-end-time-icon@2x.png'}}" >
+              <span ng-class="{'not-value':!addOpenDoorTimeData.sat_to}" ng-bind="addOpenDoorTimeData.sat_to?addOpenDoorTimeData.sat_to:'00:00'" on-tap="selectTime('sat_to')">00:00</span>
+            </div>
+          </div>
+          <div class="flex-row time-door-list">
+            <div class="flex-1">星期日</div>
+            <div class="flex-1">
+              <img ng-src="{{local_resource + 'resource/opendoortime/time-slot-start-time-icon@2x.png'}}" >
+              <span ng-class="{'not-value':!addOpenDoorTimeData.sun_from}" ng-bind="addOpenDoorTimeData.sun_from?addOpenDoorTimeData.sun_from:'00:00'" on-tap="selectTime('sun_from')">00:00</span>
+            </div>
+            <div class="flex-1">
+              <img ng-src="{{local_resource + 'resource/opendoortime/time-slot-end-time-icon@2x.png'}}" >
+              <span ng-class="{'not-value':!addOpenDoorTimeData.sun_to}" ng-bind="addOpenDoorTimeData.sun_to?addOpenDoorTimeData.sun_to:'00:00'" on-tap="selectTime('sun_to')">00:00</span>
+            </div>
+          </div>
+        </div>
+    </ion-content>
+   
+</ion-view>
+

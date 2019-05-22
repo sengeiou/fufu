@@ -1,0 +1,144 @@
+<ion-view title="节假日" ng-controller="holidayCtrl" hide-nav-bar="true" hide-tab-bar system-setting-to-view-common>
+
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+	      <h1 class="title">
+            <span>节假日</span>
+        </h1>
+
+        <div class="buttons">
+            <i class="r-icon r-black_search_icon disable-user-behavior" on-tap="openSearchPopover($event);"></i>
+            <i class="r-icon r-black_add_icon disable-user-behavior" on-tap="addHoliday()"></i>
+        </div>
+	</ion-header-bar>
+
+			
+  	<ion-content has-bouncing="true" overflow-scroll="false">
+        <div class="holiday-list-not-val ng-hide" ng-show="!holidayData.list_data.length&&load_flag==1">
+            <img ng-src="{{local_resource + 'resource/holiday/vacation-no-data@2x.png'}}" >
+            <div>暂无节假日</div>
+        </div>
+
+        <ion-list class="holiday-content">
+            <ion-item ng-repeat="item in holidayData.list_data" 
+                              item="item" >
+                <div on-tap="openHolidayDetail(item)">
+                    <div class="holiday-top flex-column">
+                        <div ng-bind="item.zk_holiday_type_name"></div>
+                        <div ng-bind="item.sub_bu_name"></div>
+                    </div>
+
+                    <div style="background-color:white">
+                      <div class="holiday-bottom flex-row">
+                      <div 
+                          class="flex-row not-holiday"
+                          ng-if="!item.holiday_name.length">
+                          <div>空</div>
+                          暂无节假日
+                      </div>
+                      <div
+                        class="flex-row"
+                        ng-repeat="_item in item.holiday_name" 
+                        ng-init="_item.cc=($index>13?'gcl'+$index%13:'gcl'+$index);">
+                        <div ng-bind="_item.name.slice(0,1)" ng-class="[_item.cc]"></div>
+                        {{_item.name}}
+                      </div>
+                    </div>
+                    </div>
+                </div>
+                <ion-option-button class="button-light"
+                                         on-tap="deleteHoliday(item, 0)">
+                        <div>
+                            <i class="r-icon r-opentime-icon"></i>
+                            <div>删除</div>
+                        </div>
+                      </ion-option-button>                
+            </ion-item>
+        </ion-list>
+    </ion-content>
+   
+   <script id="search-holiday-popover.html" type="text/ng-template">
+      <div class="search-popover" ng-class="{'isSearchStr':searchObj.str.length}">
+        <ion-header-bar>
+          <h1 class="title" id="search-ai-device-h1">
+            <div clear-value-box style="right: 34px;left: 2px;">
+                <i class="icon ion-ios-search-strong placeholder-icon"></i>
+                <input id="aiSearchIpt" type="text" placeholder="搜节假日名称..." ng-model="searchObj.str" clear-value-input>
+                <i clear-value-btn></i>
+            </div>
+            
+          </h1>
+
+          <div class="buttons" on-tap="closeSearchPopover()">
+            取消
+          </div>
+        </ion-header-bar>
+        
+        <div class="search-msg-bar" on-tap="search()">
+            <i class="r-icon r-search-bar-icon"></i>
+            <div class="search-msg-text">搜索“<span ng-bind="searchObj.str"></span>”</div>
+            <i class="icon ion-ios-arrow-right"></i>
+        </div>
+
+        <ion-content  has-bouncing="true" overflow-scroll="false" delegate-handle="holidaySearchScroll">
+            
+            <div class="ng-hide search-device-icon-box" ng-show="!searchObj.list.length && searchObj.state">
+                <img ng-src="{{local_resource + 'resource/def/def_s_.png'}}" >
+                <div>暂无节日</div>
+            </div>
+
+            <div class="ng-hide search-device-icon-box" ng-show="!searchObj.state">
+                <img ng-src="{{local_resource + 'resource/def/def_s_.png'}}" >
+                <div>搜索节日</div>
+            </div>
+
+
+            <div class="ng-hide" ng-show="searchObj.list.length">
+                <ion-list class="holiday-content">
+                  <ion-item ng-repeat="item in searchObj.list" 
+                                    item="item">
+                      <div on-tap="openHolidayDetail(item)">
+                          <div class="holiday-top flex-column">
+                              <div ng-bind="item.zk_holiday_type_name"></div>
+                              <div ng-bind="item.sub_bu_name"></div>
+                          </div>
+
+                          <div style="background-color:white">
+                            <div class="holiday-bottom flex-row">
+                            <div 
+                                class="flex-row not-holiday"
+                                ng-if="!item.holiday_name.length">
+                                <div>空</div>
+                                暂无节假日
+                            </div>
+                            <div
+                              class="flex-row"
+                              ng-repeat="_item in item.holiday_name" 
+                              ng-init="_item.cc=($index>13?'gcl'+$index%13:'gcl'+$index);">
+                              <div ng-bind="_item.name.slice(0,1)" ng-class="[_item.cc]"></div>
+                              {{_item.name}}
+                            </div>
+                          </div>
+                          </div>
+                      </div>
+                      <ion-option-button class="button-light"
+                                               on-tap="deleteHoliday(item, 1)">
+                              <div>
+                                  <i class="r-icon r-opentime-icon"></i>
+                                  <div>删除</div>
+                              </div>
+                            </ion-option-button>                
+                  </ion-item>
+              </ion-list>
+            </div>
+
+        </ion-content>
+      </div>
+    </script>
+</ion-view>
+

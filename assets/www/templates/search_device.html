@@ -1,0 +1,65 @@
+<ion-view title="搜索设备" ng-controller="searchDeviceCtrl" hide-nav-bar="true" hide-tab-bar>
+  	<ion-header-bar align-title="center" class="bar-opacity">
+	    <div class="buttons">
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">搜索设备</h1>
+	</ion-header-bar>
+
+  	<ion-content has-bouncing="true" overflow-scroll="false">
+
+      	<div class="bluetooth-state" >
+
+			<div class="n-bluetooth ng-hide" ng-show="searchDeviceData.bluetooth == 0">
+				<div class="bluetooth-big-icon def"></div>
+
+				<span ng-hide="isIos">请手动打开蓝牙</span>
+			</div>
+
+			<div class="y-bluetooth ng-hide" ng-class="{'radii-small':ratioSmall}" ng-show="searchDeviceData.bluetooth == 1">
+				<div class="bluetooth-scan" >
+					<div></div>
+				</div>
+
+				<div class="ng-hide" ng-show="searchDeviceData.stateType == 'bluetooth'">
+					<div class="p-tit">正在搜索设备...</div>
+					<div class="p-msg">请将手机靠近设备,该过程可能需要几分钟时间</div>
+				</div>
+
+				<div class="ng-hide" ng-show="searchDeviceData.stateType == 'device'">
+					<div class="p-tit" ng-bind="(searchDeviceData.device == 7)?'搜索设备失败':(searchDeviceData.device == 4)?'正在连接设备...':'不是4或者7'"></div>
+					<div class="p-msg">请将手机靠近设备,该过程可能需要几分钟时间</div>
+				</div>
+			
+				<!-- <div class="ng-hide" ng-show="searchDeviceData.stateType == 'device' && searchDeviceData.device == 7">
+					<div class="p-tit">搜索设备失败</div>
+					<div class="p-msg">请将手机靠近设备,该过程可能需要几分钟时间</div>
+				</div>
+
+				<div class="ng-hide" ng-show="searchDeviceData.stateType == 'device' && searchDeviceData.device == 4">
+					<div class="p-tit">正在连接设备...</div>
+					<div class="p-msg">请将手机靠近设备,该过程可能需要几分钟时间</div>
+				</div> -->
+			</div>
+
+      	</div>
+
+  	</ion-content>
+
+  	<div class="an-prompt" ng-hide="!isIos" ng-class="{'active':searchDeviceData.stateType == 'bluetooth' && searchDeviceData.bluetooth == 0, 'ratio-small' : ratioSmall}">
+  		<div class="an-def-bg">
+			<img ng-src="{{local_resource + 'img/an_def_bg.png'}}" >
+  		</div>
+  		<div class="an-acv-bg">
+			<img ng-src="{{local_resource + 'img/an_acv_bg.png'}}" >
+  		</div>
+  		<div class="an-prt-finger">
+			<img ng-src="{{local_resource + 'img/t_finger.png'}}" >
+  		</div>
+  	</div>
+
+</ion-view>
+

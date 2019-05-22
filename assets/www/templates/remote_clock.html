@@ -1,0 +1,235 @@
+<ion-view title="异地签到申请" hide-tab-bar ng-controller="atSignInRemoteCtrl" id="atSignInRemote">
+  <style>
+#atSignInRemoteCtrlSpinner svg{
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top:20px;
+  left: 40px;
+}
+#atSignInRemote #notify_list_div.notify_list_active .ng-leave {
+  -webkit-transition: .3s;
+  transition: .3s;
+  opacity: 1;
+}
+
+#atSignInRemote #notify_list_div.notify_list_active .ng-leave-active {
+  opacity: 0;
+}
+
+#atSignInRemote #approver_list_div.approver_list_active .ng-leave {
+  -webkit-transition: .3s;
+  transition: .3s;
+  opacity: 1;
+}
+
+#atSignInRemote #approver_list_div.approver_list_active .ng-leave-active {
+  opacity: 0;
+}
+
+/*
+#atSignInRemote #notify_list_div .ng-enter {
+  -webkit-transition: 1s;
+  transition: 1s;
+  transform:translateX(-1000px);
+  -webkit-transform:translateX(-1000px);
+}
+
+#atSignInRemote #notify_list_div .ng-enter-active {
+  transform:translateX(0px);
+  -webkit-transform:translateX(0px);
+}
+
+#atSignInRemote #approver_list_div .ng-enter {
+  -webkit-transition: 1s;
+  transition: 1s;
+  transform:translateX(-1000px);
+  -webkit-transform:translateX(-1000px);
+}
+
+#atSignInRemote #approver_list_div .ng-enter-active {
+  transform:translateX(0px);
+  -webkit-transform:translateX(0px);
+}
+*/
+  </style>
+  <ion-content style="background-color:#f8f8f8;" has-bouncing="true" overflow-scroll="false">
+    <input type="hidden" id="sign_in_reason_key" />
+    <!--外勤打卡-->
+    <div class="scroll" style="transform: translate3d(0px, 0px, 0px) scale(1); border-top:1px solid#f5f5f5;">
+      <!--定位地址 -->
+      <div ng-click="getAddress()" style="width: 100%; height: 58px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color:#f5f5f5; background-color: rgb(255, 255, 255);" class="" id="sign_in_outdoor_address_div" >
+        <div style="float:left;margin-top:17px; margin-left:12px;">
+          <img style="width:24px; height:24px; "   ng-src="{{field_attendance}}">
+        </div>
+
+        <div style="float:left; width:62%;overflow:hidden;text-overflow:ellipsis;height: 58px;">
+          <span style="font-size:16px; color:#333;margin-left:10px; line-height:58px;width:62%;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;" class="ng-binding" id="address_now">{{address_now}}</span>
+          <ion-spinner icon="ios" id="atSignInRemoteCtrlSpinner" style="display: none" ></ion-spinner>
+        </div>
+
+        <div style="float:right;">
+          <a style=" line-height:58px;font-size:14px; color:#666; margin-right:6px;" class="ng-binding" >地点</a>
+          <div style="float:right;">
+            <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:58px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+          </div>
+        </div>
+      </div>
+      <!--定位地址-->
+
+      <!--签到原因-->
+      <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;" ng-click="picklist_sign_in_reason()">
+        <div style="float:left;">
+          <label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">签到原因</label>
+        </div>
+        <div style="float:right;">
+          <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:6px"></i>
+        </div>
+        <div id="sign_in_reason" style="float: right;line-height:49px; color:#666; font-size:14px;"></div>
+      </div>
+      <!--签到原因-->
+      <!--客户名称-->
+      <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;display: none" id="sign_in_outdoor_customer_name_div">
+        <div style="float:left;">
+          <label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">客户名称</label>
+        </div>
+
+        <div style="float: right;">
+          <input id="sign_in_outdoor_customer_name" type="text" style="text-align: right;position:relative;top:8px;right:0px; margin-right:12px; color:#666" placeholder="填写客户名称（必填）"/>
+        </div>
+      </div>
+      <!--客户名称-->
+      <!--签到照片-->
+      <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;" id="sign_in_outdoor_photo_div" ng-show="atSignInRemoteData.i_p=='1'">
+        <div style="float:left;">
+          <label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">签到照片</label>
+        </div>
+
+        <div style="float:right;">
+          <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:6px"></i>
+        </div>
+
+        <div style="float:right; margin-top:2.5px;">
+          <span><img  ng-src="{{Sign_photos}}" style="width:44px; height:44px;" id="Sign_photos" ng-click="sign_change_photos()"/></span>
+        </div>
+      </div>
+      <!--签到照片-->
+
+
+
+    <!--审批人开始-->
+    <div ng-hide="atSignInRemoteData.i_wf == 0"  style="margin-top:10px;background-color: white;position: relative;border-bottom:1px solid #f5f5f5; border-top:1px solid#f5f5f5;">
+	  <p style="height:2.1em;line-height: 3.2em;margin-left:12px;font-size:14px;color:#333333;">审批人<span style="font-size:12px;color:#ccc;" ng-class="ng-hide" ng-show="atSignInRemoteData.approver_list.length>0&&atSignInRemoteData.approver_list_flag">(点击头像可删除)</span></p>
+      <ion-scroll zooming="false" direction="x" style="width:100%; background-color:#fff !important;margin-top: 5px;" has-bouncing="false" horizontal-scroll-fix scrollbar-x="false" >
+        <div style="min-width:100%; overflow-y: auto; height: 100px; transform: translateZ(0px); overflow-x: scroll;background-color:#fff;" id="approver_list_div">
+          <!--<div style="width: 100px;height: 80px;float: left;position: relative;text-align: center;top:20px;" ng-repeat="item in atSignInRemoteData.approver_list">-->
+            <!--<div style="width:50px;height:50px;border-radius:50px;overflow:hidden;display:inline-block;">-->
+              <!--<img style="width:50px;" ng-src="{{item.img}}">-->
+            <!--</div>-->
+              <!--<p style="color:#666666;font-size:14px;">{{item.name}}</p>-->
+            <!--<img style="position: absolute;top: 20px;right: -10px;height:1px;" ng-src="{{dates_line3x}}" alt="">-->
+          <!--</div>-->
+          <!--<div style="width: 100px;height: 80px;float: left;position: relative;text-align: center;top:20px;">-->
+            <!--<div ng-click="openModal()" style="width:50px;height:50px;border-radius:50px;overflow:hidden;display:inline-block;">-->
+              <!--<img style="width:50px;" ng-src="{{add_approver}}"></div>-->
+          <!--</div>-->
+          <div style="width: 100px;height: 80px;float: left;position: relative;text-align: center;top:20px;" ng-repeat="item in atSignInRemoteData.approver_list">
+            <div style="width:50px;height:50px;border-radius:50px;overflow:hidden;display:inline-block;">
+              <img style="width:50px;height: 50px;" ng-src="{{item.img}}" ng-click="delete_approver(item.user_id)">
+            </div>
+            <p style="color:#666666;font-size:14px;">{{item.name}}</p>
+            <img style="position: absolute;top: 20px;right: -10px;height:1px;" ng-src="{{dates_line3x}}" alt="" ng-show="(!$last&&atSignInRemoteData.approver_list.length>1)||atSignInRemoteData.approver_list_flag">
+          </div>
+          <div style="width: 100px;height: 80px;float: left;position: relative;text-align: center;top:20px;" ng-show="atSignInRemoteData.approver_list_flag">
+            <div ng-click="openModal()" style="width:50px;height:50px;border-radius:20px;overflow:hidden;display:inline-block;">
+              <img style="width:50px;" ng-src="{{add_approver_}}"></div>
+          </div>
+        </div>
+      </ion-scroll>
+    </div>
+    <!--审批人结束-->
+      <!--知会人开始-->
+      <div  style="margin-top:10px;background-color: #ffffff;color: #747474;position: relative;border-bottom:1px solid #f5f5f5; border-top:1px solid#f5f5f5;">
+		<p style="height:2.1em;line-height: 3.2em;margin-left:12px;font-size:14px;color:#333333;">知会人<span style="font-size:12px;color:#ccc;" ng-class="ng-hide" ng-show="atSignInRemoteData.notify_list.length>0">(点击头像可删除)</span></p>
+        <ion-scroll zooming="false" direction="x" style="width:100%; background-color:#fff;margin-top: 5px;" id="notify_list_scroll" delegate-handle="notify_list_scroll" has-bouncing="false" horizontal-scroll-fix scrollbar-x="false">
+          <div  style="background-color:#fff;min-width:100%;height: 120px; transform: translateZ(0px); overflow-x: scroll;" class="" id="notify_list_div">
+            <div style="width: 100px;height: 80px;float: left;position: relative;text-align: center;top:20px;" ng-repeat="item in atSignInRemoteData.notify_list">
+              <div style="width:50px;height:50px;border-radius:50px;overflow:hidden;display:inline-block;">
+                <img style="width:50px;height: 50px;" ng-src="{{item.img}}" ng-click="delete_notify(item.user_id)">
+              </div>
+              <p style=" color:#666666;font-size:14px;">{{item.name}}</p>
+              <img style="position: absolute;top: 25px;right: -15px;height:1px;" ng-src="{{dates_line4x}}">
+            </div>
+            <div style="width: 100px;height: 80px;float: left;position: relative;text-align: center;top:20px;">
+              <div ng-click="openModal2()" style="width:50px;height:50px;border-radius:20px;overflow:hidden;display:inline-block;">
+                <img ng-src="{{add_approver_}}" style="width:50px;height:50px;margin-left:0px;">
+              </div>
+            </div>
+          </div>
+        </ion-scroll>
+      </div>
+      <!--知会人结束-->
+      <!--备注-->
+      <div style="width: 100%;height: 51px;background-color: #fff;border-top:1px solid#f5f5f5; border-bottom:1px solid#f5f5f5; margin-top:10px;">
+        <div style="float:left;">
+          <label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">备注</label> <label style="font-size:12px; color:#999;line-height:49px; ">(选填)</label>
+        </div>
+      </div>
+      <!--备注-->
+
+      <!--文本-->
+      <div style="margin-top:0px;">
+        <label class="item-input item-stacked-label" style="padding:0px 0px 0px 0px;width: 100%;">
+          <textarea style="height:100px;background-color:white;border-bottom:1px solid #f5f5f5; color:#333; " id="new_remark" placeholder="请填写异地打卡补充说明..." class="ng-binding"></textarea>
+
+        </label>
+      </div>
+      <!--文本-->
+
+      <!--提交-->
+      <div class="padding" style="margin-top:10px;">
+        <button class="button button-block button-positive" ng-click="sign_in()" style="font-size:16px;" id="atSignInRemoteCtrlSubmit">提交</button>
+      </div>
+      <!--提交-->
+      <input type="text" ng-hide="true" id="current_latitude_hidden"/>
+      <input type="text" ng-hide="true" id="current_longitude_hidden"/>
+      <input type="hidden" id="message_city"/>
+    </div>
+
+    <script id="ess-empl-modal.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="navigation_bar">
+          <button class="button button-clear"  style="font-size:14px;color:white;"  ng-click="closeModal()">关闭</button>
+          <h1 class="title" style="color:#fff;">员工列表</h1>
+          <button class="button button-clear" ng-show="click_flag" style="font-size:14px;color:white;" ng-click="selectList()">选中({{ess_empl_data.num_checked}})</button>
+        </ion-header-bar>
+        <ion-content>
+          <div class="list" style="margin:0;">
+            <label class="item item-input" style="border-radius:4px;height:30px;margin:10px 12px;background-color:#fff;border:none;" clear-value-box>
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" placeholder="搜索" ng-model="search_control.search_val" clear-value-input>
+              <div clear-value-btn style="position: absolute; right: 10px; font-size: 16px; margin-right: 2px; top: 0px;height: 30px;line-height: 30px;color: #cccccc;" ></div>
+            </label>
+          </div>
+          <ion-list>
+            <div ng-show="ess_empl_data.data_ready && ess_empl_data.length==0 && search_control.search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+            <div ng-show="filterItems.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+            <ion-item class="item-avatar-left" style="height:71px;width:100%;" collection-repeat="item in filterItems=(ess_empl_data|dataAndFilter:'st,en,pn':search_control.search_val)">
+              <img ng-src="{{item.img}}">
+              <span style="color:#333;font-size:17px;">{{item.en}}</span>&nbsp;&nbsp;
+              <span style="font-size:12px;color:#666666">工号:{{item.st}}</span>
+              <p style="font-size:12px;color:#666666">{{item.pn}}</p>
+              <div class="item item-checkbox checkbox-calm" style="float:right;margin-top:-41px;margin-left:10px;border:none;margin-right:-18px;">
+                <label class="checkbox">
+                  <input type="checkbox" ng-model="item.ck" ng-checked="item.ck" ng-click="essItemCk(item.user_id,item.img,item.en,item.ck)" style="float:right;">
+                </label>
+              </div>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </div>
+    </script>
+
+    <!--外勤打卡-->
+  </ion-content>
+</ion-view>

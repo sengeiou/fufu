@@ -1,0 +1,38 @@
+﻿
+<ion-view style="background-color:#f8f8f8;" title="关于服服" hide-tab-bar>
+  <ion-content ng-controller="aboutFuCtrl" has-bouncing="true" overflow-scroll="false">
+    <div style="text-align:center;padding-top:60px;"><img style="width:72px;height:72px;" ng-src="{{img_fufu_logo}}"></div>
+    <div style="text-align:center;color:#999;margin-top:5px; font-size:16px">服服 V{{current_app_version}}</div>
+
+    <div class="list" style="margin-top:50px;font-size:16px;">
+
+      <a class="item" ng-click="web_path()">
+        网站服服
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+        <!--<span style="float:right;color:#999999;">5.0</span>-->
+      </a>
+<!--     
+	 <a class="item"  ng-click="about_us()">
+        关注我们
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+        <!--<span style="float:right;color:#999999;">1999</span>-->
+      <!--</a>
+	  -->
+    </div>
+    <div style="padding:10px;font-size:12px;color:#999999;margin-top:40%;">
+      <div style="text-align:center;">Copyright © 2017 深圳市中施科技有限公司</div>
+    </div>
+    <div><img src="" id="img_src_p"/></div>
+
+	<!--测试-->
+
+    <!--测试-->
+
+  </ion-content>
+
+
+</ion-view>

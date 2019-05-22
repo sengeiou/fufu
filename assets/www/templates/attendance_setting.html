@@ -1,0 +1,439 @@
+﻿<ion-view style="background-color:#f8f8f8;" title="考勤参数配置" ng-controller="attendanceSettingCtrl" hide-tab-bar>
+<style>
+.item-toggle .toggle{right: 10px !important;}
+</style>
+  <ion-nav-buttons side="right">
+    <div class="button button-clear" style="color:white;font-size:14px" ng-click="attendance_setting_save()">保存</div>
+  </ion-nav-buttons>
+    <ion-content has-bouncing="true" overflow-scroll="false" >
+
+
+    <!---------打卡参数配置----------->
+    <ul class="list" style="margin-bottom:0px; margin-top:10px;">
+      <li class="item item-toggle" style="font-size:16px;">
+        打卡参数配置
+
+      </li>
+    </ul>
+    <!---------打卡参数配置----------->
+
+    <!---------打上午上班卡----------->
+    <ul class="list" style="margin-bottom:0px;" style="color:#666;">
+    <ul class="list" style="margin-bottom:0px;">
+        <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;">
+          打上午上班卡
+          <label class="toggle toggle-calm">
+            <input id="row_1" ng-model="attendanceSettingData.row_1" ng-checked="attendanceSettingData.row_1" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse ng-pristine" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    </ul>
+    <!---------打上午上班卡----------->
+
+    <!---------打上午下班卡----------->
+    <ul class="list" style="margin-bottom:0px;">
+        <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;">
+          打上午下班卡
+          <label class="toggle toggle-calm">
+            <input type="checkbox" id="row_2" ng-model="attendanceSettingData.row_2" ng-checked="attendanceSettingData.row_2" class="ng-untouched ng-valid ng-dirty ng-valid-parse ng-pristine" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    </ul>
+    <!---------打上午下班卡----------->
+
+    <!---------打下午上班卡----------->
+    <ul class="list" style="margin-bottom:0px;">
+        <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;">
+          打下午上班卡
+          <label class="toggle toggle-calm">
+            <input type="checkbox" id="row_3" ng-model="attendanceSettingData.row_3" ng-checked="attendanceSettingData.row_3" class="ng-untouched ng-valid ng-dirty ng-valid-parse ng-pristine" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    </ul>
+    <!---------打下午上班卡----------->
+
+    <!---------打下午下班卡----------->
+    <ul class="list" style="margin-bottom:0px;">
+        <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;">
+          打下午下班卡
+          <label class="toggle toggle-calm">
+            <input type="checkbox" id="row_4" ng-model="attendanceSettingData.row_4" ng-checked="attendanceSettingData.row_4" class="ng-untouched ng-valid ng-dirty ng-valid-parse ng-pristine" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    </ul>
+    <!---------打下午下班卡----------->
+
+
+    <!---------上班前加班开始打卡----------->
+    <ul class="list" style="margin-bottom:0px;">
+        <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;">
+          上班前加班开始打卡
+          <label class="toggle toggle-calm">
+            <input type="checkbox" id="row_5" ng-model="attendanceSettingData.row_5" ng-checked="attendanceSettingData.row_5" class="ng-untouched ng-valid ng-dirty ng-valid-parse ng-pristine" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    </ul>
+    <!---------上班前加班开始打卡----------->
+
+
+    <!---------上班前加班结束打卡----------->
+    <ul class="list" style="margin-bottom:0px;">
+        <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;">
+          上班前加班结束打卡
+          <label class="toggle toggle-calm">
+            <input type="checkbox" id="row_6" ng-model="attendanceSettingData.row_6" ng-checked="attendanceSettingData.row_6" class="ng-untouched ng-valid ng-dirty ng-valid-parse ng-pristine" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    </ul>
+    <!---------上班前加班结束打卡----------->
+
+
+    <!---------下班前加班开始打卡----------->
+    <ul class="list" style="margin-bottom:0px;">
+        <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;">
+          下班后加班开始打卡
+          <label class="toggle toggle-calm">
+            <input type="checkbox" id="row_7" ng-model="attendanceSettingData.row_7" ng-checked="attendanceSettingData.row_7" class="ng-untouched ng-valid ng-dirty ng-valid-parse ng-pristine" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    </ul>
+    <!---------下班前加班开始打卡----------->
+
+
+    <!---------下班前加班结束打卡----------->
+    <ul class="list" style="margin-bottom:0px;">
+        <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;">
+          下班后加班结束打卡
+          <label class="toggle toggle-calm">
+            <input type="checkbox" id="row_8" ng-model="attendanceSettingData.row_8" ng-checked="attendanceSettingData.row_8" class="ng-untouched ng-valid ng-dirty ng-valid-parse ng-pristine" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    </ul>
+    <!---------下班前加班结束打卡----------->
+
+       <!--上班卡允许提前分钟数-->
+<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      	<div style="float:left;">
+        	<label style="font-size:14px; color:#333; margin-left:20px; line-height:49px; color:#666">上班卡允许提前分钟数</label>
+
+            </div>
+        <div style="float:right;">
+
+            <!--<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div> -->
+
+
+        	<input id="row_9" type="number" style="font-size:14px; color:#999; margin-right:12px;text-align:right; border:none; margin-top:9px; width:70px" value="{{attendanceSettingData.row_9}}"  />
+            </div>
+
+      </div>
+
+      <!--上班卡允许提前分钟数-->
+
+
+    <!---------上班允许延后分钟数----------->
+<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      	<div style="float:left;">
+        	<label style="font-size:14px; color:#333; margin-left:20px; line-height:49px; color:#666">上班允许延后分钟数</label>
+
+            </div>
+        <div style="float:right;">
+
+            <!--<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div> -->
+
+
+        	<input id="row_10" type="number" style="font-size:14px; color:#999; margin-right:12px;text-align:right; border:none; margin-top:9px; width:70px" value="{{attendanceSettingData.row_10}}" />
+            </div>
+
+      </div>
+    <!---------上班允许延后分钟数----------->
+
+
+
+    <!---------下班允许提前分钟数----------->
+<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      	<div style="float:left;">
+        	<label style="font-size:14px; color:#333; margin-left:20px; line-height:49px; color:#666">下班允许提前分钟数</label>
+
+            </div>
+        <div style="float:right;">
+
+            <!--<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div> -->
+
+
+        	<input id="row_11" type="number" style="font-size:14px; color:#999; margin-right:12px;text-align:right; border:none; margin-top:9px; width:70px" value="{{attendanceSettingData.row_11}}" />
+            </div>
+
+      </div>
+    <!---------下班允许提前分钟数----------->
+
+
+    <!---------下班允许延后分钟数----------->
+<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      	<div style="float:left;">
+        	<label style="font-size:14px; color:#333; margin-left:20px; line-height:49px; color:#666">下班允许延后分钟数</label>
+
+            </div>
+        <div style="float:right;">
+
+            <!--<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div> -->
+
+
+        	<input id="row_12" type="number" style="font-size:14px; color:#999; margin-right:12px;text-align:right; border:none; margin-top:9px; width:70px" value="{{attendanceSettingData.row_12}}" />
+            </div>
+
+      </div>
+    <!---------下班允许延后分钟数----------->
+
+
+    <!---------周末加班打卡----------->
+    <ul class="list" style="margin-bottom:0px;">
+        <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;">
+          周末加班打卡
+          <label class="toggle toggle-calm">
+            <input type="checkbox" id="row_13" ng-model="attendanceSettingData.row_13" ng-checked="attendanceSettingData.row_13" class="ng-untouched ng-valid ng-dirty ng-valid-parse ng-pristine" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    </ul>
+    <!---------周末加班打卡----------->
+
+
+    <!---------法定假加班打卡----------->
+    <ul class="list" style="margin-bottom:0px;">
+        <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;">
+          法定假加班打卡
+          <label class="toggle toggle-calm">
+            <input type="checkbox" id="row_14" ng-model="attendanceSettingData.row_14" ng-checked="attendanceSettingData.row_14" class="ng-untouched ng-valid ng-dirty ng-valid-parse ng-pristine" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    </ul>
+       </ul>
+    <!---------法定假加班打卡----------->
+
+
+    <!---------分析参数配置----------->
+    <ul class="list" style="margin-bottom:0px; margin-top:10px;">
+      <li class="item item-toggle" style="font-size:16px;">
+        分析参数配置
+
+      </li>
+    </ul>
+    <!---------分析参数配置----------->
+
+    <!---------允许早退时间（分钟）----------->
+<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      	<div style="float:left;">
+        	<label style="font-size:14px; color:#333; margin-left:20px; line-height:49px; color:#666">允许早退时间（分钟）</label>
+
+            </div>
+        <div style="float:right;">
+
+            <!--<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div> -->
+
+
+        	<input id="row_15" type="number" style="font-size:14px; color:#999; margin-right:12px;text-align:right; border:none; margin-top:9px; width:40px" value="{{attendanceSettingData.row_15}}" />
+            </div>
+
+      </div>
+    <!---------允许早退时间（分钟）----------->
+
+    <!---------允许迟到时间（分钟）----------->
+<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      	<div style="float:left;">
+        	<label style="font-size:14px; color:#333; margin-left:20px; line-height:49px; color:#666">允许迟到时间（分钟）</label>
+
+            </div>
+        <div style="float:right;">
+
+            <!--<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div> -->
+
+
+        	<input id="row_16" type="number" style="font-size:14px; color:#999; margin-right:12px;text-align:right; border:none; margin-top:9px; width:70px" value="{{attendanceSettingData.row_16}}" />
+            </div>
+
+      </div>
+    <!---------允许迟到时间（分钟）----------->
+
+
+    <!---------迟到早退合计时长计旷工(分钟)----------->
+<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      	<div style="float:left;">
+        	<label style="font-size:14px; color:#333; margin-left:20px; line-height:49px; color:#666">迟到早退合计时长计旷工(分钟)</label>
+
+            </div>
+        <div style="float:right;">
+
+            <!--<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div> -->
+
+
+        	<input id="row_17" type="number" style="font-size:14px; color:#999; margin-right:12px;text-align:right; border:none; margin-top:9px; width:70px" value="{{attendanceSettingData.row_17}}" />
+            </div>
+
+      </div>
+    <!---------迟到早退合计时长计旷工(分钟)----------->
+
+
+    <!---------加班最小单位(分钟)----------->
+<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      	<div style="float:left;">
+        	<label style="font-size:14px; color:#333; margin-left:20px; line-height:49px; color:#666">加班最小单位(分钟)</label>
+
+            </div>
+        <div style="float:right;">
+
+            <!--<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div> -->
+
+
+        	<input id="row_18" type="number" style="font-size:14px; color:#999; margin-right:12px;text-align:right; border:none; margin-top:9px; width:70px" value="{{attendanceSettingData.row_18}}" />
+            </div>
+
+      </div>
+    <!---------加班最小单位(分钟)----------->
+
+    <!---------加班起记分钟数----------->
+<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      	<div style="float:left;">
+        	<label style="font-size:14px; color:#333; margin-left:20px; line-height:49px; color:#666">加班起记分钟数</label>
+
+            </div>
+        <div style="float:right;">
+
+            <!--<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div> -->
+
+
+        	<input id="row_19" type="number" style="font-size:14px; color:#999; margin-right:12px;text-align:right; border:none; margin-top:9px; width:70px" value="{{attendanceSettingData.row_19}}" />
+            </div>
+
+      </div>
+    <!---------加班起记分钟数----------->
+
+    <!---------周加最小时数----------->
+<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      	<div style="float:left;">
+        	<label style="font-size:14px; color:#333; margin-left:20px; line-height:49px; color:#666">周加最小时数</label>
+
+            </div>
+        <div style="float:right;">
+
+            <!--<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div> -->
+
+
+        	<input id="row_20" type="number" style="font-size:14px; color:#999; margin-right:12px;text-align:right; border:none; margin-top:9px; width:70px" value="{{attendanceSettingData.row_20}}" />
+            </div>
+
+      </div>
+    <!---------周加最小时数----------->
+
+
+    <!---------平加最大小时数----------->
+<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      	<div style="float:left;">
+        	<label style="font-size:14px; color:#333; margin-left:20px; line-height:49px; color:#666">平加最大小时数</label>
+
+            </div>
+        <div style="float:right;">
+
+            <!--<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div> -->
+
+
+        	<input id="row_21" type="number" style="font-size:14px; color:#999; margin-right:12px;text-align:right; border:none; margin-top:9px; width:70px" value="{{attendanceSettingData.row_21}}" />
+            </div>
+
+      </div>
+    <!---------平加最大小时数----------->
+
+
+    <!---------法加最大小时数----------->
+<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      	<div style="float:left;">
+        	<label style="font-size:14px; color:#333; margin-left:20px; line-height:49px; color:#666">法加最大小时数</label>
+
+            </div>
+        <div style="float:right;">
+
+            <!--<div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div> -->
+
+
+        	<input id="row_22" type="number" style="font-size:14px; color:#999; margin-right:12px;text-align:right; border:none; margin-top:9px; width:70px" value="{{attendanceSettingData.row_22}}" />
+            </div>
+
+      </div>
+    <!---------法加最大小时数----------->
+
+
+    <!---------实际加班工时超加班单工时取小----------->
+        <ul class="list" style="margin-bottom:0px;">
+        <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;">
+          实际加班工时超加班单工时取小
+          <label class="toggle toggle-calm">
+            <input type="checkbox" id="row_23" ng-model="attendanceSettingData.row_23" ng-checked="attendanceSettingData.row_23" class="ng-untouched ng-valid ng-dirty ng-valid-parse ng-pristine" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    </ul>
+    <!---------实际加班工时超加班单工时取小----------->
+
+	</ul>
+
+    </ion-content>
+
+
+
+
+
+
+</ion-view>

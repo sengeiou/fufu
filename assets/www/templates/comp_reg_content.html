@@ -1,0 +1,108 @@
+﻿
+<ion-view  title="{{'注册新企业'}}" cache-view="false" ng-controller="compRegContentCtrl" has-bouncing="true" overflow-scroll="false">
+  <style>
+    .navigation_bar{background-color:#53afff;color:#fff;}
+    .platform-ready .button.button-light.button-clear{color:#fff;}
+    .modify_div{
+      width: 100%;
+      overflow: hidden;
+      height: 44px;
+      background-color: white;
+      margin-top: 10px;
+      line-height: 44px;
+      position: relative;
+    }
+    .comp_reg_content_img{
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top:12px;
+      right: 0px;
+    }
+  </style>
+  <ion-content>
+    <div style="text-indent: 12px;height: 40px;line-height: 40px;font-size: 13px;color: #aaaaaa;">每个企业只需注册一次，注册者就是系统管理员</div>
+    <div class="modify_div" clear-value-box style="margin-top: 0px;border-bottom:1px solid #f5f5f5;">
+      <input clear-value-input id="forget_tel_no"   style="width: 100%;margin-left: 12px;height: 42px;" ng-model="regModel._comp_name" type="text" placeholder="输入企业名称"/>
+      <div clear-value-btn style="position: absolute; right: 10px; font-size: 16px; margin-right: 2px;top: 0px; height:44px;line-height: 44px; color: #cccccc;" ></div>        
+   </div>
+   <div class="modify_div" clear-value-box style="margin-top: 0px;border-bottom:1px solid #f5f5f5;">
+      <input clear-value-input id="forget_contact"   style="width: 100%;margin-left: 12px;height: 42px;" ng-model="regModel._contact_name" type="text" placeholder="联系人"/>
+      <div clear-value-btn style="position: absolute; right: 10px; font-size: 16px; margin-right: 2px;top: 0px; height:44px;line-height: 44px; color: #cccccc;" ></div>        
+   </div>
+   <div class="modify_div" clear-value-box style="margin-top: 0px;border-bottom:1px solid #f5f5f5;">
+      <input clear-value-input id="forget_position"   style="width: 100%;margin-left: 12px;height: 42px;" ng-model="regModel._contact_position" type="text" placeholder="联系人职位"/>
+      <div clear-value-btn style="position: absolute; right: 10px; font-size: 16px; margin-right: 2px;top: 0px; height:44px;line-height: 44px; color: #cccccc;" ></div>        
+   </div>
+
+
+    <div class="item item-input " style="height:47px;">
+      <!--<select style="color:#ABA6A6;position:relative;direction:inherit;padding:0px 30px 0px 0px;width:100%;max-width:100%;" ng-model="regModel._empl_num">-->
+      <!--<option>请选择企业规模</option>-->
+      <!--<option>100人以下</option>-->
+      <!--<option>100~200人</option>-->
+      <!--<option>200~300人</option>-->
+      <!--<option>300~400人</option>-->
+      <!--<option>500人以上</option>-->
+      <!--</select>-->
+      <div style="height: 47px;width:100%;border-bottom:1px solid #f5f5f5;">
+        <div id="login_category" style="line-height: 47px;font-size:14px;color: #999" ng-click="side_category()">请选择所属行业</div>
+        <i class="icon ion-ios-arrow-right" style="margin-right: 12px;vertical-align: middle;font-size: 20px;color: #ccc;position: absolute;top: 11px;bottom: 0;right:-5px;"></i>
+      </div>
+    </div>
+
+    <div class="item item-input " style="height:47px;">
+      <!--<select style="color:#ABA6A6;position:relative;direction:inherit;padding:0px 30px 0px 0px;width:100%;max-width:100%;" ng-model="regModel._empl_num">-->
+      <!--<option>请选择企业规模</option>-->
+      <!--<option>100人以下</option>-->
+      <!--<option>100~200人</option>-->
+      <!--<option>200~300人</option>-->
+      <!--<option>300~400人</option>-->
+      <!--<option>500人以上</option>-->
+      <!--</select>-->
+      <div style="height: 47px;width:100%">
+        <div id="login_empl_num" style="line-height: 47px;font-size:14px;color: #999" ng-click="side_empl_num()">请选择企业规模</div>
+        <i class="icon ion-ios-arrow-right" style="margin-right: 12px;vertical-align: middle;font-size: 20px;color: #ccc;position: absolute;top: 11px;bottom: 0;right:-5px;"></i>
+      </div>
+    </div>
+
+
+    <div class="modify_div" clear-value-box>
+      <input clear-value-input id="modifyPwdold" style="width: 100%;margin-left: 12px;height: 42px;" ng-model="regModel._pwd1" type="password" placeholder="设置登录密码"/>
+      <div clear-value-btn style="position: absolute; right: 40px; font-size: 16px; margin-right: 2px;top: 0px; height:44px;line-height: 44px; color: #cccccc;" ></div>        
+	  <div style="position: absolute;width: 20px;height: 44px;top:0px;right: 12px;" ng-click="old_pwd_click(old_psw_flag)">
+        <img class="comp_reg_content_img" ng-src="{{show_pwd}}" alt="" ng-show="!old_psw_flag"/>
+        <img class="comp_reg_content_img" ng-src="{{hide_pwd}}" alt="" ng-show="old_psw_flag"/>
+      </div>
+    </div>
+<div style="height: 40px;">
+  <p style="margin-top: 10px;text-indent: 12px;color: #999;font-size: 12px;">密码为8-20的字母、数字或符号</p>
+</div>
+
+<!---
+    <div clear-value-box class="item item-input" style="border:none;">
+      <input clear-value-input type="text" placeholder="输入考勤机序列号" ng-model="regModel._sn_list" id="_sn_list"/>
+<div clear-value-btn style="position: absolute; right: 10px; font-size: 16px; margin-right: 2px;top: 0px; height:44px;line-height: 44px; color: #cccccc;" ></div>      
+
+   </div>
+--->
+
+
+
+    <div style="width: 100%;height: 44px;padding-left: 12px;padding-right: 12px;margin-top: 20px;" ng-click="findPwdAction()">
+      <!--<div style="text-align: center;line-height: 44px;opacity: 0.5;background-color: #53afff;color:white;font-size: 18px;border-radius: 4px;" id="forget_button"></div>-->
+
+      <button style="text-align: center;line-height: 44px;background-color: #53afff;color:white;font-size: 18px;border-radius: 4px;width:100%;border:none;opacity:0.5;" id="_find_pwd_action" ng-click="regCompAcct()">
+        创建企业
+      </button>
+    </div>
+
+    <div ng-hide="regModel._flag"
+         style="height:44px;width:100%;color:white;text-align:center;line-height:44px;background-color:#ff6666;opacity:.9;top:0;position:fixed;">
+      {{regModel._message}}
+    </div>
+
+
+  </ion-content>
+  <!--<div style="position: absolute;bottom:36px;height: 20px;width: 100%;color: #999;font-size: 14px;text-align: center" ng-click="path_log()">已有账号，<span style="color: #53afff;">去登录</span></div>-->
+</ion-view>

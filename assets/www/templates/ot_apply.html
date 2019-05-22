@@ -1,0 +1,257 @@
+
+<ion-view style="background-color:#f8f8f8;" title="{{ot_apply_title}}"  hide-tab-bar ng-controller="essOtApplyCtrl" id="essOtApply">
+  <style>
+    #essOtApply #notify_list_div.notify_list_active .ng-leave {
+      -webkit-transition: .3s;
+      transition: .3s;
+      opacity: 1;
+    }
+    #essOtApply #notify_list_div.notify_list_active .ng-leave-active {
+      opacity: 0;
+    }
+    #essOtApply #approver_list_div.approver_list_active .ng-leave {
+      -webkit-transition: .3s;
+      transition: .3s;
+      opacity: 1;
+    }
+    #essOtApply #approver_list_div.approver_list_active .ng-leave-active {
+      opacity: 0;
+    }
+
+	/*
+    #essOtApply #notify_list_div .ng-enter {
+      -webkit-transition: 1s;
+      transition: 1s;
+      transform:translateX(-1000px);
+      -webkit-transform:translateX(-1000px);
+    }
+    #essOtApply #notify_list_div .ng-enter-active {
+      transform:translateX(0px);
+      -webkit-transform:translateX(0px);
+    }
+    #essOtApply #approver_list_div .ng-enter {
+      -webkit-transition: 1s;
+      transition: 1s;
+      transform:translateX(-1000px);
+      -webkit-transform:translateX(-1000px);
+    }
+    #essOtApply #approver_list_div .ng-enter-active {
+      transform:translateX(0px);
+      -webkit-transform:translateX(0px);
+    }
+	*/
+  </style>
+  <ion-content has-bouncing="true" overflow-scroll="false">
+
+
+<!--
+    <div class="list" style="margin-top:10px;margin-bottom:5px;">
+      <label class="item item-input item-select" ng-click="essOtPolicy()">
+        <span class="input-label">加班类型</span>
+
+        <div style="float: right;margin-right: 28px; color:#53afff;font-size:14px;position: absolute;right: 0px;line-height: 45px;top:0px;" id="essOtPolicy" ></div>
+      </label>
+     
+    </div>
+	-->
+	
+	<div style="width: 100%;background-color: #fff;overflow: hidden;vertical-align:middle;margin-top:10px;" ng-click="essOtPolicy()">
+      <div style="float:left;">
+        <label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">加班类型</label>
+      </div>
+      <div style="float:right;">
+        <div  style="margin-right:9px; color:#666; line-height:49px;color: #666;display: inline-block; font-size:14px;color:#666;" class="ng-binding"  id="essOtPolicy"></div>
+
+        <div style="float:right;">
+          <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div>
+
+      </div>
+    </div>
+	
+	
+	
+    <div style="width: 100%;margin-top: 10px; border-top: 0px solid #f5f5f5;border-bottom:0px solid #f5f5f5;background-color: white">
+      <!--<div style="height: 55px;width: 100%;line-height: 55px;font-size: 20px;color: #53afff;text-indent: 12px;">-->
+        <!--2016<span style="font-size: 13px;">年</span>09<span style="font-size: 13px">月</span>16<span style="font-size: 13px;">日</span>-->
+        <!--<div style="float:right;">-->
+        <!--<i class="icon ion-ios-arrow-right" style=" margin-right:12px; line-height:55px;font-size:20px;color:#ccc; "></i>-->
+      <!--</div>-->
+        <!--<span style="float: right;font-size: 14px;color: #999" ng-click="add_time()">选择时间段</span>-->
+      <!--</div>-->
+      <div  style="border:none;width:100%;overflow: hidden; height:49px;">
+        <div class="item-input" style="text-align:center;float: left;padding: 2px 0 2px 12px;"><div  id="_ess_lv_apply_d1" value="" style="color:#53afff;font-size:17px;line-height: 49px;" ng-click="showDate_date()"/>{{ot_app_data.ot_date}}</div>
+      </div>
+       <div id="add_time_div" style="display: block">
+        <div style="float:right;">
+        <i class="icon ion-ios-arrow-right" style=" margin-right:12px; line-height:49px;font-size:20px;color:#ccc;margin-left: 10px; "></i>
+        </div>
+        <div style="float: right;font-size: 12px;color: #999; line-height:49px;" ng-click="add_time()">选择时间段</div>
+       </div>
+      </div>
+      <div style="height: 1px;width: 97%;float: right;border-top: 1px solid #f5f5f5;"></div>
+
+    <div style="height: 40px;overflow: hidden;width: 100%;">
+      <img ng-src="{{end_ot_icon}}" alt="" style="width: 30px;height: 30px;float: left;margin-top:5px;margin-left:10px;" src="img/icon/end_ot_icon.png">
+      <div style="height: 40px;line-height: 40px;text-indent: 12px;font-size: 16px;">
+        <div style="float: left;line-height: 40px;color: #333;text-indent: 0px;font-size: 14px; width: 70px;">加班时间</div>
+
+        <div style="float: left;margin-left: 8px;">
+        <img ng-src="{{contract_management_directory1}}" alt="" style="float: left;width: 11px;margin-top: 8px;height: 17px;"/>
+          <div style="float: left;width: 10px;height: 10px;border-radius: 50px;background-color: #ff3b30;margin-top: 15px;margin-left: 7px;" ng-show="ot_app_data.first_in_need_clock"></div>
+          <div style="float: left;width: 10px;height: 10px;border-radius: 50px;background-color: #999;margin-top: 15px;margin-left: 7px;" ng-show="!ot_app_data.first_in_need_clock"></div>
+          <span style="margin-left: -10px;line-height: 30px; color: #999;">{{ot_app_data.time_first_in}} -</span>
+        </div>
+        <div style="float: left">
+          <div style="float: left;width: 10px;height: 10px;border-radius: 50px;background-color: #ff3b30;margin-top: 15px;margin-left: 7px;" ng-show="ot_app_data.first_in_need_clock"></div>
+          <div style="float: left;width: 10px;height: 10px;border-radius: 50px;background-color: #999;margin-top: 15px;margin-left: 7px;" ng-show="!ot_app_data.first_in_need_clock"></div>
+          <span style="margin-left: -10px;line-height: 30px; color: #999;">{{ot_app_data.time_last_out}} </span>
+        </div>
+        </div>
+    </div>
+    <div style="height: 1px;width: 95%;float:right; border-top: 1px solid #f5f5f5;"></div>
+    <div style="width: 100%;line-height: 40px;background-color: white;clear: both" ng-repeat="item in time_list_ot_apply" >
+      <div style="width: 100%;background-color: white;position: relative">
+        <div style="height: 40px;overflow: hidden">
+          <img ng-src="{{start_rest_icon}}" alt="" style="width: 30px;height: 30px;float: left;margin-top:5px;margin-left:10px;"/>
+
+          <div style="height: 40px;line-height: 40px;text-indent: 12px;font-size: 16px;">
+            <div style="float: left;line-height: 40px;color: #333;text-indent: 0px;font-size: 14px;width: 70px;">休息时段{{$index+1}}</div>
+            <div style="float: left;margin-left: 8px;">
+              <img ng-src="{{contract_management_directory1}}" alt="" style="float: left;width: 11px;margin-top: 8px;height: 17px;"/>
+              <div style="float: left;width: 10px;height: 10px;border-radius: 50px;background-color: #ff3b30;margin-top: 15px;margin-left: 7px;" ng-show="item.in_need_clock"></div>
+              <div style="float: left;width: 10px;height: 10px;border-radius: 50px;background-color: #999;margin-top: 15px;margin-left: 7px;" ng-show="!item.in_need_clock"></div>
+              <span style="margin-left: -10px;line-height: 30px; color: #999;">{{item.in}} -</span>
+            </div>
+            <div style="float: left">
+              <div style="float: left;width: 10px;height: 10px;border-radius: 50px;background-color: #ff3b30;margin-top: 15px;margin-left: 7px;" ng-show="item.out_need_clock"></div>
+              <div style="float: left;width: 10px;height: 10px;border-radius: 50px;background-color: #999;margin-top: 15px;margin-left: 7px;" ng-show="!item.out_need_clock"></div>
+              <span style="margin-left: -10px;line-height: 30px; color: #999;">{{item.out}} </span>
+
+            </div>
+          </div>
+
+          <!--<div style="line-height: 49px;text-indent: 12px;font-size: 16px;">休息开始{{$index+1}}<span style="color: #53afff;margin-left: 12px;" id="in_time_id{{$index}}" ng-click="showTime_in($index)">{{item.in}}</span></div>-->
+        </div>
+
+      </div>
+      <div style="width: 100%;height: 1px;border-top: 1px solid #f5f5f5;margin-left: 40px;" ng-show="!$last"></div>
+      <div style="width: 95%;height: 1px;border-top: 1px solid #f5f5f5;float: right" ng-show="$last"></div>
+    </div>
+    <div class="" style="margin-top:0px;margin-bottom:0px;">
+      <li class="" style="padding: 8px 12px 8px 10px; list-style-type: none">
+        <label style="color:#999; font-size:14px; line-height:24px;">加班时长</label>
+        <img ng-src="{{ot_hours_icon}}" alt="" style="width: 28px;height: 28px;float: left;position:relative;top:-3px;"/>
+        <label style="float:right;color:#999; line-height:22px;" id="ot_hours">
+          {{ot_app_data.ot_hours}}小时
+
+        </label>
+
+      </li>
+    </div>
+
+    </div>
+
+
+
+    <!--审批人开始-->
+    <div  style="margin-top:10px;background-color: white;position: relative;border-bottom:0px solid #f5f5f5; border-top:0px solid#f5f5f5">
+      <p style="height:2.1em;line-height: 3.2em;margin-left:12px;font-size:14px;color:#333333;">审批人<span style="font-size:12px;color:#ccc;" ng-class="ng-hide" ng-show="ot_app_data._approver_list.length>0&&ot_app_data.approver_list_flag">(点击头像可删除)</span></p>
+      <ion-scroll zooming="false" direction="x" style="width:100%; background-color:#fff;" has-bouncing="false" horizontal-scroll-fix scrollbar-x="false" >
+      <div style="min-width:100%; overflow-y: auto; height: 120px; transform: translateZ(0px); overflow-x: scroll;background-color:#fff;" id="approver_list_div">
+        <div  style="width:100%;height:100px;">
+          <div style="width: 100px;height: 80px;float: left;position: relative;text-align: center;top:20px;" ng-repeat="item in ot_app_data._approver_list">
+            <div style="width:50px;height:50px;border-radius:50px;overflow:hidden;display:inline-block;">
+              <img style="width:50px;height: 50px;" ng-src="{{item.img}}" ng-click="delete_approver(item.user_id)">
+            </div>
+              <p style="color:#666666;font-size:14px;">{{item.name}}</p>
+            <img style="position: absolute;top: 25px;right: -15px;height:1px;" ng-src="{{dates_line3x}}" ng-show="(!$last&&ot_app_data.approver_list.length>1)||ot_app_data.approver_list_flag">
+          </div>
+          <div style="width: 100px;height: 80px;float: left;position: relative;text-align: center;top:20px;">
+            <div ng-click="openModal()" style="width:50px;height:50px;border-radius:50px;overflow:hidden;display:inline-block;" ng-show="ot_app_data.approver_list_flag">
+              <img style="width:50px;" ng-src="{{add_approver_}}"></div>
+          </div>
+        </div>
+      </div>
+        </ion-scroll>
+    </div>
+    <!--审批人结束-->
+
+    <!--知会人开始-->
+    <div  style="margin-top:10px;background-color: #ffffff;color: #747474;position: relative;border-bottom:0px solid #f5f5f5; border-top:0px solid#f5f5f5;">
+      <p style="margin-top:0px;height:2.1em;line-height: 3.2em;margin-left:12px;font-size:14px;color:#333333;">知会人<span style="font-size:12px;color:#ccc;" ng-class="ng-hide" ng-show="ot_app_data.notify_list.length>0">(点击头像可删除)</span></p>
+      	<ion-scroll zooming="false" direction="x" style="width:100%; background-color:#fff;" delegate-handle="notify_list_scroll" has-bouncing="false" horizontal-scroll-fix scrollbar-x="false" >
+        <div  style="background-color:#fff;min-width:100%;height: 120px; transform: translateZ(0px); overflow-x: scroll;" id="notify_list_div">
+          <div style="width: 100px;height: 80px;float: left;position: relative;text-align: center;top:20px;" ng-repeat="item in ot_app_data.notify_list">
+            <div style="width:50px;height:50px;border-radius:50px;overflow:hidden;display:inline-block;">
+              <img style="width:50px;height:50px;" ng-src="{{item.img}}" ng-click="delete_notify(item.user_id)">
+            </div>
+            <p style=" color:#666666;font-size:14px;">{{item.name}}</p>
+            <img style="position: absolute;top: 25px;right: -15px;height:1px;" ng-src="{{dates_line4x}}">
+          </div>
+          <div>
+            <div ng-click="openModal2()" style="width: 100px;height: 80px;float: left;position: relative;text-align: center;top:20px;">
+              <img ng-src="{{add_approver_}}" style="width:50px;margin-left:5px;">
+            </div>
+          </div>
+        </div>
+        </ion-scroll>
+    </div>
+    <!--知会人结束-->
+
+    <div style="margin-top:0px;">
+      <label class="item-input item-stacked-label" style="padding:15px 0px 0px 0px;">
+        <span class="input-label" style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px;padding: 0px 0 0 0px;">加班事由</span>
+        <div style="border-top:0px solid#f5f5f5; border-bottom:0px solid#f5f5f5;">
+        <textarea style="height:140px;background-color:white; color:#333;"  placeholder="请填写加班事由..." id="ot_apply_remark">{{ot_app_data.apply_remark}}</textarea></div>
+      </label>
+    </div>
+
+    <div class="padding" style="margin-top:10px;">
+      <button class="button button-block button-positive" ng-click="saveApply()" style="font-size:16px;">提交申请</button>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <script id="ess-empl-modal.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="navigation_bar">
+          <button class="button button-clear"  style="font-size:14px;color:white;"  ng-click="closeModal()">关闭</button>
+          <h1 class="title" style="color:#fff;">员工列表</h1>
+          <button class="button button-clear" ng-show="click_flag" style="font-size:14px;color:white;" ng-click="selectList()">选中({{ess_empl_data.num_checked}})</button>
+        </ion-header-bar>
+        <ion-content>
+          <div class="list" style="margin:0;">
+            <label class="item item-input" style="border-radius:4px;height:30px;margin:10px 12px;background-color:#fff;border:none;" clear-value-box>
+              <i class="icon ion-ios-search-strong placeholder-icon"></i>
+              <input type="text" placeholder="搜索" ng-model="search_control.search_val" clear-value-input>
+              <div clear-value-btn style="position: absolute; right: 10px; font-size: 16px; margin-right: 2px; top: 0px;color: #cccccc;height: 30px;line-height: 30px;"></div>
+            </label>
+          </div>
+          <ion-list>
+            <div ng-show="ess_empl_data.data_ready && ess_empl_data.length==0 && search_control.search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+            <div ng-show="filterItems.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+            <ion-item class="item-avatar-left" style="height:71px;width: 100%;" collection-repeat="item in filterItems=(ess_empl_data|dataAndFilter:'st,en,pn':search_control.search_val)">
+              <img ng-src="{{item.img}}">
+              <span style="color:#333;font-size:17px;">{{item.en}}</span>&nbsp;&nbsp;
+              <span style="font-size:12px;color:#666666">工号:{{item.st}}</span>
+              <p style="font-size:12px;color:#666666">{{item.pn}}</p>
+              <div class="item item-checkbox checkbox-calm" style="float:right;margin-top:-41px;margin-left:10px;border:none;margin-right:-18px;">
+                <label class="checkbox">
+                  <input type="checkbox" ng-model="item.ck" ng-checked="item.ck" ng-click="essItemCk(item.user_id,item.img,item.en,item.ck)" style="float:right;">
+                </label>
+              </div>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </div>
+    </script>
+  </ion-content>
+</ion-view>

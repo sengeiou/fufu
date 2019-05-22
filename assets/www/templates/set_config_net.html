@@ -1,0 +1,51 @@
+<ion-view title="选择配置网络" ng-controller="setConfigNetCtrl" hide-nav-bar="true" hide-tab-bar >
+
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span>选择配置网络</span>
+        </h1>
+
+        <div class="buttons">
+            <a on-tap="nextStep()">
+                <button class="button back-button buttons button-clear button-light header-item">
+                    下一步
+               </button>
+            </a>
+        </div>
+	</ion-header-bar>
+
+  	<ion-content has-bouncing="true" overflow-scroll="false" >
+         <ul class="r-list" style="margin-top:10px;">
+            <li class="ad-item">
+                <div class="ad-item-title">有线网络</div>
+                <div class="ad-item-text" style="padding-right:0;">
+                  <label class="toggle toggle-calm" on-tap="setConfigNetData.isWlanNet = !setConfigNetData.isWlanNet" ng-class="{'active':setConfigNetData.isWlanNet}" style="margin:0;padding-bottom: 0;margin-top: 0px;padding-right: 0;">
+                   
+                    <div class="track">
+                    <div class="handle"></div>
+                    </div>
+                  </label>
+                </div>
+               
+            </li>
+            <li class="ad-item">
+                <div class="ad-item-title">无线网络</div>
+                <div class="ad-item-text" style="padding-right:0;">
+                  <label class="toggle toggle-calm" on-tap="setConfigNetData.isWlanNet = !setConfigNetData.isWlanNet" ng-class="{'active':!setConfigNetData.isWlanNet}" style="margin:0;padding-bottom: 0;margin-top: 0px;padding-right: 0;">
+                    <div class="track">
+                    <div class="handle"></div>
+                    </div>
+                  </label>
+                </div>
+            </li>
+        </ul>
+  	</ion-content>
+
+</ion-view>
+

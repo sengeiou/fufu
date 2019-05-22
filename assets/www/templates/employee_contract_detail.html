@@ -1,0 +1,682 @@
+﻿<ion-view style="background-color:#f5f5f5;" title="员工合同" ng-controller="employeeContractDetailCtrl" hide-tab-bar>
+	<ion-nav-buttons side="right">
+      <button ng-hide="employeeContractDetailData.has_his != '1'" id="employee_contract_detail_history_button" ng-click="employee_contract_detail_history()" style="" class="ng-hide button button-clear button-light button-icon"><img  style="width:24px;height:24px;margin-top:5px;margin-right:4px;" ng-src="{{img_contract_history}}"></button>
+    </ion-nav-buttons>
+
+    <ion-content has-bouncing="true" overflow-scroll="false">
+    <input type="hidden" id="new_contract_term_key" />
+    <input type="hidden" id="contract_term_key" />
+    <div style="width: 100%;height: 70px;background-color: #fff;padding-top:10px;border-bottom:1px solid #f0f0f0;">
+          <div style="width:50px;height:50px;overflow:hidden;margin-left:12px;border-radius:25px">
+            <img style="width:50px;height:50px;" ng-src="{{employeeContractDetailData.img}}">
+            <div style="position:absolute;margin-top:-52px;margin-left:62px;text-align:center;font-size: 16px" class="ng-binding">
+              {{employeeContractDetailData.en}}&nbsp;&nbsp;
+              <label style="margin-top:7px;color:#666;text-align:center;font-size: 12px" class="ng-binding">
+                工号:{{employeeContractDetailData.st}}
+              </label>
+              <div style="margin-top:7px;color:#666;text-align:left;font-size: 12px" class="ng-binding">{{employeeContractDetailData.pn}}</div>
+            </div>
+        </div>
+      </div>
+
+<!-- 新增 -->
+
+		<!--生效合同信息-->
+		<div style="width:100%; background-color:#fff; height:49px; margin-top:10px;border-bottom:1px solid #f5f5f5;">
+    		<div style="float:left; margin-left:12px;">
+				<span style="color:#333; font-size:16px; line-height:49px;">新合同</span>
+    		</div>
+            <!--新增-->
+            <div class="ng-hide" style="float: right;" ng-click="new_employee_contract_detail_toggle_expand_mode()"  ng-hide="new_expand_mode">
+    			<span style="float:right; line-height:49px; font-size:14px; color:#53afff; margin-right:12px;">新增</span>
+        		<span style="float:right;"><img style="width:20px; height:20px; margin-top:15px; margin-right:4px;" ng-src="{{img_add}}"></span>
+    		</div>
+            <!--新增-->
+
+		</div>
+		<!--生效合同信息-->
+        <div class="ng-hide" ng-hide="!new_expand_mode" id="new_editable_fields">
+                <!--合同类型-->
+                <div ng-click="new_picklist_contract_term()" style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+                    <div style="float:left;">
+                        <label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">合同类型</label>
+                    </div>
+                    <div style="float:right;">
+                        <span id="new_contract_term" style=" line-height:47px;font-size:14px; color:#53afff; margin-right:6px;" class="">{{employeeContractDetailData.contract_term}}</span>
+                        <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+                    </div>
+                </div>
+                <!--合同类型-->
+
+
+                <!--合同开始-->
+                <div id="new_contract_start_date_editable_div" style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;overflow:hidden">
+                    <div style="float:left; ">
+                        <label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">合同开始</label>
+                    </div>
+
+                    <div style="float:right;">
+                        <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+                    </div>
+
+
+                    <label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;position: relative;height: 49px;" ng-click="showDate_new_contract_start_date()">
+                        <!--<input style="text-align:right; margin-right:4px; margin-top:1px ;color: #53afff;" type="date" id="new_contract_start_date" >-->
+                      <span id="new_contract_start_date" style="color:#53afff;line-height: 35px;position: absolute;top:8px;right: 10px;" >{{current_date_start}}</span>
+                    </label>
+                </div>
+                <!--合同开始-->
+
+                <!--合同结束-->
+
+                <div id="new_contract_end_date_editable_div"  style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;overflow:hidden">
+                    <div style="float:left; ">
+                        <label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">合同结束</label>
+                    </div>
+
+                    <div style="float:right;">
+                        <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+                    </div>
+
+
+                    <label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;position: relative;height: 49px;" ng-click="showDate_new_contract_end_date()">
+                        <!--<input style="text-align:right; margin-right:4px; margin-top:1px;color: #53afff;" type="date" id="new_contract_end_date" >-->
+                      <span id="new_contract_end_date" style="color:#53afff;line-height: 35px;position: absolute;top:8px;right: 10px;" >{{current_date_end}}</span>
+                    </label>
+                </div>
+                <!--合同结束-->
+
+
+                <!--2008年签约次数-->
+                <!--
+                <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;overflow:hidden">
+                    <div style="float:left;">
+                        <label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">2008年签约次数</label>
+                    </div>
+
+                    <div style="float:right;">
+
+                    </div>
+                    <div style="float:right;">
+                        <div style="font-size:14px; color:#53afff; margin-right:0px;text-align:right; border:none; margin-top:8px;"></div>
+                    </div>
+                </div>
+                -->
+                <!--2008年签约次数-->
+
+            <!--上传附件-->
+            <div id="contract_upload_div_new">
+                <div style="margin-top:15px; margin-bottom:5px">
+                    <span style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px; margin-left:12px;">上传附件<span style="font-size:12px;color:#ccc;">(长按图片进行删除)</span></span>
+                </div>
+                <!--上传附件-->
+		       <update-images data="employeeContractDetailData.new_contract_image_data"></update-images>
+
+<!--
+                <div style="height:105px;background-color: white;color: #D5D5D5;position: relative;padding-left:10px;border-bottom:1px solid #f1f1f1;" >
+                <img id="contract_upload_mini_photo_new" src="" style="display:none;float:left;width:4.5em;height:4.5em;margin-top:1.5em;margin-right:10px;"  />
+                    <div style="height:4.5em;width:160px;float:left;margin-top:1.5em;" ng-click="upload_photo_new()">
+
+                        <img id="contract_upload_icon1_new" style="width:4.5em;float:left;" ng-src="{{img_upload_file_part1}}" alt="">
+                        <img id="contract_upload_icon2_new" style="width:3.2em;margin-top:1em;margin-left:10px;" ng-src="{{img_upload_file_part2}}" alt="">
+                        <div id="contract_upload_text_new" style="color:#999999;font-size;16px;margin-left:74px;">添加图片
+                        </div>
+                    </div>
+                </div>
+-->                
+            </div>
+
+
+
+                <!--备注-->
+                <div style="margin-top:15px; margin-bottom:5px;">
+                    <span style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px; margin-left:12px;">备注</span>
+                </div>
+                <!--备注-->
+                <!--内容可编辑-->
+                <div style="margin-top:0px;" >
+                    <label class="item-input item-stacked-label" style="padding:0px 0px 0px 0px;">
+                        <textarea style="height:100px;background-color:white;border-bottom:1px solid #f0f0f0; color:#53afff;" id="new_remark" placeholder="填写合同备注信息...">{{employeeContractDetailData.remark}}</textarea>
+
+                    </label>
+              </div>
+                <!--内容可编辑-->
+                <!--按钮-->
+                <div class="row">
+                    <!--取消-->
+                    <label class="col">
+                        <button class="button button-block button-light" style="border:1px solid #eee;" ng-click="new_employee_contract_detail_cancel_edit_mode()">取消</button>
+                    </label>
+                    <!--取消-->
+
+                    <!--保存-->
+                    <label class="col">
+                        <button class="button button-block button-positive" ng-click="new_employee_contract_detail_save()">保存</button>
+                    </label>
+                    <!--保存-->
+                </div>
+                <!--按钮-->
+        </div>
+
+<!-- 新增 -->
+
+<!--------------------------------------------------------------->
+
+<!-- 能编辑 -->
+
+		<!--生效合同信息-->
+		<div class="ng-hide" ng-hide="flag=='0'" style="width:100%; background-color:#fff; height:49px; margin-top:10px;border-bottom:1px solid #f5f5f5;">
+			<!--日历-->
+    		<div ng-click="employee_contract_detail_toggle_expand_mode()" style="float:left; margin-left:12px;">
+                <div style="width:15px; overflow:hidden; float:left; margin-top:15px; height:15px;">
+                    <i ng-hide="expand_mode" class="ng-hide ion-arrow-right-b"  style="color:#666;"></i>
+                    <i ng-hide="!expand_mode" class="ng-hide ion-arrow-down-b"  style="color:#666;"></i>
+                </div>
+				<span style="color:#333; font-size:16px; line-height:49px;">生效合同</span>
+    		</div>
+			<!--日历-->
+
+    		<!--删除-->
+    		<div class="ng-hide" style="float: right;" ng-hide="flag=='0' || edit_mode">
+    			<span ng-click="employee_contract_detail_delete()" style="float:right; line-height:49px; font-size:14px; color:#666; margin-right:12px;">删除</span>
+        		<span style="float:right;"><img style="width:24px; height:24px; margin-top:12px" ng-src="{{img_delete}}"></span>
+    		</div>
+ 			<!--删除-->
+
+    		<!--编辑-->
+    		<div class="ng-hide" ng-click="employee_contract_detail_edit_mode()" style="float: right;" ng-hide="flag=='0' || edit_mode">
+    			<span style="float:right; line-height:49px; font-size:14px; color:#53afff; margin-right:5px;">编辑</span>
+        		<span style="float:right;"><img style="width:24px; height:24px; margin-top:12px" ng-src="{{img_edit}}"></span>
+		    </div>
+  			<!--编辑-->
+
+            <!--新增-->
+            <!--
+            <div ng-click="employee_contract_detail_edit_mode()" style="float: right;" ng-hide="flag=='1' || edit_mode">
+    			<span style="float:right; line-height:49px; font-size:14px; color:#53afff; margin-right:12px;">新增</span>
+        		<span style="float:right;"><img style="width:20px; height:20px; margin-top:15px; margin-right:4px;" ng-src="{{img_add}}"></span>
+    		</div>
+            -->
+            <!--新增-->
+
+		</div>
+		<!--生效合同信息-->
+<!------------------------------------------------------------------------------------------------------------>
+<div class="ng-hide" id="editable_fields" ng-hide="!edit_mode || !expand_mode">
+        <!--2008年签约次数-->
+        <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;overflow:hidden">
+			<div style="float:left;">
+				<label id="contract_times_after2008" style="font-size:14px; color:#333; margin-left:12px; line-height:49px"></label>
+			</div>
+
+        	<div style="float:right;">
+			</div>
+        	<div style="float:right;">
+				<div style="font-size:14px; color:#53afff; margin-right:0px;text-align:right; border:none; margin-top:8px;"></div>
+			</div>
+		</div>
+        <!--2008年签约次数-->
+
+		<!--合同类型-->
+        <div ng-click="picklist_contract_term()" style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+			<div style="float:left;">
+				<label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">合同类型</label>
+			</div>
+        	<div style="float:right;">
+				<span id="contract_term" style=" line-height:47px;font-size:14px; color:#53afff; margin-right:6px;" class=""></span>
+        		<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+			</div>
+		</div>
+		<!--合同类型-->
+
+
+     	<!--合同开始-->
+        <div id="contract_start_date_editable_div" style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;overflow:hidden">
+			<div style="float:left; ">
+				<label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">合同开始</label>
+			</div>
+
+        	<div style="float:right;">
+        		<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+			</div>
+
+
+			<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;height: 49px;position: relative" ng-click="contract_start_date()">
+				<!--<input style="text-align:right; margin-right:4px; margin-top:1px ;color: #53afff;" type="date" id="contract_start_date"  >-->
+        <span id="contract_start_date" style="color:#53afff;line-height: 35px;position: absolute;top:8px;right: 10px;" ></span>
+			</label>
+		</div>
+        <!--合同开始-->
+
+        <!--合同结束-->
+
+        <div id="contract_end_date_editable_div"  style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;overflow:hidden">
+			<div style="float:left; ">
+				<label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">合同结束</label>
+			</div>
+
+        	<div style="float:right;">
+        		<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+			</div>
+
+
+			<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;height:49px;position: relative;" ng-click="contract_end_date()">
+				<!--<input style="text-align:right; margin-right:4px; margin-top:1px;color: #53afff;" type="date" id="contract_end_date" >-->
+        <span id="contract_end_date" style="color:#53afff;line-height: 35px;position: absolute;top:8px;right: 10px;" ></span>
+			</label>
+		</div>
+        <!--合同结束-->
+
+
+            <!--上传附件-->
+            <div id="contract_upload_div_current_editable">
+                <div style="margin-top:15px; margin-bottom:5px">
+                    <span style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px; margin-left:12px;">上传附件<span style="font-size:12px;color:#ccc;">(长按图片进行删除)</span></span>
+                </div>
+                <!--上传附件-->
+                
+				<update-images data="employeeContractDetailData.c_c_d[0].contract_image_data"></update-images>
+            </div>
+<!--
+                <div style="height:105px;background-color: white;color: #D5D5D5;position: relative;padding-left:10px;border-bottom:1px solid #f1f1f1;" >
+                <img id="contract_upload_mini_photo_current_editable" src="" style="display:none;float:left;width:4.5em;height:4.5em;margin-top:1.5em;margin-right:10px;"  />
+                    <div style="height:4.5em;width:160px;float:left;margin-top:1.5em;" ng-click="upload_photo_current_editable()">
+
+                        <img id="contract_upload_icon1_current_editable" style="width:4.5em;float:left;" ng-src="{{img_upload_file_part1}}" alt="">
+                        <img id="contract_upload_icon2_current_editable" style="width:3.2em;margin-top:1em;margin-left:10px;" ng-src="{{img_upload_file_part2}}" alt="">
+                        <div id="contract_upload_text_current_editable" style="color:#999999;font-size;16px;margin-left:74px;">添加图片
+                        </div>
+                    </div>
+                </div>
+-->
+
+
+		<!--备注-->
+        <div style="margin-top:15px; margin-bottom:5px;">
+    		<span style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px; margin-left:12px;">备注</span>
+    	</div>
+        <!--备注-->
+        <!--内容可编辑-->
+        <div style="margin-top:0px;" >
+        	<label class="item-input item-stacked-label" style="padding:0px 0px 0px 0px;">
+          		<textarea style="height:100px;background-color:white;border-bottom:1px solid #f0f0f0; color:#53afff;" id="remark" placeholder="填写合同备注信息..."></textarea>
+
+        	</label>
+      </div>
+        <!--内容可编辑-->
+     	<!--按钮-->
+		<div class="row">
+        	<!--取消-->
+        	<label class="col">
+          		<button class="button button-block button-light" style="border:1px solid #eee;" ng-click="employee_contract_detail_cancel_edit_mode()">取消</button>
+        	</label>
+			<!--取消-->
+
+            <!--保存-->
+        	<label class="col">
+          		<button class="button button-block button-positive" ng-click="employee_contract_detail_save()">保存</button>
+        	</label>
+            <!--保存-->
+		</div>
+		<!--按钮-->
+</div>
+<!-- 能编辑 -->
+<!-------------------------------------------------------------------------------------------------------------------->
+
+<!-- 不能编辑 -->
+<!--
+<div id="uneditable_fields" ng-hide="edit_mode || flag=='0' ">
+-->
+<div class="ng-hide" id="uneditable_fields" ng-hide="edit_mode || !expand_mode || flag=='0'">
+
+ 		<!--2008年签约次数-->
+        <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;overflow:hidden ">
+      		<div style="float:left;">
+        		<label id="uneditable_contract_times_after2008" style="font-size:14px; color:#333; margin-left:12px; line-height:49px"></label>
+			</div>
+			<div style="float:right;">
+
+			</div>
+		</div>
+        <!--2008年签约次数-->
+
+		<!--合同类型-->
+        <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      		<div style="float:left;">
+        		<label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">合同类型</label>
+			</div>
+			<div style="float:right;">
+				<a id="uneditable_contract_term" style=" line-height:49px;font-size:14px; color:#999; margin-right:12px;" class="ng-binding"></a>
+			</div>
+		</div>
+        <!--合同类型-->
+
+
+		<!--合同开始-->
+        <div id="contract_start_date_uneditable_div" style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      		<div style="float:left;">
+        		<label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">合同开始</label>
+			</div>
+			<div style="float:right;">
+				<a id="uneditable_contract_start_date" style=" line-height:49px;font-size:14px; color:#999; margin-right:12px;" class="ng-binding"></a>
+			</div>
+		</div>
+        <!--合同开始-->
+
+		<!--合同结束-->
+        <div id="contract_end_date_uneditable_div" style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;overflow:hidden ">
+      		<div style="float:left;">
+        		<label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">合同结束</label>
+			</div>
+			<div style="float:right;">
+				<a id="uneditable_contract_end_date" style=" line-height:49px;font-size:14px; color:#999; margin-right:12px;" class="ng-binding"></a>
+			</div>
+		</div>
+        <!--合同结束-->
+
+
+            <!--上传附件-->
+            <div class="ng-hide" id="contract_upload_div_current_uneditable" ng-show="employeeContractDetailData.c_c_d[0].attachment != ''">
+                <div style="margin-top:15px; margin-bottom:5px">
+                    <span style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px; margin-left:12px;">上传附件<span style="font-size:12px;color:#ccc;">(长按图片进行删除)</span></span>
+                </div>
+                <!--上传附件-->
+                
+				<update-images data="employeeContractDetailData.c_c_d[0].attachment" browsemode="true"></update-images>
+
+
+<!--
+				<div class="fufu-update-images fufu-update-img8">
+                    <img ng-repeat="current_attachment in employeeContractDetailData.c_c_d[0].attachment_array" ng-load-index-image ng-load-index ng-style="imgListStyle[$index]" ng-load-src="{{current_attachment}}" style="width: 82px; height: 109.333px; top: -13.6667px; left: 0px;">
+                </div>
+-->				
+                
+				<!--
+                <div style="height:105px;background-color: white;color: #D5D5D5;position: relative;padding-left:10px;border-bottom:1px solid #f1f1f1;" >
+                <img id="contract_upload_mini_photo_current_uneditable" src="" style="display:none;float:left;width:4.5em;height:4.5em;margin-top:1.5em;margin-right:10px;"  />
+                    <div style="height:4.5em;width:160px;float:left;margin-top:1.5em;">
+
+                        <img id="contract_upload_icon1_current_uneditable" style="width:4.5em;float:left;" ng-src="{{img_upload_file_part1}}" alt="">
+
+                        <div id="contract_upload_text_current_uneditable" style="color:#999999;font-size;16px;margin-left:74px;">
+                        </div>
+                    </div>
+                </div>
+                -->
+            </div>
+
+
+
+		<!--备注-->
+        <div style="margin-top:15px; margin-bottom:5px;">
+    		<span style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px; margin-left:12px;">备注</span>
+    	</div>
+        <!--备注-->
+        <!--内容不可编辑-->
+        <div class="ng-hide" style="margin-top:0px;" ng-hide="check_all">
+        	<label class="item-input item-stacked-label" style="padding:0px 0px 0px 0px;">
+                <div style="height:100px;background-color:white;border-bottom:1px solid #f0f0f0;">
+				<a id="uneditable_remark" style="line-height:49px;font-size:14px; color:#666; margin-left:12px" class="ng-binding"></a>
+				</div>
+        	</label>
+      </div>
+        <!--内容不可编辑-->
+</div>
+<!-- 不能编辑 -->
+
+
+
+
+<!-- 将来合同 -->
+<div ng-repeat="item in employeeContractDetailData.c_f_d">
+    <input type="hidden" id="contract_term_key_{{item.contract_id}}" />
+		<!--生效合同信息-->
+		<div style="width:100%; background-color:#fff; height:49px; margin-top:10px;border-bottom:1px solid #f5f5f5;">
+			<!--日历-->
+    		<div ng-click="future_employee_contract_detail_toggle_expand_mode(item.contract_id)" style="float:left; margin-left:12px;">
+                <div style="width:15px; overflow:hidden; float:left; margin-top:15px; height:15px;">
+                    <i ng-hide="item.expand_mode" class="ng-hide ion-arrow-right-b"  style="color:#666;"></i>
+                    <i ng-hide="!item.expand_mode" class="ng-hide ion-arrow-down-b"  style="color:#666;"></i>
+                </div>
+				<span style="color:#333; font-size:16px; line-height:49px;">未生效合同{{$index + 1}}</span>
+    		</div>
+			<!--日历-->
+
+    		<!--删除-->
+    		<div class="ng-hide" style="float: right;" ng-hide="item.edit_mode">
+    			<span ng-click="future_employee_contract_detail_delete(item.contract_id)" style="float:right; line-height:49px; font-size:14px; color:#666; margin-right:12px;">删除</span>
+        		<span style="float:right;"><img style="width:24px; height:24px; margin-top:12px" ng-src="{{img_delete}}"></span>
+    		</div>
+ 			<!--删除-->
+
+    		<!--编辑-->
+    		<div class="ng-hide" ng-click="future_employee_contract_detail_edit_mode(item.contract_id)" style="float: right;" ng-hide="item.edit_mode">
+    			<span style="float:right; line-height:49px; font-size:14px; color:#53afff; margin-right:5px;">编辑</span>
+        		<span style="float:right;"><img style="width:24px; height:24px; margin-top:12px" ng-src="{{img_edit}}"></span>
+		    </div>
+  			<!--编辑-->
+
+
+		</div>
+		<!--生效合同信息-->
+<!------------------------------------------------------------------------------------------------------------>
+
+<div class="ng-hide" ng-hide="!item.edit_mode || !item.expand_mode">
+        <!--2008年签约次数-->
+        <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;overflow:hidden">
+			<div style="float:left;">
+				<label id="contract_times_after2008_{{item.contract_id}}" style="font-size:14px; color:#333; margin-left:12px; line-height:49px"></label>
+			</div>
+
+        	<div style="float:right;">
+			</div>
+        	<div style="float:right;">
+				<div style="font-size:14px; color:#53afff; margin-right:0px;text-align:right; border:none; margin-top:8px;"></div>
+			</div>
+		</div>
+        <!--2008年签约次数-->
+
+		<!--合同类型-->
+        <div ng-click="future_picklist_contract_term(item.contract_id)" style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+			<div style="float:left;">
+				<label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">合同类型</label>
+			</div>
+        	<div style="float:right;">
+				<span id="contract_term_{{item.contract_id}}" style=" line-height:47px;font-size:14px; color:#53afff; margin-right:6px;" class=""></span>
+        		<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+			</div>
+		</div>
+		<!--合同类型-->
+
+
+     	<!--合同开始-->
+        <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;overflow:hidden">
+			<div style="float:left; ">
+				<label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">合同开始</label>
+			</div>
+
+        	<div style="float:right;">
+        		<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+			</div>
+
+
+			<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;height: 49px;position: relative" ng-click="contract_start_date_(item.contract_id)">
+				<!--<input style="text-align:right; margin-right:4px; margin-top:1px ;color: #53afff;" type="date" id="contract_start_date_{{item.contract_id}}"  >-->
+
+        <span id="contract_start_date_{{item.contract_id}}" style="color:#53afff;line-height: 35px;position: absolute;top:8px;right: 10px;" ></span>
+			</label>
+		</div>
+        <!--合同开始-->
+
+        <!--合同结束-->
+
+        <div id="contract_end_date_editable_div_{{item.contract_id}}"  style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;overflow:hidden">
+			<div style="float:left; ">
+				<label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">合同结束</label>
+			</div>
+
+        	<div style="float:right;">
+        		<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+			</div>
+
+
+			<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;height: 49px;position: relative;" ng-click="contract_end_date_(item.contract_id)">
+				<!--<input style="text-align:right; margin-right:4px; margin-top:1px;color: #53afff;" type="date" id="contract_end_date_{{item.contract_id}}" >-->
+        <span id="contract_end_date_{{item.contract_id}}" style="color:#53afff;line-height: 35px;position: absolute;top:8px;right: 10px;" ></span>
+			</label>
+		</div>
+        <!--合同结束-->
+
+
+            <!--上传附件-->
+            <div id="contract_upload_div_future_editable_{{item.contract_id}}">
+                <div style="margin-top:15px; margin-bottom:5px">
+                    <span style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px; margin-left:12px;">上传附件<span style="font-size:12px;color:#ccc;">(长按图片进行删除)</span></span>
+                </div>
+                <!--上传附件-->
+
+				<update-images data="item.contract_image_data"></update-images>
+<!--
+                <div style="height:105px;background-color: white;color: #D5D5D5;position: relative;padding-left:10px;border-bottom:1px solid #f1f1f1;" >
+                <img id="contract_upload_mini_photo_future_editable_{{item.contract_id}}" src="" style="display:none;float:left;width:4.5em;height:4.5em;margin-top:1.5em;margin-right:10px;"  />
+                    <div style="height:4.5em;width:160px;float:left;margin-top:1.5em;" ng-click="upload_photo_future(item)">
+
+                        <img id="contract_upload_icon1_future_editable_{{item.contract_id}}" style="width:4.5em;float:left;" ng-src="{{img_upload_file_part1}}" alt="">
+                        <img id="contract_upload_icon2_future_editable_{{item.contract_id}}" style="width:3.2em;margin-top:1em;margin-left:10px;" ng-src="{{img_upload_file_part2}}" alt="">
+                        <div id="contract_upload_text_future_editable_{{item.contract_id}}" style="color:#999999;font-size;16px;margin-left:74px;">添加图片
+                        </div>
+                    </div>
+                </div>
+-->
+            </div>
+
+
+
+		<!--备注-->
+        <div style="margin-top:15px; margin-bottom:5px;">
+    		<span style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px; margin-left:12px;">备注</span>
+    	</div>
+        <!--备注-->
+        <!--内容可编辑-->
+        <div style="margin-top:0px;" >
+        	<label class="item-input item-stacked-label" style="padding:0px 0px 0px 0px;">
+          		<textarea style="height:100px;background-color:white;border-bottom:1px solid #f0f0f0; color:#53afff;" id="remark_{{item.contract_id}}" placeholder="填写合同备注信息..."></textarea>
+
+        	</label>
+      </div>
+        <!--内容可编辑-->
+     	<!--按钮-->
+		<div class="row">
+        	<!--取消-->
+        	<label class="col">
+          		<button class="button button-block button-light" style="border:1px solid #eee;" ng-click="future_employee_contract_detail_cancel_edit_mode(item.contract_id)">取消</button>
+        	</label>
+			<!--取消-->
+
+            <!--保存-->
+        	<label class="col">
+          		<button class="button button-block button-positive" ng-click="future_employee_contract_detail_save(item,item.contract_id)">保存</button>
+        	</label>
+            <!--保存-->
+		</div>
+		<!--按钮-->
+	</div>
+
+	<div class="ng-hide" ng-hide="item.edit_mode || !item.expand_mode">
+ 		<!-- 不可以编辑 -->
+ 		<!--2008年签约次数-->
+        <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;overflow:hidden ">
+      		<div style="float:left;">
+        		<label id="uneditable_contract_times_after2008_{{item.contract_id}}" style="font-size:14px; color:#333; margin-left:12px; line-height:49px"></label>
+			</div>
+			<div style="float:right;">
+
+			</div>
+		</div>
+        <!--2008年签约次数-->
+
+		<!--合同类型-->
+        <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      		<div style="float:left;">
+        		<label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">合同类型</label>
+			</div>
+			<div style="float:right;">
+				<a id="uneditable_contract_term_{{item.contract_id}}" style=" line-height:49px;font-size:14px; color:#999; margin-right:12px;" class="ng-binding"></a>
+			</div>
+		</div>
+        <!--合同类型-->
+
+
+		<!--合同开始-->
+        <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      		<div style="float:left;">
+        		<label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">合同开始</label>
+			</div>
+			<div style="float:right;">
+				<a id="uneditable_contract_start_date_{{item.contract_id}}" style=" line-height:49px;font-size:14px; color:#999; margin-right:12px;" class="ng-binding"></a>
+			</div>
+		</div>
+        <!--合同开始-->
+
+		<!--合同结束-->
+        <div id="contract_end_date_uneditable_div_{{item.contract_id}}" style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;overflow:hidden ">
+      		<div style="float:left;">
+        		<label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">合同结束</label>
+			</div>
+			<div style="float:right;">
+				<a id="uneditable_contract_end_date_{{item.contract_id}}" style=" line-height:49px;font-size:14px; color:#999; margin-right:12px;" class="ng-binding"></a>
+			</div>
+		</div>
+        <!--合同结束-->
+
+
+            <!--上传附件-->
+            <div class="ng-hide" class="ng-hide" id="contract_upload_div_future_uneditable_{{item.contract_id}}" ng-show="item.attachment != ''">
+                <div style="margin-top:15px; margin-bottom:5px">
+                    <span style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px; margin-left:12px;">上传附件<span style="font-size:12px;color:#ccc;">(长按图片进行删除)</span></span>
+                </div>
+                <!--上传附件-->
+
+				<update-images data="item.attachment" browsemode="true"></update-images>
+				<!--
+                <div style="height:105px;background-color: white;color: #D5D5D5;position: relative;padding-left:10px;border-bottom:1px solid #f1f1f1;" >
+                <img id="contract_upload_mini_photo_future_uneditable_{{item.contract_id}}" src="" style="display:none;float:left;width:4.5em;height:4.5em;margin-top:1.5em;margin-right:10px;"  />
+                    <div style="height:4.5em;width:160px;float:left;margin-top:1.5em;">
+
+                        <img id="contract_upload_icon1_future_uneditable_{{item.contract_id}}" style="width:4.5em;float:left;" ng-src="{{img_upload_file_part1}}" alt="">
+
+                        <div id="contract_upload_text_future_uneditable_{{item.contract_id}}" style="color:#999999;font-size;16px;margin-left:74px;">
+                        </div>
+                    </div>
+                </div>
+                -->
+            </div>
+
+
+		<!--备注-->
+        <div style="margin-top:15px; margin-bottom:5px;">
+    		<span style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px; margin-left:12px;">备注</span>
+    	</div>
+        <!--备注-->
+        <!--内容不可编辑-->
+        <div class="ng-hide" style="margin-top:0px;" ng-hide="check_all">
+        	<label class="item-input item-stacked-label" style="padding:0px 0px 0px 0px;">
+                <div style="height:100px;background-color:white;border-bottom:1px solid #f0f0f0;">
+				<a id="uneditable_remark_{{item.contract_id}}" style="line-height:49px;font-size:14px; color:#666; margin-left:12px" class="ng-binding"></a>
+				</div>
+        	</label>
+      </div>
+        <!--内容不可编辑-->
+</div>
+
+<div ng-init="fireEvent($index)"></div>
+
+</div>
+<!-- 将来合同 -->
+
+
+
+
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,46 @@
+<ion-view title="添加" ng-controller="addHolidayCtrl" hide-nav-bar="true" hide-tab-bar >
+
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+	      <h1 class="title">
+            <span>添加</span>
+        </h1>
+
+        <div class="buttons">
+            <a ng-click="save()">
+                <button class="button back-button buttons button-clear button-light header-item">保存</button>
+            </a>
+        </div>
+	</ion-header-bar>
+			
+
+  	<ion-content has-bouncing="true" overflow-scroll="false">
+
+      <div class="edit-door-box">
+          <div class="flex-row edit-door-list" style="margin-top:10px;">
+            <div>节假日名称</div>
+            <div class="flex-1 flex-row" clear-value-box style="padding-right:10px;">
+              <input type="text" class="flex-1" placeholder="请填写节假日名称" ng-model="addHolidayData.zk_holiday_type_name" clear-value-input>
+              <i clear-value-btn></i>
+            </div>
+          </div>
+
+          <div class="flex-row edit-door-list" on-tap="selectdw()">
+            <div>所属单位</div>
+            <div class="sdw flex-1" >
+              <span ng-class="{'not-value':addHolidayData.sub_bu_index == null}" ng-bind="(addHolidayData.sub_bu_index != null)?addHolidayData.list_data[addHolidayData.sub_bu_index].value:'请选择所属单位'"></span>
+              <i class="ion-ios-arrow-forward"></i>
+            </div>
+          </div>
+        </div>
+
+    </ion-content>
+   
+   
+</ion-view>
+

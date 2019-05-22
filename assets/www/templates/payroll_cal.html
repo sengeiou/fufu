@@ -1,0 +1,121 @@
+
+<ion-view style="background-color:#f8f8f8;" title="工资计算" hide-tab-bar>
+<style>
+    .payroll_cal_popup .popup-body{
+      margin-bottom: 0px !important;
+    }
+    .payroll_cal_popup .popup{
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      border: none !important;
+    }
+    .payroll_cal_popup .popup-head{
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      border: none !important;
+    }
+    .payroll_cal_popup .popup-buttons{
+      border-top:1px solid #f5f5f5;
+
+    }
+    .payroll_cal_popup .button-dark{
+      border-right:1px solid #f5f5f5;
+      
+    }
+    .payroll_cal_popup .button-dark.activated{
+      color: #53afff !important;
+    }
+    .payroll_cal_popup .popup{
+      width:7.2rem !important;
+      /*border-radius: 10px;*/
+    }
+</style>
+  <ion-content ng-controller="payrollCalCtrl" has-bouncing="true" overflow-scroll="false">
+  <div ng-show="process_status.process_status=='1'" id="payroll_task_in_process_div" style="display:block;height:44px;background-color:#FFFFFF;" ng-click="test_click()">
+	<div style="float:left;height:44px;"> 
+		<img ng-src="{{img_task_in_process_icon}}" style="width:22px;height:22px;margin-top:11px;margin-left:12px;margin-right:12px; ">
+	</div>
+  <p style="line-height:44px;font-size:0.3733333333333rem; color: #333333">本次工资计算还未完成，请耐心等待...</p>
+  </div>
+  
+  <div ng-show="process_status.process_status=='2'" id="payroll_task_complete_div" style="display:block;height:44px;background-color:#FFFFFF;">
+	<div style="float:left;height:44px;">
+	  <img ng-src="{{img_task_complete_icon}}" style="width:22px;height:22px;margin-top:11px;margin-left:12px;margin-right:12px; ">
+	</div>
+	<div ng-click="close_process_div()" style="float:right;height:44px;">
+	  <img ng-src="{{img_task_close}}"style="width:22px;height:22px;float:right;margin:11px;">
+	</div>
+  <p ng-click="redirect_to_result()" style="line-height:44px;font-size:0.3733333333333rem; color: #333333">本次工资计算已完成，去查看工资结果</p>
+  </div>
+  
+	
+    <div style="margin-top:0px;padding:10px 0px;">
+      <div class="row" style="display:none; background-color:#fff;border:1px solid #f0f0f0;font-size:17px;">
+        <div class="item item-input" style="width:45%;border:none;">
+          
+          <div id="payroll_cal_f" style="color:#53afff;line-height: 35px;margin: 0 auto;" ></div>
+        </div>
+        <div style="padding-top:7px;width:8%;margin-right:10px;"><img ng-src="{{dates_line2x}}" style="width:40px;"></div>
+        <div class="item item-input" style="width:45%;border:none;">
+          
+          <div id="payroll_cal_t" style="color:#53afff;line-height: 35px;margin: 0 auto;" ></div>
+        </div>
+      </div>
+	
+	<div ng-click="pay_terms_picklist()" style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+      <div style="float:left;">
+        <label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">薪资帐套</label>
+      </div>
+
+	  <div style="float:right;">
+        <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>
+      </div>
+      <div style="float:right;">
+        <span style="float: right;line-height: 49px;color: #666;font-size:14px;">{{pay_roll_data.pay_terms}}</span>
+      </div>
+    </div>
+	<div ng-click="pay_date_picklist()" style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+      <div style="float:left;">
+        <label style="font-size:14px; color:#333; margin-left:12px; line-height:49px">工资周期</label>
+      </div>
+
+	  <div style="float:right;">
+        <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>
+      </div>
+      <div style="float:right;">
+        <span style="float: right;line-height: 49px;color: #666;font-size:14px;">{{pay_roll_data.pay_date_value}}</span>
+      </div>
+    </div>
+	<!--
+      <a class="button button-full button-light icon ion-ios-plus-outline"
+         href="#/home_page/auto_roster/modal_empl_list/payroll_cal_empl_list/payroll_cal_empl_list_hidden"
+         ng-hide="check_all"  style="border-bottom:1px solid #f0f0f0;font-size:14px;margin-top:0px;padding:5px 0px;">&nbsp;&nbsp;&nbsp;选择员工</a>
+	-->	 
+      <a class="button button-full button-light icon ion-ios-plus-outline"
+         href="#/home_page/home_menulist/payroll_cal_employee_select"
+         ng-hide="check_all"  style="border-bottom:1px solid #f0f0f0;font-size:14px;margin-top:0px;padding:5px 0px;">&nbsp;&nbsp;&nbsp;选择员工</a>
+    </div>
+    <ul class="list" style="margin-bottom:0px;">
+      <li class="item item-toggle">
+        全部员工
+        <label class="toggle toggle-calm">
+          <input type="checkbox" ng-model="check_all"  ng-checked="check_all">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+    </ul>
+
+    <div style="margin-top:0px;" ng-hide="check_all">
+      <label class="item-input item-stacked-label" style="padding:10px 0px 0px 0px;">
+        <span class="input-label" style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px;" >已选择员工</span>
+        <textarea style="height:190px;background-color:white;border-bottom:1px solid #f0f0f0;" id="payroll_cal_empl_list" placeholder="暂无选择员工..." readonly="readonly"></textarea>
+        <textarea ng-hide="true"  id="payroll_cal_empl_list_hidden"></textarea>
+      </label>
+    </div>
+    <div class='padding' style="margin-top:10px;">
+      <button class="button button-block button-positive" ng-click="runPayrollCal()">计算工资</button>
+    </div>
+  </ion-content>
+</ion-view>

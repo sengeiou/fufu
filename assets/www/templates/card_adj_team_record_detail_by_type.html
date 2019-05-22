@@ -1,0 +1,87 @@
+
+<ion-view  hide-back-button="true" id="card_adj_team_record_detail_by_type" style="background-color:#f8f8f8;" title='<div style="width:100%;position:fixed; height:62px;line-height:84px; background-color:#53afff;l margin-top:0px;left:0px; top: -20px; background-color: #53afff;z-index:999;"><div onclick="window.navbarBackClick()" id="cardAdjTeamRecordDetailByTypeBack" style="width:30px;float:left;margin-top:25px;margin-left:-5px;" >  <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" ><span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>  </div><div id="cardAdjTeamRecordDetailByTypeSearch" sev_name="cardAdjTeamRecordDetailByType" onclick="window.navbarShowSearch(this.id);" style="width:30px;float:right;padding-left:0px;margin-top:25px;" >     <div  style="margin-right:0px;">
+      <i class="ion-ios-search-strong button back-button buttons button-clear button-light ion-ios-arrow-left header-item" style="font-size:20px !important;"></i>
+    </div></div>  <div id="cardAdjTeamRecordDetailByTypeTitle"></div></div>
+    <div style="width: 100%;height: 44px;margin-top: 0px;background-color: #53afff;position: absolute;z-index: 999;opacity: 0;text-align: center;line-height: 44px;color: white;transition: all .3s ease-in-out;display: none" id="cardAdjTeamRecordDetailByTypeSearchDiv">
+  <div class="bar bar-header item-input-inset searchclass active" style="background-color: rgb(83, 175, 255);height: 44px;" >
+    <div class="item-input-wrapper" style="margin-top: 0px !important;background-color: #fff;" >
+<div style="width: 100%" clear-value-box>
+      <i class="icon ion-ios-search-strong placeholder-icon" style="position:absolute;left: 20px;top:-12px; margin-top: 12px;"></i>
+        <input clear-value-input id="cardAdjTeamRecordDetailByTypeSearchInput" type="search" placeholder="搜索..." ng-model="search_control.search_val" class="" style="margin-left:10px;" sev_name="cardAdjTeamRecordDetailByType" oninput="window.navbarSearchInput(this.id)" onfocus="window.navbarSearchfocus(this.id)" onblur="window.navbarSearchblur(this.id)">
+         <div onclick="window.navbarSearchClearValue(this.id)" sev_name="cardAdjTeamRecordDetailByType" id="cardAdjTeamRecordDetailByTypeCloseIonic" class="ion-ios-close" style="position: absolute; right: 60px; font-size: 16px; margin-right: 2px; top:7px;height:31px;line-height:31px;color: #cccccc;display:none; z-index:999;"></div>
+</div>
+
+    </div>
+    <button class="button button-clear" style="margin-top: 0px !important; color:#fff;margin-right:-5px;" id="cardAdjTeamRecordDetailByTypeSearchCancelBtn" sev_name="cardAdjTeamRecordDetailByType" onclick="window.navbarSearchCancel(this.id)">
+      取消
+    </button>
+  </div>
+</div>
+
+
+' ng-controller="cardAdjTeamRecordDetailByTypeCtrl" hide-tab-bar >
+<style>
+#card_adj_team_record_detail_by_type .searchclass {
+  position: relative;
+  top: 0px;
+  z-index: 9999;
+  -webkit-transition: opacity .3s ease-in-out;
+  height: 0;
+  opacity: 0;
+  padding: 0px;
+}
+#card_adj_team_record_detail_by_type .searchclass.active {
+  height: 44px;
+  opacity: 1;
+  padding: 10.667px;
+  -webkit-transition: opacity .3s ease-in-out;
+}
+.platform-win32.platform-cordova #cardAdjTeamRecordDetailByTypeBack{
+  margin-left:-7px;
+}
+.platform-android.platform-cordova #cardAdjTeamRecordDetailByTypeBack{
+  padding-left:10px !important;
+}
+
+</style>
+
+
+
+  <ion-content has-bouncing="true" overflow-scroll="false">
+    <div style="font-size: 16px;background-color:#f8f8f8;height: 44px;display:block;line-height: 44px; width:100%; padding: 0 12px 0 12px;">
+         <div style="float:left; width:35%; overflow:hidden;">
+            <span id="" style="margin: -3px auto;font-size:14px;color:#666; border:0;line-height: 35px;" class="">{{target_date_text}}</span>
+        </div>
+    
+        <div style=" width:65%; overflow:hidden">
+            <div style=" float:right;width:75%;" class="">
+                <div  style="font-size:14px; color:#999; float:right; margin-left:3px;white-space: nowrap;text-overflow:ellipsis; overflow:hidden; width:100%;text-align: right;"><span>{{detail_by_type_data.hc_num}}人共补签</span><span style="font-size:18px; color:#ff6600; margin:0 3px 0 3px;">{{detail_by_type_data.adj_times_total}}</span>次</div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-click="card_adj_month_by_type(items.employee_no,items.employee_name)" ng-repeat="items in filterItems=(detail_by_type_data.adj_data|dataAndFilter:'employee_name':search_control.search_val)" style="width:100%; overflow:hidden; height:70px; background-color:#fff; padding:0 12px 0 12px; margin-bottom:0px; border-bottom:1px solid#f5f5f5;">
+    	<div style="float:left;padding: 10px 0 10px 0;">
+		
+			<div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden;">
+              <img ng-src="{{items.empl_img}}" alt="" style="width: 50px;height: 50px;">
+            </div>
+					
+			
+            <div style="float:left; margin: 0px 0px 0px 10px;">
+            	<p style=" font-size:17px; color:#333;">{{items.employee_name}}</p>
+                <p style="font-size:14px; color:#555; margin-top:5px;">累计补签<span style="font-size:18px; color:#ff6600; margin:0 3px 0 3px;">{{items.adj_times}}</span>次</p>
+            </div>
+        </div>
+        
+        <div style="float:right; line-height:70px;">
+        	<i class="icon ion-ios-arrow-right button-small"></i>
+        </div>
+    </div> 
+
+  
+ 
+
+</ion-content>
+  </ion-view>
+

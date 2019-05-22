@@ -1,0 +1,108 @@
+
+<ion-view style="background-color:#f8f8f8;" title="{{'我的审批'}}" ng-controller="essMyApprovalCtrl" cache-view="false" hide-tab-bar>
+  <!--<ion-nav-buttons side="right">-->
+    <!--<button class="button button-clear button-light button-icon ion-android-add" ng-click="openPopover($event);"></button>-->
+  <!--</ion-nav-buttons>-->
+  <ion-content has-bouncing="true" overflow-scroll="false">
+    <!--<div class="list" style="margin:10px 12px;">-->
+      <!--<label class="item item-input" style="border-radius:4px;height:30px;background-color:#fff;border:none;">-->
+        <!--<i class="icon ion-search placeholder-icon"></i>-->
+        <!--<input type="text" placeholder="搜索" ng-model="search_val">-->
+      <!--</label>-->
+    <!--</div>-->
+
+<!-- ============================================================= 我的审批 ============================================================= -->
+    <div style="width: 100%; height: 58px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(245, 245, 245); background-color: rgb(255, 255, 255);" class=""  ng-click="loadMyApply(item.name,item.biz_type_key)" ng-repeat="item in ess_my_approval_data" >
+      <div style="float:left;margin-top: 10px; margin-left:12px;">
+        <img style="width:35px; height:35px; "  ng-src="{{my_apply_icon}}my_approve_{{item.biz_type_key}}_2.png">
+      </div>
+      <div style="float:left">
+        <span style="font-size:16px; color:#333;margin-left:10px; line-height:58px" class="ng-binding">{{item.name}}</span>	<span ng-show="item.instance_num!='0'"  style="font-size:14px; color:#999;">({{item.instance_num}})</span>
+      </div>
+      <div style="float:right;">
+        <div style="float:right;">
+          <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:58px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div>
+      </div>
+    </div>
+<!--请假单-->
+<!--<div style="width: 100%; height: 58px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(245, 245, 245); background-color: rgb(255, 255, 255);" class=""  ng-click="loadMyApply(ess_my_approval_data[0].name,ess_my_approval_data[0].biz_type_key)">-->
+	<!--<div style="float:left;margin-top: 10px; margin-left:12px;">-->
+			<!--<img style="width:35px; height:35px; "  src="{{apply_leave_icon}}">-->
+	<!--</div>-->
+	<!--<div style="float:left">-->
+		<!--<span style="font-size:16px; color:#333;margin-left:10px; line-height:58px" class="ng-binding">{{ess_my_approval_data[0].name}}</span>	<span style="font-size:14px; color:#999;">({{ess_my_approval_data[0].instance_num}})</span>-->
+	<!--</div>-->
+	<!--<div style="float:right;">-->
+		<!--<div style="float:right;">-->
+			<!--<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:58px;vertical-align:middle;font-size:20px;color:#ccc;"></i>-->
+		<!--</div>-->
+	<!--</div>-->
+<!--</div>-->
+<!--请假单-->
+
+<!--加班单-->
+<!--<div style="width: 100%; height: 58px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(245, 245, 245); background-color: rgb(255, 255, 255);" class="" >-->
+	<!--<div style="float:left;margin-top: 10px; margin-left:12px;">-->
+		<!--&lt;!&ndash;<span style="display: block;border-radius: 30px;position: absolute;background-color: #f43531;color: #FFF;z-index: 999;left: 42px;top: 104px;width: 8px;height: 8px; text-align: center;"></span>&ndash;&gt;-->
+			<!--<img style="width:35px; height:35px; " src="{{apply_overtime_icon}}">-->
+	<!--</div>-->
+	<!--<div style="float:left">-->
+		<!--<span style="font-size:16px; color:#333;margin-left:10px; line-height:58px" class="ng-binding">{{ess_my_approval_data[1].name}}</span>			<span style="font-size:14px; color:#999;">({{ess_my_approval_data[1].instance_num}})</span>-->
+	<!--</div>-->
+	<!--<div style="float:right;">-->
+		<!--<div style="float:right;">-->
+			<!--<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:58px;vertical-align:middle;font-size:20px;color:#ccc;"></i>-->
+		<!--</div>-->
+	<!--</div>-->
+<!--</div>-->
+<!--加班单-->
+
+<!--外勤单-->
+<!--<div style="width: 100%; height: 58px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(245, 245, 245); background-color: rgb(255, 255, 255);" class=""ng-click="loadMyApply(ess_my_approval_data[2].name,ess_my_approval_data[2].biz_type_key)">-->
+	<!--<div style="float:left;margin-top: 10px; margin-left:12px;">-->
+			<!--<img style="width:35px; height:35px; " src="{{apply_field_icon}}">-->
+	<!--</div>-->
+	<!--<div style="float:left">-->
+		<!--<span style="font-size:16px; color:#333;margin-left:10px; line-height:58px" class="ng-binding">外勤异地单</span>			<span style="font-size:14px; color:#999;">({{ess_my_approval_data[2].instance_num}})</span>-->
+	<!--</div>-->
+	<!--<div style="float:right;">-->
+		<!--<div style="float:right;">-->
+			<!--<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:58px;vertical-align:middle;font-size:20px;color:#ccc;"></i>-->
+		<!--</div>-->
+	<!--</div>-->
+<!--</div>-->
+<!--外勤单-->
+
+<!-- ============================================================= 我的申请 ============================================================= -->
+
+
+
+
+    <!--<ion-list>-->
+      <!--<ion-item ng-click="loadMyApply(item.p_inst,item.show_type,item.task_id)"-->
+        <!--collection-repeat="item in ess_my_apply_data|filter:search_val|filter:{'s_t':_flag}">-->
+        <!--<div>-->
+          <!--<span style="font-size:13px;color:#808080">-->
+            <!--<span style="float:right;color:{{item.s_c}}">{{item.p_s}}</span>-->
+          <!--</span>-->
+        <!--</div>-->
+        <!--<p style="font-size:13px;color:#808080">休假类型:&nbsp;&nbsp;<span style="color:#FB640B;">{{item.lv_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{item.dd}}</span></p>-->
+        <!--<p style="font-size:13px;color:#808080">休假开始:&nbsp;&nbsp;{{item.s_d}}</p>-->
+        <!--<p style="font-size:13px;color:#808080">休假结束:&nbsp;&nbsp;{{item.e_d}}</p>-->
+      <!--</ion-item>-->
+    <!--</ion-list>-->
+  <!--</ion-content>-->
+
+  <!--<script id="ess-my-apply.html" type="text/ng-template">-->
+    <!--<ion-popover-view class="light padding pop-style" style="background-color:white;width:130px;height:auto;margin-top:20px;">-->
+      <!--<p><i class="button icon-left button-light button-full" style="border-bottom:1px solid #f8f8f8;" ng-click="filterLvApprove('未完成')"><img style="margin-top:10px;float:left;width:22px;height:22px;" ng-src="{{ss_not_completed}}" />未完成</i></p>-->
+      <!--<p><i class="button icon-left button-light button-full" style="border-bottom:1px solid #f8f8f8;" ng-click="filterLvApprove('已完成')"><img style="margin-top:10px;float:left;width:22px;height:22px;" ng-src="{{ess_has_been_completed}}" />已完成</i></p>-->
+      <!--<p><i class="button icon-left button-light button-full" ng-click="filterLvApprove('')"><img style="margin-top:10px;float:left;width:22px;height:22px;" ng-src="{{ess_unhide_all}}" />显示全部</i></p>-->
+    <!--</ion-popover-view>-->
+  <!--</script>-->
+</ion-content>
+
+
+
+</ion-view>

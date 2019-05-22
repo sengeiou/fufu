@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/imageBrowseFrame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context="org.apache.cordova.image.activity.ImageBrowseActivity">
+
+    <org.apache.cordova.image.view.MeityitianViewPager
+        android:id="@+id/imgs_browse_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:background="#000000"
+        android:gravity="center"
+        android:orientation="horizontal"/>
+</RelativeLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>--><!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:tools="http://schemas.android.com/tools"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:id="@+id/imageBrowseFrame"--><!--android:background="#000000"--><!--tools:context="image.activity.ImageBrowseActivity"--><!--&gt;-->
+
+    <!--<image.view.MeityitianViewPager--><!--android:id="@+id/imgs_browse_viewpager"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:layout_gravity="center"--><!--/>--><!--&lt;!&ndash;<LinearLayout&ndash;&gt;--><!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;--><!--&lt;!&ndash;android:layout_height="60dp"&ndash;&gt;--><!--&lt;!&ndash;android:layout_marginBottom="10dp"&ndash;&gt;--><!--&lt;!&ndash;android:layout_alignParentBottom="true"&ndash;&gt;--><!--&lt;!&ndash;android:background="#e10a0a"&ndash;&gt;--><!--&lt;!&ndash;&gt;&ndash;&gt;--><!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
+
+    <!--</RelativeLayout>-->

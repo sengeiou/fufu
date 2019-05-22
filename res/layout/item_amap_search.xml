@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_name_amap_input"
+        style="@style/Text_333_32"
+        android:layout_marginTop="@dimen/margin_15dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/margin_12dp"
+        android:paddingRight="@dimen/margin_12dp"
+        tools:text="逻辑电路放假啊冷风机辣椒粉拉进来发简历到安家了发简单两句阿里" />
+
+    <TextView
+        android:id="@+id/tv_address_amap_input"
+        style="@style/Text_999_26"
+        android:layout_marginBottom="@dimen/margin_12dp"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:paddingLeft="@dimen/margin_12dp"
+        android:paddingRight="@dimen/margin_12dp"
+        tools:text="Futian District, Shenzhen Province, stoneFutian District, Shenzhen Province, stone" />
+
+    <View style="@style/SplitLine" />
+
+</LinearLayout>

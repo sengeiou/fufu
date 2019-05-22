@@ -1,0 +1,1161 @@
+<ion-view hide-back-button="true"   show-tab-bar cache-view="true" ng-controller="atHomeNewCtrl" title='
+<div style="width:100%;position:fixed;overflow:hidden; height:62px;line-height:84px; background-color:#53afff;l margin-top:0px;left:0px; top: -20px; background-color: #53afff;z-index:999;">
+
+
+ <div style="overflow:hidden;position:relative;">
+<div id="at_home_date" style="width:100%;"></div>
+<div class="at_home_month_report_icon" style="position:absolute;right:2px;top:5px;" onclick="window.at_month_report()">
+<img id="at_home_navbar_right" ng-src="{{at_home_navbar_right}}" style="width:27px;height:27px;">
+</div>
+
+ </div>
+ </div>
+  '   id="at_home_main"  >
+
+  <style>
+    .row.date .col div{width: 26px;height: 26px;border-radius:150%;margin: 0 auto;padding-top:4px;}
+    ._ar_n,._ar_e,._ar_c{border-radius:15px;}
+    ._ar_n{height:10px;background:url({{dot_normal}}) no-repeat center 3px;background-size:5px;}
+    ._ar_e{height:10px;background:url({{dot_abnormal}}) no-repeat center 3px;background-size:5px;}
+    ._ar_c{background-color:white;color:#53afff !important;}
+    .none_bg{background-image:none;}
+    .none_color{background-color:rgba(255, 255, 255, 0);}
+
+    #at_home_main .at_home_content {
+      top: {{content_position_top_ios}};
+    }
+    .platform-win32.platform-cordova #at_home_main .at_home_content {
+      top: {{content_position_top_android}};
+    }
+    .platform-android.platform-cordova #at_home_main .at_home_content {
+      top: {{content_position_top_android}};
+    }
+	.platform-android.platform-cordova  .at_home_month_report_icon {
+      right:12px !important;
+	  
+    }
+	
+	
+	#at_home_main .scroll-bar.scroll-bar-v {
+		display: none;  /* default value is 'scroll' */
+	}
+	
+    .at_sign_in_has_border {
+      border-left:1px solid #ebebeb;
+    }
+    .lata_cls{
+      background-color: #f4a44e;
+    }
+    .wait_cls{
+      background-color: #72bdff;
+    }
+    .platform-win32.platform-cordova #at_home_back{
+      margin-left:-7px;
+    }
+    .platform-android.platform-cordova #at_home_back{
+      padding-left:10px !important;
+    }
+    .col div{
+      font-size: 0.375rem;
+    }
+    .col p{
+      font-size: 0.375rem;
+    }
+    .col {
+      border-radius: 150%;
+    }
+    .have_bg{
+      background-image: url("{{no_approve_bg}}");
+    }
+	.no_martop{
+	margin-top : 0px !important;
+	}
+	.text_color{
+	color :#ff3b30 !important;
+	}
+	.border_cls{
+	border-right:1px solid #f0f0f0;
+	}
+  </style>
+
+  <ion-header-bar ng-show="atHomeCalendarData.length != 0 && data_ready" class="ng-hide bar-subheader" style="padding:0px;background-image:none !important; background-position:none !important;height:38px;">
+    <!--
+	<div class="row" style="background-color:#53afff;line-height:40px;">
+            <div class="col-20" style="text-align: left;color:#fff;padding-left:5px;">
+              <div ng-click="reAtHomeData('-1')">上一月</div>
+            </div>
+            <div class="col-60">
+              <span class="item-input">
+              </span>
+            </div>
+            <div class="col-20" style="text-align: right;color:#fff;padding-right:5px;">
+              <div ng-click="reAtHomeData('1')">下一月</div>
+            </div>
+      </div>
+      -->
+    <div on-drag-left="calendar_week_next_page()" on-drag-right="calendar_week_prev_page()" on-drag-up="calendar_week_minimize()" on-drag-down="calendar_week_maximize()" class="row" style="text-align:center; color: #fff;background-color: #53afff;z-index: 333;position: absolute; padding:0px;padding-left:0px;padding-right:0px;">
+      <div class="" style="font-size:12px;width:{{css_width}};margin:0px 6px 0px 6px; position: relative;padding: 2px 0px 2px 0px;">
+        <div style="font-size:0.32rem !important;">日</div>
+      </div>
+      <div class="" style="font-size:12px;width:{{css_width}};margin:0px 6px 0px 6px; position: relative;padding: 2px 0px 2px 0px;">
+        <div style="font-size:0.32rem !important;">一</div> 
+      </div>
+      <div class="" style="font-size:12px;width:{{css_width}};margin:0px 6px 0px 6px; position: relative;padding: 2px 0px 2px 0px;">
+        <div style="font-size:0.32rem !important;">二</div>
+      </div>
+      <div class="" style="font-size:12px;width:{{css_width}};margin:0px 6px 0px 6px; position: relative;padding: 2px 0px 2px 0px;">
+        <div style="font-size:0.32rem !important;">三</div>
+      </div>
+      <div class="" style="font-size:12px;width:{{css_width}};margin:0px 6px 0px 6px; position: relative;padding: 2px 0px 2px 0px;">
+        <div style="font-size:0.32rem !important;">四</div>
+      </div>
+      <div class="" style="font-size:12px;width:{{css_width}};margin:0px 6px 0px 6px; position: relative;padding: 2px 0px 2px 0px;">
+        <div style="font-size:0.32rem !important;">五</div>
+      </div>
+      <div class="" style="font-size:12px;width:{{css_width}};margin:0px 6px 0px 6px; position: relative;padding: 2px 0px 2px 0px;">
+        <div style="font-size:0.32rem !important;">六</div>
+      </div>
+    </div>
+
+    <div id="at_home_calendar_wrapper" style="height: {{wrap_height}}; padding-top: 36px;overflow: hidden;">
+
+
+      <div  style=" width: 100%; margin-top:-12px; font-size:15px; color: #333;margin-bottom: 0px;padding-bottom: 15px;" id="at_home_calendar">
+        <div id="calendar_translate_div" style="width: 300%; -webkit-transform: translateX(-33.3333%); transform: translateX(-33.3333%); overflow: hidden; padding-bottom: 15px;">
+          <!-- 上一月 DIV -->
+          <div on-drag-left="calendar_week_next_page()" on-drag-right="calendar_week_prev_page()" on-drag-up="calendar_week_minimize()" on-drag-down="calendar_week_maximize()"  id="calendar_previous_month" style="float: left;overflow:hidden; width:33.3333%">
+            <div class="row date" style="text-align: center;padding: 0;margin-top: 0;padding-top: 5px">
+              <div class="col">
+                <div id="at_calendar_1_1_1" class="none_bg">1</div><p id="at_calendar_text_1_1_1" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_1_2" class="none_bg">2</div><p id="at_calendar_text_1_1_2" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_1_3" class="none_bg">3</div><p id="at_calendar_text_1_1_3" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_1_4" class="none_bg">4</div><p id="at_calendar_text_1_1_4" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_1_5" class="none_bg">5</div><p id="at_calendar_text_1_1_5" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_1_6" class="none_bg">6</div><p id="at_calendar_text_1_1_6" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_1_7" class="none_bg">7</div><p id="at_calendar_text_1_1_7" class="none_color">&nbsp</p>
+              </div>
+            </div>
+
+            <div class="row date" style="text-align: center;padding: 0;margin-top: 5px;">
+              <div class="col">
+                <div id="at_calendar_1_2_1" class="none_bg">8</div><p id="at_calendar_text_1_2_1" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_2_2" class="none_bg">9</div><p id="at_calendar_text_1_2_2" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_2_3" class="none_bg">10</div><p id="at_calendar_text_1_2_3" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_2_4" class="none_bg">11</div><p id="at_calendar_text_1_2_4" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_2_5" class="none_bg">12</div><p id="at_calendar_text_1_2_5" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_2_6" class="none_bg">13</div><p id="at_calendar_text_1_2_6" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_2_7" class="none_bg">14</div><p id="at_calendar_text_1_2_7" class="none_color">&nbsp</p>
+              </div>
+            </div>
+
+            <div class="row date" style="text-align: center;padding: 0;margin-top: 5px;">
+              <div class="col">
+                <div id="at_calendar_1_3_1" class="none_bg">15</div><p id="at_calendar_text_1_3_1" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_3_2" class="none_bg">16</div><p id="at_calendar_text_1_3_2" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_3_3" class="none_bg">17</div><p id="at_calendar_text_1_3_3" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_3_4" class="none_bg">18</div><p id="at_calendar_text_1_3_4" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_3_5" class="none_bg">19</div><p id="at_calendar_text_1_3_5" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_3_6" class="none_bg">20</div><p id="at_calendar_text_1_3_6" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_3_7" class="none_bg">21</div><p id="at_calendar_text_1_3_7" class="none_color">&nbsp</p>
+              </div>
+            </div>
+
+            <div class="row date" style="text-align: center;padding: 0;margin-top: 5px;">
+              <div class="col">
+                <div id="at_calendar_1_4_1" class="none_bg">22</div><p id="at_calendar_text_1_4_1" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_4_2" class="none_bg">23</div><p id="at_calendar_text_1_4_2" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_4_3" class="none_bg">24</div><p id="at_calendar_text_1_4_3" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_4_4" class="none_bg">25</div><p id="at_calendar_text_1_4_4" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_4_5" class="none_bg">26</div><p id="at_calendar_text_1_4_5" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_4_6" class="none_bg">27</div><p id="at_calendar_text_1_4_6" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_4_7" class="none_bg">28</div><p id="at_calendar_text_1_4_7" class="none_color">&nbsp</p>
+              </div>
+            </div>
+
+            <div class="row date" style="text-align: center;padding: 0;margin-top: 5px;">
+              <div class="col">
+                <div id="at_calendar_1_5_1" class="none_bg">29</div><p id="at_calendar_text_1_5_1" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_5_2" class="none_bg">30</div><p id="at_calendar_text_1_5_2" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_5_3" class="none_bg">1</div><p id="at_calendar_text_1_5_3" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_5_4" class="none_bg">2</div><p id="at_calendar_text_1_5_4" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_5_5" class="none_bg">3</div><p id="at_calendar_text_1_5_5" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_5_6" class="none_bg">4</div><p id="at_calendar_text_1_5_6" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_5_7" class="none_bg">5</div><p id="at_calendar_text_1_5_7" class="none_color">&nbsp</p>
+              </div>
+            </div>
+
+            <div class="row date" style="text-align: center;padding: 0;margin-top: 5px;">
+              <div class="col">
+                <div id="at_calendar_1_6_1" class="none_bg">6</div><p id="at_calendar_text_1_6_1" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_6_2" class="none_bg">7</div><p id="at_calendar_text_1_6_2" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_6_3" class="none_bg">8</div><p id="at_calendar_text_1_6_3" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_6_4" class="none_bg">9</div><p id="at_calendar_text_1_6_4" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_6_5" class="none_bg">10</div><p id="at_calendar_text_1_6_5" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_6_6" class="none_bg">11</div><p id="at_calendar_text_1_6_6" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_1_6_7" class="none_bg">12</div><p id="at_calendar_text_1_6_7" class="none_color">&nbsp</p>
+              </div>
+            </div>
+          </div>
+          <!-- 上一月 DIV -->
+
+          <!-- 当前月份 DIV -->
+	<div on-drag-left="calendar_week_next_page()" on-drag-right="calendar_week_prev_page()" on-drag-up="calendar_week_minimize()" on-drag-down="calendar_week_maximize()"   id="calendar_current_month" style="float: left;overflow:hidden; width:33.3333%">
+            <div class="row date" style="text-align: center;margin-top: 3px;padding:0px; ">
+              <div class="" ng-click="select_date('at_calendar_2_1_1');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_1_1" class="none_bg" style="background-repeat: round;font-weight:500; font-size:0.3733333333333rem; ">1</div>
+                <p id="at_calendar_text_2_1_1"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: #ff3b30;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_1_1"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_1_1"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_1_1"/>
+				
+			 </div>
+              <div class="" ng-click="select_date('at_calendar_2_1_2');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_1_2" class="none_bg" style="background-repeat: round; font-weight:500; font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_1_2"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+             <!--   <div style="width: 4px;height: 4px;border-radius: 150%;background-color: #ff3b30;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_1_2"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_1_2"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_1_2"/>
+			  </div>
+              <div class="" ng-click="select_date('at_calendar_2_1_3');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_1_3" class="none_bg" style="background-repeat: round; font-weight:500; font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_1_3"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+              <!--  <div style="width: 4px;height: 4px;border-radius: 150%;background-color: #ff3b30x`;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_1_3"></div>
+              -->  <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_1_3"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_1_3"/>
+			  </div>  
+              <div class="" ng-click="select_date('at_calendar_2_1_4');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_1_4" class="none_bg" style="background-repeat: round; font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_1_4"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+            <!--    <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_1_4"></div>
+              --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_1_4"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_1_4"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_1_5');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_1_5" class="none_bg" style="background-repeat: round; font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_1_5"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+              <!--  <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_1_5"></div>
+              -->  <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_1_5"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_1_5"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_1_6');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_1_6" class="none_bg" style="background-repeat: round;font-weight:500;font-size:0.3733333333333rem; ">1</div>
+                <p id="at_calendar_text_2_1_6"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+                <!--<div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_1_6"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_1_6"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_1_6"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_1_7');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_1_7" class="none_bg" style="background-repeat: round; font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_1_7"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_1_7"></div>
+              -->  <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_1_7"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_1_7"/>
+              </div>
+			  </div>
+            <div class="row date" style="text-align: center;margin-top: 0;padding:0px;">
+              <div class="" ng-click="select_date('at_calendar_2_2_1');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_2_1" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_2_1"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+             <!--   <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_2_1"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_2_1"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_2_1"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_2_2');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_2_2" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_2_2"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_2_2"></div>
+                --><img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_2_2"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_2_2"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_2_3');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_2_3" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_2_3"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+                <!--<div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_2_3"></div>
+                --><img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_2_3"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_2_3"/>
+              </div>  
+              <div class="" ng-click="select_date('at_calendar_2_2_4');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_2_4" class="none_bg" style="background-repeat: round; font-weight:500;font-size:0.3733333333333rem; ">1</div>
+                <p id="at_calendar_text_2_2_4"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+                <!--<div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_2_4"></div>
+                --><img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_2_4"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_2_4"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_2_5');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_2_5" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_2_5"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_2_5"></div>
+                --><img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_2_5"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_2_5"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_2_6');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_2_6" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_2_6"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+                <!--<div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_2_6"></div>
+                --><img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_2_6"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_2_6"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_2_7');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_2_7" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_2_7"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+                <!--<div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_2_7"></div>
+                --><img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_2_7"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_2_7"/>
+              </div>
+			  </div>
+            <div class="row date" style="text-align: center;margin-top: 0;padding:0px;">
+              <div class="" ng-click="select_date('at_calendar_2_3_1');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_3_1" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_3_1"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+              <!--  <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_3_1"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_3_1"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_3_1"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_3_2');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_3_2" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_3_2"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_3_2"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_3_2"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_3_2"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_3_3');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_3_3" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_3_3"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_3_3"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_3_3"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_3_3"/>
+              </div>  
+              <div class="" ng-click="select_date('at_calendar_2_3_4');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_3_4" class="none_bg" style="background-repeat: round; font-weight:500;font-size:0.3733333333333rem; ">1</div>
+                <p id="at_calendar_text_2_3_4"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+                <!--<div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_3_4"></div>
+                --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_3_4"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_3_4"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_3_5');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_3_5" class="none_bg" style="background-repeat: round; font-weight:500;font-size:0.3733333333333rem; ">1</div>
+                <p id="at_calendar_text_2_3_5"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_3_5"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_3_5"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_3_5"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_3_6');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_3_6" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_3_6"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_3_6"></div>
+              -->  <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_3_6"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_3_6"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_3_7');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_3_7" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_3_7"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+             <!--   <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_3_7"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_3_7"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_3_7"/>
+              </div>
+			  </div>
+            <div class="row date" style="text-align: center;margin-top: 0;padding:0px;">
+              <div class="" ng-click="select_date('at_calendar_2_4_1');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_4_1" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_4_1"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+              <!--  <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_4_1"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_4_1"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_4_1"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_4_2');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_4_2" class="none_bg" style="background-repeat: round; font-weight:500;font-size:0.3733333333333rem; ">1</div>
+                <p id="at_calendar_text_2_4_2"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_4_2"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_4_2"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_4_2"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_4_3');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_4_3" class="none_bg" style="background-repeat: round; font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_4_3"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+                <!--<div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_4_3"></div>
+                --><img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_4_3"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_4_3"/>
+              </div>  
+              <div class="" ng-click="select_date('at_calendar_2_4_4');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_4_4" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_4_4"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+                <!--<div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_4_4"></div>
+                --><img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_4_4"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_4_4"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_4_5');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_4_5" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_4_5"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_4_5"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_4_5"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_4_5"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_4_6');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_4_6" class="none_bg" style="background-repeat: round; font-weight:500;font-size:0.3733333333333rem; ">1</div>
+                <p id="at_calendar_text_2_4_6"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+                <!--<div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_4_6"></div>
+                --><img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_4_6"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_4_6"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_4_7');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_4_7" class="none_bg" style="background-repeat: round; font-weight:500;font-size:0.3733333333333rem; ">1</div>
+                <p id="at_calendar_text_2_4_7"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+                <!--<div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_4_7"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_4_7"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_4_7"/>
+              </div>
+			  </div>
+            <div class="row date" style="text-align: center;margin-top: 0;padding:0px;">
+              <div class="" ng-click="select_date('at_calendar_2_5_1');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_5_1" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_5_1"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_5_1"></div>
+                --><img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_5_1"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_5_1"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_5_2');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_5_2" class="none_bg" style="background-repeat: round; font-weight:500;font-size:0.3733333333333rem; ">1</div>
+                <p id="at_calendar_text_2_5_2"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_5_2"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_5_2"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_5_2"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_5_3');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_5_3" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_5_3"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_5_3"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_5_3"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_5_3"/>
+              </div>  
+              <div class="" ng-click="select_date('at_calendar_2_5_4');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_5_4" class="none_bg" style="background-repeat: round; font-weight:500;font-size:0.3733333333333rem; ">1</div>
+                <p id="at_calendar_text_2_5_4"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_5_4"></div>
+			-->	<img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_5_4"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_5_4"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_5_5');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_5_5" class="none_bg" style="background-repeat: round; font-weight:500;font-size:0.3733333333333rem; ">1</div>
+                <p id="at_calendar_text_2_5_5"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+                <!--<div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_5_5"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_5_5"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_5_5"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_5_6');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_5_6" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_5_6"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_5_6"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_5_6"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_5_6"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_5_7');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_5_7" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_5_7"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_5_7"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_5_7"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_5_7"/>
+              </div>
+			  </div>
+            <div class="row date" style="text-align: center;margin-top: 0;padding:0px;">
+              <div class="" ng-click="select_date('at_calendar_2_6_1');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_6_1" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_6_1"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+              <!--  <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_6_1"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_6_1"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_6_1"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_6_2');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_6_2" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_6_2"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+              <!--  <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_6_2"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_6_2"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_6_2"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_6_3');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_6_3" class="none_bg" style="background-repeat: round; font-weight:500;font-size:0.3733333333333rem; ">1</div>
+                <p id="at_calendar_text_2_6_3"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_6_3"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_6_3"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_6_3"/>
+              </div>  
+              <div class="" ng-click="select_date('at_calendar_2_6_4');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_6_4" class="none_bg" style="background-repeat: round; font-weight:500;font-size:0.3733333333333rem; ">1</div>
+                <p id="at_calendar_text_2_6_4"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_6_4"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_6_4"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_6_4"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_6_5');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_6_5" class="none_bg" style="background-repeat: round; font-weight:500;font-size:0.3733333333333rem; ">1</div>
+                <p id="at_calendar_text_2_6_5"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_6_5"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_6_5"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_6_5"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_6_6');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_6_6" class="none_bg" style="background-repeat: round;  font-weight:500;font-size:0.3733333333333rem;">1</div>
+                <p id="at_calendar_text_2_6_6"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+               <!-- <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_6_6"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_6_6"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_6_6"/>
+              </div>
+              <div class="" ng-click="select_date('at_calendar_2_6_7');" style="height:{{css_width}};width:{{css_width}};margin:3px 6px 3px 6px; position: relative;padding: 0;border-radius:150%;">
+                <div id="at_calendar_2_6_7" class="none_bg" style="background-repeat: round; font-weight:500;font-size:0.3733333333333rem; ">1</div>
+                <p id="at_calendar_text_2_6_7"  class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.32rem;">&nbsp</p>
+              <!--  <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_6_7"></div>
+               --> <img ng-src="{{home_at_wait_approv_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon_2_6_7"/>
+				<img ng-src="{{home_at_wait_noapprov_icon_new}}" alt="" style="width: 0.32rem;height: 0.32rem;position: absolute;top:0;left:0;display:none;" id="at_calendar_img_icon2_2_6_7"/>
+              </div>
+			  </div>
+ 
+            <!-- 
+			<div class="col" ng-click="select_date('at_calendar_2_1_1');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_1_1" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">1</div>
+                <p id="at_calendar_text_2_1_1" class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.37333333333rem;">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_1_1"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;display:none;"  id="at_calendar_img_icon_2_1_1"/>
+              </div>
+			<div class="col" ng-click="select_date('at_calendar_2_1_2');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_1_2" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">2</div>
+                <p id="at_calendar_text_2_1_2" class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.37333333333rem;">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;display:none;" id="at_calendar_dot_2_1_2"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;display:none;"  id="at_calendar_img_icon_2_1_2"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_1_3');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_1_3" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">3</div>
+                <p id="at_calendar_text_2_1_3" class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.37333333333rem;">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_1_3"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_1_3"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_1_4');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_1_4" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">4</div>
+                <p id="at_calendar_text_2_1_4" class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.37333333333rem;">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_1_4"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_1_4"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_1_5');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_1_5" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">5</div>
+                <p id="at_calendar_text_2_1_5" class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.37333333333rem;">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_1_5"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_1_5"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_1_6');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_1_6" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">6</div>
+                <p id="at_calendar_text_2_1_6" class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.37333333333rem;">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_1_6"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_1_6"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_1_7');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_1_7" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">7</div>
+                <p id="at_calendar_text_2_1_7" class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.37333333333rem;">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_1_7"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_1_7"/>
+              </div>
+			  -->
+            </div>
+<!--
+            <div class="row date" style="text-align: center;padding: 5px 10px 5px 10px ;margin-top: 0;border-bottom: 1px solid #f8f8f8;">
+              <div class="col" ng-click="select_date('at_calendar_2_2_1');" style="height: {{css_width}};position: relative;padding: 0;">
+
+                <div id="at_calendar_2_2_1" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">8</div>
+                <p id="at_calendar_text_2_2_1" class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.37333333333rem;">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_2_1"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_2_1"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_2_2');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_2_2" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">9</div>
+                <p id="at_calendar_text_2_2_2" class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.37333333333rem;">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_2_2"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_2_2"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_2_3');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_2_3" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">3</div>
+                <p id="at_calendar_text_2_2_3" class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.37333333333rem;">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_2_3"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_2_3"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_2_4');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_2_4" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">11</div>
+                <p id="at_calendar_text_2_2_4" class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.37333333333rem;">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_2_4"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_2_4"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_2_5');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_2_5" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">12</div>
+                <p id="at_calendar_text_2_2_5" class="none_color" style="height: {{css_half_width}};line-height: 0.37333333333333rem;font-size: 0.37333333333rem;">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_2_5"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_2_5"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_2_6');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_2_6" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">13</div>
+                <p id="at_calendar_text_2_2_6" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_2_6"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_2_6"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_2_7');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_2_7" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">14</div>
+                <p id="at_calendar_text_2_2_7" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_2_7"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_2_7"/>
+              </div>
+            </div>
+
+            <div class="row date" style="text-align: center;padding: 5px 10px 5px 10px ;margin-top: 0;border-bottom: 1px solid #f8f8f8;">
+              <div class="col" ng-click="select_date('at_calendar_2_3_1');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_3_1" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">15</div>
+                <p id="at_calendar_text_2_3_1" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_3_1"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_3_1"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_3_2');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_3_2" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">16</div>
+                <p id="at_calendar_text_2_3_2" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_3_2"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_3_2"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_3_3');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_3_3" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">17</div>
+                <p id="at_calendar_text_2_3_3" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};line-height: 0.37333333333333rem;">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_3_3"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_3_3"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_3_4');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_3_4" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">18</div>
+                <p id="at_calendar_text_2_3_4" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_3_4"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_3_4"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_3_5');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_3_5" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">19</div>
+                <p id="at_calendar_text_2_3_5" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_3_5"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_3_5"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_3_6');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_3_6" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">20</div>
+                <p id="at_calendar_text_2_3_6" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_3_6"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_3_6"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_3_7');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_3_7" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">21</div>
+                <p id="at_calendar_text_2_3_7" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_3_7"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_3_7"/>
+              </div>
+            </div>
+
+            <div class="row date" style="text-align: center;padding: 5px 10px 5px 10px ;margin-top: 0;border-bottom: 1px solid #f8f8f8;">
+              <div class="col" ng-click="select_date('at_calendar_2_4_1');" style="height: {{css_width}};position: relative;padding: 0;">
+
+                <div id="at_calendar_2_4_1" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">22</div>
+                <p id="at_calendar_text_2_4_1" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_4_1"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_4_1"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_4_2');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_4_2" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">23</div>
+                <p id="at_calendar_text_2_4_2" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_4_2"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_4_2"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_4_3');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_4_3" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">24</div>
+                <p id="at_calendar_text_2_4_3" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};line-height: 0.37333333333333rem;">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_4_3"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_4_3"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_4_4');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_4_4" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">25</div>
+                <p id="at_calendar_text_2_4_4" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_4_4"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_4_4"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_4_5');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_4_5" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">26</div>
+                <p id="at_calendar_text_2_4_5" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_4_5"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_4_5"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_4_6');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_4_6" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">27</div>
+                <p id="at_calendar_text_2_4_6" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_4_6"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_4_6"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_4_7');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_4_7" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">28</div>
+                <p id="at_calendar_text_2_4_7" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_4_7"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_4_7"/>
+              </div>
+            </div>
+
+            <div class="row date" style="text-align: center;padding: 5px 10px 5px 10px ;margin-top: 0;border-bottom: 1px solid #f8f8f8;">
+              <div class="col" ng-click="select_date('at_calendar_2_5_1');" style="height: {{css_width}};position: relative;padding: 0;">
+
+                <div id="at_calendar_2_5_1" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">29</div>
+                <p id="at_calendar_text_2_5_1" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_5_1"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_5_1"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_5_2');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_5_2" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">30</div>
+                <p id="at_calendar_text_2_5_2" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_5_2"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_5_2"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_5_3');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_5_3" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">1</div>
+                <p id="at_calendar_text_2_5_3" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};line-height: 0.37333333333333rem;">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_5_3"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_5_3"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_5_4');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_5_4" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">2</div>
+                <p id="at_calendar_text_2_5_4" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_5_4"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_5_4"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_5_5');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_5_5" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">3</div>
+                <p id="at_calendar_text_2_5_5" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_5_5"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_5_5"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_5_6');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_5_6" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">4</div>
+                <p id="at_calendar_text_2_5_6" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_5_6"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_5_6"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_5_7');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_5_7" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">5</div>
+                <p id="at_calendar_text_2_5_7" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_5_7"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_5_7"/>
+              </div>
+            </div>
+
+            <div class="row date" style="text-align: center;padding: 5px 10px 5px 10px ;margin-top: 0;">
+              <div class="col" ng-click="select_date('at_calendar_2_6_1');" style="height: {{css_width}};position: relative;padding: 0;">
+
+                <div id="at_calendar_2_6_1" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">6</div>
+                <p id="at_calendar_text_2_6_1" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_6_1"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_6_1"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_6_2');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_6_2" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">7</div>
+                <p id="at_calendar_text_2_6_2" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_6_2"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_6_2"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_6_3');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_6_3" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">1</div>
+                <p id="at_calendar_text_2_6_3" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};line-height: 0.37333333333333rem;">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_6_3"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_6_3"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_6_4');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_6_4" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">8</div>
+                <p id="at_calendar_text_2_6_4" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_6_4"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_6_4"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_6_5');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_6_5" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">9</div>
+                <p id="at_calendar_text_2_6_5" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_6_5"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_6_5"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_6_6');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_6_6" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">10</div>
+                <p id="at_calendar_text_2_6_6" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_6_6"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_6_6"/>
+              </div>
+              <div class="col" ng-click="select_date('at_calendar_2_6_7');" style="height: {{css_width}};position: relative;padding: 0;">
+                <div id="at_calendar_2_6_7" class="none_bg" style="background-repeat: round; height: 0.853333333333rem;width: 0.853333333333rem;padding-top: 0px;line-height: 0.853333333333rem !important;">11</div>
+                <p id="at_calendar_text_2_6_7" class="none_color" style="line-height: 0.37333333333333rem;font-size: 0.37333333333rem;height: {{css_half_width}};">&nbsp</p>
+                <div style="width: 4px;height: 4px;border-radius: 150%;background-color: red;position: absolute;bottom: 0px;left:50%;margin-left: -2px;" id="at_calendar_dot_2_6_7"></div>
+                <img ng-src="{{home_at_wait_approv_icon}}" alt="" style="width: 0.346666666666rem;height: 0.346666666666rem;position: absolute;top:0px;right:0px;" id="at_calendar_img_icon_2_6_7"/>
+              </div>
+            </div>
+-->
+			</div>
+
+          <!-- 当前月份 DIV -->
+
+          <!-- 下个月 DIV -->
+          <div on-drag-left="calendar_week_next_page()" on-drag-right="calendar_week_prev_page()" on-drag-up="calendar_week_minimize()" on-drag-down="calendar_week_maximize()"  id="calendar_next_month" style="float: left;overflow:hidden; width:33.3333%">
+            <div class="row date" style="text-align: center;padding: 0;margin-top: 0;padding-top: 5px">
+              <div class="col">
+                <div id="at_calendar_3_1_1" class="none_bg">1</div><p id="at_calendar_text_3_1_1" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_1_2" class="none_bg">2</div><p id="at_calendar_text_3_1_2" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_1_3" class="none_bg">3</div><p id="at_calendar_text_3_1_3" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_1_4" class="none_bg">4</div><p id="at_calendar_text_3_1_4" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_1_5" class="none_bg">5</div><p id="at_calendar_text_3_1_5" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_1_6" class="none_bg">6</div><p id="at_calendar_text_3_1_6" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_1_7" class="none_bg">7</div><p id="at_calendar_text_3_1_7" class="none_color">&nbsp</p>
+              </div>
+            </div>
+
+            <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+              <div class="col">
+                <div id="at_calendar_3_2_1" class="none_bg">8</div><p id="at_calendar_text_3_2_1" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_2_2" class="none_bg">9</div><p id="at_calendar_text_3_2_2" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_2_3" class="none_bg">10</div><p id="at_calendar_text_3_2_3" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_2_4" class="none_bg">11</div><p id="at_calendar_text_3_2_4" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_2_5" class="none_bg">12</div><p id="at_calendar_text_3_2_5" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_2_6" class="none_bg">13</div><p id="at_calendar_text_3_2_6" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_2_7" class="none_bg">14</div><p id="at_calendar_text_3_2_7" class="none_color">&nbsp</p>
+              </div>
+            </div>
+
+            <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+              <div class="col">
+                <div id="at_calendar_3_3_1" class="none_bg">15</div><p id="at_calendar_text_3_3_1" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_3_2" class="none_bg">16</div><p id="at_calendar_text_3_3_2" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_3_3" class="none_bg">17</div><p id="at_calendar_text_3_3_3" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_3_4" class="none_bg">18</div><p id="at_calendar_text_3_3_4" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_3_5" class="none_bg">19</div><p id="at_calendar_text_3_3_5" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_3_6" class="none_bg">20</div><p id="at_calendar_text_3_3_6" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_3_7" class="none_bg">21</div><p id="at_calendar_text_3_3_7" class="none_color">&nbsp</p>
+              </div>
+            </div>
+
+            <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+              <div class="col">
+                <div id="at_calendar_3_4_1" class="none_bg">22</div><p id="at_calendar_text_3_4_1" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_4_2" class="none_bg">23</div><p id="at_calendar_text_3_4_2" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_4_3" class="none_bg">24</div><p id="at_calendar_text_3_4_3" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_4_4" class="none_bg">25</div><p id="at_calendar_text_3_4_4" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_4_5" class="none_bg">26</div><p id="at_calendar_text_3_4_5" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_4_6" class="none_bg">27</div><p id="at_calendar_text_3_4_6" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_4_7" class="none_bg">28</div><p id="at_calendar_text_3_4_7" class="none_color">&nbsp</p>
+              </div>
+            </div>
+
+            <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+              <div class="col">
+                <div id="at_calendar_3_5_1" class="none_bg">29</div><p id="at_calendar_text_3_5_1" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_5_2" class="none_bg">30</div><p id="at_calendar_text_3_5_2" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_5_3" class="none_bg">1</div><p id="at_calendar_text_3_5_3" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_5_4" class="none_bg">2</div><p id="at_calendar_text_3_5_4" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_5_5" class="none_bg">3</div><p id="at_calendar_text_3_5_5" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_5_6" class="none_bg">4</div><p id="at_calendar_text_3_5_6" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_5_7" class="none_bg">5</div><p id="at_calendar_text_3_5_7" class="none_color">&nbsp</p>
+              </div>
+            </div>
+
+            <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+              <div class="col">
+                <div id="at_calendar_3_6_1" class="none_bg">6</div><p id="at_calendar_text_3_6_1" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_6_2" class="none_bg">7</div><p id="at_calendar_text_3_6_2" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_6_3" class="none_bg">8</div><p id="at_calendar_text_3_6_3" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_6_4" class="none_bg">9</div><p id="at_calendar_text_3_6_4" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_6_5" class="none_bg">10</div><p id="at_calendar_text_3_6_5" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_6_6" class="none_bg">11</div><p id="at_calendar_text_3_6_6" class="none_color">&nbsp</p>
+              </div>
+              <div class="col">
+                <div id="at_calendar_3_6_7" class="none_bg">12</div><p id="at_calendar_text_3_6_7" class="none_color">&nbsp</p>
+              </div>
+            </div>
+          </div>
+          <!-- 下个月 DIV -->
+        </div>
+      </div>
+    </div>
+
+  </ion-header-bar>
+
+  <ion-content ng-show="atHomeCalendarData.length != 0 && data_ready" on-drag-up="content_calendar_week_minimize()" on-drag-down="content_calendar_week_maximize()" has-bouncing="false" overflow-scroll="false" id="at_home_content" class="ng-hide at_home_content">
+  <!--<ion-content has-bouncing="true" overflow-scroll="true" id="at_home_content" class="at_home_content">-->
+
+
+
+    <div id="atHomeContentWrap" ng-show="atHomeResultData.show_off_pic!='1'">
+      <div style="margin-left:12px; width:100%; height:44px;line-height:44px;font-size:0.37333333333rem;color:#333;" >
+      {{today_str}}<span style="margin-left:14px;">{{atHomeResultData.week_str}}</span><span style="margin-left:10px;">{{atHomeResultData.policy_name}}</span>
+      </div>
+      <div>
+        <div style="background-color: #fff;">
+          <div style="width: 50%;height: 39px;text-align: center;border-top: 1px solid #53afff;color: #53afff;float: left;line-height: 39px;font-size:0.4266666666667rem;" id="time_of_out" ng-click="time_of_out()">上下班时间</div>
+          <div style="width: 50%;height: 39px;text-align: center;color: #333;float: left;background-color: #f5f5f5;line-height: 39px;font-size:0.4266666666667rem;border-top: 1px solid #eeeeee;" id="times_of_in" ng-click="times_of_in()">考勤工时</div>
+          <div style="width: 100%;overflow: hidden;clear: both">
+            <div style="position: relative;width: 100%;" id="home_at_tab_content">
+
+              <div style=" background-color: white;position:relative;display:blick;" id="home_at_tab1_div">
+			  <img ng-src={{at_home_wait_approv_icon}} style="position:absolute;top:0px;right:0px;width:57px;height:65px;" ng-show="atHomeResultData.process_type=='1'">
+			  <img ng-src={{at_home_approved_new_icon}} style="position:absolute;top:0px;right:0px;width:57px;height:65px;" ng-show="atHomeResultData.process_type=='2'">
+			  
+			  
+                <div style="text-indent: 12px;font-size:0.37333333333rem;color:#666;padding-top:15px;padding-bottom:10px;">考勤打卡</div>
+
+				<div ng-repeat="item in atHomeResultData.card_data" style="height:70px; background-color: #fafafa;overflow:hidden;margin-left:12px;margin-right:12px;margin-top:10px;border:1px solid #f5f5f5;border-radius:2px;" ng-class="$first? 'no_martop' :''">
+				<div ng-show="(item.mesg_in!='休假' && item.mesg_in!='外出') || (item.mesg_out!='休假' && item.mesg_out!='外出')">
+				
+				  <div style="float: left;height:70px;width:50%;position:relative;">
+                    <div ng-show="item.not_card_time_in=='0'">
+					<img ng-src="{{normal_time}}" alt="" style="width: 30px;height: 30px;margin-top: 20px;margin-left:10px;" ng-show="item.is_ot!='1'"/>
+					<img ng-src="{{ot_time}}" alt="" style="width: 30px;height: 30px;margin-top: 20px;margin-left:10px;" ng-show="item.is_ot=='1'"/>
+					<img ng-src="{{contract_management_directory1}}" alt="" style="width: 11px;margin-top: 0px;height: 17px;position:relative;top:-10px;"/>
+                    <span style="position: relative;top:-10px;color:#333;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;" ng-show='item.mesg_in!="漏卡"' ng-class="item.is_abnormal_in == '1'?'text_color':''">{{item.time_in}}
+					<img ng-src="{{at_home_times_icon}}" style="position:absolute;width:14px;height:14px;top:-10px;border-radius:150%;" ng-show='item.is_adj_in=="1"'> 
+					<!--<div style="width:1.22666666667rem;position:absolute;bottom:0px;left:0px;height:2px;background-image:url('{{at_home_red_line_new}}');background-repeat:repeat-x;" ng-show='item.is_adj_in=="1"'>
+					<img ng-src="{{at_home_red_line}}" style="width:1.22666666667rem;position:absolute;bottom:0px;left:0px;height:4px;" ng-show='item.is_adj_in=="1"'>
+					</div> -->
+					<img ng-src="{{at_home_red_line_new}}" style="width:40px;position:absolute;bottom:0px;left:0px;height:2px;" ng-show='item.is_adj_in=="1"'>
+					<div style="position:absolute;left:0px;bottom:-20px;font-size:12px;color:#b3b3b3;min-width:140px; font-weight:lighter;" ng-show="item.mesg_in=='休假'">(该时间段提交过休假申请)</div>
+					</span>
+					<span style="position: relative;top:-10px;color:#ff3b30;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;')" ng-show='item.mesg_in=="漏卡"' >{{item.mesg_in}}
+					</span>
+					<span ng-show="item.mesg_in!='漏卡'">
+					<span style="background-color:#f4a44e;color:white;font-size:0.32rem;position:relative;top:-12px;line-height:20px;padding:1px 4px;border-radius:2px;" ng-show="item.mesg_in!='' && (item.mesg_in!='迟到' && item.mesg_in!='早退')">{{item.mesg_in}}</span>
+					<span style="background-color:#ff3b30;color:white;font-size:0.32rem;position:relative;top:-12px;line-height:20px;padding:1px 4px;border-radius:2px;" ng-show="item.mesg_in!='' && (item.mesg_in=='迟到' || item.mesg_in=='早退')">{{item.mesg_in}}</span>
+					</span>
+					</div>
+				
+					<div style="font-size:0.48rem;color:#ccc;height:70px;line-height:70px;margin-left:10px;" ng-show="item.not_card_time_in=='1'">
+					还未打卡
+					</div>
+					<div style="width: 23px;height: 1px;border-bottom: 1px solid #ccc;position:absolute;top:34px;right:-12px;"></div>
+				 </div>
+
+                  <div style="float: left;height:70px;width:50%;">
+				  <div ng-show="item.not_card_time_out=='0'">
+                    <img ng-src="{{contract_management_directory1}}" alt="" style="width: 11px;margin-top: 23px;height: 17px;margin-left:25%;"/>
+                    <span style="position: relative;top:0px;color:#333;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;" ng-show='item.mesg_out!="漏卡"' ng-class="item.is_abnormal_out=='1'?'text_color':''">{{item.time_out}}
+					<img ng-src="{{at_home_times_icon}}" style="position:absolute;width:14px;height:14px;top:-10px;border-radius:150%;" ng-show='item.is_adj_out=="1"'> 
+					<!--<div style="width:1.226666666667rem;position:absolute;bottom:0px;left:0px;height:2px;background-image:url('{{at_home_red_line_new}}');background-repeat:repeat-x;" ng-show='item.is_adj_out=="1"'>
+					</div>
+					-->
+					<img ng-src="{{at_home_red_line_new}}" style="width:40px;position:absolute;bottom:0px;left:0px;height:2px;" ng-show='item.is_adj_in=="1"'>
+					<div style="position:absolute;right:-30px;bottom:-20px;font-size:12px;color:#b3b3b3;min-width:140px; font-weight:lighter;" ng-show="item.mesg_out=='休假'">(该时间段提交过休假申请)</div>
+					</span>
+					<span style="position: relative;top:0px;color:#ff3b30;font-size:0.48rem;font-weight:500;margin-left:2px;" ng-show='item.mesg_out=="漏卡"'>{{item.mesg_out}}
+					</span>
+					<span ng-show="item.mesg_in!='漏卡'">
+					<span style="background-color:#f4a44e;color:white;font-size:0.32rem;position:relative;top:-2px;line-height:20px;padding:1px 4px;border-radius:2px;" ng-show="item.mesg_in!='' && (item.mesg_in!='迟到' && item.mesg_in!='早退')">{{item.mesg_in}}</span>
+					<span style="background-color:#ff3b30;color:white;font-size:0.32rem;position:relative;top:-2px;line-height:20px;padding:1px 4px;border-radius:2px;" ng-show="item.mesg_in!='' && (item.mesg_in=='迟到' || item.mesg_in=='早退')">{{item.mesg_in}}</span>
+					</span>
+				</div>
+				<div style="font-size:0.48rem;color:#ccc;height:70px;line-height:70px;margin-left:25%;" ng-show="item.not_card_time_out=='1'">
+				还未打卡
+				</div>
+				</div>
+				</div>	
+				
+				  <div style="height:70px;position:relative;" ng-show="item.mesg_in=='休假' && item.mesg_out=='休假'">
+                    <img ng-src="{{normal_time}}" alt="" style="width: 30px;height: 30px;margin-top: 20px;margin-left:10px;float:left;" ng-show="item.is_ot!='1'"/>
+					<div style="padding-left:12px;font-size:14px;height:70px;line-height:70px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">({{item.time_in}}~{{item.time_out}})该时间段提交过休假申请</div>
+				  </div>
+				  <div style="height:70px;position:relative;" ng-show="item.mesg_in=='外出' && item.mesg_out=='外出'">
+                    <img ng-src="{{normal_time}}" alt="" style="width: 30px;height: 30px;margin-top: 20px;margin-left:10px;float:left;" ng-show="item.is_ot!='1'"/>
+					<div style="padding-left:12px;font-size:14px;height:70px;line-height:70px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">({{item.time_in}}~{{item.time_out}})该时间段提交过外出申请</div>
+				  </div>
+				
+			</div>				
+				<div style="height: 55px;line-height: 55px;color: #53afff;text-align: center;font-size: 0.4266666666667rem;font-weight:500;" ng-click="card_record_adj_apply()" ng-show="atHomeResultData.is_can_adj=='1'  && atHomeResultData.process_type=='0'">去补签<img style="width: 14px;height: 14px;position: relative;top:1px;margin-left:5px;" ng-src="img/icon/arrowblue.png" src="img/icon/arrowblue.png"></div>
+				<div style="height: 55px;line-height: 55px;color: #999;text-align: center;font-size: 0.4266666666667rem;" ng-show="atHomeResultData.is_can_adj=='0'">暂时不能补签，HR还未做考勤分析，请等待</div>
+				<div style="height: 55px;line-height: 55px;color: #53afff;text-align: center;font-size: 0.4266666666667rem;" ng-show="atHomeResultData.is_can_adj=='1' && atHomeResultData.process_type=='1'" ng-click="path_wait_approve_content()">待审批详情<img style="width: 14px;height: 14px;position: relative;top:1px;margin-left:5px;" ng-src="img/icon/arrowblue.png" src="img/icon/arrowblue.png"></div>
+				<div style="height: 55px;line-height: 55px;color: #53afff;text-align: center;font-size: 0.4266666666667rem;" ng-show="atHomeResultData.is_can_adj=='1' && atHomeResultData.process_type=='2'" ng-click="path_approved_content()">已补签详情<img style="width: 14px;height: 14px;position: relative;top:1px;margin-left:5px;" ng-src="img/icon/arrowblue.png" src="img/icon/arrowblue.png"></div>
+		<!--	<div class="ng-hide" style="background-color:#f8f8f8;color:#999;padding-top:10px;text-indent:12px;" ng-show="atHomeResultData.is_can_adj=='0'">
+			暂时不能补签，HR还未做考勤分析，请等待
+			</div>
+			-->
+			<div class="ng-hide" style="height: 55px;line-height: 55px;color: #999;text-align: center;font-size: 0.4266666666667rem;" ng-show="atHomeResultData.is_can_adj=='-1'">
+			管理员暂未开启补签功能
+			</div>
+			</div>
+
+			  <div style="display:none" id="home_at_tab2_div">
+                
+                  <div style="float: left;width: 50%;border-bottom: 1px solid #f1f1f1;line-height: 60px;height: 60px;color:#333;font-size:0.3733333333333rem;" ng-repeat=" items in atHomeResultData.result_data" ng-class="$index%2=='0' ? 'border_cls' :'' ">
+				  <img ng-src="{{items.src}}" style="width:22px;height:22px;margin-left:12px;margin-right:12px;position:relative;top:7px;"> 
+				  {{items.name}} <span style="color:#666;font-size:0.3733333333333rem;margin-left:5px;">{{items.value}}</span></div>
+                 
+
+              </div>
+			</div>
+
+			  
+              </div>
+		
+
+
+            </div>
+          </div>
+        </div>
+	
+     <div ng-show="atHomeResultData.policy_name!='' && atHomeResultData.show_off_pic=='1' " style="overflow: hidden">
+       <div style="margin-top: 72px;text-align: center">
+         <img ng-src="{{on_holiday}}" alt="" style="width:200px;height: 184px;"/>
+       </div>
+       <div style="margin-top:20px;text-align: center;color: #a7a7a7;font-size: 0.4rem;">今日不谈工作，我只想浪~
+       </div>
+     </div>
+	
+     <div ng-show="atHomeResultData.policy_name=='' && atHomeResultData.show_off_pic=='1' && !atHomeResultData.is_future" style="overflow: hidden">
+       <div style="margin-top: 72px;text-align: center">
+         <img ng-src="{{no_policy_photo}}" alt="" style="width:200px;height: 184px;"/>
+       </div>
+       <div style="margin-top:20px;text-align: center;color: #a7a7a7;font-size: 0.4rem;">HR没有给你排班哦~
+       </div>
+     </div>
+      <div ng-show="atHomeResultData.policy_name=='' && atHomeResultData.is_future && atHomeResultData.show_off_pic=='1'" style="overflow: hidden">
+        <div style="margin-top: 72px;text-align: center">
+          <img ng-src="{{icon_no_clockDate}}" alt="" style="width:143px;height: 110px;"/>
+        </div>
+        <div style="margin-top:20px;text-align: center;color: #a7a7a7;font-size: 0.4rem;">当天您还没有打卡数据哦~
+        </div>
+      </div>
+		
+
+  </ion-content>
+  <image ng-src="{{img_exit_trial_login}}" id="home_at_is_trial_login" style="width:100px; height: 50px; position:fixed; bottom: 50px; right: 12px;display: none"  ng-click="free_trial_log_out()"/>
+</ion-view>
+

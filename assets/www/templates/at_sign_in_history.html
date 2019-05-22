@@ -1,0 +1,620 @@
+﻿  <ion-view hide-back-button="true"   show-tab-bar  cache-view="false" ng-controller="atSignInHistoryCtrl" title='
+<div style="width:100%;position:fixed; height:62px;line-height:84px; background-color:#53afff;l margin-top:0px;left:0px; top: -20px; background-color: #53afff;z-index:999;">
+ <div  id="atSignInHistoryBack" style="width:30px;margin-top:25px;margin-left:-5px;position:absolute;">
+ <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"><span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>  </div>
+ <div id="at_sign_in_new_data"></div>
+ </div>
+  ' hide-tab-bar  id="sign_in_history" >
+
+    <style>
+      .row.date .col div{width: 26px;height: 26px;border-radius:13px;margin: 0 auto;padding-top:4px;}
+      ._ar_n,._ar_e,._ar_c{border-radius:15px;}
+      ._ar_n{height:10px;background:url({{dot_normal}}) no-repeat center 3px;background-size:5px;}
+      ._ar_e{height:10px;background:url({{dot_abnormal}}) no-repeat center 3px;background-size:5px;}
+      ._ar_c{background-color:white;color:#53afff !important;}
+      .none_bg{background-image:none;}
+      .none_color{background-color:rgba(255, 255, 255, 0);}
+
+      #sign_in_history .sign_in_history_content {
+        top: 136px;
+      }
+      .platform-win32.platform-cordova #sign_in_history .sign_in_history_content {
+        top: 116px;
+      }
+      .platform-android.platform-cordova #sign_in_history .sign_in_history_content {
+        top: 116px;
+      }
+      .at_sign_in_has_border {
+        border-left:1px solid #ebebeb;
+      }
+      .lata_cls{
+        background-color: #f4a44e;
+      }
+      .wait_cls{
+        background-color: #72bdff;
+      }
+      .platform-win32.platform-cordova #atSignInHistoryBack{
+        margin-left:-7px;
+      }
+      .platform-android.platform-cordova #atSignInHistoryBack{
+        padding-left:10px !important;
+      }
+
+      #atSignInHistoryCtrlSpinner svg{
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        top:20px;
+        left: 50%;
+        margin-left: -9px;;
+      }
+    </style>
+
+    <ion-header-bar style="display:none; padding:0px;" id="at_sign_in_history_header" class="bar-subheader">
+
+      <div on-drag-left="calendar_week_next_page()" on-drag-right="calendar_week_prev_page()" on-drag-up="calendar_week_minimize()" on-drag-down="calendar_week_maximize()" class="row" style="text-align:center; color: #ffffff;background-color: #53afff;z-index: 333;position: absolute;padding-left:0px;padding-right:0px;">
+        <div class="col">
+          <div style="color:#fff;">日</div>
+        </div>
+        <div class="col">
+          <div>一</div>
+        </div>
+        <div class="col">
+          <div>二</div>
+        </div>
+        <div class="col">
+          <div>三</div>
+        </div>
+        <div class="col">
+          <div>四</div>
+        </div>
+        <div class="col">
+          <div>五</div>
+        </div>
+        <div class="col">
+          <div>六</div>
+        </div>
+      </div>
+
+      <div id="sign_in_history_calendar_wrapper" style="height: 74px; padding-top: 36px;overflow: hidden;">
+
+
+        <div class="list" style="height: 218px; width: 100%; margin-top:0px; font-size:15px; background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#53afff), color-stop(100%,#74dafd));color: white;margin-bottom: 0px;padding-bottom: 15px;" id="sign_in_history_calendar">
+          <div id="calendar_translate_div" style="width: 300%; -webkit-transform: translateX(-33.3333%); transform: translateX(-33.3333%); overflow: hidden; height: 218px;padding-bottom: 15px;">
+            <!-- 上一月 DIV -->
+            <div on-drag-left="calendar_week_next_page()" on-drag-right="calendar_week_prev_page()" on-drag-up="calendar_week_minimize()" on-drag-down="calendar_week_maximize()"  id="calendar_previous_month" style="float: left;overflow:hidden; width:33.3333%">
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col">
+                  <div id="calendar_1_1_1" class="none_bg">1<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_1_2" class="none_bg">2<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_1_3" class="none_bg">3<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_1_4" class="none_bg">4<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_1_5" class="none_bg">5<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_1_6" class="none_bg">6<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_1_7" class="none_bg">7<p class="none_color"></p></div>
+                </div>
+              </div>
+
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col">
+                  <div id="calendar_1_2_1" class="none_bg">8<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_2_2" class="none_bg">9<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_2_3" class="none_bg">10<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_2_4" class="none_bg">11<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_2_5" class="none_bg">12<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_2_6" class="none_bg">13<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_2_7" class="none_bg">14<p class="none_color"></p></div>
+                </div>
+              </div>
+
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col">
+                  <div id="calendar_1_3_1" class="none_bg">15<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_3_2" class="none_bg">16<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_3_3" class="none_bg">17<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_3_4" class="none_bg">18<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_3_5" class="none_bg">19<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_3_6" class="none_bg">20<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_3_7" class="none_bg">21<p class="none_color"></p></div>
+                </div>
+              </div>
+
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col">
+                  <div id="calendar_1_4_1" class="none_bg">22<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_4_2" class="none_bg">23<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_4_3" class="none_bg">24<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_4_4" class="none_bg">25<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_4_5" class="none_bg">26<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_4_6" class="none_bg">27<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_4_7" class="none_bg">28<p class="none_color"></p></div>
+                </div>
+              </div>
+
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col">
+                  <div id="calendar_1_5_1" class="none_bg">29<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_5_2" class="none_bg">30<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_5_3" class="none_bg">1<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_5_4" class="none_bg">2<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_5_5" class="none_bg">3<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_5_6" class="none_bg">4<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_5_7" class="none_bg">5<p class="none_color"></p></div>
+                </div>
+              </div>
+
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col">
+                  <div id="calendar_1_6_1" class="none_bg">6<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_6_2" class="none_bg">7<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_6_3" class="none_bg">8<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_6_4" class="none_bg">9<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_6_5" class="none_bg">10<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_6_6" class="none_bg">11<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_1_6_7" class="none_bg">12<p class="none_color"></p></div>
+                </div>
+              </div>
+            </div>
+            <!-- 上一月 DIV -->
+
+            <!-- 当前月份 DIV -->
+            <div on-drag-left="calendar_week_next_page()" on-drag-right="calendar_week_prev_page()" on-drag-up="calendar_week_minimize()" on-drag-down="calendar_week_maximize()"   id="calendar_current_month" style="float: left;overflow:hidden; width:33.3333%">
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col" ng-click="select_date('calendar_2_1_1');">
+                  <div id="calendar_2_1_1" class="none_bg">1<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_1_2');">
+                  <div id="calendar_2_1_2" class="none_bg">2<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_1_3');">
+                  <div id="calendar_2_1_3" class="none_bg">3<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_1_4');">
+                  <div id="calendar_2_1_4" class="none_bg">4<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_1_5');">
+                  <div id="calendar_2_1_5" class="none_bg">5<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_1_6');">
+                  <div id="calendar_2_1_6" class="none_bg">6<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_1_7');">
+                  <div id="calendar_2_1_7" class="none_bg">7<p class="none_color"></p></div>
+                </div>
+              </div>
+
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col" ng-click="select_date('calendar_2_2_1');">
+                  <div id="calendar_2_2_1" class="none_bg">8<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_2_2');">
+                  <div id="calendar_2_2_2" class="none_bg">9<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_2_3');">
+                  <div id="calendar_2_2_3" class="none_bg">10<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_2_4');">
+                  <div id="calendar_2_2_4" class="none_bg">11<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_2_5');">
+                  <div id="calendar_2_2_5" class="none_bg">12<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_2_6');">
+                  <div id="calendar_2_2_6" class="none_bg">13<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_2_7');">
+                  <div id="calendar_2_2_7" class="none_bg">14<p class="none_color"></p></div>
+                </div>
+              </div>
+
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col" ng-click="select_date('calendar_2_3_1');">
+                  <div id="calendar_2_3_1" class="none_bg">15<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_3_2');">
+                  <div id="calendar_2_3_2" class="none_bg">16<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_3_3');">
+                  <div id="calendar_2_3_3" class="none_bg">17<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_3_4');">
+                  <div id="calendar_2_3_4" class="none_bg">18<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_3_5');">
+                  <div id="calendar_2_3_5" class="none_bg">19<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_3_6');">
+                  <div id="calendar_2_3_6" class="none_bg">20<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_3_7');">
+                  <div id="calendar_2_3_7" class="none_bg">21<p class="none_color"></p></div>
+                </div>
+              </div>
+
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col" ng-click="select_date('calendar_2_4_1');">
+                  <div id="calendar_2_4_1" class="none_bg">22<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_4_2');">
+                  <div id="calendar_2_4_2" class="none_bg">23<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_4_3');">
+                  <div id="calendar_2_4_3" class="none_bg">24<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_4_4');">
+                  <div id="calendar_2_4_4" class="none_bg">25<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_4_5');">
+                  <div id="calendar_2_4_5" class="none_bg">26<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_4_6');">
+                  <div id="calendar_2_4_6" class="none_bg">27<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_4_7');">
+                  <div id="calendar_2_4_7" class="none_bg">28<p class="none_color"></p></div>
+                </div>
+              </div>
+
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col" ng-click="select_date('calendar_2_5_1');">
+                  <div id="calendar_2_5_1" class="none_bg">29<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_5_2');">
+                  <div id="calendar_2_5_2" class="none_bg">30<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_5_3');">
+                  <div id="calendar_2_5_3" class="none_bg">1<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_5_4');">
+                  <div id="calendar_2_5_4" class="none_bg">2<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_5_5');">
+                  <div id="calendar_2_5_5" class="none_bg">3<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_5_6');">
+                  <div id="calendar_2_5_6" class="none_bg">4<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_5_7');">
+                  <div id="calendar_2_5_7" class="none_bg">5<p class="none_color"></p></div>
+                </div>
+              </div>
+
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col" ng-click="select_date('calendar_2_6_1');">
+                  <div id="calendar_2_6_1" class="none_bg">6<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_6_2');">
+                  <div id="calendar_2_6_2" class="none_bg">7<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_6_3');">
+                  <div id="calendar_2_6_3" class="none_bg">8<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_6_4');">
+                  <div id="calendar_2_6_4" class="none_bg">9<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_6_5');">
+                  <div id="calendar_2_6_5" class="none_bg">10<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_6_6');">
+                  <div id="calendar_2_6_6" class="none_bg">11<p class="none_color"></p></div>
+                </div>
+                <div class="col" ng-click="select_date('calendar_2_6_7');">
+                  <div id="calendar_2_6_7" class="none_bg">12<p class="none_color"></p></div>
+                </div>
+              </div>
+            </div>
+            <!-- 当前月份 DIV -->
+
+            <!-- 下个月 DIV -->
+            <div on-drag-left="calendar_week_next_page()" on-drag-right="calendar_week_prev_page()" on-drag-up="calendar_week_minimize()" on-drag-down="calendar_week_maximize()"  id="calendar_next_month" style="float: left;overflow:hidden; width:33.3333%">
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col">
+                  <div id="calendar_3_1_1" class="none_bg">1<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_1_2" class="none_bg">2<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_1_3" class="none_bg">3<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_1_4" class="none_bg">4<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_1_5" class="none_bg">5<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_1_6" class="none_bg">6<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_1_7" class="none_bg">7<p class="none_color"></p></div>
+                </div>
+              </div>
+
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col">
+                  <div id="calendar_3_2_1" class="none_bg">8<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_2_2" class="none_bg">9<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_2_3" class="none_bg">10<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_2_4" class="none_bg">11<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_2_5" class="none_bg">12<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_2_6" class="none_bg">13<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_2_7" class="none_bg">14<p class="none_color"></p></div>
+                </div>
+              </div>
+
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col">
+                  <div id="calendar_3_3_1" class="none_bg">15<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_3_2" class="none_bg">16<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_3_3" class="none_bg">17<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_3_4" class="none_bg">18<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_3_5" class="none_bg">19<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_3_6" class="none_bg">20<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_3_7" class="none_bg">21<p class="none_color"></p></div>
+                </div>
+              </div>
+
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col">
+                  <div id="calendar_3_4_1" class="none_bg">22<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_4_2" class="none_bg">23<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_4_3" class="none_bg">24<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_4_4" class="none_bg">25<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_4_5" class="none_bg">26<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_4_6" class="none_bg">27<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_4_7" class="none_bg">28<p class="none_color"></p></div>
+                </div>
+              </div>
+
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col">
+                  <div id="calendar_3_5_1" class="none_bg">29<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_5_2" class="none_bg">30<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_5_3" class="none_bg">1<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_5_4" class="none_bg">2<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_5_5" class="none_bg">3<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_5_6" class="none_bg">4<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_5_7" class="none_bg">5<p class="none_color"></p></div>
+                </div>
+              </div>
+
+              <div class="row date" style="text-align: center;padding: 0;margin-top: 0;">
+                <div class="col">
+                  <div id="calendar_3_6_1" class="none_bg">6<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_6_2" class="none_bg">7<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_6_3" class="none_bg">8<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_6_4" class="none_bg">9<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_6_5" class="none_bg">10<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_6_6" class="none_bg">11<p class="none_color"></p></div>
+                </div>
+                <div class="col">
+                  <div id="calendar_3_6_7" class="none_bg">12<p class="none_color"></p></div>
+                </div>
+              </div>
+            </div>
+            <!-- 下个月 DIV -->
+          </div>
+        </div>
+      </div>
+
+    </ion-header-bar>
+
+    <ion-content style="display:none;" has-bouncing="true" overflow-scroll="false" id="sign_in_history_content" class="sign_in_history_content">
+
+      <ion-spinner icon="ios" id="atSignInHistoryCtrlSpinner" style="display: block" ></ion-spinner>
+    <div id="atSignInHistoryContent" style="opacity: 0;">
+      <div ng-show="atSignInHistoryData.data_type!='1'">
+      <div style="background-color: white;transition: all 0.2s ease-in-out;" >
+        <div style="width: 100%;height: 10px;background-color: #f8f8f8"></div>
+        <div style="width:100%; background-color:white; overflow:hidden;">
+          <div style="width:100%; overflow:hidden; padding-left: 12px;  background-color:white; margin-top:0px;">
+            <div ng-show="atSignInHistoryData.ca_r.length>0">
+            <div style="font-size: 16px;color: #000;padding-top: 12px;">打卡记录</div>
+            <div ng-repeat="item in atSignInHistoryData.ca_r">
+              <div style="width: 60px;float: left;text-align: center;font-size: 16px;margin-top: 10px;">{{item.ti}}</div>
+              <div style="margin-left: 60px;">
+              <div style="height: 39px;overflow: hidden; width:100%;">
+                <div ng-show="atSignInHistoryData.ca_r.length > 1 && $first" style="float:left"><img style=" width:13px; height:39px;" ng-src="{{at_sign_in_history_circle1}}"></div><!-- 线往下 -->
+                <div ng-show="atSignInHistoryData.ca_r.length > 1 && $last" style="float:left"><img style=" width:13px; height:39px;" ng-src="{{at_sign_in_history_circle2}}"></div><!-- 线往上 -->
+                <div ng-show="$middle" style="float:left"><img style=" width:13px; height:39px;" ng-src="{{at_sign_in_history_circle3}}"></div><!-- 线往上和下 -->
+                <div ng-show="atSignInHistoryData.ca_r.length == 1" style="float:left"><img style=" width:13px; height:39px;" ng-src="{{at_sign_in_history_circle0}}"></div><!-- 没有线 -->
+
+              <div style="float:left;">
+                <div style="float:left; line-height:39px;  font-size:17px;margin-left:12px; color:#333;">{{item.ty_name}}</div>
+                <div style="float: left;padding-left:6px;padding-right:6px;line-height:20px;margin-left:2px;border-radius: 2px;  color:#fff;text-align: center;margin-top: 9px;font-size: 14px;"ng-class="item.a_n=='迟到' || item.a_n=='早退'? 'lata_cls':'wait_cls' " ng-click="redirect_to_approval(item.p_i,item.t_id,item.ty,item.is_process)" >{{item.a_n}}</div>
+              </div>
+              </div>
+              <div style="overflow:hidden; width:100%; margin-top:-5px;">
+                <div ng-class="atSignInHistoryData.ca_r.length == 1 || (atSignInHistoryData.ca_r.length > 1 && $last) ? '' : 'at_sign_in_has_border'" style="width:100%; overflow:hidden; margin-left:6px;padding-bottom: 10px;">
+                  <div ng-show="item.lo != ''" style="clear:both;">
+                    <div style="float:left; margin-right:4px; margin-left:20px; margin-top:4px"><img ng-src="{{at_sign_in_history_address_icon}}" width="14px" height="14px" /></div>
+                    <div style="float:left; line-height:22px; width: 80%; color:#999; font-size:14px;">{{item.lo}}</div>
+                  </div>
+                  <div ng-show="item.wifi != ''" style="clear:both;">
+                    <div style="float:left; margin-right:4px; margin-left:20px; margin-top:4px"><img ng-src="{{at_sign_in_history_wifi_icon}}" width="14px" height="14px" /></div>
+                    <div style=" float:left; line-height:22px; width: 80%; color:#999; font-size:14px;">{{item.wifi}}</div>
+                  </div>
+                </div>
+                </div>
+              </div>
+              </div>
+            </div>
+            <div  ng-show="atSignInHistoryData.ca_r.length==0" style="height: 110px;background: white">
+              <div style="font-size: 16px;color: #000;padding-top: 12px;position: absolute">打卡记录</div>
+          <div style="text-align: center;line-height: 110px; color: #666;font-size: 15px;">您可能忘记打卡了哟~</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div style="margin-top: 10px;height: 125px;background-color: white;position: relative;" >
+        <div style="font-size: 16px;color: #000;text-indent: 12px;padding-top: 12px;position: absolute;">考勤结果</div>
+        <div style="overflow: hidden;padding-top: 53px;" ng-show="atSignInHistoryData.data_type=='0' || atSignInHistoryData.data_type=='2'">
+          <div style="width:33%;float: left;padding-left: 15px;">
+            <div style="font-size: 0.93333rem;color: #555555;text-align: center">{{atSignInHistoryData.result.work_hours}}</div>
+            <div style="font-size: 14px;color: #666;margin-top: 15px;text-align: center">应勤工时</div>
+          </div>
+          <div style="width:33%;float: left;text-align: center">
+            <div style="text-align: center;font-size: 0.93333rem;color: #53afff">{{atSignInHistoryData.result.actual_hours}}</div>
+            <div style="text-align: center;font-size: 14px;color: #666;margin-top: 15px;">实际工时</div>
+          </div>
+          <div style="width:33%;float: left;text-align: right;padding-right:15px;">
+            <div style="text-align: center;font-size: 0.93333rem;color: #ff4f53">{{atSignInHistoryData.result.absent_hours}}</div>
+            <div style="text-align: center;font-size: 14px;color: #666;margin-top: 15px;text-align: center">旷工</div>
+          </div>
+        </div>
+        <div ng-show="atSignInHistoryData.data_type=='1' || atSignInHistoryData.data_type=='3'" style="font-size: 15px;color: #666;text-align: center;line-height: 110px;">当天没有排班</div>
+      </div>
+      </div>
+     <div ng-show="atSignInHistoryData.data_type=='1' && !atSignInHistoryData.is_future" style="overflow: hidden">
+       <div style="margin-top: 72px;text-align: center">
+         <img ng-src="{{on_holiday}}" alt="" style="width:200px;height: 184px;"/>
+       </div>
+       <div style="margin-top:20px;text-align: center;color: #a7a7a7;font-size: 0.4rem;">今日不谈工作，我只想浪~
+       </div>
+     </div>
+
+      <div ng-show="atSignInHistoryData.data_type=='1' && atSignInHistoryData.is_future" style="overflow: hidden">
+        <div style="margin-top: 72px;text-align: center">
+          <img ng-src="{{icon_no_clockDate}}" alt="" style="width:143px;height: 110px;"/>
+        </div>
+        <div style="margin-top:10px;text-align: center;color: #a7a7a7;font-size: 0.4rem;">当天您还没有打卡数据哦~
+        </div>
+      </div>
+
+</div>
+  </ion-content>
+</ion-view>
+

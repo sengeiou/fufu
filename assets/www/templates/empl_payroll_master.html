@@ -1,0 +1,36 @@
+
+<ion-view style="background-color:#f8f8f8;" title="工资" hide-tab-bar>
+
+    <ion-content ng-controller="pMsCtrl" has-bouncing="true" overflow-scroll="false">
+      <div style="width: 100%;height:70px;background-color: #fff;padding-top:10px;border-bottom:1px solid #f0f0f0;">
+        <div style="width:50px;height:50px;overflow:hidden;margin-left:12px;border-radius:25px">
+          <img style="width:50px;height:50px;" ng-src="{{pms_data.img_src}}">
+          <div style="position:absolute;margin-top:-52px;margin-left:62px;text-align:center;font-size:16px">
+            {{pms_data.employee_name}}&nbsp;&nbsp;
+            <label style="margin-top:7px;color:#666;text-align:center;font-size: 12px">
+              工号:{{pms_data.staff_no}}
+            </label>
+            <div style="margin-top:7px;color:#666;text-align:left;font-size: 12px">{{pms_data.position_name}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="list" style="margin-top:10px;margin-bottom:10px;">
+        <label class="item item-input">
+          <span class="input-label" style="width:120%">基本工资</span>
+          <input type="text" style="text-align:right;color:#FB640B;font-size:16px;padding-right:20px;" disabled value="{{pms_data.base_salary}}">
+        </label>
+
+        <label class="item item-input" ng-repeat="item in pms_data.pay_list">
+          <span class="input-label" style="width:120%">{{item.n}}</span>
+          <input type="number" style="text-align:right;padding-right:20px;"  ng-model="item.v" value="{{item.v}}">
+        </label>
+      </div>
+
+      <div class="padding">
+        <button class="button button-block button-positive" ng-click="savePmsData()">保存</button>
+      </div>
+
+    </ion-content>
+
+</ion-view>

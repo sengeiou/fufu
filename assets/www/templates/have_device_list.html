@@ -1,0 +1,137 @@
+<ion-view title="添加已有设备列表" ng-controller="haveDeviceListCtrl" hide-nav-bar="true" hide-tab-bar ng-class="{'is_device_list':haveDeviceListData.device_list.length}">
+
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span>添加已有设备列表</span>
+        </h1>
+
+        <div class="buttons">
+            <i class="r-icon r-black_search_icon disable-user-behavior" on-tap="openSearchPopover($event)"></i>
+        </div>
+	</ion-header-bar> 
+  	<ion-content has-bouncing="true" overflow-scroll="false" class="main-content">
+        <div class="not-device ng-hide" ng-show="haveDeviceListData.device_list &&haveDeviceListData.device_list.length == 0">
+            <img ng-src="{{local_resource + 'img/not-search-device-big-icon.png'}}" >
+            <div>暂无设备</div>
+        </div>
+
+        <div class="ng-hide device-list-box" ng-show="haveDeviceListData.device_list.length" style="    margin-top: 10px;">
+
+
+            <ion-list>
+
+                    <ion-item ng-repeat="item in haveDeviceListData.device_list" 
+                              item="item" class="item-remove-animate device_list">
+                      <div >
+                            <div class="l" on-tap="openAttendanceConfig(item)">
+                                <img ng-src="{{local_resource + 'img/at_product/'+item.sn_type+'.png'}}" err-src="{{local_resource+'img/at_product/default_device.png'}}" >
+                            </div>
+                            <div class="c" on-tap="openAttendanceConfig(item)">
+                                <div class="device-name" ng-bind="item.device_name"></div>
+                                <div class="zone_name" ng-bind="item.zone_name"></div>
+                                <div class="zone_name device_sn" ng-bind="item.device_sn"></div>
+                            </div>
+                            <div class="r">
+                                <label class="checkbox" style="padding: 19px 0 19px 15px;"><input type="checkbox" ng-model="item.checked" ng-checked="item.checked" ng-change="selectOption(item)" class="ng-pristine ng-untouched ng-valid"></label>
+                            </div>
+                      </div>
+                      
+                    </ion-item>
+
+                </ion-list>
+        </div>
+  	</ion-content>
+
+    <div class="ad-footer">
+        <div on-tap="cancel()">取消</div>
+        <div on-tap="select()">选中(<span ng-bind="haveDeviceListData.select_device_num"></span>)</div>
+    </div>
+
+    <script id="my-func-popover.html" type="text/ng-template">
+      <div class="device_func_popover">
+            <div on-tap="scan()">
+                <i class="r-icon r-sys-blue-icon"></i>
+                <div>扫一扫</div>
+            </div>
+            <div on-tap="findDevice()">
+                <i class="r-icon r-lanyu-blue-icon"></i>
+                <div>发现设备</div>
+            </div>
+            <div on-tap="addDevice()">
+                <i class="r-icon r-sadd-blue-icon"></i>
+                <div>手动添加</div>
+            </div>
+      </div>
+    </script> 
+
+    <script id="search-device-list-popover.html" type="text/ng-template">
+      <div class="search-popover" ng-class="{'isSearchStr':searchObj.str.length}">
+        <ion-header-bar>
+          <h1 class="title" id="search-device-list-h1">
+            <div clear-value-box style="right: 34px;left: 2px;">
+                <i class="icon ion-ios-search-strong placeholder-icon"></i>
+                <input id="adSearchIpt" type="text" placeholder="搜索设备名称..." ng-model="searchObj.str" clear-value-input>
+                <i clear-value-btn></i>
+            </div>
+            
+          </h1>
+
+          <div class="buttons" on-tap="closeSearchPopover()">
+            取消
+          </div>
+        </ion-header-bar>
+        
+        <div class="search-msg-bar" on-tap="search()">
+            <i class="r-icon r-search-bar-icon"></i>
+            <div class="search-msg-text">搜索“<span ng-bind="searchObj.str"></span>”</div>
+            <i class="icon ion-ios-arrow-right"></i>
+        </div>
+
+        <ion-content>
+            
+            <div class="ng-hide search-device-icon-box" ng-show="!searchObj.list.length && searchObj.state">
+                <img ng-src="{{local_resource + 'img/not-search-device-big-icon.png'}}" >
+                <div>暂无设备</div>
+            </div>
+
+            <div class="ng-hide search-device-icon-box" ng-show="!searchObj.state">
+                <img ng-src="{{local_resource + 'img/search-device-big-icon.png'}}" >
+                <div>搜索设备</div>
+            </div>
+
+            
+            <div class="ng-hide device-list-box" ng-show="searchObj.list.length" style="margin-top: 10px;">
+
+                <ion-list>
+
+                        <ion-item ng-repeat="item in searchObj.list" 
+                                  ititemem="item" class="item-remove-animate device_list">
+                          <div >
+                                <div class="l" on-tap="closeSearchPopover() && openAttendanceConfig(item)">
+                                    <img ng-src="{{local_resource + 'img/at_product/'+item.sn_type+'.png'}}" err-src="{{local_resource+'img/at_product/default_device.png'}}" >
+                                </div>
+                                <div class="c" on-tap="closeSearchPopover() && openAttendanceConfig(item)">
+                                    <div class="device-name" ng-bind="item.device_name"></div>
+                                    <div class="zone_name" ng-bind="item.zone_name"></div>
+                                    <div class="zone_name device_sn" ng-bind="item.device_sn"></div>
+                                </div>
+                                <div class="r">
+                                    <label class="checkbox" style="padding: 19px 0 19px 15px;"><input type="checkbox" ng-model="item.checked" ng-checked="item.checked" ng-change="selectOption(item)" class="ng-pristine ng-untouched ng-valid"></label>
+                                </div>
+                          </div>
+                          
+                        </ion-item>
+
+                    </ion-list>
+            </div>
+        </ion-content>
+      </div>
+    </script>
+</ion-view>
+

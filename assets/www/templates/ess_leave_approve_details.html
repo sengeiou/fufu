@@ -1,0 +1,107 @@
+
+<ion-view style="background-color:#f8f8f8;" title="休假单" ng-controller="essLvApDetailCtrl" hide-tab-bar>
+
+  <ion-content has-bouncing="true" overflow-scroll="false">
+    <div class="wrap" style="border:none;">
+      <div class="title" style="width: 100%;height: 120px;background-color: #53AFFF">
+        <div style="position: relative;top: 30px;">
+          <img  style="width: 50px;height: 50px;margin-left:50%;position: absolute;left:-25px;border-radius:150px;" ng-src="{{ess_app_detail_data.img}}">
+          <div style="padding-top: 55px">
+            <p style="color: white; text-align: center;font-size: 14px">{{ess_app_detail_data.lv_code_name}}
+              <span style="font-size: 22px">{{ess_app_detail_data.duration_desc}}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div  style="width:100%;background-color: white;overflow: hidden;background-color: white; height:5.8em;border-bottom:1px solid #f1f1f1;border-top:1px solid #f1f1f1;">
+        <div  style="float: left;width: 35%;height: 80px;margin-top:6px;">
+          <p  style="color: #3ba5ff;text-align: center;margin: 10px auto;font-size:0.9em;margin-bottom:0px;">
+            <span  style="font-size: 1.6em">{{ess_app_detail_data.s_y}}</span>年<span  style="font-size: 1.6em">{{ess_app_detail_data.s_m}}</span>月<span  style="font-size: 1.6em">{{ess_app_detail_data.s_d}}</span>日
+          </p>
+          <p style="color: #999999;margin-top: 6px;text-align: center;font-size:1em;" >{{ess_app_detail_data.start_time}}</p>
+        </div>
+        <div style="float: left;width: 30%;height: 80px;position: relative;margin-top:6px;">
+          <img ng-src="{{dates_line2x}}" style="position: absolute;top: 50%;left: 50%;margin-top: -1px;margin-left: -30px;height:1px;width:60px;">
+        </div>
+        <div  style="float: left;width: 35%;height: 80px;margin-top:6px">
+          <p  style="color: #3ba5ff;text-align: center;margin: 10px auto;font-size:0.9em;margin-bottom:0px;">
+          <span  style="font-size: 1.6em">{{ess_app_detail_data.e_y}}</span>年<span  style="font-size: 1.6em">{{ess_app_detail_data.e_m}}</span>月<span  style="font-size: 1.6em">{{ess_app_detail_data.e_d}}</span>日
+          </p>
+          <p style="color: #999999;margin-top: 6px;text-align: center;font-size:1em;" >{{ess_app_detail_data.end_time}}</p>
+        </div>
+      </div>
+      <div style="text-indent:15px;height:45px;line-height:45px;margin-top:10px;background-color:white;color: #747474;width: 100%;overflow: hidden">事由:&nbsp;{{ess_app_detail_data.apply_remark}}</div>
+      <div class="row">
+        <div class="col-10" style="margin-top:45px;width: 8%;height: 100%;position: relative">
+            <div ng-repeat="item in ess_app_detail_data.approver_list" >
+              <div style="text-align:center;"><img ng-if="item.flag=='0'" ng-src="{{icon_apply}}" style="width: 16px;height: 16px;"></div>
+              <div style="text-align:center;"><img ng-if="item.flag=='1'" ng-src="{{approval_line}}" style="height:50px;width:1px;"></div>
+              <div style="text-align:center;"><img ng-if="item.flag=='1'" ng-src="{{icon_confirm}}" style="width: 16px;height: 16px;"></div>
+              <div style="text-align:center;"><img ng-if="item.flag=='2'" ng-src="{{approval_line_gray}}" style="height:50px;width:1px;"></div>
+              <div style="text-align:center;"><img ng-if="item.flag=='2'" ng-src="{{icon_waiting}}" style="width: 16px;height: 16px;"></div>
+            </div>
+          <div style="text-align:center;" ng-if="ess_app_detail_data.approver_list_flag==true"><img ng-src="{{approval_line_gray}}" style="height:50px;width:1px;"></div>
+          <div style="text-align:center;" ng-if="ess_app_detail_data.approver_list_flag==true"><img ng-src="{{add_approver}}" style="width: 16px;height: 16px;"></div>
+        </div>
+        <div class="col-90" style="height: 100%">
+          <div style="width: 98%;border-radius:4px;border:1px solid #f0f0f0;height: 60px;margin: 20px auto;background-color: white" ng-repeat="item in ess_app_detail_data.approver_list">
+            <img  style="width: 40px;height: 40px;margin:10px;float: left;border-radius:20px;" ng-src="{{item.img}}">
+            <div style="float: left">
+              <p style="margin-top:10px;font-size: 17px;color:#333">{{item.name}}</p>
+              <p style="margin-top:3px;color: #999">{{item.action}}</p>
+            </div>
+            <div style="float: right" >
+              <p style="color:#999;font-size:14px;margin-top:10px;margin-right:10px;">{{item.action_date}}</p>
+            </div>
+          </div>
+          <div style="width: 98%;border-radius:4px;border:1px solid #f0f0f0;height: 60px;margin: 20px auto;background-color:white;" ng-if="ess_app_detail_data.approver_list_flag==true">
+            <img  style="width: 40px;height: 40px;margin:10px;float: left;border-radius:20px;" ng-src="{{add_approver}}"  ng-click="openModal()">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="">
+      <span class="input-label" style="color:#666;font-size:12px;margin-bottom:0px;text-indent:12px;">审批意见</span>
+      <textarea class="item-input" style=" width:100%;height:100px;padding-top:10px;background-color:white;border-bottom:1px solid #f0f0f0;" ng-model="ess_app_detail_data.approve_remark"  placeholder="请填写审批意见..."></textarea>
+    </div>
+    <div class="row" style="margin-top:10px;">
+      <label class="col" ng-if="ess_app_detail_data.reject==true">
+        <button class="button button-block button-assertive" style="border:1px solid #f0f0f0;background-color:#fff;color:#333;" ng-click="applyReject()">拒绝</button>
+      </label>
+      <label class="col" ng-if="ess_app_detail_data.approve==true">
+        <button class="button button-block button-positive" ng-click="applyApprove()">批准</button>
+      </label>
+    </div>
+  </ion-content>
+
+  <script id="ess-approve-modal.html" type="text/ng-template">
+    <div class="modal">
+      <ion-header-bar class="navigation_bar">
+        <button class="button button-clear"  style="font-size:14px;color:white;"  ng-click="closeModal()">关闭</button>
+        <h1 class="title" style="color:#fff;">员工列表</h1>
+      </ion-header-bar>
+      <ion-content>
+        <div class="list" style="margin:10px 12px;">
+          <label class="item item-input"style="border-radius:4px;height:30px;background-color:#fff;border:none;">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" placeholder="搜索" ng-model="search_val">
+          </label>
+        </div>
+        <ion-list>
+          <ion-item class="item-avatar-left" style="height:71px;" ng-repeat="item in ess_empl_data|filter:search_val">
+            <img ng-src="{{item.img}}">
+            <span style="color:#333;font-size:17px;">{{item.en}}</span>
+              <span style="font-size:12px;color:#666">工号:{{item.st}}</span>
+              <p style="font-size:12px;color:#666">{{item.pn}}</p>
+            <div class="item item-checkbox checkbox-calm" style="float:right;margin-top:-41px;margin-left:10px;border:none;margin-right:-18px;">
+              <label class="checkbox">
+                <input type="checkbox" ng-model="item.ck" ng-checked="item.ck" ng-click="essItemCk(item.user_id,item.img,item.en)" style="float:right;">
+              </label>
+            </div>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </div>
+  </script>
+
+</ion-view>

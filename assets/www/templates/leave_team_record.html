@@ -1,0 +1,151 @@
+
+<ion-view  cache-view="true" hide-back-button="true" style="background-color:#f8f8f8;" title='<div style="width:100%;position:fixed; height:62px;line-height:84px; background-color:#53afff;l margin-top:0px;left:0px; top: -20px; background-color: #53afff;z-index:999;"><div onclick="window.navbarBackClick()" id="LvTeamRecordBack" style="width:30px;float:left;margin-top:25px;margin-left:-5px;" >  <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" ><span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>  </div><div id="LvTeamRecordSearch" onclick="window.navbarShowSearch(this.id);" sev_name="LvTeamRecord" style="width:30px;float:right;padding-left:0px;margin-top:25px;" >     <div  style="margin-right:0px;">
+      <i class="ion-ios-search-strong button back-button buttons button-clear button-light ion-ios-arrow-left header-item" style="font-size:20px !important;"></i>
+    </div></div>  团队休假</div>
+    <div style="width: 100%;height: 42px;margin-top: 0px;background-color: #53afff;position: absolute;z-index: 999;opacity: 0;text-align: center;line-height: 42px;color: white;transition: all .3s ease-in-out;display: none" id="LvTeamRecordSearchDiv">
+  <div class="bar bar-header item-input-inset searchclass active" style="background-color: rgb(83, 175, 255);height: 42px;" >
+    <div class="item-input-wrapper" style="margin-top: 0px !important;background-color: #fff;" >
+<div style="width: 100%" >
+      <i class="icon ion-ios-search-strong placeholder-icon" style="position:absolute;left: 20px;top:-12px; margin-top: 12px;"></i>
+        <input  id="LvTeamRecordSearchInput" type="search" placeholder="搜索姓名、假期类型、时间..." ng-model="search_control.search_val" class="" style="margin-left:10px;" sev_name="LvTeamRecord" oninput="window.navbarSearchInput(this.id)" onfocus="window.navbarSearchfocus(this.id)" onblur="window.navbarSearchblur(this.id)"/>
+         <div onclick="window.navbarSearchClearValue(this.id)" sev_name="LvTeamRecord" id="LvTeamRecordCloseIonic" class="ion-ios-close" style="position: absolute; right: 10px; font-size: 16px; right:60px;top: 0px;color: #cccccc;display:none;"></div>
+</div>
+    </div>
+    <button class="button button-clear" style="margin-top: 0px !important; color:#fff;margin-right:-5px;" id="LvTeamRecordSearchCancelBtn" sev_name="LvTeamRecord" onclick="window.navbarSearchCancel(this.id)">
+      取消
+    </button>
+  </div>
+</div>
+    '  hide-tab-bar ng-controller="LvTeamRecordCtrl" id="leave_taem_record">
+  <style>
+    #leave_taem_record .searchclass {
+      position: relative;
+      top: 0px;
+      z-index: 9999;
+      -webkit-transition: opacity .3s ease-in-out;
+      height: 0;
+      opacity: 0;
+      padding: 0px;
+    }
+    #leave_taem_record .searchclass.active {
+      height: 44px;
+      opacity: 1;
+      padding: 10.667px;
+      -webkit-transition: opacity .3s ease-in-out;
+    }
+    .platform-win32.platform-cordova #LvTeamRecordBack{
+      margin-left:-7px !important;
+    }
+    .platform-android.platform-cordova #LvTeamRecordBack{
+      padding-left:10px !important;
+    }
+
+  </style>
+  <!--<ion-nav-buttons side="right">-->
+    <!--<div ng-click="toggle_search();">-->
+      <!--<i class="ion-ios-search-strong button back-button buttons button-clear button-light ion-ios-arrow-left header-item" style="font-size:20px !important;"></i>-->
+    <!--</div>-->
+  <!--</ion-nav-buttons>-->
+  <!--<ion-header-bar style="background-color:#53afff;padding: 0px;">-->
+
+    <!--<div style="width: 100%;height: 44px;margin-top: 20px;background-color: #53afff;position: absolute;z-index: 999;opacity: 0;text-align: center;line-height: 44px;color: white;transition: all 1s linear;display: none" id="LvTeamRecordSearchDiv">-->
+      <!--<div class="bar bar-header item-input-inset searchclass active" style="background-color: rgb(83, 175, 255);height: 44px;" ng-class="{'active':show_search}">-->
+        <!--<label class="item-input-wrapper" style="margin-top: 0px !important;background-color: #fff;">-->
+          <!--<div style="width: 100%">-->
+            <!--<i class="icon ion-search placeholder-icon" style="position:absolute;left: 20px;top:0px; margin-top: 12px;"></i>-->
+            <!--<input type="search" placeholder="搜索" ng-model="search_control.search_val" class="" style="margin-left:10px;">-->
+          <!--</div>-->
+          <!--&lt;!&ndash;<div style="width: 100%; float: right">&ndash;&gt;-->
+          <!--&lt;!&ndash;<i class="icon ion-search placeholder-icon" style="position:absolute;left: 20px;top:0px; margin-top: 12px;"></i>&ndash;&gt;-->
+          <!--&lt;!&ndash;<input type="search" placeholder="搜索" ng-model="search_control.search_val" class="" style="margin-left:10px;">&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</label>-->
+
+        <!--<button class="button button-clear" style="margin-top: 0px !important; color:#fff;" ng-click="cancel_search();">-->
+          <!--取消-->
+        <!--</button>-->
+      <!--</div>-->
+
+    <!--</div>-->
+    <!--<button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" ng-click="$ionicGoBack()">-->
+      <!--<span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span>-->
+    <!--</button>-->
+    <!--<div class="title title-center header-item" style="color:white;">-->
+      <!--团队休假明细-->
+    <!--</div>-->
+    <!--<div class="buttons buttons-right"><span class="right-buttons">-->
+    <!--<div ng-click="toggle_search();">-->
+      <!--<i class="ion-ios-search-strong button back-button buttons button-clear button-light ion-ios-arrow-left header-item" style="font-size:20px !important;"></i>-->
+    <!--</div>-->
+  <!--</span></div>-->
+  <!--</ion-header-bar>-->
+
+  <ion-content has-bouncing="true" overflow-scroll="false">
+    <!--搜索-->
+    <!--<div class="bar bar-header item-input-inset searchclass" style="background-color:#53afff;position: relative;" ng-class="{'active':show_search}">-->
+      <!--<label class="item-input-wrapper" style="margin-top: 0px !important;background-color: #fff;">-->
+        <!--<i class="icon ion-search placeholder-icon"></i>-->
+        <!--<input type="search" placeholder="搜索" ng-model="search_control.search_val">-->
+      <!--</label>-->
+      <!--<button class="button button-clear"  style="margin-top: 0px !important; color:#fff;" ng-click="cancel_search()">-->
+        <!--取消-->
+      <!--</button>-->
+    <!--</div>-->
+    <!--搜索-->
+    <div style="margin: 0">
+    <div style="height: 68px;width: 100%;background-color: #53afff;color: white;padding-top:0px; margin-bottom:10px;" >
+      <div style="overflow:hidden; width:22.5%; float:left">
+      <div style="height: 68px;float: left;margin: 0 20%;" ng-click="showDate()">
+        <div style="margin-top: 13px;font-size:12px;">{{date_year}}年</div>
+        <div style="position: relative;font-size: 14px;"><span style="font-size: 18px">{{date_month}}</span><span style="font-size:12px;">月</span>
+        <div style="width: 0;height: 0;border-left: 5px solid transparent;border-right: 5px solid transparent;border-top: 5px solid white;position: absolute;top:7px;left: 35px;"></div>
+        </div>
+      </div>
+      </div>
+      <div style="height: 38px;width:1px;float: left;border-right: 1px dashed white; margin-top:16px;"></div>
+
+      <div style="overflow:hidden; width:77%; float:left">
+      <div style="height: 68px;float: left;margin-left:5%;">
+
+          <div style="margin-top: 13px; font-size:12px;">团队</div>
+          <div style="position: relative;font-size: 14px;"><span style="font-size:18px;">{{lv_team_record_data.hc_num}}</span><span style="font-size:12px;">人</span></div>
+
+      </div>
+      <div style="height: 68px;float: left; margin-left:10%;">
+        <div style="margin-top: 13px; font-size:12px;">休假统计</div>
+        <div style="position: relative;font-size: 14px;"><span style="font-size: 18px;">{{lv_team_record_data.lv_hc_num}}</span><span style="font-size:12px;">人</span></div>
+      </div>
+	  </div>
+    </div>
+      <div ng-show=" lv_team_record_data.data_ready && lv_team_record_data.lv_data.length==0 && search_control.search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+
+      <div ng-show="filterItems.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+    <div collection-repeat="item in filterItems=(lv_team_record_data.lv_data|dataAndFilter:'app_date,employee_name,start_d_t,lv_code_name,duration,end_d_t':search_control.search_val)" style="padding: 8px 12px 8px 12px;border-bottom:1px solid #f5f5f5;border-top:1px solid #f5f5f5; background-color:#fff;border-bottom-width:0px;overflow: hidden" ng-click="loadLvTeamContent(item.process_instance,item.app_id,item.is_pc,item.employee_name)">
+      <div style="">
+        <div style="width: 100%;">
+          <div style="position: relative">
+          <div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden; margin-bottom:5px; margin-top:0px;">
+            <img src="{{item.empl_img}}" alt="" style="width: 50px;height: 50px;"/>
+          </div>
+            <!--<span style="position: absolute">123</span>-->
+            <img src="{{is_pc_icon}}" alt="" style="position: absolute;width: 20px;height: 20px;left: 35px;" ng-show="item.is_pc=='1'"/>
+          </div>
+          <div style="width: 100%;">
+            <div>
+              <div style="float: right;color: #bbb;font-size: 12px; padding-top:3px;">{{item.app_date}}</div>
+              <!--<div style="text-indent: 12px; color:#333; font-size:16px; margin-bottom:2px;">{{item.em}} {{item.lv_name}}{{item.dd}}</div>-->
+
+            </div>
+
+            <div >
+              <div style="padding-left:12px; color:#333; font-size:16px; margin-top:5px; padding-top:4px;overflow:hidden;text-overflow:ellipsis;white-space: nowrap; ">{{item.employee_name}}<span style="color: #ff6600"> {{item.lv_code_name}}{{item.duration}}{{item.min_unit}}</span></div>
+              <div style="text-indent: 12px;color:#666;font-size:12px;margin-top:4px;">({{item.start_d_t}}--{{item.end_d_t}})</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </ion-content>
+</ion-view>

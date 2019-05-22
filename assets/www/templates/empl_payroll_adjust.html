@@ -1,0 +1,49 @@
+
+<ion-view style="background-color:#f8f8f8;" title="调薪" hide-tab-bar>
+
+    <ion-content ng-controller="padjCtrl" has-bouncing="true" overflow-scroll="false">
+      <div style="width: 100%;height:70px;background-color: #fff;padding-top:10px;border-bottom:1px solid #f0f0f0;">
+        <div style="width:50px;height:50px;overflow:hidden;margin-left:12px;border-radius:25px">
+          <img style="width:50px;height:50px;" ng-src="{{padj_data.img_src}}">
+          <div style="position:absolute;margin-top:-52px;margin-left:62px;text-align:center;font-size:16px">
+            {{padj_data.employee_name}}&nbsp;&nbsp;
+            <label style="margin-top:7px;color:#666;text-align:center;font-size: 12px">
+              工号:{{padj_data.staff_no}}
+            </label>
+            <div style="margin-top:7px;color:#666;text-align:left;font-size: 12px">{{padj_data.position_name}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="list" style="margin-top:10px;margin-bottom:10px;">
+        <label class="item item-input">
+          <span class="input-label">基本工资</span>
+          <input type="number" style="margin-right:12px;color:#ff6600;font-size:16px;" disabled  value="{{padj_data.base_salary}}">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">变动工资</span>
+          <input type="number" style="color:red;margin-right:12px;font-size:16px;" id="padj_new_value">
+        </label>
+      </div>
+
+      <div class="list"  style="margin-top:10px;margin-bottom:0px;" ng-click="padj_eff_date()">
+        <label class="item item-input">
+          <span class="input-label">生效日期</span>
+          <div id="padj_eff_date" style="color:#666;line-height: 35px;">{{padj_data.eff_date}}</div>
+          <!--<input type="date" style="margin-right:12px;" id="padj_eff_date" />-->
+        </label>
+      </div>
+
+      <div class="list"  style="margin-top:0px;margin-bottom:10px;">
+        <label class="item-input item-stacked-label"  style="padding:10px 0px 0px 0px;">
+          <span class="input-label" style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px;">变动理由</span>
+          <textarea style="height:100px;background-color:white;border-bottom:1px solid #f0f0f0;" placeholder="请填写加薪理由..." ng-model="padj_data.mv_reason"></textarea>
+        </label>
+      </div>
+      <div class="padding">
+        <button class="button button-block button-positive" ng-click="savePadjData()">保存</button>
+      </div>
+
+    </ion-content>
+
+</ion-view>

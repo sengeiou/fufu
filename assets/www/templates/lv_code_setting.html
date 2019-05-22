@@ -1,0 +1,32 @@
+﻿
+<ion-view style="background-color:#f8f8f8;" title="假期设定" hide-tab-bar ng-controller="lvCodeSettingCtrl">
+
+    <ion-content has-bouncing="true" overflow-scroll="false">
+    <div style="width:100%; background-color:#fff; height:58px; border-bottom:1px solid#f5f5f5;" ng-click="lv_code_setting_detail(item.lv_code_id,item.lv_code_name,item.has_balance)" ng-repeat="item in lvCodeSettingData">
+    	<div style="float:left;margin-top: 10px; margin-left:12px;">
+        	<img style="width:35px; height:35px; " ng-src="{{local_resource + 'img/lv_code/' + item.lv_code_key + '.png'}}" />
+        </div>
+
+        <div style="float:left" >
+        	<span style="font-size:16px; color:#333;margin-left:10px; line-height:58px">{{item.lv_code_name}}</span>
+        </div>
+
+       <div style="float:right;">
+        	<a style=" line-height:58px;font-size:14px; color:#999; margin-right:6px;">{{item.is_active ? '启用' : '关闭'}}</a>
+            <div style="float:right;">
+        		<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:58px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        	</div>
+       </div>
+
+
+    </div>
+
+
+
+
+
+
+
+    </ion-content>
+
+</ion-view>

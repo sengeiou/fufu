@@ -1,0 +1,136 @@
+<ion-view title="开门时间段" ng-controller="openDoorTimeCtrl" hide-nav-bar="true" hide-tab-bar system-setting-to-view-common>
+
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span>开门时间段</span>
+        </h1>
+
+        <div class="buttons">
+            <i class="r-icon r-black_search_icon disable-user-behavior" on-tap="openSearchPopover($event);"></i>
+            <i class="r-icon r-black_add_icon disable-user-behavior" on-tap="addOpenDoorTime()"></i>
+        </div>
+	</ion-header-bar>
+
+			
+  	<ion-content has-bouncing="true" overflow-scroll="false" >
+        
+        <div class="open-door-time-item flex-column ng-hide" ng-show="openDoorTimeData.show">
+            <div class="flex-row">
+              <div class="flex-row">
+                <div class="first-word gcl0">24</div>
+                <div class="first-title">24小时通行</div>
+              </div>
+            </div>
+            <div class="flex-wrap">
+              <div>每天 00:00~23:59</div>
+            </div>
+        </div>
+        
+        <div 
+          class="open-door-time-item flex-column" 
+          ng-repeat="tItem in openDoorTimeData.list" 
+          ng-init="tItem.cc=($index>13?'gcl'+$index%13:'gcl'+$index);tItem.limit=true">
+            <div class="flex-row" on-tap="openEdit(tItem)">
+              <div class="flex-row">
+                <div ng-class="['first-word', tItem.cc]" ng-bind="tItem.time_division_name.slice(0,1)"></div>
+                <div class="first-title" ng-bind="tItem.time_division_name"></div>
+              </div>
+              <div class="flex-1" ng-if="tItem.is_show_sub_bu">
+                <span ng-bind="tItem.sub_bu_name"></span>
+                <i class="ion-ios-arrow-forward"></i>
+              </div>
+            </div>
+            <div ng-class="{'flex-wrap':true, 'limit-height':tItem.limit}" on-tap="openEdit(tItem)">
+              <div>星期一 <span ng-bind="tItem.mon_from?tItem.mon_from:'00:00'"></span>~<span ng-bind="tItem.mon_to?tItem.mon_to:'00:00'"></span></div>
+              <div>星期二 <span ng-bind="tItem.tue_from?tItem.tue_from:'00:00'"></span>~<span ng-bind="tItem.tue_to?tItem.tue_to:'00:00'"></span></div>
+              <div>星期三 <span ng-bind="tItem.wed_from?tItem.wed_from:'00:00'"></span>~<span ng-bind="tItem.wed_to?tItem.wed_to:'00:00'"></span></div>
+              <div>星期四 <span ng-bind="tItem.thu_from?tItem.thu_from:'00:00'"></span>~<span ng-bind="tItem.thu_to?tItem.thu_to:'00:00'"></span></div>
+              <div>星期五 <span ng-bind="tItem.fri_from?tItem.fri_from:'00:00'"></span>~<span ng-bind="tItem.fri_to?tItem.fri_to:'00:00'"></span></div>
+              <div>星期六 <span ng-bind="tItem.sat_from?tItem.sat_from:'00:00'"></span>~<span ng-bind="tItem.sat_to?tItem.sat_to:'00:00'"></span></div>
+              <div>星期日 <span ng-bind="tItem.sun_from?tItem.sun_from:'00:00'"></span>~<span ng-bind="tItem.sun_to?tItem.sun_to:'00:00'"></span></div>
+            </div>
+            <div on-tap="tItem.limit = !tItem.limit">
+              <i ng-class="{'ion-ios-arrow-down':tItem.limit,'ion-ios-arrow-up':!tItem.limit}"></i>
+            </div>
+        </div>
+    </ion-content>
+   
+   <script id="search-open-door-popover.html" type="text/ng-template">
+      <div class="search-popover" ng-class="{'isSearchStr':searchObj.str.length}">
+        <ion-header-bar>
+          <h1 class="title" id="search-ai-device-h1">
+            <div clear-value-box style="right: 34px;left: 2px;">
+                <i class="icon ion-ios-search-strong placeholder-icon"></i>
+                <input id="aiSearchIpt" type="text" placeholder="搜索开门时间段..." ng-model="searchObj.str" clear-value-input>
+                <i clear-value-btn></i>
+            </div>
+            
+          </h1>
+
+          <div class="buttons" on-tap="closeSearchPopover()">
+            取消
+          </div>
+        </ion-header-bar>
+        
+        <div class="search-msg-bar" on-tap="search()">
+            <i class="r-icon r-search-bar-icon"></i>
+            <div class="search-msg-text">搜索“<span ng-bind="searchObj.str"></span>”</div>
+            <i class="icon ion-ios-arrow-right"></i>
+        </div>
+
+        <ion-content  has-bouncing="true" overflow-scroll="false" delegate-handle="openDoorTimeSearchScroll">
+            
+            <div class="ng-hide search-device-icon-box" ng-show="!searchObj.list.length && searchObj.state">
+                <img ng-src="{{local_resource + 'resource/def/def_s_.png'}}" >
+                <div>暂无开门时间段</div>
+            </div>
+
+            <div class="ng-hide search-device-icon-box" ng-show="!searchObj.state">
+                <img ng-src="{{local_resource + 'resource/def/def_s_.png'}}" >
+                <div>搜索开门时间段</div>
+            </div>
+
+
+            <div class="ng-hide" ng-show="searchObj.list.length">
+                <div 
+                  class="open-door-time-item flex-column"
+                  ng-repeat="tItem in searchObj.list"
+                  ng-init="tItem.cc=($index>13?'gcl'+$index%13:'gcl'+$index);tItem.limit=true">
+
+                    <div class="flex-row" on-tap="openEdit2(tItem)">
+                      <div class="flex-row">
+                        <div ng-class="['first-word', tItem.cc]" ng-bind="tItem.time_division_name.slice(0,1)"></div>
+                        <div class="first-title" ng-bind="tItem.time_division_name"></div>
+                      </div>
+                      <div class="flex-1" ng-if="tItem.is_show_sub_bu">
+                        <span ng-bind="tItem.sub_bu_name"></span>
+                        <i class="ion-ios-arrow-forward"></i>
+                      </div>
+                    </div>
+                    <div ng-class="{'flex-wrap':true, 'limit-height':tItem.limit}" on-tap="openEdit2(tItem)">
+                      <div>星期一 <span ng-bind="tItem.mon_from?tItem.mon_from:'00:00'"></span>~<span ng-bind="tItem.mon_to?tItem.mon_to:'00:00'"></span></div>
+              <div>星期二 <span ng-bind="tItem.tue_from?tItem.tue_from:'00:00'"></span>~<span ng-bind="tItem.tue_to?tItem.tue_to:'00:00'"></span></div>
+              <div>星期三 <span ng-bind="tItem.wed_from?tItem.wed_from:'00:00'"></span>~<span ng-bind="tItem.wed_to?tItem.wed_to:'00:00'"></span></div>
+              <div>星期四 <span ng-bind="tItem.thu_from?tItem.thu_from:'00:00'"></span>~<span ng-bind="tItem.thu_to?tItem.thu_to:'00:00'"></span></div>
+              <div>星期五 <span ng-bind="tItem.fri_from?tItem.fri_from:'00:00'"></span>~<span ng-bind="tItem.fri_to?tItem.fri_to:'00:00'"></span></div>
+              <div>星期六 <span ng-bind="tItem.sat_from?tItem.sat_from:'00:00'"></span>~<span ng-bind="tItem.sat_to?tItem.sat_to:'00:00'"></span></div>
+              <div>星期日 <span ng-bind="tItem.sun_from?tItem.sun_from:'00:00'"></span>~<span ng-bind="tItem.sun_to?tItem.sun_to:'00:00'"></span></div>
+                    </div>
+                    <div on-tap="tItem.limit = !tItem.limit">
+                      <i ng-class="{'ion-ios-arrow-down':tItem.limit,'ion-ios-arrow-up':!tItem.limit}"></i>
+                    </div>
+
+                </div>
+            </div>
+
+        </ion-content>
+      </div>
+    </script>
+</ion-view>
+

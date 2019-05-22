@@ -1,0 +1,159 @@
+
+<ion-view style="background-color:#f8f8f8;" title="{{lv_team_dc_title}}" ng-controller="LvTeamDCCtrl" hide-tab-bar>
+  <style>
+
+  </style>
+  <ion-content has-bouncing="true" overflow-scroll="false">
+
+    <!--<div>-->
+      <!--<div style="width: 100%;height: 160px;background-color: #53AFFF;padding:20px;">-->
+        <!--<div style="width:70px;height:70px;border-radius: 150px;border:0px solid white;margin: 10px auto;overflow: hidden;">-->
+          <!--<img  style="width:70px;height: 70px;" src="{{lv_team_dc_data.empl_img}}" alt=""/>-->
+        <!--</div>-->
+        <!--<p style="text-align: center;color: white; font-size:16px;margin-top:15px;">{{lv_team_dc_data.lv_code_name}}{{lv_team_dc_data.duration_desc}}</p>-->
+      <!--</div>-->
+
+      <!--<div  style="width:100%;margin-top:10px;background-color: white;overflow: hidden;background-color: white; height:5.8em;border-bottom:1px solid #f0f0f0;border-top:1px solid #f0f0f0;">-->
+        <!--<div class="row" style="background-color:#fff;padding: 10px 5px 10px 5px;">-->
+          <!--<div  style="border:none;width:45%">-->
+            <!--<div class="item-input" style="text-align:center;"><div id="_ess_my_apply_d1"  style="color:#53afff;font-size:17px;width: 100%;text-align:left;"></div></div>-->
+            <!--<div style="color: #999999;text-align: center;font-size:14px;margin-top:0px;padding-top: 5px;padding:0 0 0 0" class="item-input">-->
+              <!--<div  id="_ess_my_apply_t1" style="width: 100%;text-align:left; margin-left:12px;"></div></div>-->
+          <!--</div>-->
+          <!--<div style="float: left;width: 10%;height: 70px;position: relative;">-->
+            <!--<img src="img/model/dates-line2x.png" style="position: absolute;top: 50%;left: 50%;margin-top: -1px;margin-left: -30px;height:1px;width:60px;">-->
+          <!--</div>-->
+          <!--<div  style="border:none;width:45%;">-->
+            <!--<div class="item-input" ><div  id="_ess_my_apply_d2" style="color:#53afff;font-size:17px;width: 100%;text-align:right; margin-right:12px;" ></div></div>-->
+            <!--<div style="color: #999999;text-align: center;font-size:1em;margin-top:0px;padding-top: 5px;padding:0 0 0 0" class="item-input">-->
+              <!--<div  id="_ess_my_apply_t2"  style="width: 100%;text-align:right; margin-right:12px;"></div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div style="width: 100%;height: 49px;background-color:white;margin-top: 10px;line-height: 49px;text-indent: 12px;" ng-if="lv_team_dc_data.apply_remark!=''">-->
+       <!--{{lv_team_dc_data.apply_remark}}-->
+      <!--</div>-->
+
+          <!--</div>-->
+
+
+      <!--<div style="overflow: hidden; margin-top:10px;">-->
+        <!--<div ng-repeat="item in lv_team_dc_data.approver_list" style="">-->
+          <!--<div style="width: 12%;float: left;margin-top: 10px;">-->
+            <!--<div style="text-align:center;height: 16px;" ng-if="item.flag=='0'"><img  ng-src="{{icon_apply}}" style="width: 16px;height: 16px;"></div>-->
+            <!--<div style="text-align:center;height: 81px;" ng-if="item.flag=='0'" id="approver_list_div_{{$index}}"><img  ng-src="{{approval_line}}" style="height:81px;width:1px;" id="approver_list_img_{{$index}}"></div>-->
+            <!--<div style="text-align:center;height: 16px;" ng-if="item.flag=='1'&&item.action!='已驳回'"><img  ng-src="{{icon_confirm}}" style="width: 16px;height: 16px;"></div>-->
+            <!--<div style="text-align:center;height: 16px;" ng-if="item.flag=='1'&&item.action=='已驳回'"><img  ng-src="{{icon_noappprove}}" style="width: 16px;height: 16px;"></div>-->
+            <!--<div style="text-align:center;height: 81px;" ng-if="item.flag=='1'" id="approver_list_div_{{$index}}"><img  ng-src="{{approval_line}}" style="height:81px;width:1px;" id="approver_list_img_{{$index}}"></div>-->
+            <!--<div style="text-align:center;height: 16px;" ng-if="item.flag=='2'"><img  ng-src="{{icon_waiting}}" style="width: 16px;height: 16px;"></div>-->
+            <!--<div style="text-align:center;height: 50px;" ng-if="item.flag=='2'" id="approver_list_div_{{$index}}"><img ng-src="{{approval_line}}" style="height:50px;width:1px;" id="approver_list_img_{{$index}}"></div>-->
+          <!--</div>-->
+          <!--<div style="width: 84%;float: left;background-color: white;margin-top: 10px;border: 1px solid#f0f0f0;position: relative" id="approver_list_div{{$index}}">-->
+            <!--<img ng-src="{{content_left_icon}}" alt="" style="position: absolute;left: -11px;top: 3px;"/>-->
+
+            <!--<img src="{{item.img}}" alt="" style="width:50px;height:50px;border-radius: 150px;float: left;margin: 10px 10px 10px 10px;"/>-->
+            <!--<div style="float: right;margin:10px; color:#bbb; font-size:12px;">{{item.action_date}}</div>-->
+            <!--<div style="margin-top:10px; font-size:17px; color:#333; margin-left:10px;">{{item.name}}</div>-->
+            <!--<div >-->
+              <!--<div style=" font-size:14px; margin-top:5px; color:{{item.color}}">{{item.action}}</div>-->
+              <!--<div style="" ng-if="item.attachment!=''||item.approval_remark!=''">-->
+                <!--<div style="width: 75%;height: 1px;border-top: 1px solid #f1f1f1;margin-top: 20px;margin-left: 65px;"></div>-->
+                <!--<div style="margin-left: 70px;margin-top: 5px;margin-bottom: 15px;" >-->
+                  <!--<div ng-show="item.attachment!=''"><img  ng-src="{{item.attachment}}" alt="" style="width: 80px;height: 60px;" ng-click="show_img(item.attachment)"/></div>-->
+                  <!--<div ng-show="item.approval_remark!=''" style="color:{{item.color}}">{{item.approval_remark}}</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<div ng-class="item.action=='发起申请'||item.action=='待审批'?'approval_details_div_normal':(item.action=='拒绝'?'approval_details_div_red':'approval_details_div_orange')">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div style=" font-size:14px; margin-top:5px; color:#999;">{{item.action}}</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div style="" ng-if="item.attachment!=''||item.approval_remark!=''">&ndash;&gt;-->
+              <!--&lt;!&ndash;<div style="width: 75%;height: 1px;border-top: 1px solid #f1f1f1;margin-top: 20px;margin-left: 50px;"></div>&ndash;&gt;-->
+              <!--&lt;!&ndash;<div style="margin-left: 50px;margin-top: 5px;margin-bottom: 15px;" >&ndash;&gt;-->
+                <!--&lt;!&ndash;<div ng-show="item.attachment!=''"><img  ng-src="{{item.attachment}}" alt="" style="width: 80px;height: 60px;" ng-click="show_img(item.attachment)"/></div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div ng-show="item.approval_remark!=''">{{item.approval_remark}}</div>&ndash;&gt;-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--</div>-->
+          <!--<div ng-init="fireEvent($index,lv_team_dc_data.approver_list)"></div>-->
+        <!--</div>-->
+        <!--<div style="width: 12%;float: left;margin-top: 10px;">-->
+
+        <!--<div style="text-align:center;height: 16px;" ng-if="lv_team_dc_data.approver_list_flag"><img ng-src="{{add_approver}}" style="width: 16px;height: 16px;"></div>-->
+        <!--</div>-->
+        <!--<div  style="width: 84%;border-radius:4px;border:1px solid #f0f0f0;margin: 10px auto;background-color:white;float: left;position: relative;" ng-if="lv_team_dc_data.approver_list_flag">-->
+          <!--<img ng-src="{{content_left_icon}}" style="position: absolute;top:3px;left:-11px;" alt=""/>-->
+
+          <!--<img  style="width:50px;height:50px;margin:10px;float: left;border-radius:20px;" ng-src="{{add_approver}}"  ng-click="openModal()">-->
+        <!--</div>-->
+      <!--</div>-->
+
+
+      <!--<div style="width: 100%;height: 49px;margin-top: 10px;line-height: 49px;background-color: white;position: relative" ng-show="lv_team_dc_data.notify_list.length!='0'">-->
+        <!--<img ng-src="{{notify}}" alt="" style="width: 30px;height: 30px;float: left;margin-top: 8px;margin-left: 6px;"/>-->
+        <!--<div style="float: right;margin-right:12px; color:#999;">({{lv_team_dc_data.notify_list.length}}人)</div>-->
+        <!--<div style="float: right;color: #999" ng-repeat="item in lv_team_dc_data.notify_list">{{item.name}}</div>-->
+        <!--<div style="text-indent:2px; color:#333; border:1px solid#f5f5f5;">知会人</div>-->
+      <!--</div>-->
+    <!--<div ng-if="app_result">-->
+    <!--<div style="width: 100%;height: 49px;margin-top: 10px;line-height: 49px;background-color: white;position:relative;" ng-click="approval_or_noapproval()">-->
+      <!--<img ng-src="{{approve_icon}}" alt="" style="width: 30px;height: 30px;float: left;margin-top: 10px;margin-left: 6px;"/>-->
+      <!--<i class="icon ion-ios-arrow-right" style="margin-right:12px;vertical-align: middle;font-size: 20px;color: #ccc;position: absolute;top: 0px;bottom: 0;right:0px;"></i>-->
+      <!--<div style="float: right;margin-right: 28px; color:#666" id="approval_answer">批准</div>-->
+      <!--<div style="text-indent:2px; color:#333; border:1px solid#f5f5f5;">批准与否</div>-->
+    <!--</div>-->
+      <!--<div ng-if="remark_flag"  style="margin-top: 15px; margin-bottom: 10px;color: #666;font-size: 12px; margin-left: 12px;">备注</div>-->
+    <!--<div ng-if="!remark_flag" style="margin-top: 15px; margin-bottom: 10px;color: #ff3b30;font-size: 12px; margin-left: 12px;">备注*(必填)</div>-->
+      <!--<div>-->
+        <!--<textarea style="width: 100%;height: 140px; padding-left:12px; padding-top:12px; color:#333;" placeholder="请填写备注..." id="leave_approval_remark_textarea"></textarea>-->
+      <!--</div>-->
+      <!--<div style="margin:20px 12px;">-->
+        <!--<input type="button" value="提交" class="button button-block button-positive" ng-click="save()"/>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <div style="background-color: white;overflow: hidden;border-bottom: 1px solid#f5f5f5;" >
+      <div style="width: 100%;">
+        <div style="position: relative">
+          <div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden; margin-bottom:10px; margin-top:0px; margin-left:14px;">
+            <img src="{{lv_team_dc_data.empl_img}}" alt="" style="width: 50px;height: 50px;"/>
+          </div>
+          <!--<span style="position: absolute">123</span>-->
+          <img src="{{is_pc_icon}}" alt="" style="position: absolute;width: 20px;height: 20px;left: 48px;" />
+        </div>
+        <div style="width: 100%;">
+          <div>
+            <div style="float: right;color: #bbb;font-size: 12px;">{{item.app_date}}</div>
+            <!--<div style="text-indent: 12px; color:#333; font-size:16px; margin-bottom:2px;">{{item.em}} {{item.lv_name}}{{item.dd}}</div>-->
+
+          </div>
+
+          <div >
+            <div style="text-indent: 12px; color:#333; font-size:16px; margin-bottom:2px;margin-top: 10px; padding-top:4px;"><span style=" padding-top:18px;">{{employee_name}} {{lv_team_dc_data.lv_code_name}}{{lv_team_dc_data.duration}}{{lv_team_dc_data.min_unit}}</span></div>
+            <div style="text-indent: 12px;color:#666;font-size:12px;margin-top:4px;">({{lv_team_dc_data.start_date}} {{lv_team_dc_data.start_time}}--{{lv_team_dc_data.end_date}} {{lv_team_dc_data.end_time}})</div>
+          </div>
+        </div>
+      </div>
+    </div>
+<div ng-show="lv_team_dc_data.apply_remark!=''">
+    <div  style="margin-top: 15px;color: #666;font-size: 12px; margin-left: 12px;">休假事由</div>
+
+    <div style="width: 100%; height: 49px; margin-top: 5px; line-height: 49px; text-indent: 12px; background-color: white;border-bottom: 1px solid#f5f5f5;border-top: 1px solid#f5f5f5;" >
+      {{lv_team_dc_data.apply_remark}}
+    </div>
+</div>
+    <div ng-show="lv_team_dc_data.attachment!=''">
+      <div  style="margin-top: 15px; margin-bottom: 10px;color: #666;font-size: 12px; margin-left: 12px;">附件</div>
+
+      <div style="background-color: white;padding: 10px;overflow: hidden">
+        <div style="float: left;width: 80px;height: 80px;margin-right: 10px;">
+          <img src="{{lv_team_dc_data.attachment}}" alt="" style="width: 80px;height: 80px;"/>
+        </div>
+
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>

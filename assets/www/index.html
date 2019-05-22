@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="flexible" content="initial-dpr=2" />
+    <script src="js/flexible.js"></script>
+    <meta name = "format-detection" content = "telephone=no">
+    <title>服服</title>
+
+	<script>
+    function loadRsScript(fileType,fileUrl){
+      var head= document.getElementsByTagName('head')[0];
+      var obj;
+      if(fileType == 'js'){
+        obj = document.createElement('script');
+        obj.type= 'text/javascript';
+        obj.src=fileUrl;
+      }else{
+        obj = document.createElement('link');
+        obj.rel='stylesheet';
+        obj.href=fileUrl;
+      }
+      head.appendChild(obj);
+    }
+
+    function createjscssfile(filename, filetype){
+      if (filetype=="js"){
+        var fileref=document.createElement('script')
+        fileref.setAttribute("type","text/javascript")
+        fileref.setAttribute("src", filename+'?dt='+new Date().getTime())
+      }
+      else if (filetype=="css"){
+        var fileref=document.createElement("link")
+        fileref.setAttribute("rel", "stylesheet")
+        fileref.setAttribute("type", "text/css")
+        fileref.setAttribute("href", filename)
+      }
+      return fileref
+    }
+
+    function replacejscssfile(oldfilename, newfilename, filetype){
+      var targetelement=(filetype=="js")? "script" : (filetype=="css")? "link" : "none";
+      var targetattr=(filetype=="js")? "src" : (filetype=="css")? "href" : "none";
+      var allsuspects=document.getElementsByTagName(targetelement);
+      for (var i=allsuspects.length; i>=0; i--){
+        if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(oldfilename)!=-1){
+          var newelement=createjscssfile(newfilename, filetype);
+          allsuspects[i].parentNode.replaceChild(newelement, allsuspects[i]);
+        }
+      }
+    }
+
+    var current_app_version = '3.9';
+	var debug_mode = false;
+    var local_resource = '';
+    if(typeof(localStorage._resource_version)=='undefined'||localStorage._resource_version==''||localStorage._resource_version==null){
+      localStorage._resource_version = '3.9.001';
+    }
+
+	if(typeof(localStorage._ads_version)=='undefined'||localStorage._ads_version==''||localStorage._ads_version==null){
+      localStorage._ads_version = '3.9.001';
+    }
+
+    if(typeof(localStorage.local_resource)!='undefined'&&localStorage.local_resource!=''&&localStorage.local_resource!=null){
+      local_resource = localStorage.local_resource;
+    }
+    
+    if(localStorage.local_app_version!=current_app_version||localStorage._resource_version <= '3.9.001'){
+        local_resource = '';
+        localStorage.local_resource = '';
+        localStorage.local_app_version=current_app_version;
+    }
+	</script>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/highcharts.js"></script>
+    <script type="text/javascript" src="js/TweenMax.min.js"></script>
+    <script src="cordova.js"></script>
+    <!-- 动态加载与业务模块相关JS/CSS--->
+
+    <script>
+		var  _load_e_flag = 0;
+        window.onerror = function(message, url, lineNumber) {
+	
+            document.addEventListener("deviceready", function(){
+                                      if(typeof(localStorage._remote_server_addr)!='undefined'&&localStorage._remote_server_addr!=''){
+                                      $('.navigation_bar').hide();
+                                      if(_load_e_flag==0){
+                                      alert('更新失败,请卸载后下载最新版本');
+                                      _load_e_flag=1;
+                                      }
+                                      navigator.splashscreen.show();
+                                      reDownloadRs(window.localStorage['_remote_server_addr']);
+                                      }
+                                      }, false);
+                                      return true;
+        }
+		document.write("<script type='text/javascript' src='"+local_resource+"js/ion-tree-list.js?dt=" + new Date().getTime() + "'><\/script>");
+		document.write("<script type='text/javascript' src='"+local_resource+"js/zkclib.js?dt=" + new Date().getTime() + "'><\/script>");
+		document.write("<script type='text/javascript' src='"+local_resource+"js/app.js?dt=" + new Date().getTime() + "'><\/script>");
+		document.write("<script type='text/javascript' src='"+local_resource+"js/controllers.js?dt=" + new Date().getTime() + "'><\/script>");
+		document.write("<script type='text/javascript' src='"+local_resource+"js/services.js?dt=" + new Date().getTime() + "'><\/script>");
+		document.write("<script type='text/javascript' src='"+local_resource+"js/filters.js?dt=" + new Date().getTime() + "'><\/script>");
+		document.write("<script type='text/javascript' src='"+local_resource+"js/directives.js?dt=" + new Date().getTime() + "'><\/script>");
+		document.write("<link rel='stylesheet' href='"+local_resource+"css/style.css?dt=" + new Date().getTime() + "'>");
+    </script>
+
+    <style>
+        /* add by kevin at 2018-11-30 begin */
+        /* 远程开门 */
+        .screen-container{
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow: hidden;
+            z-index: 0;
+			display:none;
+            background-color: #051626;
+        }
+
+        .screen-container .close-wrapper{
+            position: fixed;
+            top: 35px;
+            left: 15px;
+        }
+
+        .screen-container .close-icon{
+            width: 16px;
+            height: 16px;
+        }
+
+        .screen-container .screen-content{
+            margin-top: 82px;
+        }
+
+        .screen-container .screen-header{
+            display: flex;
+            flex-direction: column;
+            align-items:center;
+            justify-content: center;
+        }
+
+        .screen-container .open-location{
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .screen-container .open-status{
+            color: #ccc;
+            font-size: 14px;
+            margin-top:20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .screen-container .status-icon{
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+            display: none;
+        }
+        
+        .screen-container .screen-main{
+            margin-top: 18px;
+        }
+        
+        .screen-container .open-face{
+            width: 100%;
+            height: 250px;
+        }
+
+        .screen-container .open-tips{
+            margin-top: 10px;
+            color: #ccc;
+            font-size: 12px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .screen-container .screen-footer{
+            margin-top: 70px;
+            display: flex;
+        }
+
+        .screen-container .btn-group{
+            display: flex;
+            flex:1;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .screen-container .btn_icon{
+            width: 75px;
+            height: 75px;
+            margin-bottom: 15px;
+        }
+
+        .screen-container .btn_text{
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .row-group{
+            border-radius:4px;
+            margin: 0 15px;
+            background-color: #0f1d2b;
+            display:flex;
+            justify-content: space-between;
+            align-items: center;
+            height:75px;
+            width:100%;
+        }
+
+        .row-left{
+            display:flex;
+            align-items: center;
+            padding-left:20px;
+        }
+
+        .deal-icon{
+            width:32px;
+            height:39px;
+            margin-right:20px;
+        }
+
+        .deal-status{
+            color: #b2b2b4;
+            font-size: 16px;
+        }
+        .row-right{
+            padding-right:10px;
+        }
+
+        .deal-time{
+            color:#3f464e;
+            font-size: 12px;
+        }
+        /* add by kevin at 2018-11-30 end */
+    </style>
+  </head>
+  <body ng-app="citymobi" style="background-color:white;" class="platform-ios platform-cordova platform-webview" ng-controller="screenCtrl">
+    <ion-nav-bar class="navigation_bar">
+      <ion-nav-back-button class="button-clear button-light button-icon ion-ios-arrow-left">
+      </ion-nav-back-button>
+    </ion-nav-bar>
+	  <ion-nav-view>
+    </ion-nav-view>
+
+    <!-- add by kevin at 2018-11-30 begin -->
+    <!-- 远程开门模块 -->
+    <div class="screen-container">
+        <div class="close-wrapper">
+            <img src="img/icon/icon_close.png" class="close-icon" ng-click="closeScreen()">
+        </div>
+        <div class="screen-content">
+            <div class="screen-header">
+                <div class="open-location">{{data.device_info}}</div>
+                <div class="open-status">
+                    <!-- <img src="{{local_resource + 'img/icon/icon_open_successed.png'}}" class="status-icon open_successed">
+                    <img src="{{local_resource + 'img/icon/icon_open_failed.png'}}" class="status-icon open_failed"> -->
+                    <img ng-src="{{status_icon}}" class="status-icon">
+                    <div class="remote-status">等待远程开门中...</div>
+                </div>
+            </div>
+            <div class="screen-main">
+                <img ng-src="{{data.photo_name}}" class="open-face"/>
+                <div class="open-tips">此画面为实时抓取截图</div>
+            </div>
+            <div class="screen-footer" id="btn_group">
+                <div class="btn-group" ng-click="rejectRemoteDoor()">
+                    <img class="btn_icon" src="img/icon/btn_rejected.png"/>
+                    <div class="btn_text">拒绝</div>
+                </div>
+                <div class="btn-group" ng-click="openRemoteDoor()">
+                    <img class="btn_icon" src="img/icon/btn_open.png"/>
+                    <div class="btn_text">开门</div>
+                </div>
+            </div>
+
+            <div class="screen-footer" id="remote_result_info" style="display: none;">
+                <div class="row-group">
+                    <div class="row-left">
+                        <img class="deal-icon" ng-src="{{deal_icon}}"/>
+                        <div>
+                            <div class="deal-status"></div>
+                        </div>
+                    </div>
+                    <div class="row-right">
+                        <div class="deal-time"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- add by kevin at 2018-11-30 end -->
+  </body>
+
+  <script>
+    
+  </script>
+</html>

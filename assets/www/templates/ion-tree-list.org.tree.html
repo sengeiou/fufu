@@ -1,0 +1,35 @@
+<link type="text/css" rel="stylesheet" ng-href="css/ion-tree-list.css"/>
+<style>
+#staffMasterPositionTreePicklistCtrl .item.activated{
+background-color: #fff;
+}
+
+#staffMasterPositionTreePicklistCtrl .item_selected{
+background-color: #f5f5f5;
+}
+</style>
+<script type="text/ng-template" id="item_default_renderer">
+    <span class="symbol" ng-click="toggleCollapse(item)">
+        <i class="icon" ng-if="item.tr.length > 0" ng-class="item.tr.collapsed ? 'ion-arrow-right-b' : 'ion-arrow-down-b'"></i>
+    </span>
+    {{item.n_n}}
+    <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
+</script>
+
+<script type="text/ng-template" id="items_renderer">
+    <ion-item id="position_node_{{item.n_i}}" class="item depth-{{item.lvl}} {{item.ch?'item_selected':'item_unselected'}}"
+              ng-click="emitEvent(item)"
+              ng-include="templateUrl">
+    </ion-item>
+    <ion-list ng-model="item.tr"
+              ng-repeat="item in item.tr"
+              ng-hide="item.collapsed"
+              ng-include="'items_renderer'"
+              show-reorder="showReorder">
+    </ion-list>
+	<div ng-init="fireEvent($index)"></div>
+</script>
+
+<div class="list" ng-model="items">
+    <span ng-repeat="item in items" ng-include="'items_renderer'"></span>
+</div>

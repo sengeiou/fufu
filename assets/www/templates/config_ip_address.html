@@ -1,0 +1,74 @@
+<ion-view title="配置IP地址" ng-controller="configIpAddressCtrl" hide-nav-bar="true" hide-tab-bar head-notify>
+
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span>配置IP地址</span>
+        </h1>
+
+        <div class="buttons">
+            <a on-tap="save()">
+                <button class="button back-button buttons button-clear button-light header-item">
+                    完成
+               </button>
+            </a>
+        </div>
+	</ion-header-bar>
+
+  	<ion-content has-bouncing="true" overflow-scroll="false" >
+        <ul class="r-list" style="margin-top:10px;">
+            <li class="ad-item">
+                <div class="ad-item-title">自动获得IP</div>
+                <div class="ad-item-text" style="padding-right:0;">
+                  <label class="toggle toggle-calm" on-tap="configIpAddressData.DHCP = !configIpAddressData.DHCP" ng-class="{'active':configIpAddressData.DHCP}" style="margin:0;padding-bottom: 0;margin-top: 0px;padding-right: 0;">
+                   
+                    <div class="track">
+                    <div class="handle"></div>
+                    </div>
+                  </label>
+                </div>
+               
+            </li>
+        </ul>
+
+        <ul class="r-list ng-hide" ng-show="!configIpAddressData.DHCP" style="border-top: 1px solid #f0f0f0;">
+            <li class="ad-item" clear-value-box>
+                <div class="ad-item-title">IP地址</div>
+                <div class="ad-item-text" style="padding-right:0;">
+                  <input type="text" clear-value-input style="float:right;text-align:right" ng-model="configIpAddressData.IP" placeholder="例如 192.168.1.100">
+                </div>
+                <i clear-value-btn style="margin-left:10px;color: #cccccc;"></i>
+            </li>
+            <li class="ad-item" clear-value-box>
+                <div class="ad-item-title">子网掩码</div>
+                <div class="ad-item-text" style="padding-right:0;">
+                  <input type="text" clear-value-input style="float:right;text-align:right" ng-model="configIpAddressData.MASK" placeholder="例如 255.255.255.0">
+                </div>
+                <i clear-value-btn style="margin-left:10px;color: #cccccc;"></i>
+            </li>
+            <li class="ad-item" clear-value-box>
+                <div class="ad-item-title">默认网关</div>
+                <div class="ad-item-text" style="padding-right:0;">
+                  <input type="text" clear-value-input style="float:right;text-align:right" ng-model="configIpAddressData.GW" placeholder="例如 192.168.1.100">
+                </div>
+                <i clear-value-btn style="margin-left:10px;color: #cccccc;"></i>
+            </li>
+            <li class="ad-item" clear-value-box>
+                <div class="ad-item-title">DNS服务器</div>
+                <div class="ad-item-text" style="padding-right:0;">
+                  <input type="text" clear-value-input style="float:right;text-align:right" ng-model="configIpAddressData.DNS" placeholder="例如 202.96.12.166">
+                </div>
+                <i clear-value-btn style="margin-left:10px;color: #cccccc;"></i>
+            </li>
+        </ul>
+
+       
+  	</ion-content>
+
+</ion-view>
+

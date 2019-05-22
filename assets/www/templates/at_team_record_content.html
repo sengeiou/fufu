@@ -1,0 +1,529 @@
+﻿
+<ion-view style="background-color:#f8f8f8;" ng-controller="atTeamRecordContentCtrl" id="at_team_record"   style="background-color:#f8f8f8;" title='{{title_name}}的考勤详情'  hide-tab-bar >
+<style>
+.no_margin{
+margin-top:0px;
+}
+.have_margin{
+margin-top:10px;
+}
+.blue_class{
+color:#56b1ff;
+}
+.gray_calss{
+color:#999;
+}
+</style>
+  <ion-content has-bouncing="true" overflow-scroll="false" style="background-color:#f8f8f8;" class="">
+<div  style="padding: 10px 12px 10px 12px; border-top:1px solid #f5f5f5; border-bottom:1px solid #f5f5f5;background-color:white;" ng-click="loadMyApplyContent(item.p_inst,item.show_type,item.task_id,item.app_status,item.ot_code_n,true)" class="">
+      <div style="">
+        <div style="width: 100%;overflow:hidden;">
+          <div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden;">
+            <img ng-src="{{at_team_record_content_data.empl_img}}" alt="" style="width: 50px;height: 50px;">
+          </div>
+          <div style="width: 100%;">
+            <div>
+            <div>
+              <div style="margin-left: 62px;padding-top:4px; color:#333; font-size:0.4266666666667rem; margin-bottom:2px;font-weight:500;" class="ng-binding">{{at_team_record_content_data.employee_name}} <span style="margin-left:10px; font-size:12px;color:#666;">工号:{{at_team_record_content_data.staff_no}}</span></div>
+            </div>
+            <div style="margin-left: 62px;color: #666;font-size:12px;margin-top:5px;">
+              <div class="ng-binding">{{at_team_record_content_data.position_name}}</div>
+          </div>
+             
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+	<div style="height:40px;background-color:#f8f8f8;text-indent:12px;color:#666;font-size:14px;line-height:40px;">{{current_date_text}}<span style="margin-left:12px;">{{at_team_record_content_data.dw}}</span><span style="margin-left:10px;">{{at_team_record_content_data.policy_name}}</span></div>
+	<div style="height:44px;border-bottom:1px solid #f5f5f5; background-color:white;text-indent:12px;color:#333;font-size:0.4266666666667rem;line-height:44px;">上下班时间</div>
+	
+	
+	
+				<div style="height:50px; background-color: white;overflow:hidden;margin-top:0px;border-radius:2px;" ng-show="at_team_record_content_data.first_in!='' || at_team_record_content_data.first_out!='' || at_team_record_content_data.first_in_mesg!=''|| at_team_record_content_data.first_out_mesg!='' ">
+				<div >
+				
+				  <div style="float: left;height:50px;width:50%;position:relative;">
+                    <div >
+					<img ng-src="{{normal_time}}" alt="" style="width: 30px;height: 30px;margin-top: 10px;margin-left:10px;" ng-show="at_team_record_content_data.first_in_mesg!='加班'"/>
+					<img ng-src="{{ot_time}}" alt="" style="width: 30px;height: 30px;margin-top: 10px;margin-left:10px;" ng-show="at_team_record_content_data.first_in_mesg=='加班'"/>
+					<img ng-src="{{contract_management_directory1}}" alt="" style="width: 11px;margin-top: 0px;height: 17px;position:relative;top:-10px;"/>
+                    <span style="position: relative;top:-10px;color:#333;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;" ng-show='at_team_record_content_data.first_in!=""' >{{at_team_record_content_data.first_in}}
+
+					<div style="position:absolute;left:0px;bottom:-15px;font-size:12px;color:#b3b3b3;min-width:140px; font-weight:lighter;" ng-show="at_team_record_content_data.first_in_mesg=='休假'">(该时间段提交过休假申请)</div>
+					</span>
+					<span style="position: relative;top:-10px;color:#ff3b30;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;" ng-show='at_team_record_content_data.first_in_mesg!="" && at_team_record_content_data.first_in=="" ' >{{at_team_record_content_data.first_in_mesg}}
+					</span>
+					
+					<span style="background-color:#ff3b30;color:white;font-size:12px;position:relative;top:-11px;padding:1px 4px;border-radius:2px;line-height:12px;" ng-show="at_team_record_content_data.first_in!='' && (at_team_record_content_data.first_in_mesg=='迟到' || at_team_record_content_data.first_in_mesg=='早退')">{{at_team_record_content_data.first_in_mesg}}</span>
+					<span style="background-color:#f4a44e;color:white;font-size:12px;position:relative;top:-11px;padding:1px 4px;border-radius:2px;line-height:12px;" ng-show="at_team_record_content_data.first_in!='' && (at_team_record_content_data.first_in_mesg!='迟到' && at_team_record_content_data.first_in_mesg!='早退' && at_team_record_content_data.first_in_mesg!='')">{{at_team_record_content_data.first_in_mesg}}</span>
+                 
+					</div>
+				<!--
+					<div style="font-size:0.48rem;color:#ccc;height:70px;line-height:70px;margin-left:10px;" ng-show="item.not_card_time_in=='1'">
+					还未打卡
+					</div>
+					-->
+					<div style="width: 23px;height: 1px;border-bottom: 1px solid #ccc;position:absolute;top:24px;right:-12px;"></div>
+				 </div>
+
+                  <div style="float: left;height:50px;width:50%;">
+				  <div >
+                    <img ng-src="{{contract_management_directory1}}" alt="" style="width: 11px;margin-top: 13px;height: 17px;margin-left:25%;"/>
+                    <span style="position: relative;top:0px;color:#333;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;" ng-show='at_team_record_content_data.first_out!=""' ng-class="item.is_abnormal_out=='1'?'text_color':''">{{at_team_record_content_data.first_out}}
+					
+					<div style="position:absolute;right:-30px;bottom:-15px;font-size:12px;color:#b3b3b3;min-width:140px; font-weight:lighter;" ng-show="at_team_record_content_data.first_out_mesg=='休假'">(该时间段提交过休假申请)</div>
+					</span>
+					<span style="position: relative;top:0px;color:#ff3b30;font-size:0.48rem;font-weight:500;margin-left:2px;" ng-show='at_team_record_content_data.first_out=="" && at_team_record_content_data.first_out_mesg!="" '>{{at_team_record_content_data.first_out_mesg}}
+					</span>
+					<span style="background-color:#f4a44e;color:white;font-size:12px;position:relative;top:-1px;padding:1px 4px;border-radius:2px;line-height:12px;"  ng-show="at_team_record_content_data.first_out!='' && (at_team_record_content_data.first_out_mesg=='迟到' || at_team_record_content_data.first_out_mesg=='早退')">{{at_team_record_content_data.first_out_mesg}}</span>
+					<span style="background-color:#ff3b30;color:white;font-size:12px;position:relative;top:-1px;padding:1px 4px;border-radius:2px;line-height:12px;"  ng-show="at_team_record_content_data.first_out!='' && (at_team_record_content_data.first_out_mesg!='迟到' && at_team_record_content_data.first_out_mesg!='早退' && at_team_record_content_data.first_out_mesg!='')">{{at_team_record_content_data.first_out_mesg}}</span>
+                </div>
+				<!--
+				<div style="font-size:0.48rem;color:#ccc;height:70px;line-height:70px;margin-left:25%;" ng-show="item.not_card_time_out=='1'">
+				还未打卡
+				</div>
+				-->
+		  		</div>
+				</div>	
+			
+			</div>	
+
+				<div style="height:50px; background-color: white;overflow:hidden;margin-top:0px;border-radius:2px;" ng-show="at_team_record_content_data.second_in!='' || at_team_record_content_data.second_out!='' || at_team_record_content_data.second_in_mesg!='' || at_team_record_content_data.second_out_mesg!='' ">
+				<div >
+				
+				  <div style="float: left;height:50px;width:50%;position:relative;">
+                    <div >
+					<img ng-src="{{normal_time}}" alt="" style="width: 30px;height: 30px;margin-top: 10px;margin-left:10px;" ng-show="at_team_record_content_data.second_in_mesg!='加班'"/>
+					<img ng-src="{{ot_time}}" alt="" style="width: 30px;height: 30px;margin-top: 10px;margin-left:10px;" ng-show="at_team_record_content_data.second_in_mesg=='加班'"/>
+					<img ng-src="{{contract_management_directory1}}" alt="" style="width: 11px;margin-top: 0px;height: 17px;position:relative;top:-10px;"/>
+                    <span style="position: relative;top:-10px;color:#333;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;" ng-show='at_team_record_content_data.second_in!=""' ng-class="item.is_abnormal_in == '1'?'text_color':''">{{at_team_record_content_data.second_in}}
+
+					<div style="position:absolute;left:0px;bottom:-15px;font-size:12px;color:#b3b3b3;min-width:140px; font-weight:lighter;" ng-show="at_team_record_content_data.second_in_mesg=='休假'">(该时间段提交过休假申请)</div>
+					</span>
+					<span style="position: relative;top:-10px;color:#f44e4e;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;')" ng-show='at_team_record_content_data.second_in_mesg!="" && at_team_record_content_data.second_in=="" ' >{{at_team_record_content_data.second_in_mesg}}
+					</span>
+					
+					<span style="background-color:#f4a44e;color:white;font-size:12px;position:relative;top:-11px;padding:1px 4px;border-radius:2px;line-height:12px;"  ng-show="at_team_record_content_data.second_in!='' && (at_team_record_content_data.second_in_mesg=='迟到' || at_team_record_content_data.second_in_mesg=='早退')">{{at_team_record_content_data.second_in_mesg}}</span>
+					<span style="background-color:#ff3b30;color:white;font-size:12px;position:relative;top:-11px;padding:1px 4px;border-radius:2px;line-height:12px;"  ng-show="at_team_record_content_data.second_in!='' && (at_team_record_content_data.second_in_mesg!='迟到' && at_team_record_content_data.second_in_mesg!='早退' && at_team_record_content_data.second_in_mesg!='')">{{at_team_record_content_data.second_in_mesg}}</span>
+					</div>
+				<!--
+					<div style="font-size:0.48rem;color:#ccc;height:70px;line-height:70px;margin-left:10px;" ng-show="item.not_card_time_in=='1'">
+					还未打卡
+					</div>
+					-->
+					<div style="width: 23px;height: 1px;border-bottom: 1px solid #ccc;position:absolute;top:24px;right:-12px;"></div>
+				 </div>
+
+                  <div style="float: left;height:50px;width:50%;">
+				  <div >
+                    <img ng-src="{{contract_management_directory1}}" alt="" style="width: 11px;margin-top: 13px;height: 17px;margin-left:25%;"/>
+                    <span style="position: relative;top:0px;color:#333;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;" ng-show='at_team_record_content_data.second_out!=""' ng-class="item.is_abnormal_out=='1'?'text_color':''">{{at_team_record_content_data.second_out}}
+					
+					<div style="position:absolute;right:-30px;bottom:-15px;font-size:12px;color:#b3b3b3;min-width:140px; font-weight:lighter;" ng-show="at_team_record_content_data.second_out_mesg=='休假'">(该时间段提交过休假申请)</div>
+					</span>
+					<span style="position: relative;top:0px;color:#ff3b30;font-size:0.48rem;font-weight:500;margin-left:2px;" ng-show='at_team_record_content_data.second_out=="" && at_team_record_content_data.second_out_mesg!="" '>{{at_team_record_content_data.second_out_mesg}}
+					</span>
+					<span style="background-color:#ff3b30;color:white;font-size:12px;position:relative;top:-1px;padding:1px 4px;border-radius:2px;line-height:12px;"  ng-show="at_team_record_content_data.second_out!='' && (at_team_record_content_data.second_out_mesg=='迟到' || at_team_record_content_data.second_out_mesg=='早退')">{{at_team_record_content_data.second_out_mesg}}</span>
+					<span style="background-color:#f4a44e;color:white;font-size:12px;position:relative;top:-1px;padding:1px 4px;border-radius:2px;line-height:12px;"  ng-show="at_team_record_content_data.second_out!='' && (at_team_record_content_data.second_out_mesg!='迟到' && at_team_record_content_data.second_out_mesg!='早退' && at_team_record_content_data.second_out_mesg!='')">{{at_team_record_content_data.second_out_mesg}}</span>
+                </div>
+				<!--
+				<div style="font-size:0.48rem;color:#ccc;height:70px;line-height:70px;margin-left:25%;" ng-show="item.not_card_time_out=='1'">
+				还未打卡
+				</div>
+				-->
+		  		</div>
+				</div>	
+			
+			</div>	
+
+
+			<div style="height:50px; background-color: white;overflow:hidden;margin-top:0px;border-radius:2px;" ng-show="at_team_record_content_data.third_in!='' || at_team_record_content_data.third_out!='' || at_team_record_content_data.third_in_mesg!='' || at_team_record_content_data.third_out_mesg!='' ">
+				<div >
+				
+				  <div style="float: left;height:50px;width:50%;position:relative;">
+                    <div >
+					<img ng-src="{{normal_time}}" alt="" style="width: 30px;height: 30px;margin-top: 10px;margin-left:10px;" ng-show="at_team_record_content_data.third_in_mesg!='加班'"/>
+					<img ng-src="{{ot_time}}" alt="" style="width: 30px;height: 30px;margin-top: 10px;margin-left:10px;" ng-show="at_team_record_content_data.third_in_mesg=='加班'"/>
+					<img ng-src="{{contract_management_directory1}}" alt="" style="width: 11px;margin-top: 0px;height: 17px;position:relative;top:-10px;"/>
+                    <span style="position: relative;top:-10px;color:#333;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;" ng-show='at_team_record_content_data.third_in!=""' ng-class="item.is_abnormal_in == '1'?'text_color':''">{{at_team_record_content_data.third_in}}
+
+					<div style="position:absolute;left:0px;bottom:-15px;font-size:12px;color:#b3b3b3;min-width:140px; font-weight:lighter;" ng-show="at_team_record_content_data.third_in_mesg=='休假'">(该时间段提交过休假申请)</div>
+					</span>
+					<span style="position: relative;top:-10px;color:#f44e4e;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;')" ng-show='at_team_record_content_data.third_in_mesg!="" && at_team_record_content_data.third_in=="" ' >{{at_team_record_content_data.third_in_mesg}}
+					</span>
+					
+					<span style="background-color:#f4a44e;color:white;font-size:12px;position:relative;top:-11px;padding:1px 4px;border-radius:2px;line-height:12px;"  ng-show="at_team_record_content_data.third_in!='' && (at_team_record_content_data.third_in_mesg=='迟到' || at_team_record_content_data.third_in_mesg=='早退')">{{at_team_record_content_data.third_in_mesg}}</span>
+					<span style="background-color:#ff3b30;color:white;font-size:12px;position:relative;top:-11px;padding:1px 4px;border-radius:2px;line-height:12px;"  ng-show="at_team_record_content_data.third_in!='' && (at_team_record_content_data.third_in_mesg!='迟到' && at_team_record_content_data.third_in_mesg!='早退' && at_team_record_content_data.third_in_mesg!='')">{{at_team_record_content_data.third_in_mesg}}</span>
+                 
+					</div>
+				<!--
+					<div style="font-size:0.48rem;color:#ccc;height:70px;line-height:70px;margin-left:10px;" ng-show="item.not_card_time_in=='1'">
+					还未打卡
+					</div>
+					-->
+					<div style="width: 23px;height: 1px;border-bottom: 1px solid #ccc;position:absolute;top:24px;right:-12px;"></div>
+				 </div>
+
+                  <div style="float: left;height:50px;width:50%;">
+				  <div >
+                    <img ng-src="{{contract_management_directory1}}" alt="" style="width: 11px;margin-top: 13px;height: 17px;margin-left:25%;"/>
+                    <span style="position: relative;top:0px;color:#333;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;" ng-show='at_team_record_content_data.third_out!=""' ng-class="item.is_abnormal_out=='1'?'text_color':''">{{at_team_record_content_data.third_out}}
+					
+					<div style="position:absolute;right:-30px;bottom:-15px;font-size:12px;color:#b3b3b3;min-width:140px; font-weight:lighter;" ng-show="at_team_record_content_data.third_out_mesg=='休假'">(该时间段提交过休假申请)</div>
+					</span>
+					<span style="position: relative;top:0px;color:#ff3b30;font-size:0.48rem;font-weight:500;margin-left:2px;" ng-show='at_team_record_content_data.third_out=="" && at_team_record_content_data.third_out_mesg!="" '>{{at_team_record_content_data.third_out_mesg}}
+					</span>
+					<span style="background-color:#f4a44e;color:white;font-size:12px;position:relative;top:-1px;padding:1px 4px;border-radius:2px;line-height:12px;"  ng-show="at_team_record_content_data.third_out!='' && (at_team_record_content_data.third_out_mesg=='迟到' || at_team_record_content_data.third_out_mesg=='早退')">{{at_team_record_content_data.third_out_mesg}}</span>
+					<span style="background-color:#ff3b30;color:white;font-size:12px;position:relative;top:-1px;padding:1px 4px;border-radius:2px;line-height:12px;"  ng-show="at_team_record_content_data.third_out!='' && (at_team_record_content_data.third_out_mesg!='迟到' && at_team_record_content_data.third_out_mesg!='早退' && at_team_record_content_data.third_out_mesg!='')">{{at_team_record_content_data.third_out_mesg}}</span>
+                </div>
+				<!--
+				<div style="font-size:0.48rem;color:#ccc;height:70px;line-height:70px;margin-left:25%;" ng-show="item.not_card_time_out=='1'">
+				还未打卡
+				</div>
+				-->
+		  		</div>
+				</div>	
+			
+			</div>	
+			
+			
+			<div style="height:50px; background-color: white;overflow:hidden;margin-top:0px;border-radius:2px;" ng-show="at_team_record_content_data.forth_in!='' || at_team_record_content_data.forth_out!='' || at_team_record_content_data.forth_in_mesg!='' || at_team_record_content_data.forth_out_mesg!='' ">
+				<div >
+				
+				  <div style="float: left;height:50px;width:50%;position:relative;">
+                    <div >
+					<img ng-src="{{normal_time}}" alt="" style="width: 30px;height: 30px;margin-top: 10px;margin-left:10px;" ng-show="at_team_record_content_data.forth_in_mesg!='加班'"/>
+					<img ng-src="{{ot_time}}" alt="" style="width: 30px;height: 30px;margin-top: 10px;margin-left:10px;" ng-show="at_team_record_content_data.forth_in_mesg=='加班'"/>
+					<img ng-src="{{contract_management_directory1}}" alt="" style="width: 11px;margin-top: 0px;height: 17px;position:relative;top:-10px;"/>
+                    <span style="position: relative;top:-10px;color:#333;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;" ng-show='at_team_record_content_data.forth_in!=""' ng-class="item.is_abnormal_in == '1'?'text_color':''">{{at_team_record_content_data.forth_in}}
+
+					<div style="position:absolute;left:0px;bottom:-15px;font-size:12px;color:#b3b3b3;min-width:140px; font-weight:lighter;" ng-show="at_team_record_content_data.forth_in_mesg=='休假'">(该时间段提交过休假申请)</div>
+					</span>
+					<span style="position: relative;top:-10px;color:#f44e4e;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;')" ng-show='at_team_record_content_data.forth_in_mesg!="" && at_team_record_content_data.forth_in=="" ' >{{at_team_record_content_data.forth_in_mesg}}
+					</span>
+					
+					<span style="background-color:#f4a44e;color:white;font-size:12px;position:relative;top:-11px;padding:1px 4px;border-radius:2px;line-height:12px;"  ng-show="at_team_record_content_data.forth_in!='' && (at_team_record_content_data.forth_in_mesg=='迟到' || at_team_record_content_data.forth_in_mesg=='早退')">{{at_team_record_content_data.forth_in_mesg}}</span>
+					<span style="background-color:#ff3b30;color:white;font-size:12px;position:relative;top:-11px;padding:1px 4px;border-radius:2px;line-height:12px;"  ng-show="at_team_record_content_data.forth_in!='' && (at_team_record_content_data.forth_in_mesg!='迟到' && at_team_record_content_data.forth_in_mesg!='早退' && at_team_record_content_data.forth_in_mesg!='')">{{at_team_record_content_data.forth_in_mesg}}</span>
+                 
+					</div>
+				<!--
+					<div style="font-size:0.48rem;color:#ccc;height:70px;line-height:70px;margin-left:10px;" ng-show="item.not_card_time_in=='1'">
+					还未打卡
+					</div>
+					-->
+					<div style="width: 23px;height: 1px;border-bottom: 1px solid #ccc;position:absolute;top:24px;right:-12px;"></div>
+				 </div>
+
+                  <div style="float: left;height:50px;width:50%;">
+				  <div >
+                    <img ng-src="{{contract_management_directory1}}" alt="" style="width: 11px;margin-top: 13px;height: 17px;margin-left:25%;"/>
+                    <span style="position: relative;top:0px;color:#333;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;" ng-show='at_team_record_content_data.forth_out!=""' ng-class="item.is_abnormal_out=='1'?'text_color':''">{{at_team_record_content_data.forth_out}}
+					
+					<div style="position:absolute;right:-30px;bottom:-15px;font-size:12px;color:#b3b3b3;min-width:140px; font-weight:lighter;" ng-show="at_team_record_content_data.forth_out_mesg=='休假'">(该时间段提交过休假申请)</div>
+					</span>
+					<span style="position: relative;top:0px;color:#ff3b30;font-size:0.48rem;font-weight:500;margin-left:2px;" ng-show='at_team_record_content_data.forth_out=="" && at_team_record_content_data.forth_out_mesg!="" '>{{at_team_record_content_data.forth_out_mesg}}
+					</span>
+					<span style="background-color:#f4a44e;color:white;font-size:12px;position:relative;top:-1;padding-left:2px;padding-right:2px;line-height:12px;"  ng-show="at_team_record_content_data.forth_out!='' && (at_team_record_content_data.forth_out_mesg=='迟到' || at_team_record_content_data.forth_out_mesg=='早退')">{{at_team_record_content_data.forth_out_mesg}}</span>
+					<span style="background-color:#ff3b30;color:white;font-size:12px;position:relative;top:-1px;padding-left:2px;padding-right:2px;line-height:12px;"  ng-show="at_team_record_content_data.forth_out!='' && (at_team_record_content_data.forth_out_mesg!='迟到' && at_team_record_content_data.forth_out_mesg!='早退' && at_team_record_content_data.forth_out_mesg!='')">{{at_team_record_content_data.forth_out_mesg}}</span>
+                </div>
+				<!--
+				<div style="font-size:0.48rem;color:#ccc;height:70px;line-height:70px;margin-left:25%;" ng-show="item.not_card_time_out=='1'">
+				还未打卡
+				</div>
+				-->
+		  		</div>
+				</div>	
+			
+			</div>
+			
+			
+			<div style="height:50px; background-color: white;overflow:hidden;margin-top:0px;border-radius:2px;" ng-show="at_team_record_content_data.fifth_in!='' || at_team_record_content_data.fifth_out!='' || at_team_record_content_data.fifth_in_mesg!='' || at_team_record_content_data.fifth_out_mesg!='' ">
+				<div >
+				
+				  <div style="float: left;height:50px;width:50%;position:relative;">
+                    <div>
+					<img ng-src="{{normal_time}}" alt="" style="width: 30px;height: 30px;margin-top: 10px;margin-left:10px;" ng-show="at_team_record_content_data.fifth_in_mesg!='加班'"/>
+					<img ng-src="{{ot_time}}" alt="" style="width: 30px;height: 30px;margin-top: 10px;margin-left:10px;" ng-show="at_team_record_content_data.fifth_in_mesg=='加班'"/>
+					<img ng-src="{{contract_management_directory1}}" alt="" style="width: 11px;margin-top: 0px;height: 17px;position:relative;top:-10px;"/>
+                    <span style="position: relative;top:-10px;color:#333;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;" ng-show='at_team_record_content_data.fifth_in!=""' ng-class="item.is_abnormal_in == '1'?'text_color':''">{{at_team_record_content_data.fifth_in}}
+
+					<div style="position:absolute;left:0px;bottom:-15px;font-size:12px;color:#b3b3b3;min-width:140px; font-weight:lighter;" ng-show="at_team_record_content_data.fifth_in_mesg=='休假'">(该时间段提交过休假申请)</div>
+					</span>
+					<span style="position: relative;top:-10px;color:#f44e4e;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;')" ng-show='at_team_record_content_data.fifth_in_mesg!="" && at_team_record_content_data.fifth_in=="" ' >{{at_team_record_content_data.fifth_in_mesg}}
+					</span>
+					
+					<span style="background-color:#f4a44e;color:white;font-size:12px;position:relative;top:-11;padding:1px 4px;border-radius:2px;line-height:12px;"  ng-show="at_team_record_content_data.fifth_in!='' && (at_team_record_content_data.fifth_in_mesg=='迟到' || at_team_record_content_data.fifth_in_mesg=='早退')">{{at_team_record_content_data.fifth_in_mesg}}</span>
+					<span style="background-color:#ff3b30;color:white;font-size:12px;position:relative;top:-11px;padding:1px 4px;border-radius:2px;line-height:12px;"  ng-show="at_team_record_content_data.fifth_in!='' && (at_team_record_content_data.fifth_in_mesg!='迟到' && at_team_record_content_data.fifth_in_mesg!='早退' && at_team_record_content_data.fifth_in_mesg!='')">{{at_team_record_content_data.fifth_in_mesg}}</span>
+                 
+					</div>
+				<!--
+					<div style="font-size:0.48rem;color:#ccc;height:70px;line-height:70px;margin-left:10px;" ng-show="item.not_card_time_in=='1'">
+					还未打卡
+					</div>
+					-->
+					<div style="width: 23px;height: 1px;border-bottom: 1px solid #ccc;position:absolute;top:24px;right:-12px;"></div>
+				 </div>
+
+                  <div style="float: left;height:50px;width:50%;">
+				  <div >
+                    <img ng-src="{{contract_management_directory1}}" alt="" style="width: 11px;margin-top: 13px;height: 17px;margin-left:25%;"/>
+                    <span style="position: relative;top:0px;color:#333;font-size:0.48rem;font-weight:500;margin-left:2px;position:relative;" ng-show='at_team_record_content_data.fifth_out!=""' ng-class="item.is_abnormal_out=='1'?'text_color':''">{{at_team_record_content_data.fifth_out}}
+					
+					<div style="position:absolute;right:-30px;bottom:-15px;font-size:12px;color:#b3b3b3;min-width:140px; font-weight:lighter;" ng-show="at_team_record_content_data.fifth_out_mesg=='休假'">(该时间段提交过休假申请)</div>
+					</span>
+					<span style="position: relative;top:0px;color:#ff3b30;font-size:0.48rem;font-weight:500;margin-left:2px;" ng-show='at_team_record_content_data.fifth_out=="" && at_team_record_content_data.fifth_out_mesg!="" '>{{at_team_record_content_data.fifth_out_mesg}}
+					</span>
+					<span style="background-color:#f4a44e;color:white;font-size:12px;position:relative;top:-1;padding:1px 4px;border-radius:2px;line-height:12px;"  ng-show="at_team_record_content_data.fifth_out!='' && (at_team_record_content_data.fifth_out_mesg=='迟到' || at_team_record_content_data.fifth_out_mesg=='早退')">{{at_team_record_content_data.fifth_out_mesg}}</span>
+					<span style="background-color:#ff3b30;color:white;font-size:12px;position:relative;top:-1px;padding:1px 4px;border-radius:2px;line-height:12px;"  ng-show="at_team_record_content_data.fifth_out!='' && (at_team_record_content_data.fifth_out_mesg!='迟到' && at_team_record_content_data.fifth_out_mesg!='早退' && at_team_record_content_data.fifth_out_mesg!='')">{{at_team_record_content_data.fifth_out_mesg}}</span>
+                </div>
+				<!--
+				<div style="font-size:0.48rem;color:#ccc;height:70px;line-height:70px;margin-left:25%;" ng-show="item.not_card_time_out=='1'">
+				还未打卡
+				</div>
+				-->
+		  		</div>
+				</div>	
+			
+			</div>
+			
+			
+			
+			<div ng-show="at_team_record_content_data.result_data.length!='0'">
+			<div style="height:44px;border-bottom:1px solid #f5f5f5;margin-top:10px; background-color:white;text-indent:12px;color:#333;font-size:0.4266666666667rem;line-height:44px;">考勤工时</div>
+			  <div style="overflow:hidden;background-color:white;">
+				
+				  <div style="float: left;width: 50%;border-bottom: 1px solid #f1f1f1;line-height:44px;height: 44px;color:#333;font-size:0.3733333333333rem;"  ng-class="$index%2=='0' ? 'border_cls' :'' " ng-repeat="item in at_team_record_content_data.result_data">
+				  <img ng-src="{{item.src}}" style="width:22px;height:22px;margin-left:12px;margin-right:12px;position:relative;top:7px;"> 
+				  <span>{{item.key}}</span> <span style="color:#666;font-size:0.3733333333333rem;margin-left:0px;">{{item.value}}</span></div>
+
+			  </div>
+			</div>
+			<div ng-show="at_team_record_content_data.card_data.length!='0'">
+			  <div style="height:44px;border-bottom:1px solid #f5f5f5;margin-top:10px; background-color:white;text-indent:12px;color:#333;font-size:0.4266666666667rem;line-height:44px;">打卡记录</div>
+				<div style="overflow:hidden;background-color:white;">                 
+				 <div style="float: left;width: 33.3333%;border-bottom: 1px solid #f1f1f1;line-height:44px;height: 44px;color:#666;font-size:0.3733333333333rem;"  ng-class="$index%2=='0' ? 'border_cls' :'' " ng-repeat="item in at_team_record_content_data.card_data">
+				  <img ng-src="{{item.src}}" style="width:18px;height:18px;margin-left:12px;margin-right:4px;position:relative;top:5px;">{{item.time}}<span style="color:#666;font-size:0.32rem;background-color:#72bdff;color:white;margin-left:4px;padding:0px 2px 0px 2px;border-radius:2px;" ng-show="item.app_status_name!=''" ng-click="at_team_record_content_offic_work_out(item.processs_instance,item.show_type,item.my_app_result,item.task_id)">{{item.app_status_name}}</span>
+				  </div>
+				</div>
+				</div>
+				<div style="background-color:white;border-bottom:1px solid #f5f5f5;margin-top:10px;" ng-repeat="item in at_team_record_content_data.lv_data" ng-click="at_team_record_content_leave(item.process_instance,item.show_type,item.my_app_result,item.task_id)">
+					<div style="height:44px;border-bottom:1px solid #f5f5f5; background-color:white;text-indent:12px;color:#333;font-size:0.4266666666667rem;line-height:44px;position:relative;" >休假单
+					<span style="position: absolute;right: 15px; font-size: 0.42666rem;" ng-class="item.process_instance=='0' ? 'gray_class' : 'blue_class' " >{{item.app_status_name}}   <img  style="width: 14px;height: 14px;position: relative;top:2px;" ng-src="{{arrowblue}}" ng-show="item.app_status_name!='已审批' && item.process_instance!='0'">  <img style="position: relative;top:2px;width: 14px;height: 14px;" ng-src="{{arroworange}}" ng-show="item.app_status_name=='已审批' && item.process_instance!='0'"></span> 
+					</div>
+					<div style="margin-top:20px;text-indent:12px;color:#333;font-size:0.4rem;">{{item.lv_code_name}}{{item.duration}}{{item.min_unit_name}}</div>
+					<div style="margin-top:10px;margin-bottom:20px; text-indent:12px;color:#555;font-size:0.4rem;">{{item.start_date_time}}至{{item.end_date_time}}</div>
+				</div>
+				
+				<!--
+				<div style="background-color:white;border-bottom:1px solid #f5f5f5;">
+				<!--	<div style="height:44px;border-bottom:1px solid #f5f5f5;margin-top:10px; background-color:white;text-indent:12px;color:#333;font-size:0.4266666666667rem;line-height:44px;position:relative;">外出单
+						<span style="position: absolute;right: 15px; font-size: 0.42666rem;color:#56b1ff;">待审批 <img style="width: 14px;height: 14px;position: relative;top:2px;" ng-src="img/icon/arrowblue.png" src="img/icon/arrowblue.png"> </span>
+					</div>
+					<div style="margin-top:20px;text-indent:12px;color:#333;font-size:0.4rem;">拜访还原美市场总监</div>
+					<div style="margin-top:10px; text-indent:12px;color:#555;font-size:0.4rem;">福田区福保街道新天CBC</div>
+					<div style="margin-top:10px;margin-bottom:20px; text-indent:12px;color:#555;font-size:0.4rem;">2016-09-14 11:00至2016-09-14 15:00</div>
+				</div>
+-->
+
+				<div style="background-color:white;border-bottom:1px solid #f5f5f5;margin-top:10px;" ng-repeat="item in at_team_record_content_data.out_data" ng-click="at_team_record_content_out(item.process_instance,item.show_type,item.my_app_result,item.task_id)">
+					<div style="height:44px;border-bottom:1px solid #f5f5f5; background-color:white;text-indent:12px;color:#333;font-size:0.4266666666667rem;line-height:44px;position:relative;">外出单
+					<span style="position: absolute;right: 15px; font-size: 0.42666rem;" ng-class="item.process_instance=='0' ? 'gray_class' : 'blue_class' ">{{item.app_status_name}}   <img style="width: 14px;height: 14px;position: relative;top:2px;" ng-src="{{arrowblue}}" ng-show="item.app_status_name!='已审批' && item.process_instance!='0'">  <img style="position: relative;top:2px;width: 14px;height: 14px;" ng-src="{{arroworange}}" ng-show="item.app_status_name=='已审批' && item.process_instance!='0'"></span> 
+					</div>
+					
+                    <div style="margin-top:20px;text-indent:12px;color:#333;font-size:0.4rem;" ng-show="item.reason!='拜访客户'" class="ng-hide">{{item.reason}}</div>
+					<div style="margin-top:20px;text-indent:12px;color:#333;font-size:0.4rem;" ng-show="item.reason=='拜访客户'" class="ng-hide" >拜访{{item.customers}}</div>
+					
+					
+					
+					<div style="margin-top:10px;margin-bottom:0px; text-indent:12px;color:#555;font-size:0.4rem;white-space: nowrap;text-overflow:ellipsis">{{item.location}}</div>
+					<div style="margin-top:0px;margin-bottom:20px; text-indent:12px;color:#555;font-size:0.4rem;">{{item.start_date_time}}至{{item.end_date_time}}</div>
+				</div>
+	  </ion-content>
+</ion-view>
+
+
+<!--
+<ion-view style="background-color:#f8f8f8;" title="团队考勤" ng-controller="atTeamRecordCtrl" hide-tab-bar id="at_team_record">
+<style>
+.checkbox input:after, .checkbox-icon:after{
+    width: 10px !important;
+    height: 5px !important;
+}
+#at_team_record .hide_checkbox{
+  display: none;
+}
+
+#at_team_record .show_checkbox{
+  display: inline-block;
+}
+.at_team_record_has_border {
+	border-left:1px solid #53afff;
+}
+#at_team_record .at_team_record_content {
+  top: 162px;
+
+}
+.platform-win32.platform-cordova #at_team_record .at_team_record_content {
+  top: 122px;
+}
+.platform-android.platform-cordova #at_team_record .at_team_record_content {
+  top: 142px;
+}
+#at_team_record .searchclass {
+  position: relative;
+  top: 0px;
+  z-index: 9999;
+  -webkit-transition: opacity .3s ease-in-out;
+  height: 0;
+  opacity: 0;
+  padding: 0px;
+}
+#at_team_record .searchclass.active {
+  height: 44px;
+  opacity: 1;
+  padding: 10.667px;
+  -webkit-transition: opacity .3s ease-in-out;
+}
+  #at_team_record .at_status_0{
+    width: 0;height: 0;border-top: 8px solid red;border-left: 10px solid transparent;position: absolute;top:0px;right:0px; display: none;
+  }
+#at_team_record .at_status_1{
+  width: 0;height: 0;border-top: 8px solid #f45555;border-left: 10px solid transparent;position: absolute;top:0px;right:0px;
+}
+#at_team_record .at_status_2{
+  width: 0;height: 0;border-top: 8px solid #8ae29f;border-left: 10px solid transparent;position: absolute;top:0px;right:0px;
+}
+#at_team_record .at_status_3{
+  width: 0;height: 0;border-top: 8px solid #85bcf3;border-left: 10px solid transparent;position: absolute;top:0px;right:0px;
+}
+#at_team_record .at_status_4{
+  width: 0;height: 0;border-top: 8px solid #ba91f7;border-left: 10px solid transparent;position: absolute;top:0px;right:0px;
+}
+#at_team_record .at_status_5{
+  width: 0;height: 0;border-top: 8px solid #e2e446;border-left: 10px solid transparent;position: absolute;top:0px;right:0px;
+}
+#at_team_record .at_status_6{
+  width: 0;height: 0;border-top: 8px solid #f4a44e;border-left: 10px solid transparent;position: absolute;top:0px;right:0px;
+}
+#at_team_record .at_status_7{
+  width: 0;height: 0;border-top: 8px solid red;border-left: 10px solid transparent;position: absolute;top:0px;right:0px;
+}
+#at_team_record .at_status_8{
+  width: 0;height: 0;border-top: 8px solid red;border-left: 10px solid transparent;position: absolute;top:0px;right:0px;
+}
+  .at_team_record_repeat_first{
+    padding-top: 98px;
+  }
+</style>
+
+  <ion-nav-buttons side="right">
+
+  </ion-nav-buttons>
+  <ion-header-bar class="bar-subheader" style="height:98px;padding:0px;background-color: #f8f8f8;width: 100%;" id="at_team_record_animate">
+    <div style="font-size: 16px;background-color: white;height: 44px;line-height: 44px;">
+      <img style="width: 25px;height: 25px;position: relative;top:7px;margin-left: 10px;" ng-src="{{img_at_team_record_icon}}"> <span id="target_date1" style="margin: -3px auto;background-color:#fff;font-size:17px;color:#53afff; border:0;line-height: 35px;" ng-click="target_date()" ></span>
+		<div style="float:right">
+        	<div ng-click="at_team_record_path()" style=" float:right;">
+            	<i class="icon ion-ios-arrow-right" style="margin-right: 12px;font-size: 20px;color: #ccc;"></i>
+            </div>
+        	<div style=" float:right; margin-right:12px;" ng-click="at_team_record_path()" class="">
+            	<i id="at_team_record_clear_filter_checkmark" class="ion-ios-checkmark" style="display: none; color:#07b237;font-size:18px;"></i>
+                <div id="at_team_record_clear_filter_text" style="font-size:14px; color:#999; float:right; margin-left:3px;">筛选</div>
+            </div>
+            <div ng-click="at_team_record_clear_filter()" id="at_team_record_clear_filter" style="display:none; float:right; margin-right:12px;">
+            	<i class="ion-ios-close" style=" color:#bfbfbf;font-size:18px;"></i>
+                <div style="font-size:14px; color:#333; float:right; margin-left:3px;">清除</div>
+            </div>
+            <div></div>
+        </div>
+
+    </div>
+    <div style="margin-top: 10px;background-color: white;border-bottom: 1px solid #f5f5f5;height: 44px;" >
+      <div style="float:left;padding-left: 12px; padding-top: 10px;" ng-click="toggle_leakage_card()">
+        <div style="width: 11px;height: 11px;background-color: #f45555;float: left;margin-top:5px;"></div>
+        <div  style="font-size:12px; color:#333; float:left; margin-left:2px;">漏卡</div>
+      </div>
+      <div style="float:left;padding-left: 6px;padding-top: 10px;" ng-click="toggle_late()">
+        <div style="width: 11px;height: 11px;background-color: #e2e446;float: left;margin-top:5px;"></div>
+        <div  style="font-size:12px; color:#333; float:left; margin-left:2px;">迟到</div>
+      </div>
+      <div style="float:left;padding-left: 6px;padding-top: 10px;" ng-click="toggle_leave_early()">
+        <div style="width: 11px;height: 11px;background-color: #f4a44e;float: left;margin-top:5px;"></div>
+        <div style="font-size:12px; color:#333; float:left; margin-left:2px;">早退</div>
+      </div>
+      <div style="float:left;padding-left: 6px;padding-top: 10px;" ng-click="toggle_leave()">
+        <div style="width: 11px;height: 11px;background-color: #85bcf3;float: left;margin-top:5px;"></div>
+        <div  style="font-size:12px; color:#333;float:left; margin-left:2px;">休假</div>
+      </div>
+      <div style="float:left;padding-left: 6px;padding-top: 10px;" ng-click="toggle_outdoor()">
+        <div style="width: 11px;height: 11px;background-color: #ba91f7;float: left;margin-top:5px;"></div>
+        <div  style="font-size:12px; color:#333; float:left; margin-left:2px;">外出</div>
+      </div>
+
+      <div style="float:left;padding-left: 6px;padding-top: 10px;" ng-click="toggle_overtime()">
+        <div style="width: 11px;height: 11px;background-color: #8ae29f;float: left;margin-top:5px;"></div>
+        <div style="font-size:12px; color:#333; float:left;margin-left:2px;">加班</div>
+      </div>
+
+     </div>
+  </ion-header-bar>
+
+<ion-content class="at_team_record_content" on-drag-down="onDragDown()" on-drag-up="onDragUp()" has-bouncing="true" overflow-scroll="false">
+
+
+  <div ng-show="atTeamRecordData.data_ready && atTeamRecordData.length==0  && (search_control.search_val==''&& search_control.at_status=='')" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+
+
+  <div ng-show="filterItems.length==0 && (search_control.search_val!=''||search_control.at_status!='')" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+  <div ng-click="view_detail(item.employee_name,item.staff_no,item.employee_no)" class="at_team_record_repeat_div" style="width: 100%;min-height: 70px;border-bottom: 1px solid #f5f5f5;background-color: white;overflow: hidden;padding-bottom:15px;" ng-repeat="item in filterItems=(atTeamRecordData|filter:atStatusFilter)">
+    <div style="float: left;width: 140px;height: 100%;padding-left: 10px;margin-top: 12px;">
+      <div style="width: 50px;height: 50px;border-radius: 150px;overflow: hidden;float: left;">
+        <img ng-src="{{item.empl_img}}" alt="" style="width: 50px;height: 50px;"/>
+      </div>
+      <div style="float: left;margin-left: 7px;margin-top: 5px;width: 68px;">
+        <p style="color: #333;font-size: 16px;text-align: left">{{item.employee_name}}</p>
+        <p style="color: #999;font-size: 12px;text-align: left">{{item.policy_name}}</p>
+      </div>
+    </div>
+    <div style="height: 100%;min-height:70px;margin-left: 140px;">
+<div class="at_team_record_content_div"  style="overflow: hidden;width:100%;float:right;margin-right:6px;padding-top:15px;text-align: left;" ng-show="item.other_mesg==''">
+
+      <span style="margin-left: 0px;display:inline-block; color: #666; font-size:12px;padding-top: 1px;padding-bottom: 1px;" ng-show="item.first_in!=''||item.first_out!=''">
+        <img ng-src="{{img_contract_management_directory1}}" alt="" style="float: left;width: 11px;height: 17px;margin-top: -3px;">
+        <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;position: relative;" ng-show="item.first_in!=''">{{item.first_in}}<div class="{{item.at_status[0]}}"></div></div>
+        <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;margin-left: 3px;position: relative" ng-show="item.first_out!=''">{{item.first_out}}<div class="{{item.at_status[1]}}"></div></div>
+      </span>
+      <span style="margin-left: 0px;display:inline-block; color: #666; font-size:12px;padding-top: 1px;padding-bottom: 1px;" ng-show="item.second_in!=''||item.second_out!=''">
+        <img ng-src="{{img_contract_management_directory1}}" alt="" style="float: left;width: 11px;height: 17px;margin-top: -3px;">
+        <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;position: relative"  ng-show="item.second_in!=''">{{item.second_in}}<div class="{{item.at_status[2]}}"></div></div>
+        <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;margin-left: 3px;position: relative"  ng-show="item.second_out!=''">{{item.second_out}}<div class="{{item.at_status[3]}}"></div></div>
+      </span>
+  <span style="margin-left: 0px;display:inline-block; color: #666; font-size:12px;padding-top: 3px;padding-bottom: 3px;" ng-show="item.third_in!=''||item.third_out!=''">
+    <img ng-src="{{img_contract_management_directory1}}" alt="" style="float: left;width: 11px;height: 17px;margin-top: -3px;">
+    <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;position: relative" ng-show="item.third_in!=''">{{item.third_in}}<div class="{{item.at_status[4]}}"></div></div>
+    <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;margin-left: 3px;position: relative" ng-show="item.third_out!=''">{{item.third_out}}<div class="{{item.at_status[5]}}"></div></div>
+  </span>
+  <span style="margin-left: 0px;display:inline-block; color: #666; font-size:12px;padding-top: 3px;padding-bottom: 3px;" ng-show="item.forth_in!=''||item.forth_out!=''">
+    <img ng-src="{{img_contract_management_directory1}}" alt="" style="float: left;width: 11px;height: 17px;margin-top: -3px;">
+    <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;position: relative" ng-show="item.forth_in!=''">{{item.forth_in}}<div class="{{item.at_status[6]}}"></div></div>
+    <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;margin-left: 3px;position: relative" ng-show="item.forth_out!=''">{{item.forth_out}}<div class="{{item.at_status[7]}}"></div></div>
+  </span>
+  <span style="margin-left: 0px;display:inline-block; color: #666; font-size:12px;padding-top: 3px;padding-bottom: 3px;" ng-show="item.fifth_in!=''||item.fifth_out!=''">
+    <img ng-src="{{img_contract_management_directory1}}" alt="" style="float: left;width: 11px;height: 17px;margin-top: -3px;">
+    <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;position: relative" ng-show="item.fifth_in!=''">{{item.fifth_in}}<div class="{{item.at_status[8]}}"></div></div>
+    <div style="float: left;border: 1px solid #eeeeee;width: 43px;height: 18px;line-height: 18px;text-align: center;margin-left: 3px;position: relative" ng-show="item.fifth_out!=''">{{item.fifth_out}}<div class="{{item.at_status[9]}}"></div></div>
+  </span>
+  </div>
+      <div class="at_team_record_other_msg_div" style="overflow: hidden;width:100%;float:right;margin-right:12px;padding-top:10px;padding-bottom:10px;text-align: center;color: #666" ng-show="item.other_mesg!=''">{{item.other_mesg}}</div>
+    </div>
+    
+  </div>
+
+
+    </ion-content>
+
+</ion-view>
+-->
+

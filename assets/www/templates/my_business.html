@@ -1,0 +1,81 @@
+﻿<ion-view  style="background-color:#f8f8f8;" title="我的企业" ng-controller="MyBusinessCtrl" hide-tab-bar>
+  <style>
+
+    .item-select:after{
+      display: none;
+    }
+
+    .block_wrapper{
+        height: 44px;
+        display:flex;
+        align-items:center;
+        background-color: white;
+        padding-left: 12px;
+    }
+
+    .block_content{
+        flex:1;
+        height: 100%;
+        display:flex;
+        align-items:center;
+        margin-left:10px;
+        justify-content:space-between;
+        border-bottom:1px solid #f5f5f5;
+        padding-right: 12px;
+    }
+    .block_left,
+    .block_right{
+        display:flex;
+        align-items:center;
+    }
+
+    .vip_status{
+        font-size:14px;
+        color: #c9cdd2;
+        margin-left:10px;
+    }
+  </style>
+
+  <ion-content has-bouncing="true" overflow-scroll="false">
+
+
+    <div class="block_wrapper">
+        <img ng-src="{{business_icon}}" alt="" style="width: 22px;height: 22px;">
+        <div class="block_content">
+            <div class="block_left">
+                <div style="font-size: 16px;color: #333;">{{staff_master_details.company_name}}</div>
+            </div>
+            <div class="block_right">
+                <img ng-src="{{enterprise_condition_icon}}" alt="" style="width: 22px;height: 22px;">
+                <div class="vip_status" id="vip_status">未认证</div>
+            </div>
+        </div>
+    </div>
+    <!-- <div style="height: 44px;background-color: white;border-top: 1px solid #fff;margin-top: 10px;position: relative;overflow: hidden;" >
+      <img ng-src="{{business_icon}}" alt="" style="width: 22px;height: 22px;float: left;margin-left: 12px;margin-top: 11px;">
+      <div style="font-size: 16px;color: #333;text-indent: 12px;line-height: 44px;">{{staff_master_details.company_name}}</div>
+      <div style="width: 100%;height: 1px;border-top: 1px solid #f5f5f5;position: absolute;left: 46px;bottom: 0px;"></div>
+    </div> -->
+    
+    <div style="height: 44px;background-color: white;position: relative;overflow: hidden"  class="">
+      <img ng-src="{{department_icon}}" alt="" style="width: 22px;height: 22px;float: left;margin-left: 12px;margin-top: 11px;">
+      <div style="font-size: 16px;color: #333;text-indent: 12px;line-height: 44px;">{{staff_master_details.dept_name}}</div>
+      <div style="width: 100%;height: 1px;border-top: 1px solid #f5f5f5;position: absolute;left: 46px;bottom: 0px;"></div>
+    </div>
+    <div style="height: 44px;background-color: white;position: relative;overflow: hidden;border-bottom: 1px solid #fff" class="">
+      <img ng-src="{{position_icon}}" alt="" style="width: 22px;height: 22px;float: left;margin-left: 12px;margin-top: 11px;">
+      <div style="font-size: 16px;color: #333;text-indent: 12px;line-height: 44px;">{{staff_master_details.position_name}}</div>
+    </div>
+
+    <div style="height: 44px;background-color: white;border-bottom: 1px solid #fff;border-top: 1px solid #fff;margin-top: 10px;" ng-click="my_business()">
+      <img ng-src="{{join_data_icon}}" alt="" style="width: 22px;height: 22px;float: left;margin-left: 12px;margin-top: 11px;">
+      <div style="font-size: 16px;color: #333;text-indent: 12px;line-height: 44px;">{{staff_master_details.join_date}} 至 {{staff_master_details.probation_complete_date}}</div>
+    </div>
+
+
+  </ion-content>
+</ion-view>
+
+
+
+

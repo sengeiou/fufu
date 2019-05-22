@@ -1,0 +1,47 @@
+
+<ion-view style="background-color:#f8f8f8;" title="更改用户名" hide-tab-bar>
+  <ion-content ng-controller="changeUsernameCtrl" has-bouncing="true" overflow-scroll="false">
+
+    <div class="list  list-inset" style="margin-top:10px;">
+		<label class="item item-input">
+			<span class="input-label" style="color: #666666;">旧密码</span>
+			<input id="change_username_password" type="password" ng-model="change_user_data.old_pwd" />
+		</label>
+    </div>
+
+    <div class="list  list-inset" style="margin-top:10px;">
+     <label class="item item-input">
+        <input id="change_username_tel_no" type="text" placeholder="新手机号" ng-model="change_user_data.tel_no" style="width:100%;">
+     </label>
+     <label class="item item-input">
+        <label class="col-60">
+        <input id="change_username_valid_code" type="text" placeholder="验证码"  ng-model="change_user_data.valid_code" style="width:100%;">
+      </label>
+      <label  class="col-40" style="margin-left:18px;">
+        <button class="button button-small button-positive" style="min-height:20px;width:80%;height:32px;" id="change_username_send_vcode_button" ng-click="changeUsernameSendVCode()">点击获取</button>
+      </label>
+     </label>
+    </div>
+
+
+
+    <div id="change_username_send_vcode_message" style="display: none; text-align:left;padding-left:12px;font-size: 12px;color:#999;line-height:24px;height:24px;margin-bottom:10px">
+    <i class="ion-ios-checkmark" style=" color:#22ac38; margin-top:4px;"></i>
+      验证码已发送到您的手机，2分钟输入有效，请勿泄露。
+    </div>
+
+
+    <div class="list" style="margin:0px 10px;">
+
+    </div>
+
+    <div class="padding">
+      <button class="button button-block button-dark" style="margin-top:10px; background-color:#53afff;" id="_change_username_action" ng-click="changeUsernameAction()">
+        确认绑定
+      </button>
+    </div>
+
+
+    <div ng-hide="change_user_data._flag" style="margin-top:-10px;z-index:100;height:44px;width:100%;color:white;text-align:center;line-height:44px;background-color:#ff6666;opacity:.9;top:0;position:fixed;">{{change_user_data._message}}</div>
+  </ion-content>
+</ion-view>

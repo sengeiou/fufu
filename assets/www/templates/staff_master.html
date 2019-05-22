@@ -1,0 +1,69 @@
+ 
+<ion-view id="staff_master_view" style="background-color:#f8f8f8;" title="{{staff_data.title}}" ng-controller="staffMsCtrl"   ng-click="closeOptions()" hide-tab-bar>
+<style>
+    #staff_master_view #leave_balance_team_record_content {
+      top: 112px;
+    }
+    .platform-win32.platform-cordova #staff_master_view #leave_balance_team_record_content {
+      top: 92px;
+    }
+    .platform-android.platform-cordova #staff_master_view #leave_balance_team_record_content {
+      top: 92px;
+    }
+</style>
+    <ion-nav-buttons side="right">
+      <!--<button class="button button-clear button-light button-icon ion-ios-more" ng-click="openPopover($event);"><img style="margin-top:10px;float:left;width:22px;height:22px;" ng-src="{{img_empl_on_the_job_staff}}" /></button>-->
+    <img ng-src="{{icon_filter}}" style="width: 24px;height:24px;margin:5px;" ng-click="openPopover($event);" alt=""/>
+    </ion-nav-buttons>
+	
+<ion-header-bar class="bar-subheader" style="height:46px;padding:0px;width: 100%; background-color:#f8f8f8; background-image:none;" >
+	<div class="list" style="margin:10px 12px;">
+        <label class="item item-input" style="border-radius:4px;height:30px;background-color:#fff;border:none;" clear-value-box>
+          <i class="icon ion-ios-search-strong placeholder-icon"></i>
+          <input type="text" placeholder="搜索姓名、工号、职位..." ng-model="search_control.search_val" clear-value-input>
+          <div clear-value-btn style="position: absolute; right: 10px; font-size: 16px; margin-right: 2px; top: 0px;height: 30px; line-height: 30px;color: #cccccc;"></div>
+        </label>
+      </div>
+</ion-header-bar>
+    <ion-content has-bouncing="true" overflow-scroll="false" id="staff_master_content">
+      
+      <ion-list>
+        <div ng-show="staff_data.data_ready && search_control.search_val=='' && (staff_data.e_c[_flag-1]==0 || staff_data.e_d.length == 0) " style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+        <div ng-show="filterItems.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+        <ion-item class="item-avatar-left"  ng-click="loadStaffDetails(item.em)" collection-repeat="item in filterItems=(staff_data.e_d|dataAndFilter:'st,en,pn':search_control.search_val|filter:{'fg':_flag})" style="position: relative">
+            <img ng-src="{{item.img}}">
+            <div>
+              <span>{{item.en}}</span>&nbsp;&nbsp;
+              <span style="font-size:12px;color:#666">工号:{{item.st}}</span>
+            </div>
+            <!--已离职-->
+            <div style="float:right;position: absolute;right: 30px;top: 16px;" class="" ng-if="item.flag_chart == 2">
+        		<img style="width:70px; height:45px;" ng-src="{{employee_resign_terminated}}">
+        	</div>
+            <!--已离职-->
+            <!--待离职-->
+            <div style="float:right;position: absolute;right: 30px;top: 16px;" class="" ng-if="item.flag_chart == 1">
+        		<img style="width:70px; height:45px;" ng-src="{{employee_resign_pending}}">
+        	</div>
+            <!--待离职-->
+            <p style="font-size:12px;color:#808080">{{item.pn}}</p>
+            <ion-option-button class="icon button-calm" ng-disabled="item.fg.indexOf('4')!=-1" ng-hide="staff_data.e_t.m_s==0" ng-click="loadStaffDetails('empl_payroll_adjust',item.em)"><img ng-src="{{empl_change_a_salary}}" style="width:22px;height:22px;"/>&nbsp;调薪</ion-option-button>
+            <ion-option-button class="icon button-energized" ng-disabled="item.fg.indexOf('4')!=-1" ng-hide="staff_data.e_t.a==0" ng-click="loadStaffDetails('empl_at_roster',item.em)"><img ng-src="{{empl_scheduling}}" style="width:22px;height:22px;"/>&nbsp;排班</ion-option-button>
+            <ion-option-button class="icon button-assertive" ng-disabled="item.fg.indexOf('4')!=-1" ng-hide="staff_data.e_t.s==0" ng-click="loadStaffDetails('empl_payroll_master',item.em)"><img ng-src="{{empl_wages}}" style="width:22px;height:22px;"/>&nbsp;工资</ion-option-button>
+
+        </ion-item>
+      </ion-list>
+
+    </ion-content>
+
+  <script id="staff-master-popover.html" type="text/ng-template">
+    <ion-popover-view class="light padding pop-style" style="background-color:white;width:auto;height:auto;margin-top:20px;">
+      <p><i class="button button-full button-light" style="border-bottom:1px solid #f8f8f8;text-align: left;font-size: 14px;" ng-click="filterStaff('1',staff_data.e_action.f0)"><img style="margin-top:10px;float:left;width:22px;height:22px;margin-right: 3px;" ng-src="{{empl_on_the_job_staff}}" />{{staff_data.e_action.f0}}</i></p>
+      <p><i class="button button-full button-light" style="border-bottom:1px solid #f8f8f8;text-align: left;font-size: 14px;" ng-click="filterStaff('2',staff_data.e_action.f1)"><img style="margin-top:10px;float:left;width:22px;height:22px;margin-right: 3px;" ng-src="{{empl_post_this_month}}" />{{staff_data.e_action.f1}}</i></p>
+      <p><i class="button button-full button-light" style="border-bottom:1px solid #f8f8f8;text-align: left;font-size: 14px;" ng-click="filterStaff('3',staff_data.e_action.f2)"><img style="margin-top:10px;float:left;width:22px;height:22px;margin-right: 3px;" ng-src="{{empl_leave_this_month}}" />{{staff_data.e_action.f2}}</i></p>
+      <p><i class="button button-full button-light" style="border-bottom:1px solid #f8f8f8;text-align: left;font-size: 14px;" ng-click="filterStaff('4',staff_data.e_action.f3)"><img style="margin-top:10px;float:left;width:22px;height:22px;margin-right: 3px;" ng-src="{{empl_leave_employee}}" />{{staff_data.e_action.f3}}</i></p>
+      <p><i class="button button-full button-light"style="border-bottom:1px solid #f8f8f8;text-align: left;font-size: 14px;"  ng-click="filterStaff('',staff_data.e_action.f4)"><img style="margin-top:10px;float:left;width:22px;height:22px;margin-right: 3px;" ng-src="{{empl_all_staff}}" />{{staff_data.e_action.f4}}</i></p>
+    </ion-popover-view>
+  </script>
+
+</ion-view>

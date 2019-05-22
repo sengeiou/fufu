@@ -1,0 +1,169 @@
+<ion-view view-title="" hide-nav-bar="true" hide-tab-bar ng-controller="selectCityCtrl" ng-class="{'select_type':!isSelect}">
+
+    <style type="text/css">
+    #sideSelectList{
+        top: {{indexsToContentHeight}}px;
+        width: 24px;
+        text-align: center;
+        position: absolute;
+        right: 0;
+        color: #458AFF;
+    }
+    #sideSelectList > div{
+        width:100%;
+        font-size: 11px;
+        line-height: 14px;
+        height: 14px;
+        color: #333333;
+    }
+    .select_city_abc{
+        font-size: 12px;
+        color: #999999;
+        background:#F5F5F5;
+        line-height: 25px;
+    }
+    .select_city_abc,
+    .select_city_data{
+        padding-left: 12px;
+    }
+    .select_city_data{
+        padding-right: 24px;
+        background-color: white;
+    }
+    .select_city_data > .select_city_border:nth-last-child(1){
+        border-bottom: none;
+    }
+    .select_city_border{
+        line-height: 45px;
+        border-bottom: 1px solid #e0e0e0;
+        font-size: 16px;
+        color: #333333;
+    }
+    .city-hint{
+        position:fixed;left:47%;top:47%;width:40px;height:40px;background:#ddd;display:flex;justify-content:center;align-items:center;font-size:20px;color:#262626;
+    }
+    .common_city_box{
+        background-color: white;
+        padding: 14px 12px 11px 12px;
+    }
+
+    .common_city_box ul{
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+
+    }
+    .common_city_box ul li{
+        width: 30%;
+        margin-right: 5%;
+        background-color: #f3f4f5;
+        border-radius: 2px;
+        color: #333333;
+        font-size: 16px;
+        line-height: 30px;
+        text-overflow:ellipsis;
+        overflow:hidden;
+        white-space:nowrap;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .common_city_box ul li:nth-child(3n){
+        margin-right: 0;
+    }
+    .common_city_title{
+        margin-bottom: 14px;
+        font-size: 15px;
+        color: #333333;
+    }
+    </style>
+
+    <ion-header-bar align-title="center" class="bar-opacity" >
+        <div class="buttons" back-icon-transition>
+            <a ng-click="back()">
+                <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+            </a>
+        </div>
+
+        <h1 class="title">
+            <span ng-bind="title_text"></span>
+        </h1>
+
+        <div class="buttons">
+            <i class="r-icon r-black_search_icon disable-user-behavior" on-tap="openSearchPopover($event);"></i>
+            <i class="r-icon r-black_add_icon disable-user-behavior ng-hide" ng-show="{{isAdmin}}" on-tap="addCity()"></i>
+        </div>
+    </ion-header-bar>
+    
+
+    <ion-content scroll="true" >
+         <div class="common_city_box ng-hide" ng-show="commonCity.length">
+            <div class="common_city_title">最近常用</div>
+            <ul>
+                <li ng-repeat="city_item in commonCity" ng-bind="city_item.name" ng-click="selectCity(city_item.cid,city_item.name)"></li>
+            </ul>
+         </div>
+         <div>
+            <div id="city_{{d.initData}}" class="city_abc_box" ng-repeat="d in cityDatas">
+                <div class="select_city_abc" ng-bind="d.initData"></div>
+                <div class="select_city_data">
+                    <div class="select_city_border" ng-repeat="city in d.datas" ng-click="selectCity(city.zoneCityId,city.zoneCity,city.is_deleted)" >
+                        <span ng-bind="city.zoneCity"></span>
+                        <i ng-hide="!city.is_deleted" class="icon ion-ios-arrow-right" style="float:right;margin-right: 6px;font-size: 20px;color: #ccc;"></i>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </ion-content>
+    
+    <div id="sideSelectList" on-touch="drag($event)" on-drag="drag($event)"> 
+        <div ng-repeat="c in indexs" ng-bind="c"></div> 
+    </div>
+
+    <div ng-show="showMiddle" class="city-hint" ng-bind="hint"></div>
+
+    <script id="search-city-popover.html" type="text/ng-template">
+      <div class="search-popover" ng-class="{'isSearchStr':searchObj.str.length}">
+        <ion-header-bar>
+          <h1 class="title" id="search-ai-device-h1">
+            <div clear-value-box style="right: 34px;left: 2px;">
+                <i class="icon ion-ios-search-strong placeholder-icon"></i>
+                <input id="aiSearchIpt" type="text" placeholder="搜索城市名称..." ng-model="searchObj.str" clear-value-input>
+                <i clear-value-btn></i>
+            </div>
+            
+          </h1>
+
+          <div class="buttons" on-tap="closeSearchPopover()">
+            取消
+          </div>
+        </ion-header-bar>
+        
+        <div class="search-msg-bar" on-tap="search()">
+            <i class="r-icon r-search-bar-icon"></i>
+            <div class="search-msg-text">搜索“<span ng-bind="searchObj.str"></span>”</div>
+            <i class="icon ion-ios-arrow-right"></i>
+        </div>
+
+        <ion-content  has-bouncing="true" overflow-scroll="false" delegate-handle="citySearchScroll">
+            
+            <div class="ng-hide search-device-icon-box" ng-show="!searchObj.list.length && searchObj.state">
+                <img ng-src="{{local_resource + 'resource/def/def_s_.png'}}" >
+                <div>暂无城市</div>
+            </div>
+
+            <div class="ng-hide search-device-icon-box" ng-show="!searchObj.state">
+                <img ng-src="{{local_resource + 'resource/def/def_s_.png'}}" >
+                <div>搜索城市</div>
+            </div>
+
+            <div class="ng-hide select_city_data" ng-show="searchObj.list.length">
+                <div class="select_city_border" ng-repeat="item in searchObj.list" on-tap="selectSearchCity(item.zoneCityId,item.zoneCity, item.is_deleted)">
+                    <span ng-bind="item.zoneCity"></span>
+                    <i ng-hide="!item.is_deleted" class="icon ion-ios-arrow-right" style="float:right;margin-right: 6px;font-size: 20px;color: #ccc;"></i>
+                </div>
+            </div>
+
+        </ion-content>
+      </div>
+    </script>
+</ion-view>

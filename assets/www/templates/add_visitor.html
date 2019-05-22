@@ -1,0 +1,257 @@
+
+<ion-view style="background-color:#f8f8f8;" hide-nav-bar="true" hide-back-button="true" title='添加访客' hide-tab-bar ng-controller="addVisitorCtrl">
+
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" style="color:#333"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span>添加访客</span>
+        </h1>
+
+        <div class="buttons ng-hide" style="color:#333;line-height:40px;font-size:14px;"  ng-click="add_access_group_save()">
+           保存
+        </div>
+	</ion-header-bar>
+<style>
+    .add_visitor_popup .popup-body{
+      margin-bottom: 0px !important;
+	  padding-top:25px;
+	  padding-bottom:25px;
+    }
+    .add_visitor_popup .popup{
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      border: none !important;
+	  border-radius: 12px !important;
+	  border-bottom-right-radius: 10px !important;
+	  border-bottom-left-radius: 10px !important;
+	  
+    }
+    .add_visitor_popup .popup-head{
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      border: none !important;
+    }
+    .add_visitor_popup .popup-buttons{
+      border-top:1px solid #f5f5f5;
+
+    }
+    .add_visitor_popup .button-dark{
+      border-right:1px solid #f5f5f5;
+      
+    }
+	
+	.add_visitor_popup .button-positive span{
+		color:#53afff !important;
+	} 
+    .add_visitor_popup .button-dark{
+      color: #333 !important;
+    }
+    .add_visitor_popup .popup{
+      width:7.2rem !important;
+      /*border-radius: 10px;*/
+    }
+	.gar_col{
+		color:rgb(204,204,204);
+	}
+	.dark_col{
+		color:#333;
+	}
+	
+	
+   #notify_list_div.notify_list_active .ng-leave {
+    -webkit-transition: .3s;
+    transition: .3s;
+    opacity: 1;
+  }
+
+   #notify_list_div.notify_list_active .ng-leave-active {
+    opacity: 0;
+  }
+
+   #approver_list_div.approver_list_active .ng-leave {
+    -webkit-transition: .3s;
+    transition: .3s;
+    opacity: 1;
+  }
+
+   #approver_list_div.approver_list_active .ng-leave-active {
+    opacity: 0;
+  }
+  
+  
+#visitor_name::-webkit-input-placeholder{
+     color:rgb(204,204,204)
+
+}
+#visitor_phone::-webkit-input-placeholder{
+     color:rgb(204,204,204)
+
+}
+	
+</style>
+    <ion-nav-buttons side="left">
+      <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" ng-click="back();"></button>
+    
+    </ion-nav-buttons>
+
+
+  <ion-content  has-bouncing="true" overflow-scroll="false" style="bottom:44px;" >
+	<div style="font-size:16px;">
+		<div style="height:44px;overflow:hidden;width: 100%;background-color: #fff;overflow: hidden;vertical-align:middle;border-top: 0px solid #f5f5f5;margin-top:10px;" ng-click="essLvPolicy()">
+		  <div style="float:left;width:98px;">
+			<label style=" color:rgb(51,51,51);font-size:16px; margin-left:12px; line-height:44px;" >姓名</label>
+		  </div>
+		  <div style="float:left;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;max-width:180px;">
+				<input id="visitor_name" type="text" style="height:44px;color:rgb(51,51,51);font-size:16px;margin-top:1px; " ng-change="name_change()" ng-model='model_name' placeholder="请输入访客姓名">
+		  </div>
+
+		</div>
+		<div style=" height:44px;overflow:hidden;width: 100%;background-color: #fff;overflow: hidden;vertical-align:middle;border-top: 1px solid #f5f5f5;" ng-click="essLvPolicy()">
+		  <div style="float:left;width:98px;">
+			<label style="font-size:16px; color:rgb(51,51,51); margin-left:12px; line-height:44px;margin-top:1px;" >电话</label>
+		  </div>
+		  <div style="float:left;">
+				<input id="visitor_phone" type="text" style="height:44px;font-size:16px;  max-width:180px;color:rgb(51,51,51)" ng-change="phone_change()" ng-model='model_phone' placeholder="请输入访客电话">
+		  </div>
+
+		</div>
+		
+		<div style="height:44px;overflow:hidden;width: 100%;background-color: #fff;border-bottom:0px solid #f5f5f5;overflow: hidden;vertical-align:middle;border-top: 1px solid #f5f5f5; margin-top:10px;" ng-click="show_start_date($event)">
+		  <div style="float:left;width:98px;">
+			<label style="font-size:16px; color:rgb(51,51,51); margin-left:12px; line-height:44px">开始日期</label>
+		  </div>
+		  <div style="float:left;">
+			<div  style="margin-right:9px; color:rgb(204,204,204); line-height:44px;display: inline-block; font-size:16px;max-width:180px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;" class="ng-binding" id="start_date_str">请选择开始日期</div>
+
+		  </div>
+			<div style="float:right;">
+			  <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:44px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+			</div>		  
+		</div>
+		<div style=" height:44px;overflow:hidden;width: 100%;background-color: #fff;border-bottom:0px solid #f5f5f5;overflow: hidden;vertical-align:middle;border-top: 1px solid #f5f5f5; margin-top:0px;" ng-click="show_end_date()">
+		  <div style="float:left;width:98px;">
+			<label style="font-size:16px; color:rgb(51,51,51); margin-left:12px; line-height:44px">结束日期</label>
+		  </div>
+		  <div style="float:left;">
+			<div  style="margin-right:9px; color:rgb(204,204,204); line-height:44px;display: inline-block; font-size:16px;max-width:180px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;" class="ng-binding" id="end_date_str">请选择结束日期</div>
+
+		  </div>
+			<div style="float:right;">
+			  <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:44px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+			</div>		  
+		</div>
+		<div style=" height:44px;overflow:hidden;width: 100%;background-color: #fff;border-bottom:0px solid #f5f5f5;overflow: hidden;vertical-align:middle;border-top: 1px solid #f5f5f5; margin-top:0px;">
+		  <div style="float:left;width:98px;">
+			<label style="font-size:16px; color:rgb(51,51,51); margin-left:12px; line-height:44px">访问时间</label>
+		  </div>
+		  <div style="float:left;">
+			<div  style="margin-right:9px; color:rgb(204,204,204); line-height:44px;display: inline-block; font-size:16px;max-width:180px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap; max-width:80px;text-align:center;" ng-click="show_start_time()"  id="start_time_str" class="ng-binding">开始时间</div>
+			<div  style="margin-right:9px; color:rgb(204,204,204); line-height:44px;display: inline-block; font-size:16px;max-width:180px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap; max-width:80px;text-align:center;margin-left:20px;" ng-click="show_end_time()" id="end_time_str" class="ng-binding">结束时间</div>
+		  </div>
+			<div style="float:right;">
+			  <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:44px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+			</div>		  
+		</div>
+		
+		<div style=" height:44px;overflow:hidden;width: 100%;background-color: #fff;border-bottom:0px solid #f5f5f5;overflow: hidden;vertical-align:middle;border-top: 1px solid #f5f5f5; margin-top:10px;" ng-click="add_visitor_first_picklist()">
+		  <div style="float:left;width:98px;">
+			<label style="font-size:16px; color:rgb(51,51,51); margin-left:12px; line-height:44px">访客事由</label>
+		  </div>
+		  <div style="float:left;">
+			<div  style="margin-right:9px;color:rgb(204,204,204); line-height:44px;display: inline-block; font-size:16px;max-width:180px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;" id="visitor_reason" class="ng-binding">请选择事由</div>
+
+		  </div>
+			<div style="float:right;">
+			  <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:44px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+			</div>		  
+		</div>
+		<div style=" height:44px;overflow:hidden;width: 100%;background-color: #fff;border-bottom:0px solid #f5f5f5;overflow: hidden;vertical-align:middle;border-top: 1px solid #f5f5f5; margin-top:0px;" ng-click="getAddress()">
+		  <div style="float:left;width:98px;">
+			<label style="font-size:16px; color:rgb(51,51,51); margin-left:12px; line-height:44px">到访地址</label>
+		  </div>
+		  <div style="float:left;">
+			<div  style="margin-right:9px; color:rgb(204,204,204); line-height:44px;display: inline-block; font-size:16px;max-width:180px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;" class="ng-binding"  id="address_now">请选择地址</div>
+
+		  </div>
+			<div style="float:right;">
+			  <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:44px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+			</div>		  
+		</div>
+		
+		<div ng-click="add_device()" style="margin-top:10px;">
+			<div style=" overflow:hidden;width: 100%;background-color: #fff;border-bottom:0px solid #f5f5f5;overflow: hidden;vertical-align:middle;border-top: 1px solid #f5f5f5;">
+				<div ng-repeat="item in device_list_data.data" style="overflow:hidden;">
+					  <div style="float:left;width:98px;height:50px;">
+						<label style="font-size:16px; color:#333; margin-left:12px; line-height:44px" ng-show="$first">设备名称</label>
+					  </div>
+					  <div style="float:left;">
+						<div class="device_name_list"  style="margin-right:9px;  line-height:44px;display: inline-block; font-size:16px;max-width:180px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;" ng-class="device_list_data.data[0].device_name=='请选择设备' && device_list_data.data.length=='1' ? 'gar_col' : 'dark_col'  " class="ng-binding">{{item.device_name}} </div>
+					  </div>
+					  <div style="float:right;">
+						<i  ng-show="$first" class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:44px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+					  </div>
+				</div>
+
+			</div>
+		</div>
+		
+		<div ng-click="add_visitor_second_picklist()" ng-hide="device_list_data.data[0].device_name=='请选择设备' && device_list_data.data.length=='1'">
+			<div style="overflow:hidden;width: 100%;background-color: #fff;border-bottom:0px solid #f5f5f5;overflow: hidden;vertical-align:middle;border-top: 1px solid #f5f5f5;">
+			  <div style="float:left;width:98px;height:50px;">
+				<label style="font-size:16px; color:rgb(51,51,51); margin-left:12px; line-height:44px" >验证方式</label>
+			  </div>
+			  <div style="float:left;">
+				<div  style="margin-right:9px; color:rgb(204,204,204);  line-height:44px;display: inline-block; font-size:16px;max-width:180px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;" id="valid_rule_"  class="ng-binding">请选择验证方式</div>
+
+			  </div>
+				<div style="float:right;">
+				  <i  class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:44px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+				</div>		  
+			</div>
+		</div>
+		
+    <div  style="margin-top:10px;background-color: #ffffff;color: #747474;position: relative;border-bottom:0px solid #f5f5f5; border-top:0px solid#f5f5f5;">
+      <p style="height:2.1em;line-height: 3.2em;margin-left:12px;font-size:16px;color:rgb(51,51,51);">知会人<span style="font-size:12px;color:#ccc;" >(点击头像可删除)</span></p>
+      <ion-scroll zooming="false" direction="x" style="width:100%; background-color:#fff;margin-top: 5px;" id="notify_list_scroll" delegate-handle="notify_list_scroll" has-bouncing="false" horizontal-scroll-fix scrollbar-x="false">
+        <div  style="background-color:#fff;min-width:100%;height: 120px; transform: translateZ(0px); overflow-x: scroll;" class="" id="notify_list_div">
+          <div style="width: 75px;height: 80px;float: left;position: relative;text-align: center;top:20px;" ng-repeat="item in addVisitorData.notify_list">
+            <div style="width:50px;height:50px;border-radius:50px;overflow:hidden;display:inline-block;">
+              <img style="width:50px;height: 50px;" ng-src="{{item.img}}" ng-click="delete_notify(item.user_id)">
+            </div>
+            <p style=" color:#666666;font-size:14px;">{{item.name}}</p>
+            
+          </div>
+          <div style="width: 100px;height: 80px;float: left;position: relative;text-align: center;top:20px;">
+            <div ng-click="openModal2()" style="width:50px;height:50px;border-radius:20px;overflow:hidden;display:inline-block;">
+              <img ng-src="{{add_approver_}}" style="width:50px;height:50px;margin-left:0px;">
+            </div>
+          </div>
+        </div>
+      </ion-scroll>
+    </div>
+		
+		
+
+		
+		
+	</div>
+	
+	
+	<div id="valid_rule_key_div" class="ng-hide"></div>
+	<div id="picklist_visitor_reason_key" class="ng-hide"></div>
+  </ion-content>
+  
+		<div style="width: 100%;background-color: #fff;border-bottom:0px solid #f5f5f5;overflow: hidden;vertical-align:middle;border-top: 1px solid #f5f5f5; margin-top:10px;text-align:center;position:fixed;bottom:0px;" ng-click="save()">
+		  <div style="font-size:18px;color:rgb(204,204,204);line-height:49px;" id="submit_and_send">
+			生成并发送
+		  </div>
+		  
+		</div>
+  
+</ion-view>
+

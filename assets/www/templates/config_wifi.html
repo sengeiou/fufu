@@ -1,0 +1,48 @@
+<ion-view title="配置考勤机网络" ng-controller="configWifiCtrl" hide-nav-bar="true" hide-tab-bar head-notify>
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons">
+	        <a ng-click="diyback()">
+              <button class="button back-button buttons button-clear button-light">取消</button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">配置考勤机网络</h1>
+
+      <div class="buttons ng-hide" ng-show="configWifiData.connectNet.ssid.length && false">
+            <button class="button back-button buttons button-clear button-light" ng-click="goAttendanceDevice()">完成</button>
+      </div>
+	</ion-header-bar>
+
+  	<ion-content has-bouncing="true" overflow-scroll="false">
+        <ion-refresher pulling-text="下拉刷新" on-refresh="configWifiSev.load_net_list().then(loadNetListCallback)"></ion-refresher>
+      	<img class="select_net_bar" ng-src="{{local_resource + 'img/select_net_bar.png'}}" >
+        
+        <div class="connect-item ng-hide" ng-show="configWifiData.connectNet.ssid.length">
+          <i class="r-icon r-success-icon"></i>
+          <div class="connect-text" ng-bind="configWifiData.connectNet.ssid"></div>
+          <i class="r-icon r-lock-icon ng-hide" ng-show="configWifiData.connectNet.isPassWord"></i>
+          <i class="r-icon r-net3-icon"></i>
+        </div>
+
+        <div class="tips_bar" ng-class="{'active':!operateText.length}">
+          <ion-spinner icon="ios-small"></ion-spinner>
+          <span ng-bind="operateText"></span>
+        </div>
+
+        <ul class="r-list">
+            <li ng-click="connectNet(netItem)" class="net-item" ng-repeat="netItem in configWifiData.netList">
+                <div class="net-text" ng-bind="netItem.ssid"></div>
+                <i class="r-icon r-lock-icon ng-hide" ng-show="netItem.isPassWord"></i>
+                <i class="r-icon r-net3-icon"></i>
+            </li>
+            
+            <li class="net-item" ng-click="connectHideNet()">
+                <div class="net-text" ng-bind="'其他...'"></div>
+            </li>
+        </ul>
+        
+  	</ion-content>
+
+  	
+</ion-view>
+

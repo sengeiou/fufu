@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.citymobi.fufu"
+    android:installLocation="preferExternal">
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 摄像头权限 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 震动权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="com.citymobi.fufu.permission.JPUSH_MESSAGE" />
+
+    <permission
+        android:name="com.citymobi.fufu.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <application
+        android:name=".application.FuFuApplication"
+        android:allowBackup="false"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/MyTheme"
+        tools:replace="android:allowBackup">
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 极光推送 Start -->
+        <!-- Required SDK核心功能（极光推送） -->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.citymobi.fufu" />
+            </intent-filter>
+        </activity>
+        <!-- Required SDK核心功能 -->
+        <service
+            android:name="cn.jpush.android.service.DownloadService"
+            android:enabled="true"
+            android:exported="false" />
+        <!-- Required SDK 核心功能 -->
+        <!-- 可配置android:process参数将PushService放在其他进程中 -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service>
+        <!-- Required SDK核心功能 -->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
+
+                <category android:name="com.citymobi.fufu" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <!-- User defined. 用户自定义的广播接收器 -->
+        <receiver
+            android:name="cn.jpush.phonegap.MyReceiver"
+            android:enabled="true">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
+
+                <category android:name="com.citymobi.fufu" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" />
+
+                <category android:name="com.citymobi.fufu" />
+            </intent-filter>
+        </receiver>
+        <!-- Required SDK核心功能 -->
+        <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
+
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
+        <!-- JPUSH release -->
+        <!-- 880a5d5e3b06c40de0a5fdd1 -->
+        <!-- debug -->
+        <!-- e7768f6ac60998790dc4bc6c -->
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="880a5d5e3b06c40de0a5fdd1" />
+        <!-- 极光推送 End -->
+
+
+        <!-- 高德地图 KEY 正式和调试key为同一个 Start -->
+        <!-- 4571b57bc1d0f23fa033c0f4d6bc7849 -->
+        <!-- b0f5f09210eec75c12901d2419cba23b V3.4.1弃用 -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="4571b57bc1d0f23fa033c0f4d6bc7849" />
+
+        <service android:name="com.amap.api.location.APSService" />
+        <!-- 高德地图 End -->
+
+
+        <!-- 友盟 Start -->
+        <!-- <meta-data -->
+        <!-- android:name="UMENG_CHANNEL" -->
+        <!-- android:value="yingyongbao" /> -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="58325163f43e485f7b0004e9" />
+        <!-- 友盟 End -->
+
+
+        <!-- 蓝牙连接服务 begin -->
+        <service
+            android:name=".service.BluetoothLeService"
+            android:enabled="true" />
+        <!-- 蓝牙连接服务 end -->
+
+
+        <!-- zxing 二维码/条形码 Start -->
+        <activity
+            android:name="com.google.zxing.activity.CaptureActivity"
+            android:screenOrientation="portrait" />
+        <!-- zxing 二维码/条形码 End -->
+
+        <activity
+            android:name="org.apache.cordova.map.activity.ShowMapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="org.apache.cordova.map.activity.ShowMapWithCoordinatActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="org.apache.cordova.map.activity.SearchMapActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="org.apache.cordova.map.activity.SingCountMapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="org.apache.cordova.image.activity.ShowImageMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="org.apache.cordova.image.activity.ShowAllImageActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="org.apache.cordova.image.activity.ShwoDetailTwoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="org.apache.cordova.camera.CropViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="org.apache.cordova.image.activity.ImageBrowseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="org.apache.cordova.map.activity.MapKeywordsSearchActivity"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>

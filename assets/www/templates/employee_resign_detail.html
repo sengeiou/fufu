@@ -1,0 +1,119 @@
+﻿<ion-view style="background-color:#f5f5f5;" title="员工信息" ng-controller="employeeResignDetailCtrl" hide-tab-bar>
+
+	  <ion-nav-buttons side="right">
+    	<a class="button button-clear" style="color:white;font-size:14px" href="#" ng-show="is_can_cancel!='0'" ng-click="employee_cancel_resign(employeeResignDetailData.em)">撤销离职</a>
+  	  </ion-nav-buttons>
+
+
+    <ion-content has-bouncing="true" overflow-scroll="false">
+    <input type="hidden" id="is_rehire" value="{{employeeResignDetailData.is_rehire}}" />
+ 	<!--员工信息-->
+	<ion-item class="item-avatar-left item" collection-item-height="71" collection-item-width="'100%'" style="transform: translate3d(0px, 0px, 0px); height: 72px; width:100%;">
+		<img ng-src="{{employeeResignDetailData.img}}">
+		<div>
+			<span style="font-size:16px;color:#333" class="ng-binding">{{employeeResignDetailData.en}}</span>&nbsp;&nbsp;
+			<span style="font-size:12px;color:#666" class="ng-binding">工号:{{employeeResignDetailData.st}}</span>
+		</div>
+		<p style="font-size:12px;color:#666" class="ng-binding">{{employeeResignDetailData.pn}}</p>
+	</ion-item>
+ 	<!--员工信息-->
+
+    <!--职位-->
+    <div class="list" style="padding-top:10px;margin-bottom:15px; width:100%;">
+
+     <label class="item item-input">
+     	<span class="input-label" aria-label="部门" id="_label-2">部门</span>
+     	<span class="ng-pristine ng-untouched ng-valid">{{employeeResignDetailData.dept_name}}</span>
+     </label>
+
+	<label class="item item-input">
+		<span class="input-label" aria-label="入职时间" id="_label-4">入职时间</span>
+		<span class="ng-pristine ng-untouched ng-valid">{{employeeResignDetailData.join_date}}</span>
+	</label>
+      </div>
+    <!--职位-->
+
+    <!--离职处理-->
+    <div style=" margin-bottom:5px">
+    	<span style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px; margin-left:12px;">离职处理</span>
+    </div>
+    <!--离职处理-->
+
+
+    <!--离职生效日期-->
+	<div style="width: 100%;height: 47px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+		<div style="float:left; ">
+			<label style="font-size:14px; color:#333; margin-left:12px; line-height:47px">离职生效日期</label>
+		</div>
+
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:47px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+
+		<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;position: relative;height: 49px;" ng-click="termination_effect_date()">
+			<!--<input id="termination_effect_date" style="text-align:right; margin-right:4px; color:#53afff" type="date">-->
+      <span id="termination_effect_date" style="color:#53afff;line-height: 35px;position: absolute;top:8px;right: 10px;" >{{employeeResignDetailData.termination_effect_date}}</span>
+		</label>
+	</div>
+	<!--离职生效日期-->
+
+    <!--离职工作日期-->
+	<div style="width: 100%;height: 47px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+		<div style="float:left; ">
+			<label style="font-size:14px; color:#333; margin-left:12px; line-height:47px">最后工作日期</label>
+		</div>
+
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:47px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+
+		<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0;position: relative;height: 49px;" ng-click="last_working_date()">
+			<!--<input id="last_working_date" style="text-align:right; margin-right:4px; color:#53afff;" type="date" >-->
+      <span id="last_working_date" style="color:#53afff;line-height: 35px;position: absolute;top:8px;right: 10px;" >{{employeeResignDetailData.last_working_date}}</span>
+		</label>
+	</div>
+    <!--离职工作日期-->
+    <!--是否重新雇佣-->
+	<div style="width: 100%;height: 47px;background-color: #fff;border-bottom:1px solid #f5f5f5;;overflow:hidden; margin-bottom:15px" ng-click="picklist_is_rehire()">
+		<div style="float:left;">
+			<label style="font-size:14px; color:#333; margin-left:12px; line-height:47px">是否重新雇佣</label>
+		</div>
+        <div style="float:right;">
+        	<span id="is_rehire_name" style=" line-height:47px;font-size:14px; color:#53afff; margin-right:6px;" class="">{{employeeResignDetailData.is_rehire_name}}</span>
+            <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:47px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+			</div>
+		</div>
+	</div>
+    <!--是否重新雇佣-->
+
+    <!--离职原因-->
+    <div style="margin-bottom:5px;">
+    	<span style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px; margin-left:12px; padding-top:10px">离职原因</span>
+    </div>
+    <!--离职原因-->
+
+    <!--填写离职原因-->
+	<div style="margin-top:0px;" ng-hide="check_all">
+        <label class="item-input item-stacked-label" style="padding:0px 0px 0px 0px;">
+          <textarea style="height:190px;background-color:white;border-bottom:1px solid #f0f0f0; color:#53afff;" id="exit_reason" placeholder="填写离职原因..." >{{employeeResignDetailData.exit_reason}}</textarea>
+        </label>
+      </div>
+    <!--填写离职原因-->
+
+	<!--确认按钮-->
+	<div style="margin:20px 12px;">
+        <button class="button button-block button-positive" ng-click="employee_resign_detail_save()">保存</button>
+      </div>
+
+    <!--确认按钮-->
+
+
+
+<!--测试-->
+
+<!--测试-->
+
+
+</ion-view>
+

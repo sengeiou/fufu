@@ -1,0 +1,198 @@
+
+<ion-view  cache-view="true" hide-back-button="true" style="background-color:#f8f8f8;" title='<div style="width:100%;position:fixed; height:62px;line-height:84px; background-color:#53afff;l margin-top:0px;left:0px; top: -20px; background-color: #53afff;z-index:999;"><div onclick="window.navbarBackClick()" id="TravelingTeamRecordBack" style="width:30px;float:left;margin-top:25px;margin-left:-5px;" >  <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" ><span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>  </div><div id="TravelingTeamRecordSearch" onclick="window.navbarShowSearch(this.id);" sev_name="TravelingTeamRecord" style="width:30px;float:right;padding-left:0px;margin-top:25px;" >     <div  style="margin-right:0px;">
+    <i class="ion-ios-search-strong button back-button buttons button-clear button-light ion-ios-arrow-left header-item" style="font-size:20px !important;"></i>
+  </div></div>团队出差</div>
+  <div style="width: 100%;height: 42px;margin-top: 0px;background-color: #53afff;position: absolute;z-index: 999;opacity: 0;text-align: center;line-height: 42px;color: white;transition: all .3s ease-in-out;display: none" id="TravelingTeamRecordSearchDiv">
+<div class="bar bar-header item-input-inset searchclass active" style="background-color: rgb(83, 175, 255);height: 42px;" >
+  <div class="item-input-wrapper" style="margin-top: 0px !important;background-color: #fff;" >
+<div style="width: 100%" >
+    <i class="icon ion-ios-search-strong placeholder-icon" style="position:absolute;left: 20px;top:-12px; margin-top: 12px;"></i>
+      <input  id="TravelingTeamRecordSearchInput" type="search" placeholder="搜索姓名、时间..." ng-model="search_control.search_val" class="" style="margin-left:10px;" sev_name="TravelingTeamRecord" oninput="window.navbarSearchInput(this.id)" onfocus="window.navbarSearchfocus(this.id)" onblur="window.navbarSearchblur(this.id)"/>
+       <div onclick="window.navbarSearchClearValue(this.id)" sev_name="TravelingTeamRecord" id="TravelingTeamRecordCloseIonic" class="ion-ios-close" style="position: absolute; right: 10px; font-size: 16px; right:60px;top: 0px;color: #cccccc;display:none;"></div>
+</div>
+  </div>
+  <button class="button button-clear" style="margin-top: 0px !important; color:#fff;margin-right:-5px;" id="TravelingTeamRecordSearchCancelBtn" sev_name="TravelingTeamRecord" onclick="window.navbarSearchCancel(this.id)">
+    取消
+  </button>
+</div>
+</div>
+  '  hide-tab-bar ng-controller="TravelingTeamRecordCtrl" id="leave_taem_record">
+<style>
+  #leave_taem_record .searchclass {
+    position: relative;
+    top: 0px;
+    z-index: 9999;
+    -webkit-transition: opacity .3s ease-in-out;
+    height: 0;
+    opacity: 0;
+    padding: 0px;
+  }
+  #leave_taem_record .searchclass.active {
+    height: 44px;
+    opacity: 1;
+    padding: 10.667px;
+    -webkit-transition: opacity .3s ease-in-out;
+  }
+  .platform-win32.platform-cordova #TravelingTeamRecordBack{
+    margin-left:-7px !important;
+  }
+  .platform-android.platform-cordova #TravelingTeamRecordBack{
+    padding-left:10px !important;
+  }
+
+
+  /* add by kevin at 2018-07-11 begin */
+    .team-item-content{
+      background-color: #fff;
+      padding:0 16px 12px;
+      display: flex;
+      align-items:center;
+      border-bottom:1px solid #e3e3e3;
+    }
+
+    .team-item-left{
+      position: relative;
+      width: 50px;
+    }
+
+    .avator{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    .is_pc_icon{
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      right: -5px;
+      top:-5px;
+    }
+
+    .team-item-right{
+      display:flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-left: 12px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .team-item-right-top{
+      display:flex;
+      margin-top:15px;
+    }
+
+    .team-item-right-top .name{
+      font-size: 16px;
+      color:#333;
+      margin-right:6px;
+    }
+
+    .team-item-right-top .ot-date{
+      font-size: 16px;
+      color:#ff6804;
+    }
+
+    .team-item-right-middle{
+      margin-top:11px;
+      color:#666;
+      font-size:14px;
+      width: 100%;
+    }
+
+    .location{
+      text-overflow: ellipsis; 
+      word-break: keep-all; 
+      overflow: hidden; 
+      white-space: nowrap;
+    }
+    
+    .team-item-right-bottom{
+      color:#666;
+      font-size:13px;
+    }
+  /* add by kevin at 2018-07-11 end */
+
+</style>
+
+<ion-content has-bouncing="true" overflow-scroll="false">
+<div style="margin: 0">
+  <div style="height: 68px;width: 100%;background-color: #53afff;color: white;padding-top:0px; margin-bottom:10px;" >
+    <div style="overflow:hidden; width:22.5%; float:left">
+    <div style="height: 68px;float: left;margin: 0 20%;" ng-click="showDate()">
+      <div style="margin-top: 13px;font-size:12px;">{{date_year}}年</div>
+      <div style="position: relative;font-size: 14px;"><span style="font-size: 18px">{{date_month}}</span><span style="font-size:12px;">月</span>
+      <div style="width: 0;height: 0;border-left: 5px solid transparent;border-right: 5px solid transparent;border-top: 5px solid white;position: absolute;top:7px;left: 35px;"></div>
+      </div>
+    </div>
+    </div>
+    <div style="height: 38px;width:1px;float: left;border-right: 1px dashed white; margin-top:16px;"></div>
+
+    <div style="overflow:hidden; width:77%; float:left">
+    <div style="height: 68px;float: left;margin-left:5%;">
+
+        <div style="margin-top: 13px; font-size:12px;">团队</div>
+        <div style="position: relative;font-size: 14px;"><span style="font-size:18px;">{{team_traveling_data.hc_num}}</span><span style="font-size:12px;">人</span></div>
+
+    </div>
+    <div style="height: 68px;float: left; margin-left:10%;">
+      <div style="margin-top: 13px; font-size:12px;">出差统计</div>
+      <div style="position: relative;font-size: 14px;"><span style="font-size: 18px;">{{team_traveling_data.lv_hc_num}}</span><span style="font-size:12px;">人</span></div>
+    </div>
+    </div>
+  </div>
+
+  <div ng-show=" team_traveling_data.data_ready && team_traveling_data.lv_data.length==0 && search_control.search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+  <div ng-show="filterItems.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+
+
+  <div ng-repeat="item in filterItems=(team_traveling_data.lv_data|dataAndFilter:'app_date,employee_name,start_d_t,duration,end_d_t':search_control.search_val)" ng-click="loadTeamTravelingDetail(item.process_instance,item.obj_id,item.is_pc,item.employee_name)">
+    <div style="margin-top: 15px; margin-bottom: 5px;color: #666;font-size: 14px; margin-left: 12px;" ng-show="$first||filterItems[$index].date!=filterItems[$index-1].date">{{item.date}}-{{item.dw}}</div>
+    <div class="team-item-content">
+      <div class="team-item-left">
+          <img src="{{item.empl_img}}" alt="" class="avator"/>
+          <img src="{{is_pc_icon}}" alt="" class="is_pc_icon" ng-show="item.is_pc=='1'"/>
+      </div>
+      <div class="team-item-right">
+        <div class="team-item-right-top">
+          <div class="name">{{item.employee_name}}</div>
+          <div class="ot-date">出差{{item.duration}}天</div>
+        </div>
+        <div class="team-item-right-middle">
+          <div class="location">{{item.city_name}} {{item.location}}</div>
+        </div>
+        <div class="team-item-right-bottom">
+          <div class="date">{{item.start_d_t}} 至 {{item.end_d_t}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div collection-repeat="item in filterItems=(team_traveling_data.lv_data|dataAndFilter:'app_date,employee_name,start_d_t,duration,end_d_t':search_control.search_val)" style="padding: 8px 12px 8px 12px;border-bottom:1px solid #f5f5f5;border-top:1px solid #f5f5f5; background-color:#fff;border-bottom-width:0px;overflow: hidden" ng-click="loadTeamTravelingDetail(item.process_instance,item.obj_id,item.is_pc,item.employee_name)">
+    <div style="margin-top: 15px; margin-bottom: 5px;color: #666;font-size: 14px; margin-left: 12px;" ng-show="$first||filterItems[$index].date!=filterItems[$index-1].date">{{item.date}}-{{item.dw}}</div>
+    <div style="">
+      <div style="width: 100%;">
+        <div style="position: relative">
+        <div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden; margin-bottom:5px; margin-top:0px;">
+          <img src="{{item.empl_img}}" alt="" style="width: 50px;height: 50px;"/>
+        </div>
+          <img src="{{is_pc_icon}}" alt="" style="position: absolute;width: 20px;height: 20px;left: 35px;" ng-show="item.is_pc=='1'"/>
+        </div>
+        <div style="width: 100%;">
+          <div>
+            <div style="float: right;color: #bbb;font-size: 12px; padding-top:3px;">{{item.app_date}}</div>
+          </div>
+          
+          <div >
+            <div style="padding-left:12px; color:#333; font-size:16px; margin-top:5px; padding-top:4px;overflow:hidden;text-overflow:ellipsis;white-space: nowrap; ">{{item.employee_name}}<span style="color: #ff6600"> 出差{{item.duration}}天</span></div>
+            <div style="margin-left:62px;font-size:14px;color: #333;margin-bottom:2px;">{{item.city_name}} {{item.location}}</div>
+            <div style="text-indent: 12px;color:#666;font-size:12px;margin-top:4px;">{{item.start_d_t}} 至 {{item.end_d_t}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+</div>
+</ion-content>
+</ion-view>

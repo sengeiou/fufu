@@ -1,0 +1,146 @@
+<ion-view style="background-color:#f8f8f8;" ng-controller="atMbIndoorSettingDetailCtrl" title="{{at_mb_indoor_setting_detail_title}}" cache-view="false" hide-tab-bar >
+  <style>
+    #atMbIndoorSettingDetailCtrlSpinner svg{
+      width: 18px;
+      height: 18px;
+      margin-top: 15px;
+      position: absolute;
+      right: 30px;
+    }
+  </style>
+<ion-content has-bouncing="true" overflow-scroll="false">
+
+  
+    <div style="width: 100%;margin: 0px auto;height: 40px;background-color: white;overflow: hidden;position: relative">
+      <div style="width: 50%; height: 100%; float: left; text-align: center; line-height: 40px;font-size: 14px; color: #53afff;" id="details_div" ng-click="details_click()">正常签到</div>
+      <div style="width: 50%; height: 100%;border-bottom:1px solid #f5f5f5;  float: left; text-align: center; line-height: 40px; font-size: 14px; color: #808080;" id="statistics_div" ng-click="statistics_click()">异地签到</div>
+      <div style="position: absolute;width: 50%;height: 2px;background-color: #53afff;bottom:0px;transition: all .3s ease-in-out;" id="indoor_setting_animate_div"></div>
+    </div>
+<div style="width: 100%;overflow: hidden">
+<div id="indoor_setting_wrap" style="position: relative;-webkit-transition: all .3s ease-in-out;width: 200%;">
+  <div id="indoor_setting_wrap_left" style=" width: 50%;padding-top:10px;">
+    <div style="width: 100%;height: 49px; background-color: #fff;border-bottom:1px solid #f5f5f5;">
+      <div style="float:left;">
+        <label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">正常签到</label>
+      </div>
+      <div style="float:right;">
+        <div style="float: right;margin-top: 8px;">
+          <label class="toggle toggle-calm" style=" right:10px;" ng-click="at_mb_indoor_setting_detail_checkbox()">
+            <input id="at_mb_indoor_setting_detail_checkbox" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+            <div class="track">
+              <div class="handle" style=" "></div>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+	
+  
+  <div id="is_active_content">
+  
+
+<div ng-show="atMbIndoorSettingDetailData.setting_detail.length!=0" ng-click="at_mb_indoor_setting_detail_edit(0,'添加签到点')" class="_at_zk_loc_tab2 button button-full button-light icon ion-ios-plus-outline" style="height: 49px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(245, 245, 245); font-size: 14px; padding: 5px 0px; margin-top: 11px; display: block;">&nbsp;&nbsp;&nbsp;添加签到点</div>
+		  
+  
+  <div ng-show="atMbIndoorSettingDetailData.setting_detail.length==0" style="background-color:white;margin-top:11px;border-top:1px solid #f5f5f5;"  >
+  <div style="border-bottom:1px solid #f5f5f5;padding-bottom:10px;">
+  <div style="padding-top:14px;text-indent:13px;font-size:0.4266666666667rem;color:#333;">任意签到点
+  <span style="float:right;margin-right:13px;font-size:0.3733333333333rem;color:#999;"></span>
+  </div>
+  <div style="margin-top:8px; text-indent:13px;font-size:0.3733333333333rem;color:#999;">指定WiFi：无指定WiFi</div>
+  <div style="margin-top:3px; text-indent:13px;font-size:0.3733333333333rem;color:#999;">签到地址：无指定地点</div>
+  </div>
+  <div style="display:block;height:38px;position:relative;border-bottom:1px solid #f5f5f5;">
+  <div style="display:block;font-size:0.3733333333333rem;color:#666; position:absolute;right:13px;top:9px;" ng-click="at_mb_indoor_setting_detail_edit(0,'添加签到点')"><img ng-src="{{img_edit}}" style="height:14px;width:14px;position:relative;top:2px;" > 编辑</div>
+<div style="display:none;font-size:0.3733333333333rem;color:#666; position:absolute;right:87px;top:9px;"><img ng-src="{{img_delete}}" style="height:14px;width:14px;position:relative;top:2px;"> 删除</div>
+  </div>
+  </div>
+  
+  
+  <div style="background-color:white;margin-top:11px;border-top:1px solid #f5f5f5;"  ng-repeat="item in atMbIndoorSettingDetailData.setting_detail">
+  <div style="padding-bottom:10px;border-bottom:1px solid #f5f5f5;">
+  <div style="padding-top:14px;text-indent:13px;font-size:0.4266666666667rem;color:#333;">签到点{{$index+1}}
+  <span ng-show="item.location_deviation != '' && item.location_deviation != '0'" style="float:right;margin-right:13px;font-size:0.3733333333333rem;color:#999;">{{item.location_deviation}}米内</span>
+  </div>
+  <div style="margin-top:8px; text-indent:13px;font-size:0.3733333333333rem;color:#999;"><div style="float:left;">指定WiFi：</div><div style="margin-left:85px;text-indent:0px;margin-right:12px;">{{item.wifi_value}}</div></div>
+  <div style="margin-top:3px; text-indent:13px;font-size:0.3733333333333rem;color:#999;"><div style="float:left;">签到地址：</div><div style="margin-left:85px;text-indent:0px;margin-right:12px;">{{item.location}}</div></div>
+  </div>
+  <div style="height:38px;position:relative;border-bottom:1px solid #f5f5f5;">
+  <div style="font-size:0.3733333333333rem;color:#666; position:absolute;right:13px;top:9px;" ng-click="at_mb_indoor_setting_detail_delete(item.setting_detail_id,'签到点'+($index+1))"><img ng-src="{{img_delete}}" style="height:14px;width:14px;position:relative;top:2px;"> 删除</div>
+  <div style="font-size:0.3733333333333rem;color:#666; position:absolute;right:87px;top:9px;" ng-click="at_mb_indoor_setting_detail_edit(item.setting_detail_id,'签到点'+($index+1))"><img ng-src="{{img_edit}}" style="height:14px;width:14px;position:relative;top:2px;" > 编辑</div>
+  </div>
+  </div>
+    
+  </div>
+  <div id="at_mb_indoor_setting_detail_normal_save_div" style="display:block; width: 100%;height: 49px;text-align: center;line-height: 49px;padding: 12px; margin-top:8px;margin-bottom:20px;" ng-click="at_mb_indoor_setting_detail_normal_save()" >
+    <input type="button" style="color: white;text-align: center;background-color: #3ba5ff;width: 100%;height: 44px;border: none;border-radius: 4px; font-size:16px;" value="保存">
+  </div>
+
+  
+  
+  
+  </div>
+  <div id="indoor_setting_wrap_right" style="width: 50%;position: absolute;left: 50%;top:0px;">
+    <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;margin-top: 10px; border-top:1px solid#f5f5f5;">
+      <div style="float:left;">
+        <label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">异地签到</label>
+      </div>
+      <div style="float:right;">
+        <div style="float: right;margin-top: 8px;">
+          <label class="toggle toggle-calm" style=" right:10px;" ng-click="is_active()">
+            <input id="is_active"  type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="" >
+            <div class="track">
+              <div class="handle" style=" "></div>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:12px; color:#999; margin-left:12px; margin-bottom:15px; margin-top:5px;">*异地签到记录员工签到时间与地点，并计入上下班时间</p>
+    <div  id="is_active_content_right" style="border-top:1px solid#f5f5f5;">
+      <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+        <div style="float:left;">
+          <label style="font-size:14px; color:#666; margin-left:16px; line-height:49px">拍照检验</label>
+        </div>
+        <div style="float:right;">
+          <div style="float: right;margin-top: 8px;">
+            <label class="toggle toggle-calm" style=" right:10px;" ng-click="is_need_photo()">
+              <input id="is_need_photo" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+              <div class="track">
+                <div class="handle" style=" "></div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+        <div style="float:left;">
+          <label style="font-size:14px; color:#666; margin-left:16px; line-height:49px">审批流程</label>
+        </div>
+        <div style="float:right;">
+          <div style="float: right;margin-top: 8px;">
+            <label class="toggle toggle-calm" style=" right:10px;" ng-click="is_use_work_flow()">
+              <input id="is_use_work_flow" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+              <div class="track">
+                <div class="handle" style=" "></div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:12px; color:#999; margin-left:20px; margin-bottom:15px; margin-top:5px;" ng-show="atMbIndoorSettingDetailData.i_wf==1">*流程规则请到服服Web端配置</p>
+
+    </div>
+	
+  <div style="width: 100%;height: 49px;text-align: center;line-height: 49px;padding: 12px; margin-top:8px;margin-bottom:20px;" ng-click="at_mb_indoor_setting_detail_outdoor_save()" >
+    <input type="button" style="color: white;text-align: center;background-color: #3ba5ff;width: 100%;height: 44px;border: none;border-radius: 4px; font-size:16px;" id="at_mb_indoor_setting_detail_save" value="保存">
+  </div>
+  </div>
+</div>
+</div>
+
+
+  </ion-content>
+</ion-view>

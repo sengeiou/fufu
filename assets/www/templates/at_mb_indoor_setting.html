@@ -1,0 +1,243 @@
+<ion-view style="background-color:#f8f8f8;" ng-controller="atMbIndoorSettingCtrl" title="内勤设置" cache-view="false" hide-tab-bar >
+  <ion-content has-bouncing="true" overflow-scroll="false">
+<p style="font-size:12px; color:#999; margin:7px 12px;">请选择班次组别进行设置</p>
+<div ng-repeat="item in atMbIndoorSettingData" ng-click="at_mb_indoor_setting_edit(item.id,item.name)" style="height: 49px;background-color:#fff;margin-top:10px;border-bottom: 1px solid #f5f5f5; border-top:1px solid #f5f5f5;line-height: 49px;font-size: 16px;text-indent: 12px;position: relative; color:#333;"  id="{{'outdor_setting_' + item.id}}">
+  <div style="padding-right: 34px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">{{item.name}}</div>
+  <i class="icon ion-ios-arrow-right" style="margin-right: 12px;vertical-align: middle;font-size: 20px;color: #ccc;position: absolute;top: 0px;bottom: 0;right:0px;"></i></div>
+
+    <!--<div id="at_mb_outdoor_content" style="display: none">-->
+      <!--<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">-->
+        <!--<div style="float:left;">-->
+          <!--<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">手机签到</label>-->
+        <!--</div>-->
+        <!--<div style="float:right;">-->
+          <!--<div style="float: right;margin-top: 8px;">-->
+            <!--<label class="toggle toggle-calm" style=" right:10px;">-->
+              <!--<input  type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style=""  checked="true">-->
+              <!--<div class="track">-->
+                <!--<div class="handle" style=" "></div>-->
+              <!--</div>-->
+            <!--</label>-->
+          <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+      <!--<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">-->
+      <!--<div style="float:left;">-->
+        <!--<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">WiFi</label>-->
+      <!--</div>-->
+      <!--<div style="float:right;">-->
+        <!--<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>-->
+      <!--</div>-->
+      <!--<div style="float:right;">-->
+        <!--<input type="text" style="font-size:14px; color:#666666; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px;margin-top:8px;" value="szcityray">-->
+
+      <!--</div>-->
+    <!--</div>-->
+      <!--<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">-->
+        <!--<div style="float:left;">-->
+          <!--<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">打卡地址</label>-->
+        <!--</div>-->
+        <!--<div style="float:right;">-->
+          <!--<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>-->
+        <!--</div>-->
+        <!--<div style="float:right;">-->
+          <!--<input type="text"  style="font-size:14px; color:#666666; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px;margin-top:8px;" value="深南大道锦绣花园ABC">-->
+          <!--&lt;!&ndash;<label style="font-size:16px;  margin-left:12px; line-height:49px;color: gray">深南大道锦绣花园ABC</label>&ndash;&gt;-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">-->
+        <!--<div style="float:left;">-->
+          <!--<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">误差范围</label>-->
+        <!--</div>-->
+
+        <!--<div style="float:right;">-->
+          <!--<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>-->
+        <!--</div>-->
+        <!--<div style="float:right;">-->
+          <!--&lt;!&ndash;<label style="font-size:16px;  margin-left:12px; line-height:49px;color: gray">500m</label>&ndash;&gt;-->
+          <!--<input type="text"  style="font-size:14px; color:#666666; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px;margin-top:8px;" value="500m">-->
+        <!--</div>-->
+      <!--</div>-->
+
+
+
+      <!--<div style="height: 49px;background-color:#fff;margin-top:10px;border-bottom: 1px solid #f5f5f5; border-top:1px solid #f5f5f5;line-height: 49px;text-indent: 5px;font-size: 18px;"><div style="margin:20px 10px;float: left; width: 0;    height: 0;    border-top: 4px solid transparent;border-bottom: 4px solid transparent;border-left: 8px solid gray;"></div>班值组别B<span style="color: #f1f1f1">(班次A，班次B)</span></div>-->
+
+  <!--<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">-->
+    <!--<div style="float:left;">-->
+      <!--<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">手机签到</label>-->
+    <!--</div>-->
+    <!--<div style="float:right;">-->
+      <!--<div style="float: right;margin-top: 8px;">-->
+        <!--<label class="toggle toggle-calm" style=" right:10px;">-->
+          <!--<input  type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">-->
+          <!--<div class="track">-->
+            <!--<div class="handle" style=" "></div>-->
+          <!--</div>-->
+        <!--</label>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">-->
+    <!--<div style="float:left;">-->
+      <!--<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">WiFi</label>-->
+    <!--</div>-->
+    <!--<div style="float:right;">-->
+      <!--<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>-->
+    <!--</div>-->
+    <!--<div style="float:right;">-->
+      <!--<input type="text" style="font-size:14px; color:#666666; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px;margin-top:8px;" value="szcityray">-->
+
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">-->
+    <!--<div style="float:left;">-->
+      <!--<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">打卡地址</label>-->
+    <!--</div>-->
+    <!--<div style="float:right;">-->
+      <!--<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>-->
+    <!--</div>-->
+    <!--<div style="float:right;">-->
+      <!--<input type="text"  style="font-size:14px; color:#666666; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px;margin-top:8px;" value="深南大道锦绣花园ABC">-->
+      <!--&lt;!&ndash;<label style="font-size:16px;  margin-left:12px; line-height:49px;color: gray">深南大道锦绣花园ABC</label>&ndash;&gt;-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">-->
+    <!--<div style="float:left;">-->
+      <!--<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">误差范围</label>-->
+    <!--</div>-->
+
+    <!--<div style="float:right;">-->
+      <!--<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>-->
+    <!--</div>-->
+    <!--<div style="float:right;">-->
+      <!--&lt;!&ndash;<label style="font-size:16px;  margin-left:12px; line-height:49px;color: gray">500m</label>&ndash;&gt;-->
+      <!--<input type="text"  style="font-size:14px; color:#666666; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px;margin-top:8px;" value="500m">-->
+    <!--</div>-->
+  <!--</div>-->
+      <!--<div style="height: 49px;background-color:#fff;margin-top:10px;border-bottom: 1px solid #f5f5f5; border-top:1px solid #f5f5f5;line-height: 49px;text-indent: 5px;font-size: 18px;"><div style="margin:20px 10px;float: left; width: 0;    height: 0;    border-top: 4px solid transparent;border-bottom: 4px solid transparent;border-left: 8px solid gray;"></div>班值组别C<span style="color: #f1f1f1">(班次A，班次B)</span></div>-->
+  <!--<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">-->
+    <!--<div style="float:left;">-->
+      <!--<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">手机签到</label>-->
+    <!--</div>-->
+    <!--<div style="float:right;">-->
+      <!--<div style="float: right;margin-top: 8px;">-->
+        <!--<label class="toggle toggle-calm" style=" right:10px;">-->
+          <!--<input id="" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">-->
+          <!--<div class="track">-->
+            <!--<div class="handle" style=" "></div>-->
+          <!--</div>-->
+        <!--</label>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">-->
+    <!--<div style="float:left;">-->
+      <!--<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">WiFi</label>-->
+    <!--</div>-->
+    <!--<div style="float:right;">-->
+      <!--<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>-->
+    <!--</div>-->
+    <!--<div style="float:right;">-->
+      <!--<input type="text" style="font-size:14px; color:#666666; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px;margin-top:8px;" value="szcityray">-->
+
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">-->
+    <!--<div style="float:left;">-->
+      <!--<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">打卡地址</label>-->
+    <!--</div>-->
+    <!--<div style="float:right;">-->
+      <!--<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>-->
+    <!--</div>-->
+    <!--<div style="float:right;">-->
+      <!--<input type="text"  style="font-size:14px; color:#666666; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px;margin-top:8px;" value="深南大道锦绣花园ABC">-->
+      <!--&lt;!&ndash;<label style="font-size:16px;  margin-left:12px; line-height:49px;color: gray">深南大道锦绣花园ABC</label>&ndash;&gt;-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">-->
+    <!--<div style="float:left;">-->
+      <!--<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">误差范围</label>-->
+    <!--</div>-->
+
+    <!--<div style="float:right;">-->
+      <!--<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>-->
+    <!--</div>-->
+    <!--<div style="float:right;">-->
+      <!--&lt;!&ndash;<label style="font-size:16px;  margin-left:12px; line-height:49px;color: gray">500m</label>&ndash;&gt;-->
+      <!--<input type="text"  style="font-size:14px; color:#666666; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px;margin-top:8px;" value="500m">-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
+
+
+    <!--<div id="at_mb_setting_out_content" style="display: none">-->
+      <!--<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;margin-top: 10px;">-->
+        <!--<div style="float:left;">-->
+          <!--<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">手机外勤</label>-->
+        <!--</div>-->
+        <!--<div style="float:right;">-->
+          <!--<div style="float: right;margin-top: 8px;">-->
+            <!--<label class="toggle toggle-calm" style=" right:10px;">-->
+              <!--<input  type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">-->
+              <!--<div class="track">-->
+                <!--<div class="handle" style=" "></div>-->
+              <!--</div>-->
+            <!--</label>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <!--<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">-->
+        <!--<div style="float:left;">-->
+          <!--<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">拍照检验</label>-->
+        <!--</div>-->
+        <!--<div style="float:right;">-->
+          <!--<div style="float: right;margin-top: 8px;">-->
+            <!--<label class="toggle toggle-calm" style=" right:10px;">-->
+              <!--<input  type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">-->
+              <!--<div class="track">-->
+                <!--<div class="handle" style=" "></div>-->
+              <!--</div>-->
+            <!--</label>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <!--<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">-->
+        <!--<div style="float:left;">-->
+          <!--<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">审批流程</label>-->
+        <!--</div>-->
+        <!--<div style="float:right;">-->
+          <!--<div style="float: right;margin-top: 8px;">-->
+            <!--<label class="toggle toggle-calm" style=" right:10px;">-->
+              <!--<input  type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">-->
+              <!--<div class="track">-->
+                <!--<div class="handle" style=" "></div>-->
+              <!--</div>-->
+            <!--</label>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <!--<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">-->
+        <!--<div style="float:left;">-->
+          <!--<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">共享位置</label>-->
+        <!--</div>-->
+        <!--<div style="float:right;">-->
+          <!--<div style="float: right;margin-top: 8px;">-->
+            <!--<label class="toggle toggle-calm" style=" right:10px;">-->
+              <!--<input  type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">-->
+              <!--<div class="track">-->
+                <!--<div class="handle" style=" "></div>-->
+              <!--</div>-->
+            <!--</label>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    </div>
+
+  </ion-content>
+
+</ion-view>

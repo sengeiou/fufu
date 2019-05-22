@@ -1,0 +1,37 @@
+<ion-view ng-controller="AdvertisingCtrl" title="" hide-nav-bar="true" hide-tab-bar style="height:100%;background-color:#f8f8f8;"
+    cache-view="false">
+    <style>
+        .box {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .leapfrog {
+            color: #fff;
+            background-color: #000;
+            opacity: .6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 14px;
+            padding: 5px 20px;
+            border-radius: 20px;
+        }
+    </style>
+    <ion-content has-bouncing="true" overflow-scroll="true">
+        <div class="box">
+            <img ng-src="{{ad1}}">
+        </div>
+        <div class="leapfrog" on-tap='navigateToPage()'>{{remainTime}}</div>
+    </ion-content>
+</ion-view>

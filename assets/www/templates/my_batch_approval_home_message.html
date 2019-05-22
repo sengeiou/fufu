@@ -1,0 +1,213 @@
+<ion-view hide-back-button="true" style="background-color:#f8f8f8;" title='<div style="width:100%;position:fixed; height:62px;line-height:84px; background-color:#53afff;l margin-top:0px;left:0px; top: -20px; background-color: #53afff;z-index:999;"><div id="homeMessageContentBatchBack" onclick="window.navbarBackClick()" style="width:30px;float:left;margin-top:25px;margin-left:-5px;" >  <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" ><span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>  </div><div id="homeMessageContentBatchSearch" onclick="window.navbarShowSearch(this.id);" sev_name="homeMessageContentBatch" style="width:30px;float:right;padding-left:0px;margin-top:25px;" >     <div  style="margin-right:0px;">
+  <i class="ion-ios-search-strong button back-button buttons button-clear button-light ion-ios-arrow-left header-item" style="font-size:20px !important;"></i>
+</div></div>待办消息</div>
+<div style="width: 100%;height: 42px;margin-top: 0px;background-color: #53afff;position: absolute;z-index: 999;opacity: 0;text-align: center;line-height: 42px;color: white;transition: all .3s ease-in-out;display: none" id="homeMessageContentBatchSearchDiv">
+<div class="bar bar-header item-input-inset searchclass active" style="background-color: rgb(83, 175, 255);height: 42px;" >
+<div class="item-input-wrapper" style="margin-top: 0px !important;background-color: #fff;" >
+<div style="width: 100%" >
+  <i class="icon ion-ios-search-strong placeholder-icon" style="position:absolute;left: 20px;top:-12px; margin-top: 12px;"></i>
+    <input  id="homeMessageContentBatchSearchInput" type="search" placeholder="搜索" ng-model="search_control.search_val" class="" style="margin-left:10px;" sev_name="homeMessageContentBatch" oninput="window.navbarSearchInput(this.id)" onfocus="window.navbarSearchfocus(this.id)" onblur="window.navbarSearchblur(this.id)"/>
+     <div onclick="window.navbarSearchClearValue(this.id)" sev_name="homeMessageContentBatch" id="homeMessageContentBatchCloseIonic" class="ion-ios-close" style="position: absolute; right: 10px; font-size: 16px; right:60px;top: 0px;color: #cccccc;display:none;"></div>
+</div>
+</div>
+<button class="button button-clear" style="margin-top: 0px !important; color:#fff;margin-right:-5px;" id="homeMessageContentBatchSearchCancelBtn" sev_name="homeMessageContentBatch" onclick="window.navbarSearchCancel(this.id)">
+  取消
+</button>
+</div>
+</div>'
+ ng-controller="homeMessageContentBatchCtrl" cache-view="true" hide-tab-bar id="homeMessageContentBatchCtrl">
+<style>
+    #homeMessageContentBatchCtrl .searchclass {
+        position: relative;
+        top: 0px;
+        z-index: 9999;
+        -webkit-transition: opacity .3s ease-in-out;
+        height: 0;
+        opacity: 0;
+        padding: 0px;
+    }
+
+    #homeMessageContentBatchCtrl .searchclass.active {
+        height: 44px;
+        opacity: 1;
+        padding: 10.667px;
+        -webkit-transition: opacity .3s ease-in-out;
+    }
+
+    .platform-win32.platform-cordova #homeMessageContentBatchBack {
+        margin-left: -7px;
+    }
+
+    .platform-android.platform-cordova #homeMessageContentBatchBack {
+        padding-left: 10px !important;
+    }
+
+    .thr_cls {
+        margin-top: 45px;
+    }
+
+    .two_cls {
+        margin-top: 60px;
+        ;
+    }
+
+
+    .btn_wrapper {
+            display: flex;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            border-top: 1px solid #e7e7e7;
+            height: 45px;
+            background-color: #fff;
+
+        }
+
+        .btn_group {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn_group:nth-of-type(1) {
+            border-right: 1px solid #e7e7e7;
+        }
+
+        .btn {
+            font-size: 17px;
+        }
+        .select_wrapper {
+            width: 100%;
+            background-color: #fff;
+            height: 36px;
+            color: #000;
+            padding-left: 12px;
+            border-bottom: 1px solid #e7e7e7;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+
+        }
+
+        .all_not_select {
+            display: none;
+        }
+        .popup .popup-buttons button:nth-last-child(1){
+            background-color: rgba(68, 68, 68, 0);
+            color: #53afff !important;
+        }
+</style>
+<!--<ion-nav-buttons side="right">-->
+<!--<div ng-click="toggle_search();">-->
+<!--<i class="ion-ios-search-strong button back-button buttons button-clear button-light ion-ios-arrow-left header-item" style="font-size:20px !important;"></i>-->
+<!--</div>-->
+<!--</ion-nav-buttons>-->
+
+    <div class="btn_wrapper" ng-show="showBtnGroup&&home_message_content_date.length">
+        <div class="btn_group" ng-click="approval(1)">
+            <div class="btn" style="color: #53afff;">批准</div>
+        </div>
+        <div class="btn_group" ng-click="approval(0)">
+            <div class="btn" style="color: #ff5d5d;">驳回</div>
+        </div>
+    </div>
+
+
+
+<ion-content has-bouncing="true" overflow-scroll="false" style="bottom:45px;">
+    <div class="select_wrapper" ng-if="filterItems.length!=0">
+        <div class="all_select" ng-click="switchSelect('all')">全选</div>
+        <div class="all_not_select" ng-click="switchSelect('notAll')">全不选</div>
+    </div>
+    <div ng-show="home_message_content_date.data_ready && home_message_content_date.length==0 && search_control.search_val==''"
+        style="overflow: hidden;" class="ng-hide">
+        <div style="margin-top: 195px;text-align: center">
+            <img ng-src="{{no_notices}}" alt="" style="width:143px;height: 110px;">
+        </div>
+        <div style="margin-top:20px;text-align: center;color: #a7a7a7;font-size: 0.4rem;">暂时没有消息~
+        </div>
+    </div>
+
+    <!--
+<div ng-show="home_message_content_date.data_ready && home_message_content_date.length==0 && search_control.search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+-->
+    <div ng-show="filterItems.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+    <div style="margin-bottom:70px;">
+        <div style=" width:100%; padding-left:15px;margin-bottom: 6px;" ng-repeat="item in filterItems=(home_message_content_date|dataAndFilter:'apply_remark,biz_type_name,end_date_time,duration,lv_code_name,name,start_date_time,title,customers,reason,date_time,ot_code,ot_hours':search_control.search_val)"
+            ng-click="selectItem(item)">
+            <div style="margin-bottom: 0px;color: #999;margin-top: 14px;position: relative" ng-show="$first||filterItems[$index].name!=filterItems[$index-1].name"><img
+                    style="width: 20px;height: 20px;position: absolute;left:5px;" ng-src="{{timeline}}">
+                <span style="height: 18px;text-align: center; background-color: #E5E5E5;color: #ffffff;border-radius: 10px;font-size: 0.32rem;line-height: 18px;margin-left: 47px;padding-left: 12px;padding-right: 12px;">
+                    {{filterItems[$index].name}}
+                </span>
+
+            </div>
+
+            <div style="width: 100%;border-radius: 5px;height:150px;margin-top: 14px; ">
+                <div style="min-height:70px;float: left;z-index: 999; width: 30px;line-height: 140%;" class="repeat_left_title">
+                    <div style="width: 20px;vertical-align: middle;display: inline-block;margin-left: 0px;text-align: center;color: black;padding-bottom:5px;padding-top:5px;"><img
+                            src="{{item.img}}" alt="" style="width: 31px;height: 31px;border-radius: 150px;" /></div>
+                </div>
+
+                <div style="height: 100%;width: 100%;">
+                    <div style="margin-left: 47px;height:100%;width: 100%;color:#666;border-radius: 5px;">
+
+                        <div style="padding-top:0px;margin-bottom:6px;overflow: hidden;border-radius: 5px;position: relative;height: 150px;background-color: white;margin-right: 65px;border:1px solid #f0f0f0;">
+                            <div style="padding-top: 0px;font-size: 0.42666rem;padding-left: 15px;color: #000000;margin-top: 15px;margin-bottom: 10px;position: absolute;width: 100%;font-weight:500; ">{{item.biz_type_name}}
+                                <!-- <span style="position: absolute;right: 15px; font-size: 0.42666rem;color:#56b1ff;">详情
+                                    <img style="width: 14px;height: 14px;position: relative;top:2px;" ng-src="{{arrowblue}}">
+                                </span> -->
+                                <label class="checkbox" style="position: absolute;right: 15px; font-size: 0.42666rem;color:#56b1ff;padding: 0;">
+                                  <input type="checkbox" ng-click="selectItem(item)" ng-model="item.checked" ng-checked="item.checked" class="ng-pristine ng-untouched ng-valid">
+                                </label>
+                               
+          
+                            </div>
+                            <div ng-class="item.biz_type_key=='business_trip'||item.biz_type_key=='fieldwork_bill' || item.biz_type_key=='offic_work_out' || item.biz_type_key=='at_daily_adj'?'thr_cls':'two_cls' ">
+                                <div style="padding-left: 15px;color: #333;font-size: 0.4rem;padding-right: 35px;"
+                                    ng-show="item.biz_type_key=='leave'">{{item.lv_code_name}}{{item.duration}}</div>
+                                <div style="padding-left: 15px;color: #333;font-size: 0.4rem;padding-right: 35px;"
+                                    ng-show="item.biz_type_key=='overtime'">{{item.ot_code}}{{item.ot_hours}}</div>
+
+                                <div style="padding-left: 15px;color: #333;font-size: 0.4rem;padding-right: 35px;"
+                                    ng-if="item.biz_type_key=='business_trip'">出差{{item.duration}}天</div>
+                                <div style="padding-left: 15px;color: #555;font-size:  0.37333rem;padding-right: 15px;height: 20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"
+                                    ng-if="item.biz_type_key=='business_trip'&&item.city_name!=''">{{item.city_name}}</div>
+
+                                <div style="padding-left: 15px;color: #333;font-size: 0.4rem;padding-right: 35px;"
+                                    ng-show="item.biz_type_key=='at_daily_adj'">{{item.shift_date}}
+                                    {{item.policy_name}}</div>
+                                <div style="padding-right: 35px;padding-left: 15px;font-size: 0.4rem;color: #000;padding-bottom: 5px;"
+                                    ng-show="item.biz_type_key!='fieldwork_bill' || item.reason!='拜访客户'" class="ng-hide">{{item.reason}}</div>
+                                <div style="padding-right: 35px;padding-left: 15px;font-size: 0.4rem;color: #000;padding-bottom: 5px;"
+                                    ng-show="item.biz_type_key=='fieldwork_bill' && item.reason=='拜访客户'" class="ng-hide">拜访{{item.customers}}</div>
+                                <div style="padding-left: 15px;color: #555;font-size:  0.37333rem;padding-right: 15px;height: 20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"
+                                    ng-show="item.biz_type_key=='at_daily_adj'">补签过{{item.adj_times}}个卡点</div>
+                                <div style="padding-left: 15px;color: #555;font-size:  0.37333rem;padding-right: 15px;height: 20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"
+                                    ng-show="item.biz_type_key=='at_daily_adj'">补签原因：{{item.adj_type_name}}</div>
+                                <div style="padding-left: 15px;color: #555;font-size:  0.37333rem;padding-right: 15px;height: 20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"
+                                    ng-show="item.biz_type_key=='fieldwork_bill'&&item.location!=''">{{item.location}}</div>
+                                <!--<div style="padding-left: 15px;color: #666;font-size: 15px;padding-right: 50px;" ng-show="item.biz_type_key=='offic_work_out'&&item.reason!=''"><span style="color: #333;"></span>{{item.reason}}</div>-->
+                                <div style="padding-left: 15px;color: #555;font-size:  0.37333rem;padding-right: 15px;height: 20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"
+                                    ng-show="item.biz_type_key=='offic_work_out'&&item.location!=''">{{item.location}}</div>
+                                <div style="padding-left: 15px;color: #555;font-size: 0.37333rem;padding-right: 15px;height: 20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"
+                                    ng-show="item.biz_type_key=='fieldwork'&&item.location!=''">{{item.location}}</div>
+                                <div style="padding-left: 15px;text-indent: 0px;color:#555;font-size:0.34666rem;margin-top:0px; margin-bottom:0px;padding-right: 15px;"
+                                    class="ng-binding" ng-show="item.biz_type_key!='offic_work_out'&& item.biz_type_key!='fieldwork' && item.biz_type_key!='at_daily_adj'">{{item.start_date_time}}至{{item.end_date_time}}</div>
+
+                                <div style="padding-left: 15px;text-indent: 0px;color:#555;font-size:0.34666rem;margin-top:0px; margin-bottom:0px;padding-right: 15px;margin-top: 6px;">{{item.date_time}}</div>
+                            </div>
+                            <div style="font-size: 13px; text-align: right;color: #666;position: absolute;bottom: 12px;right: 15px;margin-top: 6px;">{{item.employee_name}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>
+
+
+</ion-view>

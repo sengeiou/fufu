@@ -1,0 +1,228 @@
+<ion-view title="设备中心" ng-controller="aiDeviceCtrl" hide-nav-bar="true" hide-tab-bar ng-class="{'tab-state':aiDeviceData.tab_state, 'tab-state1': aiDeviceData.tab_cur == 1, 'tab-state2': aiDeviceData.tab_cur == 2}" system-setting-to-view-common>
+    <style type="text/css">
+        .device-list-box ion-item > div .c, .device-item.item-complex .item-content > div .c{display: flex;justify-content: space-between;flex-direction: column;}
+        .device-item.item-complex .item-content > div .r div.online{
+          color: #53afff;
+          background-color: #fff;
+          border: 1px #53afff solid;
+          box-sizing: border-box;
+          height: 18px;
+          line-height: 16px;
+        }
+        .device-list-box  ion-item > div .r div.offline,
+        .device-item.item-complex .item-content > div .r div.offline{
+          color: #f65454;
+          background-color: #fff;
+          border: 1px #f65454 solid;
+          box-sizing: border-box;
+          height: 18px;
+          line-height: 16px;
+        }
+        .search-popover .search-device-icon-box > img, ion-view[ng-controller="aiDeviceCtrl"] .search-device-icon-box > img, ion-view[ng-controller="attendanceMemberCtrl"] .search-device-icon-box > img{width: 160px;height: 125px;}
+    </style>
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span>设备中心</span>
+        </h1>
+
+        <div class="buttons">
+            <i class="r-icon r-black_search_icon disable-user-behavior" on-tap="openSearchPopover($event);adSearchIptFocus()"></i>
+            <i class="r-icon r-black_add_icon disable-user-behavior" on-tap="showFuncPopover()"></i>
+        </div>
+	</ion-header-bar>
+  	<ion-content has-bouncing="true" overflow-scroll="false" style="top: {{content_top}}" delegate-handle="aiDeviceMainScroll">
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+        <div class="ng-hide tab-state1box" >
+            <!-- ng-show="aiDeviceData.tab_cur == 1"  -->
+
+             <ul class="r-list" ng-show="aiDeviceData.had_linked.length">
+                        <li class="ad-item" style="height: auto;
+    padding: 10px 12px 5px 12px;
+    background-color: #f8f8f8;">
+                            <div class="ad-item-title" style="font-size: 12px;color: #999999;" ng-bind="'共' + aiDeviceData.had_linked.length + '台'"></div>
+                        </li>
+                </ul>
+
+                <ion-list>
+
+                    <ion-item ng-repeat="item in aiDeviceData.had_linked" 
+                              item="item" class="item-remove-animate device-item">
+                      <div on-tap="openAttendanceConfig(item)">
+                            <div class="l"><img ng-src="{{local_resource + 'img/at_product/'+item.sn_type+'.png'}}" err-src="{{local_resource+'img/at_product/default_device.png'}}"></div>
+                            <div class="c" style="padding-left: 10px;">
+                                <div class="device-name" ng-bind-html="item.device_name" style="overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;padding-right: 10px;"></div>
+                                <!-- <div class="zone_name" ng-bind-html="item.zone_name" style="overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;padding-right: 10px;"></div> -->
+                                <div class="zone_name device_sn" ng-bind="item.device_sn"></div>
+                            </div>
+                            <div class="r">
+                                <div class="online ng-hide" ng-show="item.online">在线</div>
+                                <div class="offline ng-hide" ng-show="!item.online">离线</div>
+                            </div>
+                      </div>
+                      <ion-option-button class="button-light"
+                                         on-tap="unbundling(aiDeviceData.had_linked,$index,item)">
+                        <div>
+                            <i class="r-icon r-unbundling-icon"></i>
+                            <div>解绑</div>
+                        </div>
+                      </ion-option-button>
+                    </ion-item>
+
+                </ion-list>
+        </div>
+
+        <!-- <div class="ng-hide tab-state2box" >
+        
+                
+                <ul class="r-list">
+                        <li class="ad-item" style="height: auto;
+    padding: 10px 12px 5px 12px;
+    background-color: #f8f8f8;">
+                            <div class="ad-item-title" style="font-size: 12px;color: #999999;" ng-bind="'共' + aiDeviceData.old_device.length + '台'"></div>
+                        </li>
+                </ul>
+
+                <ion-list>
+
+                    <ion-item ng-repeat="item in aiDeviceData.old_device" 
+                              item="item" class="item-remove-animate device-item">
+                      <div on-tap="openAttendanceConfig(item,1)">
+                            <div class="l"><img ng-src="{{local_resource + 'img/at_product/'+item.sn_type+'.png'}}" err-src="{{local_resource+'img/at_product/default_device.png'}}"></div>
+                            <div class="c" style="padding-left: 10px;">
+                                <div class="device-name" ng-bind-html="item.device_name" style="overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;padding-right: 10px;"></div>
+                                
+                                <div class="zone_name device_sn" ng-bind="item.device_sn"></div>
+                            </div>
+                            <div class="r">
+                                <div class="online ng-hide" ng-show="item.online">在线</div>
+                                <div class="offline ng-hide" ng-show="!item.online">离线</div>
+                            </div>
+                      </div>
+                      <ion-option-button class="button-light"
+                                         on-tap="unbundling(aiDeviceData.old_device,$index,item)">
+                        <div>
+                            <i class="r-icon r-unbundling-icon"></i>
+                            <div>解绑</div>
+                        </div>
+                      </ion-option-button>
+                    </ion-item>
+
+                </ion-list>
+        </div> -->
+
+        <div class="ng-hide search-device-icon-box" ng-show="aiDeviceData.had_linked.length == 0">
+            <img ng-src="{{local_resource + 'img/icon_notdevice.png'}}" >
+            <div>暂无设备</div>
+        </div>
+  	</ion-content>
+    
+    
+    
+
+    <script id="my-func-popover.html" type="text/ng-template">
+      <div class="device_func_popover">
+            <div on-tap="scan() && popover.hide()">
+                <i class="r-icon r-sys-blue-icon"></i>
+                <div>扫一扫</div>
+            </div>
+            <div on-tap="findDevice() && popover.hide()">
+                <i class="r-icon r-lanyu-blue-icon"></i>
+                <div>发现设备</div>
+            </div>
+            <div on-tap="addDevice() && popover.hide()">
+                <i class="r-icon r-sadd-blue-icon"></i>
+                <div>手动添加</div>
+            </div>
+            <div class="ng-hide" ng-show="is_region == 1" on-tap="haveDevice() && popover.hide()">
+                <i class="r-icon r-have-device-icon"></i>
+                <div>已有设备</div>
+            </div>
+      </div>
+    </script> 
+
+
+
+    <script id="search-ai-device-popover.html" type="text/ng-template">
+      <div class="search-popover" ng-class="{'isSearchStr':searchObj.str.length}">
+        <ion-header-bar>
+          <h1 class="title" id="search-ai-device-h1">
+            <div clear-value-box style="right: 34px;left: 2px;">
+                <i class="icon ion-ios-search-strong placeholder-icon"></i>
+                <input id="aiSearchIpt" type="text" placeholder="搜索设备名称..." ng-model="searchObj.str" clear-value-input>
+                <i clear-value-btn></i>
+            </div>
+            
+          </h1>
+
+          <div class="buttons" on-tap="closeSearchPopover()">
+            取消
+          </div>
+        </ion-header-bar>
+        
+        <div class="search-msg-bar" on-tap="search()">
+            <i class="r-icon r-search-bar-icon"></i>
+            <div class="search-msg-text">搜索“<span ng-bind="searchObj.str"></span>”</div>
+            <i class="icon ion-ios-arrow-right"></i>
+        </div>
+
+        <ion-content  has-bouncing="true" overflow-scroll="false" delegate-handle="aiDeviceSearchScroll">
+            <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+            <div class="ng-hide search-device-icon-box" ng-show="!searchObj.list.length && searchObj.state">
+                <img ng-src="{{local_resource + 'img/icon_notdevice.png'}}" >
+                <div>暂无设备</div>
+            </div>
+
+            <div class="ng-hide search-device-icon-box" ng-show="!searchObj.state">
+                <img ng-src="{{local_resource + 'img/icon_notdevice.png'}}" >
+                <div>搜索设备</div>
+            </div>
+
+
+            <ion-list class="ng-hide" ng-show="searchObj.list.length">
+
+                    <ion-item ng-repeat="item in searchObj.list" 
+                              item="item" class="item-remove-animate device-item">
+                      <div on-tap="closeSearchPopover() && openAttendanceConfig(item)">
+                            <div class="l"><img ng-src="{{local_resource + 'img/at_product/'+item.sn_type+'.png'}}" err-src="{{local_resource+'img/at_product/default_device.png'}}"></div>
+                            <div class="c">
+                                <div class="device-name" ng-bind-html="item.device_name" style="overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;padding-right: 10px;"></div>
+                                <!-- <div class="zone_name" ng-bind-html="item.zone_name" style="overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;padding-right: 10px;"></div> -->
+                                <div class="zone_name device_sn" ng-bind="item.device_sn"></div>
+                            </div>
+                            <div class="r">
+                                <div class="online ng-hide" ng-show="item.online">在线</div>
+                                <div class="offline ng-hide" ng-show="!item.online">离线</div>
+                            </div>
+                      </div>
+                      <ion-option-button class="button-light"
+                                         on-tap="unbundling(searchObj.list,$index,item,true)">
+                        <div>
+                            <i class="r-icon r-unbundling-icon"></i>
+                            <div>解绑</div>
+                        </div>
+                      </ion-option-button>
+                    </ion-item>
+
+                </ion-list>
+
+        </ion-content>
+      </div>
+    </script>
+</ion-view>
+

@@ -1,0 +1,79 @@
+﻿
+<style>
+  .right_textfield{text-align:right;float:right;}
+  .right_textfield span{background:url(img/register/icon_edit@2x.png) no-repeat;background-size:100%;}
+  .margin_input{margin-top:-10px;margin-bottom:-10px;}
+  .at1cls input[type="text"]{display:inline;}
+
+  .navigation_bar{background-color:#fff;color:#53afff;}
+  .platform-ready .button.button-light.button-clear{color:#333;}
+</style>
+<ion-view title="考勤参数配置">
+  <div  ng-controller="registerAt1" class="at1cls">
+  <ion-content has-bouncing="true" overflow-scroll="false">
+    <div class="card">
+      <li class="item list_title">
+        打卡参数配置
+      </li>
+
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上班卡允许提前分钟数
+        <div class="right_textfield margin_input">
+          <input type="text"  class="text2" ng-model="reg_at1_data.in_allow_before_minutes"  value="{{reg_at1_data.in_allow_before_minutes}}" />
+          <img style="margin-bottom:-5px;" width="20" height="20" src="img/register/icon_edit@2x.png"></img>
+          </div>
+      </li>
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上班卡允许延后分钟数
+        <div class="right_textfield margin_input">
+          <input type="text" class="text2" ng-model="reg_at1_data.in_alow_after_minutes"  value="{{reg_at1_data.in_alow_after_minutes}}" />
+          <img style="margin-bottom:-5px;" width="20" height="20" src="img/register/icon_edit@2x.png"></img></div>
+      </li>
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下班卡允许提前分钟数
+        <div class="right_textfield margin_input">
+          <input type="text" class="text2" ng-model="reg_at1_data.out_allow_before_minutes"  value="{{reg_at1_data.out_allow_before_minutes}}" />
+          <img style="margin-bottom:-5px;" width="20" height="20" src="img/register/icon_edit@2x.png"></img></div>
+      </li>
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下班卡允许延后分钟数
+        <div class="right_textfield margin_input">
+          <input type="text"  class="text2" ng-model="reg_at1_data.out_allow_after_minutes"  value="{{reg_at1_data.out_allow_after_minutes}}" />
+          <img style="margin-bottom:-5px;" width="20" height="20" src="img/register/icon_edit@2x.png"></img></div>
+      </li>
+
+    </div>
+
+    <div class="card">
+      <li class="item list_title">
+        分析参数配置
+      </li>
+
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;允许早退时间(分钟)
+        <div class="right_textfield margin_input">
+          <input type="text" ng-model="reg_at1_data.allow_early_leave_minutes"  type="text" class="text2"  value="{{reg_at1_data.allow_early_leave_minutes}}" />
+          <img style="margin-bottom:-5px;" width="20" height="20" src="img/register/icon_edit@2x.png"></img>
+        </div>
+      </li>
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;允许迟到时间(分钟)
+        <div class="right_textfield margin_input">
+          <input type="text" ng-model="reg_at1_data.allow_late_minutes"  type="text" class="text2"  value="{{reg_at1_data.allow_late_minutes}}" />
+          <img style="margin-bottom:-5px;" width="20" height="20" src="img/register/icon_edit@2x.png"></img>
+        </div>
+      </li>
+      <li class="item">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;迟到早退时长计旷工(分钟)
+        <div class="right_textfield margin_input">
+          <input type="text" ng-model="reg_at1_data.absent_minutes"  type="text" class="text2"  value="{{reg_at1_data.absent_minutes}}" />
+          <img style="margin-bottom:-5px;" width="20" height="20" src="img/register/icon_edit@2x.png"></img>
+        </div>
+      </li>
+    </div>
+  </ion-content>
+    <ion-footer-bar align-title="center" class="btn_next">
+      <div class="title" ng-click="saveRegAt1()">下一步</div>
+    </ion-footer-bar>
+  </div>
+</ion-view>

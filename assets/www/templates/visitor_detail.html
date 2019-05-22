@@ -1,0 +1,139 @@
+
+<ion-view style="background-color:#f8f8f8;" hide-back-button="true" hide-nav-bar="true" title='' hide-tab-bar ng-controller="VisitorDetailCtrl">
+  	<ion-header-bar align-title="center" class="bar-opacity" style="background-color:#53afff;" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" style="color:#fff"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span style="color:#fff;">访客详情</span>
+        </h1>
+
+        <!-- <div class="buttons" style="color:#fff;line-height:35px;font-size:14px;margin-right:7px;" ng-show="visitor_details_data.cancel" ng-click="visitor_detail_cancel()">
+           撤销
+        </div> -->
+	</ion-header-bar>
+
+<style>
+.have_bottom{
+bottom:44px !important;
+}
+</style>
+
+  <ion-content  has-bouncing="false" overflow-scroll="false" ng-class="visitor_details_data.modify ? 'have_bottom':''">
+	<div id="wrap">
+		<div class="top" style="position:relative;">
+			<div style="height:150px;background-image:url('{{visitor_details_background}}');background-repeat:round"></div>
+			<div style="margin-left:12px;margin-right:12px;background-color:#fff;margin-top:-120px;border-radius:10px;padding-bottom:10px; box-shadow:0px 5px 20px 0px rgba(0,0,0,0.05)">
+					<div style="margin-left:12px;margin-right:12px;background-color:#fff;margin-top:0px;border-radius:4px;"> 
+						<div style="padding-top:12px;padding-bottom:12px; position:relative;border-bottom:1px solid rgb(240,240,240);">
+							<div style="width:50px;height:50px;display:inline-block;border-radius:150%;background-color:{{bgColor}};color:#fff;line-height:50px;text-align:center;font-size:20px;" >{{visitor_details_data.visitor_name_py}}</div>
+							<div style="display:inline-block;position:relative;top:5px;margin-left:12px;left:-2px;"> 
+								<div style="font-size:16px;color:rgb(51,51,51)">{{visitor_details_data.visitor_name}}</div>
+								<div style="font-size:13px;color:rgb(153,153,153);position:relative;top:6px;">{{visitor_details_data.phone_}}</div>
+							</div>
+							<div style="position:absolute;width:50px;height:22px; font-size:11px;border:1px solid {{visitor_details_data._linecolor}};background-color:{{visitor_details_data._bgcolor}};border-radius:2px;text-align:center;right:0px;top:16px;color:{{visitor_details_data._color}}">{{visitor_details_data.status_}}</div>
+						</div>
+						
+						<div style="font-size:14px;margin-top:12px;font-size:13px;color:rgb(102,102,102)">
+							<div style="display:inline-block;position:absolute;">访客事由</div> <div style="margin-left:68px;display:inline-block;text-indent:12px;text-indent:0px;">{{visitor_details_data.reason}}</div>
+						</div>
+						<div style="font-size:14px;margin-top:8px;font-size:13px;color:rgb(102,102,102)">
+							<div style="display:inline-block;position:absolute;">到访地址</div> <div style="margin-left:68px;display:inline-block;text-indent:12px;text-indent:0px;">{{visitor_details_data.address_}}</div>
+						</div>
+					</div>
+						
+			
+			</div>
+		</div>
+		
+		<div style="height:44px;overflow:hidden;width: 100%;background-color: #fff;border-bottom:0px solid #f5f5f5;overflow: hidden;vertical-align:middle;border-top: 1px solid #f5f5f5;margin-top:10px;">
+			  <div style="float:left;width:98px;">
+				<label style="font-size:16px; color:rgb(51,51,51); margin-left:12px; line-height:44px">开始日期</label>
+			  </div>
+			  <div style="float:right;">
+				<div  style="margin-right:9px; color:rgb(102,102,102); line-height:44px;display: inline-block; font-size:16px;max-width:180px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;" class="ng-binding">{{visitor_details_data.date_from}}</div>
+			  </div>
+		</div>
+		<div style="height:44px;overflow:hidden;width: 100%;background-color: #fff;border-bottom:0px solid #f5f5f5;overflow: hidden;vertical-align:middle;border-top: 1px solid #f5f5f5;">
+			  <div style="float:left;width:98px;">
+				<label style="font-size:16px; color:rgb(51,51,51); margin-left:12px; line-height:44px">结束日期</label>
+			  </div>
+			  <div style="float:right;">
+				<div  style="margin-right:9px;color:rgb(102,102,102); line-height:44px;display: inline-block; font-size:16px;max-width:180px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;" class="ng-binding">{{visitor_details_data.date_to}}</div>
+			  </div>
+		</div>
+		<div style="height:44px;overflow:hidden;width: 100%;background-color: #fff;border-bottom:0px solid #f5f5f5;overflow: hidden;vertical-align:middle;border-top: 1px solid #f5f5f5;">
+			  <div style="float:left;width:98px;">
+				<label style="font-size:16px; color:rgb(51,51,51); margin-left:12px; line-height:44px">访问时间</label>
+			  </div>
+			  <div style="float:right;">
+				<div  style="margin-right:9px; color:rgb(102,102,102); line-height:44px;display: inline-block; font-size:16px;max-width:180px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;" class="ng-binding">{{visitor_details_data.time_from}} ~ {{visitor_details_data.time_to}}</div>
+			  </div>
+		</div>
+		
+		<div  style="margin-top:10px;">
+			<div style="height:44px;overflow:hidden;width: 100%;background-color: #fff;border-bottom:0px solid #f5f5f5;overflow: hidden;vertical-align:middle;" ng-repeat="item in visitor_details_data._device_name_list">
+			  <div style="float:left;width:98px;">
+				<label style="font-size:16px; color:rgb(51,51,51); margin-left:12px; line-height:44px" ng-show="$first">设备名称</label>
+			  </div>
+			  <div style="float:right;">
+				<div class="device_name_list"  style="margin-right:9px; color:rgb(102,102,102); line-height:44px;display: inline-block; font-size:16px;max-width:180px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;" class="ng-binding">{{item}} </div>
+
+			  </div>
+	  
+			</div>
+		</div>
+		
+		<div>
+			<div style="height:44px;overflow:hidden;width: 100%;background-color: #fff;border-bottom:0px solid #f5f5f5;overflow: hidden;vertical-align:middle;border-top: 1px solid #f5f5f5;">
+			  <div style="float:left;width:98px;height:50px;">
+				<label style="font-size:16px; color:rgb(51,51,51); margin-left:12px; line-height:44px" >验证方式</label>
+			  </div>
+			  <div style="float:right;">
+				<div  style="margin-right:9px;color:rgb(102,102,102) ;  line-height:44px;display: inline-block; font-size:16px;max-width:180px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;"  class="ng-binding">{{visitor_details_data.valid_rule_name}}</div>
+
+			  </div>
+	  
+			</div>
+		</div>
+		
+		<div  style="margin-top:10px;background-color: #ffffff;color: #747474;position: relative;border-bottom:0px solid #f5f5f5; border-top:0px solid#f5f5f5;margin-bottom:20px;" ng-show="visitor_details_data.notice_user_list.length!='0'">
+		  <p style="height:2.1em;line-height: 3.2em;margin-left:12px;font-size:16px;color:rgb(51,51,51);">知会人</p>
+		  <ion-scroll zooming="false" direction="x" style="width:100%; background-color:#fff;margin-top: 5px;" id="notify_list_scroll" delegate-handle="notify_list_scroll" has-bouncing="false" horizontal-scroll-fix scrollbar-x="false">
+			<div  style="background-color:#fff;min-width:100%;height: 120px; transform: translateZ(0px); overflow-x: scroll;" class="" id="notify_list_div">
+			  <div style="width: 75px;height: 80px;float: left;position: relative;text-align: center;top:20px;" ng-repeat="item in visitor_details_data.notice_user_list">
+				<div style="width:50px;height:50px;border-radius:50px;overflow:hidden;display:inline-block;">
+				  <img style="width:50px;height: 50px;" ng-src="{{item.img}}" ng-click="delete_notify(item.user_id)">
+				</div>
+				<p style=" color:#666666;font-size:14px;">{{item.name}}</p>
+				
+			  </div>
+
+			</div>
+		  </ion-scroll>
+		</div>
+		
+		
+		
+
+		
+	</div>
+  
+  	<div id="valid_rule_key_div" class="ng-hide"></div>
+	<div id="picklist_visitor_reason_key" class="ng-hide"></div>
+  
+  </ion-content>
+  
+  		<div style="width: 100%;background-color: #fff;border-bottom:0px solid #f5f5f5;overflow: hidden;vertical-align:middle;border-top: 1px solid #f5f5f5; margin-top:10px;text-align:center;position:fixed;bottom:0px; " ng-click="modify()" ng-show="visitor_details_data.modify">
+		  <div style="font-size:18px;line-height:49px;color:#333;" id="submit_and_send">
+			修改
+		  </div>
+		  
+		</div>
+  
+  
+</ion-view>
+

@@ -1,0 +1,61 @@
+
+<ion-view ng-controller="atResultCtrl"  id="at_result_view" style="background-color:#f8f8f8;" title="考勤结果"  hide-tab-bar>
+<style>
+
+    #at_result_view #at_result_content {
+      top: 112px;
+    }
+    .platform-win32.platform-cordova #at_result_view #at_result_content {
+      top: 92px;
+    }
+    .platform-android.platform-cordova #at_result_view #at_result_content {
+      top: 92px;
+    }
+</style>
+
+<ion-header-bar class="bar-subheader" style="height:46px;padding:0px;width: 100%; background-color:#f8f8f8; background-image:none;" >
+      <label class="item item-input" style="border-radius:4px;height:30px;margin:10px 12px;background-color:#fff;border:none;">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="搜索姓名、工号、职位..." ng-model="search_control.search_val">
+      </label>
+</ion-header-bar>
+
+  <ion-content id="at_result_content" has-bouncing="true" overflow-scroll="false">
+    <div class="list" style="margin-bottom:0px;">
+
+      <div class="row" style="background-color:#fff;line-height:40px;">
+        <div class="col-20"  style="text-align: left;color:#666;padding-left:5px;">
+          <div ng-click="reAtResultData('-1')">上一天</div>
+        </div>
+        <div class="col-60">
+          <div class="item-input">
+            <!--<input type="date"  id="at_result_1" style="margin-top:-5px;text-align: center;background-color:#fff;width:120px;font-size:17px;color:#333;"/>-->
+            <input type="date" id="at_result_1" style="margin-top:-5px;text-align: center;background-color:#fff;width:120px;font-size:17px;color:#333;display: none">
+            <div id="at_result_2" style="color:#53afff;line-height: 35px;margin: 0 auto;font-size: 14px;" ng-click="at_result_2()" >{{at_result_data.dt}}</div>
+          </div>
+        </div>
+        <div class="col-20" style="text-align: right;color:#666;padding-right:5px;">
+          <div ng-click="reAtResultData('1')">下一天</div>
+        </div>
+      </div>
+    </div>
+    <ion-list>
+      <div ng-show="at_result_data.data_ready && at_result_data.at_result_data.length==0 && search_control.search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+
+      <div ng-show="filterItems.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+      <ion-item class="item-avatar-left" collection-item-height="71" collection-item-width="'100%'" ng-click="loadAtEmplDetail(item.em)" collection-repeat="item in filterItems=(at_result_data.at_result_data|dataAndFilter:'st,en,pn':search_control.search_val)">
+        <img ng-src="{{item.img}}">
+        <div>
+          <span style="color:#333;font-size:17px;">{{item.en}}</span>&nbsp;&nbsp;
+          <span style="font-size:12px;color:#666666">工号:{{item.st}}</span>
+          <span style="font-size:14px;color:#666666;float:right;" ng-if="item.fg=='正常'">{{item.fg}}</span>
+          <span style="font-size:14px;color:#ff3b30;float:right;" ng-if="item.fg!='正常'">异常状态</span>
+        </div>
+        <p style="font-size:12px;color:#666666;">
+          {{item.pn}}
+          <span style="float:right;" ng-if="item.fg!='正常'">{{item.fg}}</span>
+        </p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

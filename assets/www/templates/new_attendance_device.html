@@ -1,0 +1,261 @@
+
+<ion-view style="background-color:#f8f8f8;" ng-controller="NewattendanceDeviceCtrl" hide-tab-bar hide-nav-bar="true" title="">
+<style>
+.head_tap{margin-left:12px;margin-right:12px;height:90px;position:relative;top:-45px;border-radius:4px;box-shadow:0 5px 20px 0px rgba(0,0,0,0.05);z-index:2;background-color:#fff;display: flex;justify-content:space-between;align-items:center;padding: 0 15px;box-sizing: border-box;}
+.head_tap .emp_head{width:50px;height:50px;margin-right:20px;}
+.head_tap .emp_box{flex: 1;display: flex;flex-direction: column;}
+.emp_box .emp_num{color: #53afff;font-size: 23px;margin-top: 8px;}
+.emp_box .emp_num text{font-size: 12px;color: #666666;}
+.arrow-right::after{
+  content: '';
+  display: flex;
+  align-items: center;
+  width: 7px;
+  height: 7px;
+  border-top: 2.1px solid #ccc;
+  border-right: 2.1px solid #ccc;
+  transform: rotate(45deg);
+  margin-left: 5px;
+}
+.list_box{width: 100%;background-color: #fff;}
+.list_box .list_item{padding-left: 12px;height: 50px;}
+.item_box{height: 100%;border-top: 1px #f0f0f0 solid;display: flex;align-items: center;font-size: 17px;color: #000;position: relative;}
+.list_box .list_item:first-child .item_box{border-top: none;}
+.item_box image{width: 20px;height: 20px;margin: 0 10px 0 10px;}
+.item_box::before{content: "";width: 7px;height: 7px;border-top:2.1px solid #ccc;border-right: 2.1px solid #ccc;transform: rotate(45deg);position: absolute;right: 12px;}
+.margin_top40{margin-top: 20px}
+.block-wrapper{
+  background-color: #fff;
+  padding-left: 12px;
+}
+.block-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 13px 12px 13px 0;
+}
+
+.block-item:nth-last-of-type(1){
+  border-bottom: none;
+}
+
+.item-left{
+  display: flex;
+  align-items: center;
+}
+
+.item-icon{
+  width: 20px;
+  height: 20px;
+}
+
+.item-left-topic{
+  color: #999;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.item-left-title{
+  font-size: 16px;
+  letter-spacing: 1px;
+  font-weight: 400;
+  margin-left: 10px;
+}
+
+.item-right{
+  display: flex;
+  align-items: center;
+  min-height:20px;
+  justify-content: flex-end;
+  flex:1;
+}
+.openDoor{width: 100%;height: 250px;position: fixed;bottom: -190px;left: 0;}
+.openTap{width: 100%;height: 60px;position: relative;}
+.openTap .openTapbg{width: 100%;height: 100%;position: absolute;left: 0;top: 0;}
+.openTap .open_tap{width: 16px;height: 16px;transform:rotate(0deg);position: absolute;;left: 50%;top: 30px;margin-left: -8px;}
+.opencontent{width: 100%;height: 190px;background-color: #ffffff;padding-top: 10px;box-sizing: border-box;}
+.open_button{width: 130px;height: 130px;margin: 0 auto;position: relative;background: linear-gradient(#39ddff,#309fff);border-radius: 50%;text-align: center;border: 1px #fff solid;box-shadow: 0 8px 15px rgba(40, 160, 255, 0.5);color: #fff;}
+.icon_door{width: 40px;height: 40px;margin-top: 32px;}
+.opendoor_text{width: 110px;font-size:16px;text-align: center;margin: 5px 10px 0;overflow: hidden;
+text-overflow: ellipsis;white-space: nowrap;}
+.openTap .tap_switch{transform:rotate(180deg);}
+.openDoortip{width: 150px;display: flex;height: 30px;margin: 10px auto 0;align-items: center;justify-content: center;color: #333333;}
+.openDoortip img{width: 15px;height: 15px;margin-right: 10px;}
+.font_style_ccc{color: #999;}
+.whiteBg{width: 100%;height: 190px;background-color: #f8f8f8;z-index: 2;position: fixed;left: 0;bottom: 0;}
+.scrollTop{animation-name: scrollTop;animation-duration:300ms;animation-fill-mode:forwards;}
+.scrollBtm{animation-name: scrollBtm;animation-duration:300ms;animation-fill-mode:forwards;}
+@keyframes scrollTop {
+    0%   {left:0px; bottom:-190px;}
+    100% {left:0px; bottom:0px;}
+    }
+@keyframes scrollBtm {
+    0%   {left:0px; bottom:0;}
+    100% {left:0px; bottom:-190px;}
+    }
+    .button-small{min-width: 0;min-height: 0;line-height: 100%;}
+</style>
+		  <div style="height: {{height}};color: white;text-align: center;line-height: {{line_height}};font-size: 17px;font-weight:500;position: fixed;top:0px;z-index: 3;width: 100%;opacity: 1;background:#53afff;display: none;opacity:0;" id="per_navbar_bg_div">
+				<a>
+					<button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" style="float: left;width: 15px;height: 15px;margin-right: 12px;margin-top: {{margin_top_left}};font-size:22px;color:#fff;padding-left:12px;padding-right:8px;" ng-click="back()"> </button>
+				</a>
+				<div style="float:right;padding:0px;width:37px;" ng-click="openSetting()">
+					<img class="nav_bar_img"  ng-src="{{setting_icon}}" alt="" style="float: right;width: 15px;height: 15px;margin-right: 12px;margin-top: {{margin_top_right}};"/>
+				</div>
+				{{title}}
+		  </div>
+		  <div style="height: {{height}};color: white;text-align: center;line-height:{{line_height}};font-size: 17px;font-weight:500;position: fixed;top:0px;z-index: 3;width: 100%;opacity: 1;" id="per_navbar_div">
+				<a >
+					<button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" style="float: left;width: 15px;height: 15px;margin-right: 12px; margin-top: {{margin_top_left}};font-size:22px;color:#fff;padding-left:12px;padding-right:8px;" ng-click="back()"> </button>
+				</a>
+				<div style="float:right;padding:0px;width:37px;" ng-click="openSetting()">
+					<img class="nav_bar_img"  ng-src="{{setting_icon}}" alt="" style="float: right;width: 15px;height: 15px;margin-right: 12px;margin-top: {{margin_top_right}};"/>
+				</div>
+				{{title}}
+		  </div>
+<div id="nav_bar_wrap" style="overflow:hidden;transform:translateY({{translate_top}});background-color:#f8f8f8;height: 253px;">
+	<div style="height:188px;width:100%;background-image:url('{{attendance_devce_bg}}');background-size: 100%;background-position: center bottom;position:relative;"></div>
+
+	<div class='head_tap' ng-click="openPage('deviceEmplo')">
+        <img class='emp_head' ng-src="{{icon_emp_head}}" />
+        <div class='emp_box'>
+          <div style="font-size: 17px;">设备员工管理</div>
+          <div ng:if="Newattendancedata.total_num!='0'" class='emp_num'>{{Newattendancedata.total_num}}<text>人</text></div>
+          <div ng:if="Newattendancedata.total_num=='0'" style="font-size: 12px !important;color:#bcbcbc;margin-top: 8px">暂未导入员工</div>
+        </div>
+        <i class="icon ion-ios-arrow-right button-small"></i>
+    </div>
+
+</div>
+<ion-content  id="new_attendace_content" has-bouncing="false" scrollbar-y="false"   scroll-event-interval="1" style="z-index:-2;" >
+<div style="padding-top:254px;" ng-show="Newattendancedata.is_punch_record!=''">
+	<div class='list_box'>
+      <div class="block-wrapper">
+        <div class="block-item" ng-click="punch_record_path()" ng-if="Newattendancedata.is_punch_record=='1'">
+          <div class="item-left">
+            <img class="item-icon" ng-src="{{icon_punch_record}}"/>
+            <div class="item-left-title">打卡记录</div>
+          </div>
+          <div class="item-right"></div>
+          <i class="icon ion-ios-arrow-right button-small"></i>
+        </div>
+        <div class="block-item" ng-click="employee_record_path()" ng-if="Newattendancedata.is_employee_openRecord=='1'" >
+          <div class="item-left">
+            <img class="item-icon" ng-src="{{icon_employee_openRecord}}"/>
+            <div class="item-left-title">员工开门记录</div>
+          </div>
+          <div class="item-right"></div>
+          <i class="icon ion-ios-arrow-right button-small"></i>
+        </div>
+        <div class="block-item" ng-click="visitor_record_path()" ng-if="Newattendancedata.is_visitor_openRecord=='1'">
+          <div class="item-left">
+            <img class="item-icon" ng-src="{{icon_visitor_openRecord}}"/>
+            <div class="item-left-title">访客开门记录</div>
+          </div>
+          <div class="item-right"></div>
+          <i class="icon ion-ios-arrow-right button-small"></i>
+        </div>
+        <div class="block-item" ng-click="visitor_list_path()" ng-if="Newattendancedata.is_visitor_list=='1'">
+          <div class="item-left">
+            <img class="item-icon" ng-src="{{icon_visitor_list}}"/>
+            <div class="item-left-title">访客列表</div>
+          </div>
+          <div class="item-right"></div>
+          <i class="icon ion-ios-arrow-right button-small"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="list_box margin_top40">
+      <div class="block-wrapper">
+        <div class="block-item"  ng-click="openPage('deviceAdmin')">
+          <div class="item-left">
+            <img class="item-icon" ng-src="{{icon_program}}"/>
+            <div class="item-left-title">设备管理员</div>
+          </div>
+          <div class="item-right">
+            <div class="item-right-content {{Newattendancedata.admin_ct==0?'font_style_ccc':''}}" style="margin-right: 8px;font-size: 16px;">{{Newattendancedata.admin_ct?Newattendancedata.admin_employee_name +'等'+ Newattendancedata.admin_ct +'人':'未设置'}}</div>
+          </div>
+          <i class="icon ion-ios-arrow-right button-small"></i>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+	
+</ion-content>
+	<!-- <div style="position:fixed;bottom:0px;height:44px;text-align:center;line-height:44px;background-color:#fff;width:100%;box-shadow:0px -5px 20px 0px rgba(0,0,0,0.05)" ng-click="openModal2()">
+		<i class="icon ion-android-add-circle" style="color:#53afff;font-size: 20px;line-height:44px;margin-right:3px;"></i> 
+		<div style="display:inline-block;font-size:16px;font-weight:500;color:#53afff;position:relative;top:-2px;">添加人员</div>
+	</div> -->
+	<div ng-if="Newattendancedata.is_remote_open==1" id="animationScroll" class="openDoor">
+      <div class='openTap' ng-click="tapSwitch()">
+        <img class='openTapbg' ng-src="{{btn_action_bar}}" />
+        <img class="open_tap {{!Switch?'tap_switch':''}}" ng-src="{{icon_down_arrow}}" />
+      </div>
+      <div class='opencontent'>
+        <div class='open_button' ng-click="remote_open_door()">
+          <img class='icon_door' ng-src="{{remote_opendoor_w}}" />
+          <div class='opendoor_text'>远程开门</div>
+        </div>
+        <div ng-show="is_open_door.openning" class='openDoortip'>
+          <text>正在开门中...</text> 
+        </div>
+        <div ng-show="is_open_door.opened" class='openDoortip'>
+          <img ng-src="{{icon_open_success1}}" />
+          <text>开门成功</text> 
+        </div>
+        <div ng-show="is_open_door.failed" class='openDoortip'>
+          <img ng-src="{{icon_open_failed1}}" />
+          <text>开门失败</text> 
+        </div>
+      </div>
+    </div>
+    <div class="whiteBg" ng-if="whiteBg"></div>
+
+ <script id="my-popover.html" type="text/ng-template">
+      <div style="position: fixed;top: 0;left: 0; right:0; bottom:0">
+            <div class="input-finger-box">
+        <div class="input-finger-head">
+            <img ng-src="{{local_resource + 'img/input_finger_icon.png'}}" >
+            <div>建议使用指腹录入指纹，打卡更精准</div>
+        </div>
+
+        <div class="input-finger-content">
+            <div>请“<span ng-bind-html="inputFingerData.input_finger_name"></span>”录入指纹</div>
+ 
+            <div class="ng-hide input-finger-state0" ng-show="inputFingerData.input_finger_state == 0"><ion-spinner icon="ios-small"></ion-spinner><span style="position:relative; top:-1px;">进行中(<span ng-bind="inputFingerData.step"></span>/3)</span></div>
+
+            <div class="ng-hide input-finger-state1" ng-show="inputFingerData.input_finger_state == 1">
+                <img ng-src="{{local_resource + 'img/fail_icon.png'}}" ><span ng-bind="inputFingerData.input_finger_error_name" style="position:relative; top:-1.5px;"></span>
+            </div>
+
+            <div class="ng-hide input-finger-state2" ng-show="inputFingerData.input_finger_state == 2">
+                <img ng-src="{{local_resource + 'img/success_icon.png'}}" ><span style="position:relative; top:-1px;">录入成功</span> 
+            </div>
+        </div>
+
+        <div class="input-finger-footer ng-hide" ng-show="inputFingerData.input_finger_state == 0" on-tap="cancelFinger()">
+            取消
+        </div>
+
+        <div class="input-finger-footer ng-hide" ng-show="inputFingerData.input_finger_state == 1">
+            <div on-tap="cancelFinger()">取消</div>
+            <div on-tap="resetInputFinger()">重试</div>
+        </div>
+
+        <div class="input-finger-footer ng-hide" ng-show="inputFingerData.input_finger_state == 2 && finger_num==1" on-tap="reload()">
+            我知道了
+        </div>
+		
+        <div class="input-finger-footer ng-hide" ng-show="inputFingerData.input_finger_state == 2 && finger_num==0 ">
+            <div on-tap="reload()">我知道了</div>
+            <div on-tap="continueInputFinger($event)">继续录入</div>
+        </div>
+      </div>
+      </div>
+    </script>
+		
+</ion-view>

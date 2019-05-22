@@ -1,0 +1,172 @@
+<ion-view title="设置" ng-controller="attendanceDeviceMoreSettingCtrl" hide-nav-bar="true" hide-tab-bar >
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button style="color:#333;" class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span>设置</span>
+        </h1>
+
+        
+	</ion-header-bar>
+			
+<style>
+.css_mar_right{
+margin-right:-10px !important;
+}
+.color_cls{
+	color:#ccc;
+}
+.popup-body-diy-title .popup-title{font-size: 16px;}
+</style>
+  	<ion-content has-bouncing="true" overflow-scroll="false" >
+        <ul class="r-list" style="margin:10px 0;">
+                <li class="ad-item" on-tap="openDeviceName()">
+                    <div class="ad-item-title" style="padding-right:18px;">设备名称</div>
+                    <div class="ad-item-text" ng-bind-html="settingInfo.device_name" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"></div>
+                    <i class="icon ion-ios-arrow-right color_cls" ></i>
+                </li>
+                <li class="ad-item" on-tap="selectdw()">
+                    <div class="ad-item-title" style="padding-right: 48px;">设备所属单位</div>
+                    <div class="ad-item-text" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" ng-bind="settingInfo.bu_list[settingInfo.bu_index].value"></div>
+                    <i class="icon ion-ios-arrow-right color_cls"></i>
+                </li>
+				<li class="ad-item" on-tap="openTimeZone()">
+                    <div class="ad-item-title" style="padding-right: 48px;">时区</div>
+                    <div class="ad-item-text" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" ng-bind="settingInfo.select_time_zone_text"></div>
+                    <i class="icon ion-ios-arrow-right color_cls"></i>
+                </li>
+				
+				
+        </ul>
+		
+		<ul class="r-list" style="margin-bottom:20px;">
+                <li class="ad-item" >
+                    <div class="ad-item-title">设备功能</div>
+                    <div class="ad-item-text" ng-bind="settingInfo.device_action"></div>
+                    
+                </li>
+		
+                <li class="ad-item" on-tap="openHolidayType()">
+                    <div class="ad-item-title">节假日类型</div>
+                    <div class="ad-item-text">{{settingInfo.holiday_type_str}}</div>
+                    <i class="icon ion-ios-arrow-right color_cls"></i>
+                </li>
+
+                <li class="ad-item">
+					<div style="width: 100%;height: 43px;background-color: #fff;">
+						<div style="float:left;">
+						  <label style="font-size:16px; color:#333; margin-left:0px; line-height:44px">开启远程开门</label>
+						</div>
+						<div style="float:right;">
+						  <div style="float: right;margin-top: 6px;">
+							<label class="toggle toggle-calm" style=" right:0px;" ng-click="is_allow_open_remote(settingInfo.is_allow_open_remote)">
+							  <input id="is_use_holiday_inp" type="checkbox" ng-checked="settingInfo.is_allow_open_remote==1" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+							  <div class="track">
+								<div class="handle" style=" "></div>
+							  </div>
+							</label>
+						  </div>
+						</div>
+					</div>
+                </li>
+				<div style="color:#666;padding-left:12px;padding-right:12px;">为确保安全，企业可以自行决定是否允许设备远程开门。开启后，必须确保设备在线才能进行远程开门。</div>
+        </ul>
+		
+		
+		<ul class="r-list" style="margin-bottom:20px;">
+                <li class="ad-item">
+					<div style="width: 100%;height: 43px;background-color: #fff;">
+						<div style="float:left;">
+						  <label style="font-size:16px; color:#333; margin-left:0px; line-height:44px">开启预约访客</label>
+						</div>
+						<div style="float:right;">
+						  <div style="float: right;margin-top: 6px;">
+							<label class="toggle toggle-calm" style=" right:0px;" ng-click="is_allow_visit(settingInfo.is_allow_visit)">
+							  <input id="is_use_holiday_inp" type="checkbox" ng-checked="settingInfo.is_allow_visit==1"  class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+							  <div class="track">
+								<div class="handle" style=" "></div>
+							  </div>
+							</label>
+						  </div>
+						</div>
+					</div>
+                </li>
+				<div style="color:#666;padding-left:12px;padding-right:12px;">开启后，员工在预约访客时可以选择为访客授权该设备的开门权限。使用时必须确保该设备在线。</div>
+        </ul>
+
+		<ul class="r-list" style="margin-bottom:20px;">
+                <li class="ad-item" >
+					<div style="width: 100%;height: 43px;background-color: #fff;">
+						<div style="float:left;">
+						  <label style="font-size:16px; color:#333; margin-left:0px; line-height:44px">陌生访客提醒</label>
+						</div>
+						<div style="float:right;">
+						  <div style="float: right;margin-top: 6px;">
+							<label class="toggle toggle-calm" style=" right:0px;" ng-click="is_visit_notice(settingInfo.is_visit_notice)">
+							  <input id="is_use_holiday_inp" type="checkbox" ng-checked="settingInfo.is_visit_notice==1" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+							  <div class="track">
+								<div class="handle" style=" "></div>
+							  </div>
+							</label>
+						  </div>
+						</div>
+					</div>
+                </li>
+                <li class="ad-item" ng-show="settingInfo.is_visit_notice==1" on-tap="remote_user_list()">
+					<div style="height:44px;position:relative;width:100%;"> 
+						<div style="font-size:16px; color:#333; margin-left:0px; line-height:44px;float:left;">提醒人员</div>
+						<div style="width:30px;height:30px;border-radius:50%;position:absolute;top:8px;background-color:white; right:-10px;text-align:center;">
+						<i class="icon ion-ios-arrow-right color_cls"></i>
+						</div>
+						
+						<div  id="leave_apply_approver_{{$index}}" style="width:30px;height:30px;border-radius:50%;overflow:hidden; float:right;margin-top:7px;margin-right:{{($index+1) * 30}}px;border:1px solid #fff " ng-class="$first ? '' :'css_mar_right' " ng-repeat="items in settingInfo.notice_user_list" ng-if="$index < 4">
+						<img style="width:30px;" ng-src="{{items.img}}">
+						
+						
+						</div>
+						
+						
+					</div>
+                </li>
+				
+				<div style="color:#666;padding-left:12px;padding-right:12px;">开启后，陌生访客按门铃后，选中的提醒人员会收到服服app推送通知，并通过服服app远程开门。
+需满足：1、选中的提醒人员必须登陆了服服app；2、必须确保设备在线。</div>
+        </ul>
+		
+        <ul class="r-list" style="margin:10px 0;margin-bottom:20px;">
+                <li class="ad-item" on-tap="lockSetting()">
+                    <div class="ad-item-title" style="padding-right:18px;">门磁设置</div>
+                    <div class="ad-item-text"  style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"></div>
+                    <i class="icon ion-ios-arrow-right color_cls"></i>
+                </li>
+                <li class="ad-item" on-tap="change_lock_time()" >
+                    <div class="ad-item-title" style="padding-right: 48px;">锁驱动时长</div>
+                    <div class="ad-item-text" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" ng-bind="settingInfo.lock_time_str"></div>
+                    <i class="icon ion-ios-arrow-right color_cls"></i>
+                </li>
+        </ul>
+		
+        <ul class="r-list" style="margin:10px 0;margin-bottom:30px;">
+                <li class="ad-item" on-tap="net_state()">
+                    <div class="ad-item-title" style="padding-right:18px;">网络状态</div>
+                    <div class="ad-item-text" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" ng-bind="settingInfo.net_status_str"></div>
+                    <i class="icon ion-ios-arrow-right color_cls"></i>
+                </li>
+        </ul>
+		
+		
+        <ul class="r-list">
+                <li class="ad-item">
+                    <div class="ad-item-text" style="text-align:center; color:red;" on-tap="
+                    unbundling()">解绑并重置设备</div>
+                </li>
+
+        </ul>
+  	</ion-content>
+
+</ion-view>
+

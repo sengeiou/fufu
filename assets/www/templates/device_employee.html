@@ -1,0 +1,296 @@
+
+
+<ion-view style="background-color:#f8f8f8;" hide-back-button="true" cache-view="false" hide-nav-bar="true" title='' ng-controller="DeviceEmployeeCtrl" hide-tab-bar>
+  <ion-header-bar align-title="center" class="bar-opacity" >
+    <div class="buttons" back-icon-transition>
+        <a ng-click="back()">
+            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" style="color:#333"> </button>
+        </a>
+    </div>
+
+    <h1 class="title">
+          <span>设备员工列表</span>
+      </h1>
+
+      <div class="buttons">
+          <i class="r-icon r-black_search_icon disable-user-behavior" on-tap="openSearchPopover($event)"></i>
+      </div>
+  </ion-header-bar>
+  <style type="text/css">
+    .device-item.item-complex .item-content, .device-list-box ion-item{height: auto;padding: 0;}
+    .item-complex .item-content, .item-radio .item-content{height: auto;padding: 0;}
+    .device-list-box ion-item>div, .device-item.item-complex .item-content>div{padding: 0;}
+    .side_box{width: 100%;height: auto;padding:0 0 0 12px;background-color: #fff;}
+    .side_border{width: 100%;display: flex;justify-content: space-between;align-items: center;padding:10px 12px 10px 0;border-top: 1px #f0f0f0 solid;}
+    .sideslipList_box{border-top: 1px #f0f0f0 solid;border-bottom: 1px #f0f0f0 solid;}
+    .sideslipList_box ._sideslip_item:first-child .side_box .side_border{border-top: 0 #f0f0f0 solid;}
+    .side_img{width: 60px;height: 60px;border-radius: 50%;overflow: hidden;margin-right: 12px;background-color: #e5e5e5;}
+    .side_img img{width: 100%;height: 100%;}
+    .side_l{display: flex;}
+    .side_center{height:60px;overflow: hidden;}
+    .side_centert{font-size: 19px;color: #000000;height: 30px;line-height: 30px;text-align: left;display: flex;}
+    .side_centert .text_overflow{max-width: 100px;}
+    .side_centert text{font-size:14px;color: #999999;margin-left: 7px;max-width: 5em;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+    .side_centerb{font-size: 16px;color: #666666;height: 30px;line-height: 30px;display: flex;align-items: center;}
+    .side_centerb div{margin-left:7px;}
+    .side_centerb div:first-child{margin-left: 0;}
+    .side_centerb .guard,.side_centerb .attendance{font-size:12px;padding: 0 5px;border-radius: 2px;height: 18px;line-height: 18px;}
+    .side_centerb .guard{background-color: #e0f9f3;color: #2cd7ad;}
+    .side_centerb .attendance{background-color: #e5f3ff;color: #53afff;}
+    .text_overflow{max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+    .nomoredatatext{background-color: #f8f8f8;color: #aaaaaa;text-align: center;height: 44px;font-size:16px;line-height: 44px;}
+    .side_r{display: flex;padding-right: 12px;}
+    .side_r .side_rit{width: 24px;height: 24px;position: relative;margin-left: 25px;}
+    .side_r .side_rit:first-child{margin-left:0;}
+    .side_rit .rit_bg{width: 24px;height: 24px;position: absolute;top: 0;left: 0;}
+    .side_rit .rit_rt{width: 16px;height: 16px;position: absolute;top: -7px;right: -7px;}
+    .side_rit .rit_rt img{width: 16px;height: 16px;position: absolute;top:0;right:0;}
+    .side_rit .rit_rt div{width: 16px;height: 16px;position: absolute;top:0;right:0;text-align: center;line-height: 16px;color: #fff;font-size: 10px;}
+    .side_r .side_self{font-size: 10px;
+        height: 17px;
+        line-height: 17px;
+        border-radius: 4px;
+        padding: 0 5px;
+        border: 1px #999 solid;
+        color: #999;
+        }
+    ion-list .item-remove-animate:first-child .side_border{border-top: none;}
+    .list,.scroll{height: 100%;}
+    .button.button-light{background-color: #f8f8f8;color: #f00;}
+    .delete_btn{display: flex;flex-direction: column;align-items: center;justify-content: center;width: 51px}
+    .delete_btn img{width: 24px;height: 24px;}
+    .delete_btn div{line-height: 30px;height: 30px;}
+    .item{border:none;margin:0;}
+    .btm_tabbar{position: fixed;width: 100%;height: 50px;bottom: 0;left: 0;background-color: #fff;border-top: 1px #f0f0f0 solid;z-index: 3;}
+    .tab_box{display: flex;width: 100%;height: 100%;font-size: 14px;}
+    .tab_item{flex: 1;display: flex;align-items: center;justify-content: center;color: #53afff;border-left: 1px #f0f0f0 solid;font-size: 17px;}
+    .tab_box .tab_item:first-child{border-left: none;}
+    .tab_item img{width: 20px;height: 20px;margin-right: 10px;}
+    .tab_item div{display: flex;align-items: center;justify-content: center;}
+    .noDatabg{padding: 112px 50px;text-align: center;}
+    .noDatabg img{width: 160px;height:125px;margin: 0 auto;}
+    .noDatabg div{margin-top: 9px;color: #c8c8c8;font-size: 16px;}
+    .nomoredatatext{background-color: #f8f8f8;color: #aaaaaa;text-align: center;height: 44px;font-size:16px;line-height: 44px;}
+    .action-sheet-group{border-radius: 12px;}
+    .action-sheet-group .button{height: 54px;}
+    .input-finger-head{padding:0;height: 175px;}
+    .input-finger-head img{width: 100%;height: 100%;}
+    .action-sheet-group .button:first-child{border-top: 0;}
+  </style>
+  <ion-content  has-bouncing="true" overflow-scroll="false" class="emp_list_content" style="bottom:50px;margin-top: 10px;">
+  
+    <!-- 没有数据展示 -->
+    <div class="noDatabg" ng-show="Data.length==0&&!isSearch&&total_num==0">
+      <img ng-src="{{local_resource + 'img/no_data.png'}}" />
+      <div>暂无数据</div>
+    </div>
+    <!-- 有数据展示 -->
+    <ion-list ng-if="Data.length">
+      <ion-item ng-repeat="item in Data" class="item-remove-animate">
+      <div ng-click="device_emp_detail(item)">
+        <div class="side_box">
+          <div class='side_border'>
+            <div class='side_l'>
+              <div class='side_img'><img ng-src="{{item.img_src}}" err-src="https://fufudev.zkcserv.com/cb_hrms/views/photos/nophoto.jpg" /></div>
+              <div class='side_center'>
+                <div class='side_centert'><div class="text_overflow">{{item.employee_name}}</div><Text>({{item.staff_no}})</Text></div>
+                <div class='side_centerb'>
+                  <div class="text_overflow">{{item.position_name}}</div>
+                  <div ng:if="item.is_access_control==1" class="guard">门禁</div>
+                  <div ng:if="item.is_sign_in==1" class="attendance">考勤</div>
+                </div>
+              </div>
+            </div>
+            <div class='side_r'>
+              <div class="side_self" ng:if="item.is_oneself == 'true'">本人</div>
+              <div class='side_rit' ng:if="is_online_fig==1" ng-click="icon_fingerprint(item,$event)">
+                <img ng:if="item.fingerprint_count==0" class='rit_bg' ng-src="{{local_resource + 'img/icon/icon_fingerprint_gray.png'}}" />
+                <img ng:if="item.fingerprint_count>0" class='rit_bg' ng-src="{{local_resource+'img/icon/icon_fingerprint_highlight.png'}}" />
+                <div class='rit_rt'>
+                  <img ng:if="item.fingerprint_count==0" ng-src="{{local_resource+'img/icon/mark_add.png'}}" />
+                  <img ng:if="item.fingerprint_count>0" ng-src="{{local_resource+'img/icon/mark_bg.png'}}" />
+                  <div ng:if="item.fingerprint_count>0">{{item.fingerprint_count>0?item.fingerprint_count:''}}</div>
+                </div>
+              </div>
+              <div class='side_rit' ng-click="icon_face_tap(item,$event)">
+                <img ng:if="item.face==0" class='rit_bg' ng-src="{{local_resource+'img/icon/icon_face_gray.png'}}" />
+                <img ng:if="item.face>0" class='rit_bg' ng-src="{{local_resource+'img/icon/icon_face_highlight.png'}}" />
+                <div class='rit_rt' ng:if="item.face==0">
+                  <img ng-src="{{local_resource+'img/icon/mark_add.png'}}" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ion-option-button class="button-light" on-tap="deleteEmployee($index)">
+        <div class="delete_btn">
+            <img class="r-icon" ng-src="{{local_resource +'img/icon/icon_delete.png'}}" />
+            <div>删除</div>
+        </div>
+      </ion-option-button>
+      </ion-item>
+      <div class='nomoredatatext' ng:show="Data.length==total_num&&Data.length!=0">没有更多数据了</div>
+      <!-- <div ng-if="Data.length<10&&Data.length>0" style="height:{{80*(7-Data.length)}}px;width: 100%;"></div> -->
+      <ion-infinite-scroll
+        ng-if="Data.length<total_num&&!isSearch"
+        distance="5%"
+        immediate-check="false"
+        on-infinite="loadMore()">
+      </ion-infinite-scroll>
+    </ion-list>
+    
+       
+  </ion-content>
+
+  <div class="btm_tabbar">
+    <div class='tab_box' ng-show="Data.length==0">
+      <div class='tab_item' ng-click='onAddStaff()'>
+        <img ng-src="{{local_resource +'img/add_staff.png'}}" />
+        添加员工
+      </div>
+    </div>
+    <div class='tab_box' ng-show="Data.length">
+      <div class='tab_item' ng-click='onAddStaff()'>继续添加</div>
+      <div class='tab_item' ng-click="navEmplist()">删除</div>
+    </div>
+  </div>
+
+
+
+   <script id="search-device_employee-popover.html" type="text/ng-template">
+      <div class="search-popover" ng-class="{'isSearchStr':searchObj.str.length}">
+        <ion-header-bar>
+
+          <h1 class="title" id="search-device-list-h1">
+            <div clear-value-box style="right: 34px;left: 2px;">
+                <i class="icon ion-ios-search-strong placeholder-icon"></i>
+                <input id="adSearchIpt" type="text" placeholder="搜索姓名、工号、职位、功能类型等" ng-model="searchObj.str" clear-value-input>
+                <i clear-value-btn style="line-height:32px"></i>
+            </div>
+            
+          </h1>
+
+          <div class="buttons" style="font-size:14px;" on-tap="closeSearchPopover()">
+            取消
+          </div>
+        </ion-header-bar>
+        
+        <div class="search-msg-bar" on-tap="search()">
+            <i class="r-icon r-search-bar-icon"></i>
+            <div class="search-msg-text">搜索“<span ng-bind="searchObj.str"></span>”</div>
+            <i class="icon ion-ios-arrow-right"></i>
+        </div>
+
+        <ion-content  has-bouncing="true" overflow-scroll="false" delegate-handle="openDoorTimeSearchScroll">
+              <!-- 没有数据展示 -->
+          <div class="noDatabg" ng-show="searchData.length==0&&isSearch&&!searchOver">
+            <img ng-src="{{local_resource + 'img/icon_searchbg.png'}}" />
+            <div>搜索姓名、工号、职位、功能类型等</div>
+          </div>
+          <div class="noDatabg" ng-show="searchData.length==0&&isSearch&&search_total_num==0&&searchOver">
+            <img ng-src="{{local_resource + 'img/icon_search_nodata.png'}}" />
+            <div>暂无数据</div>
+          </div>
+          <!-- 有数据展示 -->
+          <ion-list ng-if="searchData.length">
+            <ion-item ng-repeat="item in searchData" class="item-remove-animate">
+            <div ng-click="device_emp_detail(item)">
+              <div class="side_box">
+                <div class='side_border'>
+                  <div class='side_l'>
+                    <div class='side_img'><img ng-src="{{item.img_src}}" err-src="https://fufudev.zkcserv.com/cb_hrms/views/photos/nophoto.jpg" /></div>
+                    <div class='side_center'>
+                      <div class='side_centert'><div class="text_overflow">{{item.employee_name}}</div><Text>({{item.staff_no}})</Text></div>
+                      <div class='side_centerb'>
+                        <div class="text_overflow">{{item.position_name}}</div>
+                        <div ng:if="item.is_access_control==1" class="guard">门禁</div>
+                        <div ng:if="item.is_sign_in==1" class="attendance">考勤</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='side_r'>
+                    <div class="side_self" ng:if="item.is_oneself == 'true'">本人</div>
+                    <div class='side_rit' ng:if="is_online_fig==1" ng-click="icon_fingerprint(item,$event)">
+                      <img ng:if="item.fingerprint_count==0" class='rit_bg' ng-src="{{local_resource + 'img/icon/icon_fingerprint_gray.png'}}" />
+                      <img ng:if="item.fingerprint_count>0" class='rit_bg' ng-src="{{local_resource+'img/icon/icon_fingerprint_highlight.png'}}" />
+                      <div class='rit_rt'>
+                        <img ng:if="item.fingerprint_count==0" ng-src="{{local_resource+'img/icon/mark_add.png'}}" />
+                        <img ng:if="item.fingerprint_count>0" ng-src="{{local_resource+'img/icon/mark_bg.png'}}" />
+                        <div ng:if="item.fingerprint_count>0">{{item.fingerprint_count>0?item.fingerprint_count:''}}</div>
+                      </div>
+                    </div>
+                    <div class='side_rit' ng-click="icon_face_tap(item,$event)">
+                      <img ng:if="item.face==0" class='rit_bg' ng-src="{{local_resource+'img/icon/icon_face_gray.png'}}" />
+                      <img ng:if="item.face>0" class='rit_bg' ng-src="{{local_resource+'img/icon/icon_face_highlight.png'}}" />
+                      <div class='rit_rt'>
+                        <img ng:if="item.face==0" ng-src="{{local_resource+'img/icon/mark_add.png'}}" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ion-option-button class="button-light" on-tap="deleteEmployee($index)">
+              <div class="delete_btn">
+                  <img class="r-icon" ng-src="{{local_resource +'img/icon/icon_delete.png'}}" />
+                  <div>删除</div>
+              </div>
+            </ion-option-button>
+            </ion-item>
+            <div class='nomoredatatext' ng:show="searchData.length==search_total_num&&searchData.length!=0">没有更多数据了</div>
+            <!-- <div ng-if="searchData.length<10&&searchData.length>0" style="height:{{80*(7-searchData.length)}}px;width: 100%;"></div> -->
+            <ion-infinite-scroll
+              ng-if="searchData.length<search_total_num&&isSearch"
+              distance="5%"
+              immediate-check="false"
+              on-infinite="loadMore()">
+            </ion-infinite-scroll>
+          </ion-list>
+        </ion-content>
+      </div>
+    </script>
+
+
+    <script id="my-popover.html" type="text/ng-template">
+      <div style="position: fixed;top: 0;left: 0; right:0; bottom:0">
+            <div class="input-finger-box">
+        <div class="input-finger-head">
+            <img ng-src="{{local_resource + 'img/input_finger_icon1.png'}}" >
+        </div>
+
+        <div class="input-finger-content">
+            <div>请“<span ng-bind-html="input_finger_name"></span>”录入指纹</div>
+ 
+            <div class="ng-hide input-finger-state0" ng-show="inputFingerState==0"><ion-spinner icon="ios-small"></ion-spinner><span style="position:relative; top:-1px;">进行中(<span ng-bind="inputFingerData.step"></span>/3)</span></div>
+
+            <div class="ng-hide input-finger-state1" ng-show="inputFingerState==-1">
+                <img ng-src="{{local_resource + 'img/fail_icon.png'}}" ><span ng-bind="inputFingerData.input_finger_error_name" style="position:relative; top:-1.5px;"></span>
+            </div>
+
+            <div class="ng-hide input-finger-state2" ng-show="inputFingerState==1">
+                <img ng-src="{{local_resource + 'img/success_icon.png'}}" ><span style="position:relative; top:-1px;">录入成功</span> 
+            </div>
+        </div>
+
+        <div class="input-finger-footer ng-hide" ng-show="inputFingerState == 0" on-tap="cancelFinger()">
+            取消
+        </div>
+
+        <div class="input-finger-footer ng-hide" ng-show="inputFingerState == -1">
+            <div on-tap="cancelFinger()">取消</div>
+            <div on-tap="resetInputFinger()">重试</div>
+        </div>
+
+        <div class="input-finger-footer ng-hide" ng-show="inputFingerState == 1 && finger_num==1" on-tap="reload()">
+            我知道了
+        </div>
+    
+        <div class="input-finger-footer ng-hide" ng-show="inputFingerState == 1 && finger_num==0 ">
+            <div on-tap="reload()">我知道了</div>
+            <div on-tap="resetInputFinger()">继续录入</div>
+        </div>
+      </div>
+      </div>
+    </script>
+</ion-view>

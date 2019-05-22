@@ -1,0 +1,60 @@
+﻿
+<ion-view ng-controller="employeeResignCtrl" id="employee_resign_view" style="background-color:#f5f5f5;" title="离职员工处理" cache-view="false" hide-tab-bar>
+<style>
+    #employee_resign_view #employee_resign_content {
+      top: 112px;
+    }
+    .platform-win32.platform-cordova #employee_resign_view #employee_resign_content {
+      top: 92px;
+    }
+    .platform-android.platform-cordova #employee_resign_view #employee_resign_content {
+      top: 92px;
+    }
+</style>
+	<ion-header-bar class="bar-subheader" style="height:46px;padding:0px;width: 100%; background-color:#f8f8f8; background-image:none;" >
+		<!--搜索-->
+		<div class="list" style="margin: 10px 12px;">
+			<label class="item item-input" style="border-radius:4px;height:30px;background-color:#fff;border:none;" clear-value-box>
+			  <i class="icon ion-ios-search-strong placeholder-icon"></i>
+			  <input type="text" placeholder="搜索姓名、工号、职位..." ng-model="search_control.search_val" class="ng-pristine ng-untouched ng-valid"  clear-value-input>
+			  <div clear-value-btn style="position: absolute; right: 10px; font-size: 16px; margin-right: 2px; top: 0px;color: #cccccc;height: 30px;line-height: 30px;"></div>
+			</label>
+		 </div>
+		<!--搜索-->
+	</ion-header-bar>
+
+    <ion-content has-bouncing="true" overflow-scroll="false" id="employee_resign_content">
+
+
+    <!--员工-->
+      <div ng-show="employeeResignData.data_ready && employeeResignData.length==0 && search_control.search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+
+      <div ng-show="filterItems.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+	<ion-item collection-repeat="item in filterItems=(employeeResignData|dataAndFilter:'st,en,pn':search_control.search_val)" ng-click="employee_resign_detail(item.em,item.fg)" class="item-avatar-left item" style="transform: translate3d(0px, 0px, 0px); height: 72px; width:100%;">
+		<img ng-src="{{item.img}}">
+		<div>
+			<span style="font-size:16px;color:#333" class="ng-binding">{{item.en}}</span>&nbsp;&nbsp;
+			<span style="font-size:12px;color:#666" class="ng-binding">工号:{{item.st}}</span>
+		</div>
+		<p style="font-size:12px;color:#666" class="ng-binding">{{item.pn}}</p>
+		<div style="float:right;margin-top:-36px;">
+			<label class="ion-ios-arrow-right" style="font-size:20px; color:#ccc">
+
+            </label>
+		</div>
+
+        <div style="float:right;position: fixed;right: 30px;top: 16px;" ng-if="item.fg == 1">
+        <img style="width:70px; height:45px;" ng-src="{{img_employee_resign_pending}}" />
+        </div>
+
+        <div style="float:right;position: fixed;right: 30px;top: 16px;" ng-if="item.fg == 2">
+        <img style="width:70px; height:45px;" ng-src="{{img_employee_resign_terminated}}" />
+        </div>
+	</ion-item>
+    <!--员工-->
+
+
+
+    </ion-content>
+
+</ion-view>

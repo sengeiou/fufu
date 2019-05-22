@@ -1,0 +1,42 @@
+<ion-view title="编辑城市" ng-controller="editCityCtrl" hide-nav-bar="true" hide-tab-bar >
+    <style type="text/css">
+    </style>
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light header-item">取消</button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span>编辑城市</span>
+        </h1>
+
+        <div class="buttons">
+            <a ng-click="save()">
+                <button class="button back-button buttons button-clear button-light header-item">保存</button>
+            </a>
+        </div>
+	</ion-header-bar>
+
+  	<ion-content has-bouncing="true" overflow-scroll="false" >
+   
+        <ul class="r-list add-device-box" >
+            <li class="ad-item">
+                <div class="ad-item-text ipt" clear-value-box>
+                    <input type="text" placeholder="请输入城市" ng-model="city.name" clear-value-input>
+                    <i clear-value-btn></i>
+                </div>
+            </li>
+
+            <li class="ad-item" on-tap="del_city()" style="margin-top:100px;">
+                <div style="text-align: center;
+    display: block;
+    width: 100%;font-size:16px; color:#ff3f3f;">删除城市</div>
+            </li>
+        </ul>
+
+  	</ion-content>
+
+</ion-view>
+

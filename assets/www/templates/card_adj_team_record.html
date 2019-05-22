@@ -1,0 +1,225 @@
+
+<ion-view hide-back-button="true"  style="background-color:#f8f8f8;" title='<div style="width: 80%;margin: 5px auto;height: 35px;">
+  <div style="width: 50%; height: 100%; float: left; text-align: center; line-height: 35px; color: #53afff;border-right: none; border: 1px solid white; font-size: 16px; border-top-left-radius: 4px; border-bottom-left-radius: 4px; background-color: white;" id="details_div" >按次数</div>
+  <div style="width: 50%; height: 100%; float: left; text-align: center; line-height: 35px; color: #white;border-left: none; border: 1px solid white; font-size: 16px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; background-color: #53afff;" id="statistics_div" >按原因</div>
+</div>'  hide-tab-bar ng-controller="cardAdjTeamRecordCtrl" id='card_adj_team_record'>
+  <!--<meta charset="UTF-8">-->
+  <style>
+    #card_adj_team_record .searchclass {
+      position: relative;
+      top: 0px;
+      z-index: 9999;
+      -webkit-transition: opacity .3s ease-in-out;
+      height: 0;
+      opacity: 0;
+      padding: 0px;
+    }
+    #card_adj_team_record .searchclass.active {
+      height: 44px;
+      opacity: 1;
+      padding: 10.667px;
+      -webkit-transition: opacity .3s ease-in-out;
+    }
+	
+	#card_adj_team_record .card_adj_team_record_content {
+	  top: 110px;
+
+	}
+	.platform-win32.platform-cordova #card_adj_team_record .card_adj_team_record_content {
+	  top: 90px;
+	}
+	.platform-android.platform-cordova #card_adj_team_record .card_adj_team_record_content {
+	  top: 90px;
+	}
+	
+	/*
+	#card_adj_team_record #card_adj_team_record_wrap {
+	  top: 110px;
+
+	}
+	.platform-win32.platform-cordova #card_adj_team_record #card_adj_team_record_wrap {
+	  top: 90px;
+	}
+	.platform-android.platform-cordova #card_adj_team_record #card_adj_team_record_wrap {
+	  top: 90px;
+	}
+	*/
+
+	
+	
+	#card_adj_team_record .adj_one {
+		width:10%; background-color:#709def;
+	}
+	
+	#card_adj_team_record .adj_two {
+		width:20%; background-color:#6cb5f5;
+	}
+	
+	#card_adj_team_record .adj_three {
+		width:30%; background-color:#6fc7d5;
+	}
+	
+	#card_adj_team_record .adj_four {
+		width:40%; background-color:#98d568;
+	}
+	
+	#card_adj_team_record .adj_five {
+		width:50%; background-color:#badd5e;
+	}
+	
+	#card_adj_team_record .adj_six {
+		width:60%; background-color:#e6c962;
+	}
+	
+	#card_adj_team_record .adj_seven {
+		width:70%; background-color:#e99f40;
+	}
+	
+	#card_adj_team_record .adj_eight {
+		width:80%; background-color:#e87c57;
+	}
+	
+	#card_adj_team_record .adj_nine {
+		width:90%; background-color:#ee5f63;
+	}
+	
+	#card_adj_team_record .adj_ten {
+		width:100%; background-color:#ef4d4f;
+	}
+	
+	#card_adj_team_record .adj_ten_plus {
+		width:100%; background-color:#8c88e4;
+	}
+	
+	#card_adj_team_record .adj_less_than_ten {
+		margin-right:5px;
+	}
+	
+	#card_adj_team_record .adj_more_than_ten {
+		margin-right:2px; border-right:1px solid#fff; padding-right:3px;
+	}
+	
+	#card_adj_team_record .card_adj_team_record_first_record_ui {
+		border-left:1px solid #f0f0f0;
+	}
+	
+	
+	
+  </style>
+  <ion-nav-buttons side="left">
+    <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" ng-click="cardAdjTeamRecordBack()">
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <div ng-show="is_show_search" ng-click="toggle_search();">
+      <i class="ion-ios-search-strong button back-button buttons button-clear button-light ion-ios-arrow-left header-item" style="font-size:20px !important;"></i>
+    </div>
+  </ion-nav-buttons>
+
+	<ion-header-bar class="bar-subheader" style="height:46px;padding:0px;width: 100%;" >
+    <!--搜索-->
+    <div class="bar bar-header item-input-inset searchclass" style="background-color:#53afff;" ng-class="{'active':show_search}">
+      <label class="item-input-wrapper" style="margin-top: 0px !important;background-color: #fff;" clear-value-box>
+        <i class="icon ion-ios-search-strong placeholder-icon"></i>
+        <input type="search" placeholder="搜索..." ng-model="search_control.search_val" clear-value-input>
+        <div clear-value-btn style="position: absolute; right: 65px; font-size: 16px;  height:31px;line-height: 31px; color: #cccccc;"></div>
+      </label>
+      <button class="button button-clear"  style="margin-top: 0px !important; color:#fff;" ng-click="cancel_search();">
+        取消
+      </button>
+    </div>
+    <!--搜索-->
+	
+		<div style="font-size:0.3733333333333rem;background-color: white;height: 44px; width:100%;">
+			<div ng-show="is_show_picklist" class="ng-hide" ng-click="card_adj_team_record_dept_picklist()" style="float:right;  overflow:hidden;line-height:48px;width:50%;">
+				<div" style=" float:right;">
+					<i class="icon ion-ios-arrow-down" style="margin-right: 12px;font-size: 0.4266666666667rem;color: #999;"></i>
+				</div">
+				<div style="float:right; margin-right:6px;width:80%;">
+					<div id="card_adj_team_record_dept_picklist" style="font-size:0.3733333333333rem; color:#333; float:right; margin-left:3px;white-space: nowrap;text-overflow:ellipsis; overflow:hidden; width:100%;text-align: right;">请选择部门</div>
+				</div>
+			</div>			
+
+			<div ng-click="select_date()" style="  overflow:hidden;line-height:46px;width:50%;">
+				<img style="width: 25px;height: 25px;position: relative;top:7px;margin-left:7px;" ng-src="{{img_at_team_record_icon}}">
+				<span id="" style="margin: -3px auto;background-color:#fff;font-size:0.3733333333333rem;color:#333; border:0;" class="">{{current_date_text}}</span>
+				<i class="icon ion-ios-arrow-down" style="margin-right: 12px;font-size: 0.4266666666667rem;color: #999;"></i>
+			</div>
+
+
+		</div>
+		<!--
+		<div style="height:10px;background:#f8f8f8"></div>
+		-->
+	</ion-header-bar>
+  
+  <ion-content has-bouncing="true" overflow-scroll="false" style="background-color:#f8f8f8;" class="card_adj_team_record_content">
+
+
+    
+
+
+<div id="card_adj_team_record_wrap" style="background-color:#fff; margin-top:10px; position: relative;-webkit-transition: all .3s ease-in-out;width: 200%;overflow: hidden">
+	<div id="details_content_div" style="width: 50%;">
+		<div ng-show="card_adj_team_record_data.data_ready && filterItems.length!=0" style="height:44px; line-height:44px; background-color:#fff; border-bottom:1px solid#f5f5f5; width:100%;margin-left:12px;">
+			<span style="float:left; font-size:0.4266666666667rem;font-weight:500; color:#333;">月补签卡次数统计</span>
+			<span style="margin-right:24px; float:right; font-size:16px; color:#333; font-weight:500;">{{card_adj_team_record_data.data1.adj_times_total}}次</span>
+		</div>
+
+		<div ng-repeat="items in filterItems=(card_adj_team_record_data.data1.adj_data|dataAndFilter:'employee_name,staff_no':search_control.search_val)" style="padding-right:12px;">
+			<div style="width:100%; height:15px; line-height:15px;">
+				<div style="width:18%; height:15px;color:#333; float:left;font-size:12px;"></div>
+				<div style="width:82%; height:15px; float:right;" ng-class="{'card_adj_team_record_first_record_ui': !$first}"></div>
+			</div>
+			<div ng-click="month_adj_content(items.employee_no,items.employee_name)" style="width: 100%; background-color: #fff;height:25px;">
+				<div style="width:100%; margin: 0px auto;">
+					<div style="width:100%; height:25px;">
+						<div style="width:18%; height:25px;color:#333; float:left;font-size:12px;">
+							<p style=" font-size:12px; color:#333; text-align:right; margin-top:-5px; margin-right:3px;white-space: nowrap;text-overflow:ellipsis; overflow:hidden;">{{items.employee_name}}</p>
+							<p style="color:#999;-webkit-transform: scale(0.9); font-size:9px;text-align: right; margin-top:-5px; margin-right:3px;white-space: nowrap;text-overflow:ellipsis; overflow:hidden;">{{items.staff_no}}</p>
+						</div>
+						<div style="width:82%; height:25px; line-height:25px; float:right; border-left:1px solid #f0f0f0;">	
+							<div style="height:25px;" class="{{items.ui1}}">
+								<p style="text-align:right; color:#fff;" class="{{items.ui2}}">{{items.adj_times}}次</p>
+							</div>
+						</div>
+					</div>
+				</div> 
+			</div>
+		</div>
+		
+		<div ng-show="card_adj_team_record_data.data_ready && filterItems.length!=0" style="margin-top: 20px; width:100%; height:40px; background-color:#fff; text-align:center; ">
+			<p style="color:#999; float:12px;">注：点击色块可查看员工月补签详情</p>
+		</div>
+		
+		
+		<div ng-show="card_adj_team_record_data.data_ready && card_adj_team_record_data.data1.adj_data.length==0 && search_control.search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:0px; background-color: #f8f8f8;">暂无数据</div>
+		<div ng-show="filterItems.length==0 && search_control.search_val!=''" style="background-color: #f8f8f8; text-align:center;color:#999; overflow: hidden; font-size:12px; ">搜索没有数据</div>  
+		
+			
+	
+	
+	</div>
+
+	<div id="statistics_content_div" style="width: 50%;position: absolute;left:50%;top:0px;" >
+<!--
+	  <div ng-show="card_adj_team_record_data.data_ready && card_adj_team_record_data.data2.ot_data.length==0 && search_control.search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:10px;margin-top: 1px;">暂无数据</div>
+	  <div ng-show="_filterItems_.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:10px;margin-top: 1px;">搜索没有数据</div>
+-->
+	  <!--
+	  <div ng-repeat="item in _filterItems_=(card_adj_team_record_data.data2.ot_data|dataAndFilter:'employee_name':search_control.search_val)" style="padding: 10px 12px 10px 12px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(245, 245, 245); background-color: rgb(255, 255, 255);position: relative"></div>
+	  -->
+
+
+
+	  
+		<div data-tap-disabled="true" id="card_adj_team_record_by_reason_chart" style="width:100%; height:300px">
+		</div>
+		<div style="background-color:#ffffff; width:100%; text-align:center; margin-bottom:15px;color:#999;" ng-click="card_adj_team_record_detail_by_type()">
+		注：点击色块查看员工补签明细
+		</div>
+	</div>
+</div>
+
+	  </ion-content>
+</ion-view>

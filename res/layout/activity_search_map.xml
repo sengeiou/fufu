@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="org.apache.cordova.map.activity.SearchMapActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_44dp"
+        android:background="@color/color_53afff">
+
+        <ImageView
+            android:id="@+id/left_btn"
+            android:layout_width="@dimen/margin_35dp"
+            android:layout_height="@dimen/margin_30dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/back_arrow" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="地图"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_20sp" />
+    </RelativeLayout>
+
+    <include
+        layout="@layout/view_search_bar_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_0dp"
+        android:layout_weight="1"
+        android:alwaysDrawnWithCache="true" />
+
+    <TextView
+        android:id="@+id/checkAddress"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_50dp"
+        android:background="@color/color_fdfdfd"
+        android:gravity="center"
+        android:text="使用当前地址"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_16sp" />
+
+</LinearLayout>

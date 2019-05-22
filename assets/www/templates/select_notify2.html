@@ -1,0 +1,87 @@
+
+<ion-view class="ccc" ng-controller="selectNotifyCtrl2" style="background-color:#f8f8f8;" cache-view="false" hide-back-button="true">
+
+    <ion-nav-buttons side="left">
+        <button ng-click="back()" class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right">
+        <button ng-click="toggleSearch()" ng-class="{'ion-ios-search-strong':!searchState}" class="button back-button buttons button-clear button-light header-item searchBtn"> <span class="back-text" ng-bind="searchState?'取消':''"></span></button>
+    </ion-nav-buttons>
+
+    <ion-nav-title>
+        <div class="search-title" ng-bind="opt.title"></div>
+        <div class="search-input">
+            <div style="width: 100%; height: 28px; background: white; border-radius: 3px;">
+                <input type="text" ng-model="search_control.search_val" style="height: 28px; width: 100%; border-radius: 3px; padding: 0 10px;">
+            </div>
+        </div>
+    </ion-nav-title>
+
+    <ion-content delegate-handle="select_notify_content">
+        <div class="mobile_tree_second_level_title2" ng-show="!search_control.search_val.length">
+            <ion-content direction="x" scrollbar-x="false" style="height: 50px">
+                <div class="mobile_tree_title_x" style="width: 1000px;">
+                    <div ng-repeat="item in historyBar" repeat-finish="renderFinish()" style="float: left">
+                        <span ng-click="goBack(item.i)" ng-bind="item.title"></span>
+                        <i class="icon ion-ios-arrow-right button-small"></i>
+                    </div>
+                </div>
+            </ion-content>
+        </div>
+
+        <div ng-if="isShow">
+
+            <ion-list class="mobile_classify_tree" ng-show="sd.dept && sd.dept.length  && !search_control.search_val.length" >
+                <a ng-repeat="item in sd.dept" class="item item-avatar item-icon-right" href="javascript:void(0);" ng-click="openSubClass(item.id, item.name)">
+                    <img ng-src="{{'http://120.24.153.50/fufu_ak/www/img/section_icon.png'}}" style="width:35px;height:35px;">
+                    <div>
+                        <div class="tit" ng-bind="item.name"></div>
+                        <div class="des" ng-bind="item.number+'人'"></div>
+                    </div>
+                    <i class="icon ion-ios-arrow-right button-small"></i>
+                </a>
+            </ion-list>
+
+            <div class="mobile_tree_second_level_title3" ng-show="sd.contact_list && sd.contact_list.length && !search_control.search_val.length && opt.isShowContact" >常用联系人</div>
+
+            <ion-list class="mobile_select_notify_tree" ng-show="sd.contact_list && sd.contact_list.length && !search_control.search_val.length && opt.isShowContact">
+                <div ng-repeat="item in sd.contact_list" style="display: table; width: 100%;position: relative">
+                    <label class="checkbox"><input type="checkbox" ng-model="item.checked" ng-checked="item.checked" ng-change="selectOption(item, true)" class="ng-pristine ng-untouched ng-valid"></label>
+                    <a class="item item-avatar item-icon-right" ng-click="selectOption(item, true, true)">
+                        <img ng-src="{{'http://120.24.153.50/fufu_ak/www/img/section_icon.png'}}" style="width:35px;height:35px; left: 44px">
+                        <div>
+                            <div class="tit" ng-bind="item.empl_name"></div>
+                            <div class="des" ng-bind="item.pos_name"></div>
+                        </div>
+                    </a>
+                </div>
+            </ion-list>
+
+            <div class="mobile_tree_second_level_title3" ng-show="sd.empl_list && sd.empl_list.length && !search_control.search_val.length && sd.dept && sd.dept.length" >直属员工</div>
+
+            <ion-list class="mobile_select_notify_tree" ng-class="{'hide_after':!sd.dept || !sd.dept.length}" ng-show="sd.empl_list && sd.empl_list.length">
+                <div class="msnt_list"
+                          item-width="100%"
+                          item-height="58px"
+                          collection-repeat="item in filterItems=(sd.empl_list|dataAndFilter:'empl_name,pos_name':search_control.search_val)">
+                    <label class="checkbox"><input type="checkbox" ng-model="item.checked" ng-checked="item.checked" ng-change="selectOption(item, false)" class="ng-pristine ng-untouched ng-valid"></label>
+                    <a class="item item-avatar item-icon-right" ng-click="selectOption(item, true, true)">
+                        <img ng-src="{{item.img_url?item.img_url:'http://120.24.153.50/fufu_ak/www/img/section_icon.png'}}" style="width:35px;height:35px; left: 44px">
+                        <div>
+                            <div class="tit" ng-bind="item.empl_name"></div>
+                            <div class="des" ng-bind="item.pos_name"></div>
+                        </div>
+                    </a>
+                </div>
+            </ion-list>
+        </div>
+
+
+        <div style="height: 44px;width: 100%;"></div>
+    </ion-content>
+    <div class="mobile_select_notify_bottom_column ng-hide" ng-show="!opt.isSingleSelect">
+        <div>已经选:<span ng-bind="activeObj.length"></span>个<span ng-bind="opt.extName"></span></div>
+        <button ng-click="sure()">确认</button>
+    </div>
+</ion-view>

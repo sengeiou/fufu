@@ -1,0 +1,165 @@
+﻿<ion-view  style="background-color:#f8f8f8;" title="选择时区" ng-controller="RemoteUserListCtrl" hide-nav-bar="true" hide-tab-bar>
+  
+  <style>
+		.ion-android-done{
+			font-size: 24px;
+			color: #53afff;
+		}
+
+		.ion-ios-arrow-right{ 
+			    font-size: 20px;
+
+		}
+
+		.ion-ios-arrow-left{
+			color:#333333!important;
+		}
+		
+		.flex {
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+		}
+
+		.def-flex-box{
+			height: 49px;
+			padding: 0 12px;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+			border-bottom: 1px solid #f5f5f5;
+			background-color: white;
+
+		}
+		.def-flex-box:nth-child(1){
+			margin-top: 10px;
+		}
+		.def-flex-content{
+			-webkit-box-flex:1;
+			-webkit-flex:1;
+			flex:1;
+			font-size: 16px;
+    		color: #333;
+    		overflow: hidden;
+			text-overflow:ellipsis;
+			white-space: nowrap;
+			padding-right: 10px;
+		}
+		.square_radio.active {
+			background-color: #53afff;
+			border-color: #53afff;
+		}
+		
+  </style>
+
+  <ion-header-bar align-title="center" class="bar-opacity" >
+        <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+        <h1 class="title">
+            <span>提醒人员列表</span>
+        </h1>
+	
+        <div class="buttons" on-tap="openSearchPopover($event)" style="line-height:35px;font-size:14px;margin-right:12px;" ng-show="!searchObj.state && (remote_user_list_data.notice_user_list && remote_user_list_data.notice_user_list.length)">
+            管理
+        </div>
+        <div class="buttons" style="line-height:35;font-size:14px;margin-right:12px;" ng-show="searchObj.state">
+            全不选
+        </div>
+    </ion-header-bar>
+
+  <ion-content has-bouncing="true" overflow-scroll="false" style="bottom:44px;">
+  	<div class="warp" style="margin-top:10px;">
+		<div style="background-color:#fff;">
+			<div ng-repeat="item in remote_user_list_data.notice_user_list" style="height:70px;clear:both;padding-left:12px;">
+				<div style="width: 100%;">
+					
+					  <div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden;  margin-top:10px;">
+						<img ng-src="{{item.img}}" alt="" style="width: 50px;height: 50px;">
+					  </div>
+					  <div style="width: 100%;position:relative;top:12px;">
+							<div>
+							  <div style="margin-left: 62px; color:#333; font-size:17px; margin-bottom:2px;" class="ng-binding"><span ng-bind="item.name"> </span> <span style="font-size:12px;color:#999" ng-bind="'('+item.staff_no+')'"></span> </div>
+							</div>
+							<div style="margin-left: 62px;color: #666;font-size:13px;margin-top:3px;">
+							  <div class="ng-binding" ng-bind="item.pos_name"></div>
+							</div>
+							
+							<div ng-show="!$last" style="height:1px;border-top:1px solid #f0f0f0;position:relative;top:10px;left:62px;"></div>
+							
+					  </div>
+				</div>
+			</div>		
+		</div>
+
+	</div>
+    
+	
+	
+  </ion-content>
+		<div style="position:fixed;bottom:0px;height:44px;text-align:center;line-height:44px;background-color:#fff;width:100%;box-shadow:0px -5px 20px 0px rgba(0,0,0,0.05)" ng-click="openModal2()">
+			<i class="icon ion-android-add-circle" style="color:#53afff;font-size: 20px;line-height:44px;margin-right:3px;"></i> 
+			<div style="display:inline-block;font-size:16px;font-weight:500;color:#53afff;position:relative;top:-2px;">添加人员</div>
+		</div>
+  
+
+
+   <script id="remote-user-popover.html" type="text/ng-template">
+      <div class="search-popover">
+		  <ion-header-bar align-title="center" class="bar-opacity" >
+				<div on-tap="closeSearchPopover()" class="buttons" back-icon-transition>
+					<a>
+						<div style="color:#333;line-height:35px;font-size:14px;margin-left:12px;">取消 </div>
+					</a>
+				</div>
+
+				<h1 class="title" style="left:80px;right:80px;">
+					<span>提醒人员列表</span>
+				</h1>
+			
+				<div class="buttons" ng-if="all_select_flag" on-tap="all_select()" style="line-height:35px;font-size:14px;margin-right:12px;">
+					全选
+				</div>
+				<div class="buttons" ng-if="!all_select_flag" on-tap="all_not_select()" style="line-height:35px;font-size:14px;margin-right:12px;">
+					全不选
+				</div>
+			</ion-header-bar>
+
+        <ion-content delegate-handle="timeZoneSearchScroll" style="bottom:44px;">
+			<div class="warp" style="margin-top:10px;">
+				<div style="background-color:#fff;">
+					<div ng-repeat="item in remote_user_list_data.notice_user_list" style="height:70px;clear:both;padding-left:0px;" ng-click="selectOption(item)">
+						<div style="width: 100%;">
+							<label class="checkbox" ng-click="stopPropagation($event)" style="padding: 24px 12px;float:left;"><input type="checkbox" ng-model="item.checked" ng-checked="item.checked" ng-change="selectOption(item, true)" ng-click="stopPropagation($event)" class="ng-pristine ng-untouched ng-valid"></label>
+							  <div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden;  margin-top:10px;">
+								<img ng-src="{{item.img}}" alt="" style="width: 50px;height: 50px;">
+							  </div>
+						  <div style="width: 100%;position:relative;top:12px;margin-left: 112px;">
+								<div>
+								  <div style=" color:#333; font-size:17px; margin-bottom:2px;" class="ng-binding"><span ng-bind="item.name"> </span> <span style="font-size:12px;color:#999" ng-bind="'('+item.staff_no+')'"></span> </div>
+								</div>
+								<div style="color: #666;font-size:13px;margin-top:3px;">
+								  <div class="ng-binding" ng-bind="item.pos_name"></div>
+								</div>
+								
+								<div ng-show="!$last" style="height:1px;border-top:1px solid #f0f0f0;position:relative;top:10px;"></div>
+								
+						  </div>
+						</div>
+					</div>		
+				</div>
+
+			</div>
+        </ion-content>
+		<div style="position:fixed;bottom:0px;height:44px;font-size:16px;text-align:center;line-height:44px;background-color:#fff;width:100%;color:#ff5d5d;" ng-click="remote_user_delete()">确认删除</div>
+      </div>
+    </script>
+
+</ion-view>
+
+
+
+

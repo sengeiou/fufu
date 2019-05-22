@@ -1,0 +1,220 @@
+﻿<ion-view style="background-color:#f8f8f8;" title="{{toolbar_title}}" ng-controller="lvCodeSettingDetailCtrl" hide-tab-bar>
+  <ion-nav-buttons side="right">
+    <div class="button button-clear" style="color:white;font-size:14px" ng-click="lv_code_setting_detail_save()">保存</div>
+  </ion-nav-buttons>
+    <ion-content has-bouncing="true" overflow-scroll="false">
+    <input type="hidden" id="lv_code_id" value="{{lvCodeSettingDetailData.lv_code_id}}" />
+    <input type="hidden" id="min_unit" value="{{lvCodeSettingDetailData.min_unit}}" />
+    <input type="hidden" id="exit_action" value="{{lvCodeSettingDetailData.exit_action}}" />
+    <input type="hidden" id="cutoff_type" value="{{lvCodeSettingDetailData.cutoff_type}}" />
+    <input type="hidden" id="entitle_begin_date" value="{{lvCodeSettingDetailData.entitle_begin_date}}" />
+    <input type="hidden" id="entitle_type" value="{{lvCodeSettingDetailData.entitle_type}}" />
+
+ 	<!--开头-->
+    <ul class="list" style="margin-bottom:0px;">
+
+    <!---------年假设置----------->
+        <li class="item item-toggle" style="color:#333; font-size:16px; margin-top:10px">
+          {{lv_code_name}}设置
+          <label class="toggle toggle-calm" style="right:10px;">
+            <input id="is_active" type="checkbox" ng-checked="lvCodeSettingDetailData.is_active" ng-model="lvCodeSettingDetailData.is_active" class="ng-untouched ng-valid ng-dirty ng-valid-parse ng-pristine" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    <!---------年假设置----------->
+
+    <div class="scroll" style="transform: translate3d(0px, 0px, 0px) scale(1);">
+
+
+    <!---------基本设置----------->
+    <ul class="list" style="margin-bottom:0px; margin-top:10px;">
+      <li class="item item-toggle" style="font-size:16px; color:#333;">
+        基本设置
+
+      </li>
+    </ul>
+    <!---------基本设置----------->
+
+    <!---------需要附件----------->
+    <ul class="list" style="margin-bottom:0px;">
+        <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;">
+          需要附件
+          <label class="toggle toggle-calm" style="right:10px;">
+            <input type="checkbox" id="is_need_attachement" ng-model="lvCodeSettingDetailData.is_need_attachement" ng-checked="lvCodeSettingDetailData.is_need_attachement" class="ng-untouched ng-valid ng-dirty ng-valid-parse ng-pristine" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    </ul>
+    <!---------需要附件----------->
+
+    <!---------申请数扣除休假日----------->
+    <ul class="list" style="margin-bottom:0px;">
+        <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;">
+          申请数扣除休假日
+          <label class="toggle toggle-calm" style="right:10px;">
+            <input type="checkbox" id="count_exclude_holiday" ng-model="lvCodeSettingDetailData.count_exclude_holiday" ng-checked="lvCodeSettingDetailData.count_exclude_holiday" class="ng-untouched ng-valid ng-dirty ng-valid-parse ng-pristine" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    </ul>
+    <!---------申请数扣除休假日----------->
+
+    <!--休假最小单位-->
+    <div id="lv_code_setting_detail_picklist_min_unit" style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden" ng-click="picklist_min_unit()">
+      	<div style="float:left;">
+        	<label style="font-size:14px; color:#333; margin-left:20px; line-height:49px; color:#666">休假最小单位</label>
+
+            </div>
+        <div style="float:right;">
+        	<a id="min_unit_name" style="line-height:49px;font-size:14px; color:#999; margin-right:6px;" class="">{{lvCodeSettingDetailData.min_unit_name}}</a>
+            <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div>
+            </div>
+
+      </div>
+    <!--休假最小单位-->
+
+    <!---------有薪----------->
+    <ul class="list" style="margin-bottom:0px;">
+        <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;">
+          有薪
+          <label class="toggle toggle-calm" style="right:10px;">
+            <input type="checkbox" id="pay_type" ng-model="lvCodeSettingDetailData.pay_type" ng-checked="lvCodeSettingDetailData.pay_type" class="ng-untouched ng-valid ng-dirty ng-valid-parse ng-pristine" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    </ul>
+    <!---------有薪----------->
+
+
+<div id="lv_code_has_balance">
+    <!---------享有基本参数----------->
+    <ul class="list" style="margin-bottom:0px; margin-top:10px;">
+      <li class="item item-toggle" style="font-size:16px; color:#333;">
+        享有基本参数
+      </li>
+    </ul>
+    <!---------享有基本参数----------->
+    <!--离职时未休完年假处理-->
+    <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden" ng-click="picklist_exit_action()">
+      	<div style="float:left;">
+        	<label style="font-size:14px; color:#333; margin-left:20px; line-height:49px; color:#666">离职时未休完年假处理</label>
+
+            </div>
+        <div style="float:right;">
+        	<a id="exit_action_name" style=" line-height:49px;font-size:14px; color:#999; margin-right:6px;" class="">{{lvCodeSettingDetailData.exit_action_name}}</a>
+            <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div>
+            </div>
+
+      </div>
+    <!--离职时未休完年假处理-->
+
+    <!--年结方式-->
+    <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden" ng-click="picklist_cutoff_type()">
+      	<div style="float:left;">
+        	<label style="font-size:14px; color:#333; margin-left:20px; line-height:49px; color:#666">年结方式</label>
+
+            </div>
+        <div style="float:right;">
+        	<a id="cutoff_type_name" style=" line-height:49px;font-size:14px; color:#999; margin-right:6px;" class="">{{lvCodeSettingDetailData.cutoff_type_name}}</a>
+            <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div>
+            </div>
+
+      </div>
+    <!--年结方式-->
+
+
+    <!--开始日期-->
+    <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden" ng-click="picklist_entitle_begin_date()">
+      	<div style="float:left;">
+        	<label style="font-size:14px; color:#333; margin-left:20px; line-height:49px; color:#666">开始日期</label>
+
+            </div>
+        <div style="float:right;">
+        	<a id="entitle_begin_date_name" style=" line-height:49px;font-size:14px; color:#999; margin-right:6px;" class="">{{lvCodeSettingDetailData.entitle_begin_date_name}}</a>
+            <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div>
+            </div>
+
+      </div>
+    <!--开始日期-->
+
+    <!--享有类型-->
+    <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden" ng-click="picklist_entitle_type()">
+      	<div style="float:left;">
+        	<label style="font-size:14px; color:#333; margin-left:20px; line-height:49px; color:#666">享有类型</label>
+
+            </div>
+        <div style="float:right;">
+        	<a id="entitle_type_name" style=" line-height:49px;font-size:14px; color:#999; margin-right:6px;" class="">{{lvCodeSettingDetailData.entitle_type_name}}</a>
+            <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div>
+            </div>
+
+      </div>
+    <!--享有类型-->
+
+    <!---------上年结余处理清零----------->
+    <ul class="list" style="margin-bottom:0px;">
+        <li class="item item-toggle" style="color:#666; font-size:14px; padding: 16px 20px;">
+          上年结余处理清零
+          <label class="toggle toggle-calm" style="right:10px;">
+            <input type="checkbox" id="lastyear_balance_type_name" ng-model="lvCodeSettingDetailData.lastyear_balance_type_name" ng-checked="lvCodeSettingDetailData.lastyear_balance_type_name" class="ng-untouched ng-valid ng-dirty ng-valid-parse ng-pristine" style="">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+    </ul>
+    <!---------上年结余处理清零----------->
+
+    <!---------享有规则配置----------->
+	<li class="item item-icon-right" style="color:#333; font-size:16px; margin-top:10px; padding-left:12px;">
+		享有规则配置
+		<button class="ion-ios-plus-outline button button-light icon" style="float:right;font-size:16px; right:0;min-width: 30px;padding: 0 0; color:#53afff; margin-top:2px" ng-click="addEntitleData()">
+		</button>
+	</li>
+    <!---------享有规则配置----------->
+
+    <!--已满-->
+<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden; " ng-repeat="item in lvCodeSettingDetailData.entitle_data">
+      	<div style="float:left;margin-left:12px;">
+        	<label style="font-size:14px; color:#333;line-height:49px; color:#666;float: left; margin-right:4px">已满</label>
+            <input type="number" ng-model="item.from" value="{{item.from}}" style=" border:1px solid#eee; width:32px; text-align:center; height:32px;color:#53afff;background:none; -webkit-appearance:none;float: left;margin-top:8px; padding-left:6px; " />
+            <label style="font-size:14px; color:#333; margin-left:4px; line-height:49px; color:#666;float: left;margin-right:4px"">不满年</label>
+            <input type="number" ng-model="item.to" value="{{item.to}}" style=" border:1px solid#eee; width:32px; text-align:center; height:32px;color:#53afff;background:none; -webkit-appearance:none; float: left;margin-top:8px;padding-left:6px;" />
+            <label style="font-size:14px; color:#333; margin-left:4px; line-height:49px; color:#666;float: left;">年</label>
+         </div>
+
+         <div style="float:right; margin-right:0px">
+
+        	<label style="font-size:14px; color:#333; line-height:49px; color:#666; float: left; margin-right:4px; margin-left:4px;">享有</label>
+            <input type="number" ng-model="item.days" value="{{item.days}}" style=" border:1px solid#eee; width:32px; text-align:center; height:32px;color:#53afff;background:none; -webkit-appearance:none; float: left; margin-top:8px;padding-left:6px;" />
+            <label class="lv_code_setting_detail_unit" style="font-size:14px; color:#333;line-height:49px; color:#666;float: left;margin-right:4px; margin-left:4px;">{{lvCodeSettingDetailData.min_unit_name}}</label>
+            <button ng-click="deleteEntitleData(item)" class="button button-light icon ion-ios-minus-outline" style="margin-right:4px;font-size:12px; margin-top:2px;min-width: 30px;padding: 0 0;">
+          </button>
+         </div>
+      </div>
+
+    <!--已满-->
+<!--结尾-->
+
+
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,158 @@
+﻿<ion-view  style="background-color:#f8f8f8;" title="出差设置" ng-controller="tripSettingCtrl" hide-nav-bar="true" hide-tab-bar>
+  <style>
+    .item-select:after{
+      display: none;
+    }
+	.def-item{
+		height: 44px;
+		background-color: white;
+		border-bottom: 1px solid #f5f5f5;clear:both;
+	}
+    .def-item-arrow-right{
+		margin-top:10px;
+		margin-right:12px;
+		line-height:43px;
+		vertical-align:middle;
+		font-size:20px;
+		color:#ccc;
+		margin-left:9px
+    }
+    .def-item-content-right{
+    	float: right;line-height: 43px;color: #333;font-size:16px;
+    }
+	.def-item-des-left{
+		font-size: 16px;color: #333;text-indent: 12px;line-height: 44px;
+	}
+    .fl-l{
+    	float: left;
+    }
+    .fl-r{
+    	float: right;
+    }
+
+    .def-item-seed{
+    	border-bottom: none;
+    	position: relative;
+    }
+    .def-item-seed:after{
+    	content: ' ';
+    	position: absolute;
+    	bottom: 0;
+    	left: 12px;
+    	width: 750px;
+    	height: 1px;
+    	background-color: #f5f5f5;
+    }
+  </style>
+
+  <ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+            <a on-tap="back()">
+                <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+            </a>
+        </div>
+
+	    <h1 class="title">
+            <span>出差设置</span>
+        </h1>
+
+        
+	</ion-header-bar>
+
+  <ion-content has-bouncing="true" overflow-scroll="false">
+
+	<div class="def-item" style="height: 48px;margin-top:10px;">
+		<div class="fl-l">
+		  <label style="font-size:16px; color:#333; margin-left:12px; line-height:47px">
+		  多行程日期连续</label>
+		</div>
+		<div class="fl-r">
+		  <div class="fl-r" style="margin-top: 8px;">
+			<label class="toggle toggle-calm" style="right:10px;">
+			  <input ng-model="tripSettingData.multi_trip_must_continuous" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" >
+			  <div class="track">
+				<div class="handle"></div>
+			  </div>
+			</label>
+		  </div>
+		</div>
+	</div>
+	<div class="def-item" style="height: 48px;">
+		<div class="fl-l">
+		  <label style="font-size:16px; color:#333; margin-left:12px; line-height:47px">
+		  附件是否必须</label>
+		</div>
+		<div class="fl-r">
+		  <div class="fl-r" style="margin-top: 8px;">
+			<label class="toggle toggle-calm" style="right:10px;">
+			  <input ng-model="tripSettingData.must_need_attachment" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" >
+			  <div class="track">
+				<div class="handle"></div>
+			  </div>
+			</label>
+		  </div>
+		</div>
+	</div>
+	<div class="def-item" style="height: 48px;">
+		<div class="fl-l">
+		  <label style="font-size:16px; color:#333; margin-left:12px; line-height:47px">跨薪资周期申请</label>
+		</div>
+		<div class="fl-r">
+		  <div class="fl-r" style="margin-top: 8px;">
+			<label class="toggle toggle-calm" style="right:10px;">
+			  <input ng-model="tripSettingData.can_across_pay_period" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" >
+			  <div class="track">
+				<div class="handle"></div>
+			  </div>
+			</label>
+		  </div>
+		</div>
+	</div>
+
+	
+		<div class="def-item" style="height: 48px;margin-top:10px;">
+			<div class="fl-l">
+			  <label style="font-size:16px; color:#333; margin-left:12px; line-height:47px">申请历史出差</label>
+			</div>
+			<div class="fl-r">
+			  <div class="fl-r" style="margin-top: 8px;">
+				<label class="toggle toggle-calm" style=" right:10px;">
+				  <input ng-model="tripSettingData.can_apply_history" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" >
+				  <div class="track">
+					<div class="handle"></div>
+				  </div>
+				</label>
+			  </div>
+			</div>
+		</div>
+
+	
+
+		<div class="def-item" >
+
+		  <div class="fl-r" style="line-height: 46px; margin-right:12px; margin-left:7px">
+			天
+		  </div>
+
+		  <div class="fl-r" clear-value-box>
+			<i clear-value-btn style="display: inline-block; float:right;margin-top: 12px;"></i>
+			<input type="number" clear-value-input ng-model="tripSettingData.can_apply_history_day" style="margin-top: 5px;
+    text-align: right; float: right; width: 60px;">
+			
+		  </div>
+
+		  <div class="def-item-des-left">申请历史最大范围</div>
+
+		</div>
+
+
+
+	<div style="width: 100%;height: 49px;text-align: center;line-height: 49px;padding: 12px; margin-top:8px;" ng-click="trip_setting_save()">
+		<input type="button" style="color: white;text-align: center;background-color: #3ba5ff;width: 100%;height: 44px;border: none;border-radius: 4px; font-size:16px;" id="message_setting_save" value="保存">
+	</div>
+  </ion-content>
+</ion-view>
+
+
+
+

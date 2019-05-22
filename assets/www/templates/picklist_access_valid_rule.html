@@ -1,0 +1,56 @@
+﻿
+<ion-view hide-back-button="true" hide-nav-bar="true" style="background-color:#f8f8f8;" title="{{picklist_title}}" ng-controller="picklistAccessValidRuleCtrl" hide-tab-bar>
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" style="color:#333"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span>{{picklist_title}}</span>
+        </h1>
+
+        <div class="buttons ng-hide" style="color:#333;line-height:40px;font-size:14px;"  ng-click="add_access_group_save()">
+           保存
+        </div>
+	</ion-header-bar>
+  
+  <style>
+    .first{
+     outline-top: 1px solid #f5f5f5;
+    }
+    .ion-android-done{
+      font-size: 24px;
+    color: #53afff;
+    }
+  </style>
+
+<style>
+.picklist_uncheck {
+display: none;
+}
+.picklist_check {
+display: block;
+}
+</style>
+    <ion-content has-bouncing="true" overflow-scroll="false">
+	<!--小时-->
+    <div style="margin-top:10px; border-top:1px solid#f5f5f5;">
+    <div ng-click="item_clicked(item,item.value)" ng-repeat="item in access_shift_group_data.valid_list" style="height: 49px; width: 100%; border-bottom: 1px solid #f5f5f5; background-color: rgb(255, 255, 255);padding-top:0px;"ng-class="$first ? 'first':''">
+      <div style="float:left; line-height:49px; margin-left:12px; font-size:14px; color:#333;">
+        	<span class="ng-binding">{{item.value}}</span>
+        </div>
+        <div class="checkbox-calm" style="float:right;margin-top:7px; margin-right:12px; color:#53afff;">
+        	<label id="{{'picklist_item_' + item.key}}" class="icon ion-android-done" style="" ng-class="{'picklist_check': item.key == checked_key, 'picklist_uncheck': item.key != checked_key}">
+            </label>
+        </div>
+    </div>
+    <!--小时-->
+
+
+
+
+    </ion-content>
+
+</ion-view>

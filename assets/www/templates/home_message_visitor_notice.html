@@ -1,0 +1,362 @@
+<ion-view hide-back-button="true" style="background-color:#f8f8f8;" title='<div style="width:100%;position:fixed; height:62px;line-height:84px; background-color:#53afff;l margin-top:0px;left:0px; top: -20px; background-color: #53afff;z-index:999;"><div id="homeMessageVisitorNoticeBack" onclick="window.navbarBackClick()" style="width:30px;float:left;margin-top:25px;margin-left:-5px;" >  <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" ><span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>  </div><div id="homeMessageVisitorNoticeSearch" onclick="window.navbarShowSearch(this.id);" sev_name="homeMessageVisitorNotice" style="width:30px;float:right;padding-left:0px;margin-top:25px;" >     <div  style="margin-right:0px;">
+            <i class="ion-ios-search-strong button back-button buttons button-clear button-light ion-ios-arrow-left header-item" style="font-size:20px !important;"></i>
+          </div></div>访客动态</div>
+          <div style="width: 100%;height: 42px;margin-top: 0px;background-color: #53afff;position: absolute;z-index: 999;opacity: 0;text-align: center;line-height: 42px;color: white;display: none" id="homeMessageVisitorNoticeSearchDiv">
+        <div class="bar bar-header item-input-inset searchclass active" style="background-color: rgb(83, 175, 255);height: 42px;" >
+          <div class="item-input-wrapper" style="margin-top: 0px !important;background-color: #fff;" >
+      <div style="width: 100%" >
+            <i class="icon ion-ios-search-strong placeholder-icon" style="position:absolute;left: 20px;top:-12px; margin-top: 12px;"></i>
+              <input  id="homeMessageVisitorNoticeSearchInput" type="search" placeholder="搜索..." ng-model="search_control.search_val" class="" style="margin-left:10px;" sev_name="homeMessageVisitorNotice" onkeydown="window.homeMessageVisitorNoticeInpKeydown()" onfocus="window.navbarSearchfocus(this.id)" onblur="window.navbarSearchblur(this.id)"/>
+               <div onclick="window.navbarSearchClearValue(this.id)" sev_name="homeMessageVisitorNotice" id="homeMessageVisitorNoticeCloseIonic" class="ion-ios-close" style="position: absolute; right: 10px; font-size: 16px; right:60px;top: 0px;color: #cccccc;display:none;"></div>
+      </div>
+          </div>
+          <button class="button button-clear" style="margin-top: 0px !important; color:#fff;margin-right:-5px;" id="homeMessageVisitorNoticeSearchCancelBtn" sev_name="homeMessageVisitorNotice" onclick="window.navbarSearchCancel(this.id)">
+            取消
+          </button>
+        </div>
+      </div>'
+    ng-controller="homeMessageVisitorNoticeCtrl" cache-view="true" hide-tab-bar id="homeMessageVisitorNoticeCtrl">
+
+    <style>
+    #homeMessageVisitorNoticeCtrl .searchclass {
+      position: relative;
+      top: 0px;
+      z-index: 9999;
+      
+      height: 0;
+      opacity: 0;
+      padding: 0px;
+    }
+    #homeMessageVisitorNoticeCtrl .searchclass.active {
+      height: 44px;
+      opacity: 1;
+      padding: 10.667px;
+     
+    }
+    .homeMessageVisitorNoticeCtrl_background{
+      background-color: #f3f3f3 !important;
+    }
+    .homeMessageVisitorNoticeCtrl_border_bottom{
+      border-bottom: 1px solid #eee !important;
+    }
+    .text_red{
+      color:#ff3b30;
+    }
+    .text_org{
+      color:#ff6600;
+    }
+
+
+    .platform-win32.platform-cordova #homeMessageVisitorNoticeBack{
+      margin-left:-7px;
+    }
+    .platform-android.platform-cordova #homeMessageVisitorNoticeBack{
+      padding-left:10px !important;
+    }
+    .thr_cls{
+      margin-top: 45px;
+    }
+    .two_cls{
+      margin-top: 60px;;
+    }
+	
+	
+	
+	#homeMessageVisitorNoticeCtrl .homeMessageVisitorNoticeCtrl {
+	  top: 132px;
+
+	}
+	.platform-win32.platform-cordova #homeMessageVisitorNoticeCtrl .homeMessageVisitorNoticeCtrl {
+	  top: 112px;
+	}
+	.platform-android.platform-cordova #homeMessageVisitorNoticeCtrl .homeMessageVisitorNoticeCtrl {
+	  top: 112px;
+	}
+
+
+        /* 卡片数据的样式 */
+        .block-group {
+            margin-top: 20px;
+        }
+
+        .block-titile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .block-time {
+            background: #e0e0e0;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 12px;
+            padding: 0 8px;
+            height: 20px;
+        }
+
+        .block-wrapper {
+            display: flex;
+            margin-top: 10px;
+            padding: 0 12px;
+        }
+
+        .block-left {
+            margin-right: 10px;
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            top: 5px;
+        }
+
+        .full-width {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .block-right-title {
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .block-right-content {
+            background-color: #fff;
+            border-radius: 5px;
+            min-width: 270px;
+        }
+
+        .right-content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 58px;
+            padding: 12px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-avatar {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .name {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .number {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .header-right {
+            margin-top: 13px;
+        }
+
+        .status {
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 2px;
+            font-size: 11px;
+            height: 20px;
+            min-width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            /* 预约中 */
+            background-color: #f0f8ff;
+            color: rgb(83, 175, 255);
+            border-color: #c0dff9;
+
+            /* 已预约 */
+            background-color: rgb(233, 255, 233);
+            color: rgb(54, 201, 109);
+            border-color: rgb(192, 249, 194);
+
+            /* 已撤回 */
+            background-color: rgb(255, 249, 241);
+            color: rgb(255, 135, 5);
+            border-color: rgb(252, 222, 188);
+
+            /* 已拒绝 */
+            background-color: rgb(255, 240, 240);
+            color: rgb(254, 97, 97);
+            border-color: rgb(255, 190, 190);
+
+            /* 已过期 */
+            background-color: rgb(249, 249, 249);
+            color: rgb(160, 160, 160);
+            border-color: rgb(240, 240, 240);
+        }
+
+        .right-content-main {
+            padding: 12px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .face-img {
+            width: 246px;
+            height: 246px;
+        }
+
+        .main-item {
+            display: flex;
+        }
+
+        .main-item+.main-item {
+            margin-top: 12px;
+        }
+
+        .main-item-label {
+            color: #666;
+            font-size: 13px;
+            margin-right: 20px;
+        }
+
+        .main-item-content {
+            color: #333;
+            font-size: 13px;
+        }
+
+        .right-content-footer {
+            border-top: 1px solid #f0f0f0;
+            padding: 0 12px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-content {
+            color: #999;
+            font-size: 12px;
+        }
+
+        /* 没数据的样式 */
+        .no-data-wrapper {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 105px;
+        }
+
+        .no-data-img {
+            width: 160px;
+            height: 125px;
+        }
+
+        .no-data-text {
+            font-size: 16px;
+            color: #999;
+            margin-top: 10px;
+        }
+    </style>
+
+<ion-header-bar id="homeMessageVisitorNoticeHeadBar" class="bar-subheader" style="height:70px;padding:0px;width: 100%; " ng-show="search_control.search_val!=''">
+   	 <div class="empl_search_prompt"  ng-click="search()" style="" >
+		 <div>
+		 <img ng-src="{{search_img}}">
+		 <div style="font-size: 17px;height: 30px;line-height: 30px; padding-left: 12px">
+		<span style="padding-right: 8px">搜索</span>		 
+		<span style="color: #53afff;position: absolute;top: 0;bottom: 0;left: 53px;right: 59px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;" ng-bind="search_control.search_val" class="ng-binding">{{search_control.search_val}}</span>
+		 </div>
+		 <div style="font-size: 14px;color: #999999;padding-left: 12px">搜索访客姓名，手机号等</div>
+		 </div>
+	 </div>
+</ion-header-bar>
+
+    <ion-content overflow-scroll="false" id="homeMessageVisitorNoticeContent" style="top:{{content_top}}px;">
+        <div class="empl_search_void ng-hide" style="margin-top:10px;" ng-show="searchState.flag && list.length=='0' && search_control.search_val!='' ">
+            <div style="margin: 0 auto;display: table;"><img style="width: 16px;position: relative; top: 3px" ng-src="{{cry}}"
+                    src="img/cry.png">
+                <span style="padding-left: 5px; color: #a7a7a7; font-size: 15px">搜索不到数据,您可换个关键词哦~</span>
+            </div>
+        </div>
+        <div class="empl_search_default" style="" ng-show="searchNodata.is_search && search_control.search_val==''" class="ng-hide">
+            <img style="width: 143px; margin: 0 auto;display: block; padding-top: 70px" ng-src="{{not_data}}">
+        </div>
+
+        <div class="block-container" id="homeMessageVisitorNoticeWrap" ng-show="searchState.is_show_wrap">
+            <div class="block-group" ng-repeat="item in list track by $index" ng-if="list && list.length">
+                <div class="block-titile">
+                    <div class="block-time">{{item.date_time}}</div>
+                </div>
+                <div class="block-wrapper">
+                    <div class="block-left">
+                        <img ng-src="{{default_avatar}}" class="avatar">
+                    </div>
+                    <div class="block-right">
+                        <div class="block-right-title">访客动态</div>
+                        <div class="block-right-content">
+                            <div class="right-content-header">
+                                <div class="header-left">
+                                    <!-- <div class="header-avatar">ZX</div> -->
+                                    <div class="header-info">
+                                        <div class="name" ng-show="{{item.is_add_photo == '1'}}">访客【{{item.invitees}}】提交了人脸照片</div>
+                                        <div class="name" ng-show="{{item.is_add_photo == '0'}}">访客【{{item.invitees}}】已到访</div>
+                                        <div class="number">{{item.invitees_phone}}</div>
+                                    </div>
+                                </div>
+                                <!-- <div class="header-right">
+                                    <div class="status">预约中</div>
+                                </div> -->
+                            </div>
+                            <div class="right-content-main" ng-show="{{item.is_add_photo == '1'}}">
+                                <img ng-src="{{item.photo_name}}" class="face-img">
+                                <!-- <div class="main-wrapper">
+                                    <div class="main-item">
+                                        <div class="main-item-label">访客事由</div>
+                                        <div class="main-item-content">业务洽谈</div>
+                                    </div>
+                                    <div class="main-item">
+                                        <div class="main-item-label">设备名称</div>
+                                        <div class="main-item-content">办公室C座2407门禁</div>
+                                    </div>
+                                    <div class="main-item">
+                                        <div class="main-item-label">访问日期</div>
+                                        <div class="main-item-content">2017/12/26 ~ 2017/12/28</div>
+                                    </div>
+                                    <div class="main-item">
+                                        <div class="main-item-label">访问时间</div>
+                                        <div class="main-item-content">08:00 ~ 16:00</div>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="right-content-footer">
+                                <div class="footer-content">邀请人:{{item.inviter_name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="list.data_ready && end_of_list.status && search_control.search_value==''" style="text-align:center;color:#999; overflow: hidden; font-size:0.32rem; padding-top:20px;">没有更多数据</div>
+    
+            <div ng-show="list.data_ready && list.length!=0 && search_control.search_value!='' && end_of_list.status" style="text-align:center;color:#999; overflow: hidden; font-size:0.32rem; padding-top:20px;">没有更多数据</div>
+
+            <div class="no-data-wrapper" ng-show="list.data_ready  && list.length=='0' && search_control.search_val==''">
+                <img ng-src="{{no_data_img}}" class="no-data-img">
+                <div class="no-data-text">暂无访客动态</div>
+            </div>
+        </div>
+
+        
+
+        <ion-infinite-scroll ng-if="!end_of_list.status && searchState.is_show_wrap" distance="1%" on-infinite="loadMoreData()"
+            immediate-check="false">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>

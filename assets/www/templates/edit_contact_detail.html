@@ -1,0 +1,196 @@
+﻿<ion-view hide-back-button="true"   style="background-color:#f8f8f8;" title="{{'联系方式'}}" ng-controller="EditContactDetailsCtrl" hide-tab-bar cache-view="false">
+  <style>
+
+    .item-select:after{
+      display: none;
+    }
+  </style>
+  <ion-nav-buttons side="left">
+    <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" ng-click="cancel()">
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span>
+    </button>
+  </ion-nav-buttons>
+
+
+
+  <ion-nav-buttons side="right">
+    <button style="font-size:14px;" class="button button-clear button-light" ng-click="saveStaffDetails()">保存</button>
+  </ion-nav-buttons>
+  <ion-content has-bouncing="true" overflow-scroll="false">
+    <input type="hidden" id="p_n_i" value="{{staff_master_details.p_n_i}}" />
+    <input type="hidden" id="o_n_i" value="{{staff_master_details.o_n_i}}" />
+
+
+	<!--电话-->
+<!--20170103   <div style="width: 100%;height: 44px;background-color: #fff;border-bottom:1px solid #f5f5f5;margin-top: 10px;" >
+      <div style="float:right;">
+        <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:43px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:9px"></i>
+      </div>
+      <div style="float:left;">
+        <label style="font-size:16px; color:#333; margin-left:12px; line-height:43px">电话<sepn style="margin-left: 2px;color: #ccc;">(必填)</sepn></label>
+      </div>
+
+      <div style="float:right;">
+        <input type="text" id="mobile_no" style="font-size:16px; color:#333333; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;height: 43px;" value="{{staff_master_details.home_tel_no}}">
+      </div>
+    </div>
+-->
+
+
+
+
+
+	<div style="width: 100%;height: 45px;background-color: #fff;border-bottom:1px solid #f5f5f5;margin-top: 10px;border-top: 1px solid #fff;">
+		<div style="float:left;">
+        <label style="font-size:16px; color:#333; margin-left:12px; line-height:43px">电话<sepn style="margin-left: 2px;color: #ccc;font-size:14px;">(必填)</sepn></label>
+      </div>
+
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px;margin: 0 12px 0 0px; line-height:43px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:6px"></i>
+		</div>
+
+        <div style="float:right;">
+			<input type="text" id="mobile_no" style="font-size:16px; color:#333333; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px; line-height:43px;" value="{{staff_master_details.home_tel_no}}" placeholder="未设置">
+		</div>
+
+	</div>
+
+    <!--电话-->
+
+    <!--邮箱-->
+    <!--<div style="width: 100%;height: 44px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+      <div style="float:right;">
+        <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:43px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:6px"></i>
+      </div>
+        <span style="text-indent: 12px;font-size:16px; line-height: 43px; color:#333;float: left">邮箱
+        </span>
+
+      <div style="float:right;">
+        <input type="text" id="email" style="color:#333; margin-right:0px;text-align:right; border:none;height: 42px;font-size: 16px;line-height: 42px;" placeholder="未设置" value="{{staff_master_details.email}}">
+      </div>
+    </div>-->
+
+	<div style="width: 100%;height: 44px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+		<div style="float:left;">
+        <label style="font-size:16px; color:#333; margin-left:12px; line-height:43px">邮箱</label>
+      </div>
+
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px;margin: 0 12px 0 0px; line-height:43px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:6px"></i>
+		</div>
+
+        <div style="float:right;">
+			<input type="text" id="email" style="font-size:16px; color:#333333; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px; line-height:43px;" placeholder="未设置" value="{{staff_master_details.email}}">
+		</div>
+
+	</div>
+
+
+    <!--邮箱-->
+
+    <!--地址-->
+    <!--<div style="width: 100%;height: 44px;background-color: #fff;border-bottom:1px solid #f5f5f5;" ng-click="edit_detail(staff_master_details.address)">
+      <div style="float:right;">
+        <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:43px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:6px"></i>
+      </div>
+     <span style="text-indent: 12px;font-size:16px; line-height: 43px; color:#333;float: left">居住地址
+        </span>
+
+      <div style="float:right;">
+        <input type="text" id="address" style="color:#333; margin-right:0px;text-align:right; border:none;height: 43px;font-size: 16px;line-height: 43px;" placeholder="未设置" value="{{staff_master_details.address}}">
+      </div>
+    </div>-->
+
+	<div style="width: 100%;height: 44px;background-color: #fff;border-bottom:1px solid #fff;">
+		<div style="float:left;">
+        <label style="font-size:16px; color:#333; margin-left:12px; line-height:43px">居住地址</label>
+      </div>
+
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px;margin: 0 12px 0 0px; line-height:43px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:6px"></i>
+		</div>
+
+        <div style="float:right;">
+			<input type="text" id="address" style="font-size:16px; color:#333333; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px; line-height:43px;" placeholder="未设置" value="{{staff_master_details.address}}">
+		</div>
+
+	</div>
+
+
+
+	<!--地址-->
+
+	<!--紧急联系人-->
+   <!-- <div style="width: 100%;height: 44px;background-color: #fff;border-bottom:1px solid #f5f5f5;margin-top: 10px;border-top: 1px solid #f5f5f5">
+      <div style="float:right;">
+        <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:43px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:6px"></i>
+      </div>
+             <span style="text-indent: 12px;font-size:16px; line-height: 43px; color:#333;float: left">紧急联系人
+        </span>
+
+      <div style="float:right;">
+        <input type="text" id="emergency_contact_name1" style="width: 120px; color:#333; margin-right:0px;text-align:right; border:none;height: 42px;font-size: 16px;line-height: 42px;" placeholder="未设置" value="{{staff_master_details.emergency_contact_name1}}">
+      </div>
+    </div>-->
+
+
+	<div style="width: 100%;height: 44px;background-color: #fff;border-bottom:1px solid #f5f5f5;margin-top: 10px;border-top: 1px solid #fff">
+		<div style="float:left;">
+        <label style="font-size:16px; color:#333; margin-left:12px; line-height:43px">紧急联系人</label>
+      </div>
+
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px;margin: 0 12px 0 0px; line-height:43px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:6px"></i>
+		</div>
+
+        <div style="float:right;">
+			<input type="text" id="emergency_contact_name1" style="font-size:16px; color:#333333; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px; line-height:43px;" placeholder="未设置" value="{{staff_master_details.emergency_contact_name1}}">
+		</div>
+
+	</div>
+
+	<!--紧急联系人-->
+
+	<!--紧急联系人电话-->
+<!--    <div style="width: 100%;height: 44px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+      <div style="float:right;">
+        <i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:43px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:6px"></i>
+      </div>
+             <span style="text-indent: 12px;font-size:16px; line-height: 43px; color:#333;float: left">紧急联系电话
+        </span>
+
+      <div style="float:right;">
+        <input type="text" id="emergency_contact_no1" style="width: 120px; color:#333; margin-right:0px;text-align:right; border:none;height: 42px;font-size: 16px;line-height: 42px;" placeholder="未设置" value="{{staff_master_details.emergency_contact_no1}}">
+      </div>
+    </div>
+-->
+
+	<div style="width: 100%;height: 44px;background-color: #fff;border-bottom:1px solid #fff;">
+		<div style="float:left;">
+        <label style="font-size:16px; color:#333; margin-left:12px; line-height:43px">居住地址</label>
+      </div>
+
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px;margin: 0 12px 0 0px; line-height:43px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:6px"></i>
+		</div>
+
+        <div style="float:right;">
+			<input type="text" id="emergency_contact_no1" style="font-size:16px; color:#333333; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px; line-height:43px;" placeholder="未设置" value="{{staff_master_details.emergency_contact_no1}}">
+		</div>
+
+	</div>
+
+<!--紧急联系人电话-->
+
+
+
+
+
+
+
+  </ion-content>
+</ion-view>
+
+
+
+

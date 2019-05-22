@@ -1,0 +1,210 @@
+﻿<ion-view  style="background-color:#f8f8f8;" title="消息通知" ng-controller="MsgSettingCtrl" hide-tab-bar>
+  <style>
+
+    .item-select:after{
+      display: none;
+    }
+	.def-item{
+		height: 44px;
+		background-color: white;
+		border-bottom: 1px solid #f5f5f5;clear:both;
+	}
+    .def-item-arrow-right{
+		margin-top:10px;
+		margin-right:12px;
+		line-height:43px;
+		vertical-align:middle;
+		font-size:20px;
+		color:#ccc;
+		margin-left:9px
+    }
+    .def-item-content-right{
+    	float: right;line-height: 43px;color: #333;font-size:16px;
+    }
+	.def-item-des-left{
+		font-size: 16px;color: #333;text-indent: 12px;line-height: 44px;
+	}
+    .fl-l{
+    	float: left;
+    }
+    .fl-r{
+    	float: right;
+    }
+
+    .def-item-seed{
+    	border-bottom: none;
+    	position: relative;
+    }
+    .def-item-seed:after{
+    	content: ' ';
+    	position: absolute;
+    	bottom: 0;
+    	left: 12px;
+    	width: 750px;
+    	height: 1px;
+    	background-color: #f5f5f5;
+    }
+  </style>
+<!-- 
+  <style ng-if="!isIos && message_setting_data.card_remird_type_index != 2">
+  	.a_d_n{
+  		display: none;
+  	}
+  </style>
+ -->
+  <ion-content has-bouncing="true" overflow-scroll="false">
+
+	<div class="def-item" style="height: 48px;margin-top:10px;">
+		<div class="fl-l">
+		  <label style="font-size:16px; color:#333; margin-left:12px; line-height:47px">消息推送</label>
+		</div>
+		<div class="fl-r">
+		  <div class="fl-r" style="margin-top: 8px;">
+			<label class="toggle toggle-calm" style=" right:10px;">
+			  <input ng-model="message_setting_data.is_receive_mesg" type="checkbox" class="ng-untouched ng-valid ng-dirty ng-valid-parse" >
+			  <div class="track">
+				<div class="handle"></div>
+			  </div>
+			</label>
+		  </div>
+		</div>
+	</div>
+
+
+
+
+
+	<div ng-show="message_setting_data.is_receive_mesg">
+
+		<!-- 提示音类型.start -->
+
+		<div class="def-item" ng-click="message_sound()" ng-show="isIos">
+
+		  <div class="fl-r" >
+			<i class="icon ion-ios-arrow-right def-item-arrow-right"></i>
+		  </div>
+
+		  <div class="fl-r">
+
+			<span class="def-item-content-right" ng-bind="
+			sound_data[message_setting_data.mesg_sound_index].value"></span>
+
+		  </div>
+
+		  <div class="def-item-des-left">提示音类型</div>
+
+		</div>
+
+		<!-- 提示音类型.end -->
+
+		<!-- 打卡提醒.start -->
+
+		<div class="def-item" style="margin-top:10px;" ng-click="set_card_remird()">
+
+		  <div class="fl-r">
+			<i class="icon ion-ios-arrow-right def-item-arrow-right"></i>
+		  </div>
+
+		  <div class="fl-r">
+
+			<span class="def-item-content-right" ng-bind="card_remird_data[message_setting_data.card_remird_type_index].value"></span>
+
+		  </div>
+
+		  <div class="def-item-des-left">打卡提醒</div>
+
+		</div>
+
+			<!-- 打开提醒的提示音.start -->
+			<div class="def-item def-item-seed ng-hide" ng-show="isIos && message_setting_data.card_remird_type_index != 2" ng-click="message_sound_by_minute()">
+				  <div class="fl-r">
+					<i class="icon ion-ios-arrow-right def-item-arrow-right"></i>
+				  </div>
+
+
+				  <div class="fl-r">
+
+					<span class="def-item-content-right" ng-bind="sound_by_minute_data[message_setting_data.sound_by_minute_index].value">系统音</span>
+
+				  </div>
+
+			 	 <div class="def-item-des-left">提示音类型</div>
+			</div>
+			<!-- 打开提醒的提示音.end -->
+
+		<div class="ng-hide" ng-show="message_setting_data.card_remird_type_index == 1">
+
+			<!-- 重复.start -->
+
+			<div class="def-item def-item-seed" ng-click="setting_repeat()">
+				  <div class="fl-r">
+					<i class="icon ion-ios-arrow-right def-item-arrow-right"></i>
+				  </div>
+
+
+				  <div class="fl-r">
+
+					<span class="def-item-content-right" ng-bind="message_setting_data.repeat_select_val"></span>
+
+				  </div>
+
+			 	 <div class="def-item-des-left">重复</div>
+			</div>
+
+			<!-- 重复.end -->
+
+			<div ng-click="select_time(item)" class="def-item def-item-seed" ng-repeat="item in message_setting_data.times_data" >
+			  <div class="fl-r">
+				<i class="icon ion-ios-arrow-right def-item-arrow-right"></i>
+			  </div>
+			  <div style="font-size: 16px;color: #333;line-height: 44px;">
+			  <div style="display:inline-block;min-width:40px;margin-left:12px;">{{item.time}}</div>
+			  <img ng-src={{msgsetting_delete_icon}} style="width:15px;height:15px;position:relative;top:2px;" ng-click="times_delete(item,$event)">
+			  </div>
+			</div>
+
+			<div style="height:44px;text-align:center;color:#53afff;background-color:white;line-height:44px;font-size:14px;" ng-click="times_add()">
+			<img style="width:13px;height:13px;position:relative;top:2px;" ng-src={{msgsetting_add_icon}}>
+			继续添加</div>
+
+		</div>
+
+
+		<div class="ng-hide" ng-show="message_setting_data.card_remird_type_index == 0">
+			<!-- <span>班次卡点提醒</span> -->
+
+
+			<div class="def-item">
+
+			  <div class="fl-r">
+				<i class="icon ion-ios-arrow-right def-item-arrow-right"></i>
+			  </div>
+
+
+			  <div class="fl-r">
+
+				<span style="float: right;line-height: 43px;color: #999">分钟</span>
+				<input type="number"  style="font-size:14px; color:#999; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px;margin-top:4px;" ng-model="message_setting_data.remird_minute">
+
+			  </div>
+
+			  <div class="def-item-des-left">提前分钟数</div>
+			</div>
+
+
+		</div>
+
+		<!-- 打卡提醒.end -->
+		<div style="color:#999;text-indent:12px;">您修改的打卡提醒方案，会立即生效。</div>
+
+	</div>
+
+	<div style="width: 100%;height: 49px;text-align: center;line-height: 49px;padding: 12px; margin-top:8px;" ng-click="message_setting_save()">
+		<input type="button" style="color: white;text-align: center;background-color: #3ba5ff;width: 100%;height: 44px;border: none;border-radius: 4px; font-size:16px;" id="message_setting_save" value="保存">
+	</div>
+  </ion-content>
+</ion-view>
+
+
+
+

@@ -1,0 +1,67 @@
+
+<ion-view ng-controller="payrollResultCtrl" id="payroll_result_view" cache-view="false" style="background-color:#f8f8f8;" title="工资结果" hide-tab-bar>
+
+<style>
+    #payroll_result_view #payroll_result_content {
+      top: 112px;
+    }
+    .platform-win32.platform-cordova #payroll_result_view #payroll_result_content {
+      top: 92px;
+    }
+    .platform-android.platform-cordova #payroll_result_view #payroll_result_content {
+      top: 92px;
+    }
+
+  </style>
+  
+	<ion-header-bar class="bar-subheader" style="height:46px;padding:0px;width: 100%; background-color:#f8f8f8; background-image:none;" >
+      <label class="item item-input" style="border-radius:4px;height:30px;margin:10px 12px;background-color:#fff;border:none;" clear-value-box>
+        <i class="icon ion-ios-search-strong placeholder-icon"></i>
+        <input type="text" placeholder="搜索姓名、工号、职位..." ng-model="search_control.search_val" clear-value-input >
+        <div clear-value-btn style="position: absolute; right: 10px; font-size: 16px; margin-right: 2px; top: 0px;height: 30px;line-height: 30px;color: #cccccc;"></div>
+      </label>
+	</ion-header-bar>
+	  
+  <ion-content id="payroll_result_content"  has-bouncing="true" overflow-scroll="false">
+	<input type="month" id="payroll_result_calendar_date" style="display: none">
+    <div class="list" style="margin-bottom:0px;">
+      <div class="row" style="background-color:#fff;line-height:40px;">
+        <div class="col-20" style="text-align: left;color:#666;padding-left:5px;">
+          <div ng-click="reloadPrData('-1')">上一月</div>
+        </div>
+        <div class="col-60">
+		<!--
+          <div style="text-align: center;background-color:#fff;font-size:14px;color:#333;">{{payroll_result_data.start_date}}&nbsp;&nbsp;-&nbsp;&nbsp;{{payroll_result_data.end_date}}</div>
+		  -->
+
+          <div style="text-align: center;background-color:#fff;font-size:14px;color:#333;">{{current_date_str}}</div>
+		  
+			
+        </div>
+        <div class="col-20"  style="text-align: right;color:#666;padding-right:5px;">
+          <div ng-click="reloadPrData('1')">下一月</div>
+        </div>
+      </div>
+    </div>
+
+    <ion-list>
+      <div ng-show="payroll_result_data.data_ready && payroll_result_data.payroll_info.length==0 && search_control.search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+      <div ng-show="filterItems.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+      <ion-item class="item-avatar-left item-icon-right" collection-item-height="71" collection-item-width="'100%'" ng-click="loadResultPaySlip(item,item.em)" collection-repeat="item in filterItems=(payroll_result_data.payroll_info|dataAndFilter:'st,en,pn':search_control.search_val)">
+        <img ng-src="{{item.img}}">
+        <div>
+          <span style="font-size:17px;color:#333;">{{item.en}}</span>&nbsp;&nbsp;
+          <span style="font-size:12px;color:#666666">工号:{{item.st}}</span>
+          <span style="font-size:17px;color:#FB640B;float:right;margin-top:10px;margin-right:-20px;">
+            {{item.v}}
+            <label >{{payroll_result_data.s}}</label>
+          </span>
+        </div>
+        <p style="font-size:12px;color:#666666;">
+          {{item.pn}}
+        </p>
+        <i class="icon ion-ios-arrow-right button-small"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

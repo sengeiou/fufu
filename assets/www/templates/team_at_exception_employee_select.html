@@ -1,0 +1,58 @@
+
+<ion-view id="team_at_exception_employee_select_view" hide-back-button="false" style="background-color:#f8f8f8;" title="筛选员工" ng-controller="teamAtExceptionEmployeeSelectCtrl" hide-tab-bar>
+<style>
+.checkbox input:after, .checkbox-icon:after{width: 10px !important;
+    height:6px !important;}
+
+    #team_at_exception_employee_select_view #team_at_exception_employee_select_content {
+      top: 112px;
+    }
+    .platform-win32.platform-cordova #team_at_exception_employee_select_view #team_at_exception_employee_select_content {
+      top: 92px;
+    }
+    .platform-android.platform-cordova #team_at_exception_employee_select_view #team_at_exception_employee_select_content {
+      top: 92px;
+    }
+
+  </style>
+
+	<ion-header-bar class="bar-subheader" style="height:46px;padding:0px;width: 100%; background-color:#f8f8f8; background-image:none;" >
+      <div class="list" style="margin: 10px 12px;">
+        <label class="item item-input" style="border-radius:4px;height:30px;background-color:#fff;border:none;">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="text" placeholder="搜索" ng-model="search_val">
+        </label>
+      </div>
+	</ion-header-bar>
+
+
+    <ion-nav-buttons side="right">
+      <button class="button button-clear" style="font-size:14px;color:white;" ng-click="employee_select_save()">选中(<label style="color:#fff">{{teamAtExceptionEmployeeSelectData.total_checked}}</label>)</button>
+    </ion-nav-buttons>
+    <ion-content id="team_at_exception_employee_select_content" has-bouncing="true" overflow-scroll="false">
+
+      <ion-list>
+        <div ng-show="teamAtExceptionEmployeeSelectData.data_ready && teamAtExceptionEmployeeSelectData.data.length==0 && search_control.search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+
+        <div ng-show="filterItems.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+        <ion-item class="item-avatar-left" collection-item-height="71" collection-item-width="'100%'" collection-repeat="item in filterItems=(teamAtExceptionEmployeeSelectData.data|dataAndFilter:'st,en,pn':search_val)">
+          <img ng-src="{{item.img}}">
+          <div>
+              <span style="font-size:16px;color:#333">{{item.en}}</span>&nbsp;&nbsp;
+              <span style="font-size:12px;color:#666">工号:{{item.st}}</span>
+          </div>
+          <p style="font-size:12px;color:#666">
+
+          	<span style="float:left;">{{item.pn}}</span>
+
+          </p>
+
+          <div class="item item-checkbox checkbox-calm" style="float:right;margin-top:-41px;margin-left:10px;border:none;margin-right:-18px;">
+            <label class="checkbox">
+              <input type="checkbox" ng-model="item.ck" ng-checked="item.ck" ng-click="ckItem(item.ck,item.emp)" style="float:right;">
+            </label>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+</ion-view>

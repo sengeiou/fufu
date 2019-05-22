@@ -1,0 +1,177 @@
+﻿<ion-view id="myLvBalance" style="background-color:#fff;" title="{{title}}" ng-controller="MyLvBalanceCtrl" hide-tab-bar >
+	<style>
+    	#myLvBalance .scroll{background-color:#fff !important;}
+		#myLvBalance .scroll-content {background-color: #fff !important;}
+        .popup-container{background-color: rgba(0,0,0,0.4);}
+    </style>
+    <ion-content style="background-color: #fff !important; overflow:hidden;" has-bouncing="true" overflow-scroll="false">
+<!--备份-->
+<!--<div style="width: 100%;height: 312px;background: -webkit-linear-gradient(bottom,#76ddfc,#53afff); -webkit-backface-visibility: hidden; -webkit-transform: translateX(0px);">
+	<div style="overflow: hidden;padding-top: 42px;">
+        <div id="" style="border: 1px solid #98d5ff; border-radius: 245px; width: 190px; height: 190px; margin:0 auto; display: block;">
+         <div id="" style="border: 2px solid #b4e0ff; border-radius: 245px; width: 169px; height: 169px; margin:10px auto; display: block;">
+            <div id="" style="line-height: 25px;margin-top:36px; font-size:14px; color:#666;">
+                <div style="text-align: center; color:#fff;" ng-click="changeLeaveType()"><span id="leaveTypeName">年假结余</span><i class="ion-android-arrow-dropdown" style="font-size:14px; margin-left:2px;"></i></div>
+                <div id="" style="padding:0 5px;text-align: center;font-size:30px;margin-top: 5px; color:#fff;">{{my_lv_balance_data.balance_num}}</div>
+                <div style="text-align: center; font-size:12px; color:#fff; border:1px solid#98d5ff; width:40px; height:18px; margin:10px auto;border-radius: 245px; margin-top:20px;" class="ng-binding"><p id="leaveTypeUnit" style="margin-top: -5px;">天</p></div>
+            </div>
+        </div>
+        </div>
+    </div>-->
+<!--备份-->
+<!-----------------------------------休假结余----------------------------------------->
+<div style="width: 100%;height: 242px;background: -webkit-linear-gradient(bottom,#76ddfc,#53afff); -webkit-backface-visibility: hidden; -webkit-transform: translateX(0px);">
+	<div style="overflow: hidden;padding-top: 15px;">
+        <div id="" style="border: 1px solid #98d5ff; border-radius: 245px; width: 190px; height: 190px; margin:0 auto; display: block;">
+         <div id="" style="display: block;">
+         <div><img style="position:absolute;display: block;margin-top: -39px;margin-left: 17px;z-index:-1;" src="img/icon/within_circle.png" width="155px" height="155px" /></div>
+            <div id="" style="line-height: 25px;margin-top:56px; font-size:14px; color:#666;">
+                <div style="text-align: center; color:#fff;" ng-click="changeLeaveType()"><span id="leaveTypeName">年假结余</span><i class="ion-android-arrow-dropdown" style="font-size:14px; margin-left:2px;"></i></div>
+                <div id="" style="padding:0 5px;text-align: center;font-size:30px;margin-top: 5px; color:#fff;">{{my_lv_balance_data.balance_num}}</div>
+                <div style="text-align: center; font-size:12px; color:#fff; border:1px solid#98d5ff; width:40px; height:18px; margin:10px auto;border-radius: 245px; margin-top:20px;" class="ng-binding"><p id="leaveTypeUnit" style="margin-top: -5px;">天</p></div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+<div class="bolang" style="-webkit-backface-visibility: hidden;"></div>
+</div>
+<!--波浪-->
+<style>
+.lv_balance_cl_show{
+	width:25%;
+}
+
+.lv_balance_cl_hidden{
+	width:33.33%;
+}
+
+.bolang{
+	width: 6000px;
+    height: 40px;
+    position: relative;
+	background:url({{img_wave2_2}});
+    -webkit-animation-name: wave; /* Chrome, Safari, Opera */
+    -webkit-animation-duration:50s; /* Chrome, Safari, Opera */
+    -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+	-webkit-animation-timing-function: linear;
+	-webkit-backface-visibility: hidden;
+	-webkit-transform-style: preserve-3d;
+	-webkit-perspective: 1000;
+	-webkit-transform: translateX(0px);
+
+    animation-name: wave;
+    animation-duration:50s;
+    animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	transform: translateX(0px);
+
+	}
+
+
+@-webkit-keyframes wave {
+    0%   {-webkit-transform: translateX(0px);}
+    100%  {-webkit-transform: translateX(-1116px);}
+}
+
+
+@keyframes wave {
+    0%   {transform: translateX(-0px);}
+    100%  {transform: translateX(-1116px);}
+}
+/*
+@-webkit-keyframes wave {
+    from   {left: -1116px;}
+    to  { left: -6px;}
+}
+
+
+@keyframes wave {
+    from   {left: -1116px;}
+    to  { left: -6px;}
+}*/
+
+</style>
+
+<!--波浪-->
+
+<!--已用数-->
+<div ng-show="my_lv_balance_data.selectLvCodeKey != 'CL'" style="width:100%; background-color:#fff; overflow:hidden; margin:0 auto; text-align:center; margin-top:20px;">
+	<div style="width:100%; margin:0 auto; overflow:hidden;">
+    	<div style="width:33.33%; overflow:hidden; float:left;">
+            <span style="background-image:url({{img_leave_balance_dongh_06}}); width:65px; height:65px; display:block;display:block;background-size:100% 100%;background-repeat:no-repeat;margin: 0 auto; display:inline-block; margin:0 20px"><div style="font-size:18px;margin: 0 auto; line-height:65px;display: inline-block;color:#53afff;background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(83, 175, 255, 1)), to(rgba(125, 230, 252, 1)));-webkit-background-clip: text;-webkit-text-fill-color: transparent; text-align:center;">{{my_lv_balance_data.used_num}}</div></span>
+            <p style=" font-size:14px;color:#333; margin-top:5px;">已用数</p>
+        </div>
+
+        <div style="width:33.33%; overflow:hidden; float:left;">
+            <span style="background-image:url({{img_leave_balance_dongh_06}}); width:65px; height:65px; display:block;display:block;background-size:100% 100%;background-repeat:no-repeat;margin: 0 auto; display:inline-block; margin:0 20px"><div style="font-size:18px;margin: 0 auto; line-height:65px;display: inline-block;color:#53afff;background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(83, 175, 255, 1)), to(rgba(125, 230, 252, 1)));-webkit-background-clip: text;-webkit-text-fill-color: transparent; text-align:center;">{{my_lv_balance_data.processing_num}}</div></span>
+            <p style=" font-size:14px;color:#333; margin-top:5px;">待审批数</p>
+        </div>
+
+        <div style="width:33.33%; overflow:hidden; float:right;">
+            <span style="background-image:url({{img_leave_balance_dongh_06}}); width:65px; height:65px; display:block;display:block;background-size:100% 100%;background-repeat:no-repeat;margin: 0 auto; display:inline-block; margin:0 20px"><div style="font-size:18px;margin: 0 auto; line-height:65px;display: inline-block;color:#53afff;background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(83, 175, 255, 1)), to(rgba(125, 230, 252, 1)));-webkit-background-clip: text;-webkit-text-fill-color: transparent; text-align:center;">{{my_lv_balance_data.entitle_num}}</div></span>
+            <p style=" font-size:14px;color:#333; margin-top:5px;">享有数</p>
+        </div>
+
+    </div>
+</div>
+<!--已用数-->
+
+<!--已用数带有X-->
+<div ng-show="my_lv_balance_data.selectLvCodeKey == 'CL'" style="width:100%; background-color:#fff; overflow:hidden; margin:0 auto; text-align:center; margin-top:20px;">
+	<div style="width:100%; margin:0 auto; overflow:hidden;">
+    	<div style="overflow:hidden; float:left;" ng-class="my_lv_balance_data.invalid_num != '0.0' && my_lv_balance_data.invalid_num != '0.00'? 'lv_balance_cl_show':'lv_balance_cl_hidden'">
+            <span style="background-image:url({{img_leave_balance_dongh_06}});width:65px; height:65px;  display:block;display:block;background-size:100% 100%;background-repeat:no-repeat;margin: 0 auto; display:inline-block; margin:0 0px"><div style="font-size:18px;margin: 0 auto; line-height:65px;display: inline-block;color:#53afff;background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(83, 175, 255, 1)), to(rgba(125, 230, 252, 1)));-webkit-background-clip: text;-webkit-text-fill-color: transparent; text-align:center;">{{my_lv_balance_data.used_num}}</div></span>
+            <p style=" font-size:14px;color:#333; margin-top:5px;">已用数</p>
+        </div>
+
+        <div style="overflow:hidden; float:left;" ng-class="my_lv_balance_data.invalid_num != '0.0' && my_lv_balance_data.invalid_num != '0.00'? 'lv_balance_cl_show':'lv_balance_cl_hidden'">
+            <span style="background-image:url({{img_leave_balance_dongh_06}});width:65px; height:65px;  display:block;display:block;background-size:100% 100%;background-repeat:no-repeat;margin: 0 auto; display:inline-block; margin:0 0px"><div style="font-size:18px;margin: 0 auto; line-height:65px;display: inline-block;color:#53afff;background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(83, 175, 255, 1)), to(rgba(125, 230, 252, 1)));-webkit-background-clip: text;-webkit-text-fill-color: transparent; text-align:center;">{{my_lv_balance_data.processing_num}}</div></span>
+            <p style=" font-size:14px;color:#333; margin-top:5px;">待审批数</p>
+        </div>
+
+        <div style="overflow:hidden; float:left;" ng-class="my_lv_balance_data.invalid_num != '0.0' && my_lv_balance_data.invalid_num != '0.00'? 'lv_balance_cl_show':'lv_balance_cl_hidden'">
+            <span style="background-image:url({{img_leave_balance_dongh_06}});width:65px; height:65px;  display:block;display:block;background-size:100% 100%;background-repeat:no-repeat;margin: 0 auto; display:inline-block; margin:0 0px"><div style="font-size:18px;margin: 0 auto; line-height:65px;display: inline-block;color:#53afff;background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(83, 175, 255, 1)), to(rgba(125, 230, 252, 1)));-webkit-background-clip: text;-webkit-text-fill-color: transparent; text-align:center;">{{my_lv_balance_data.entitle_num}}</div></span>
+            <p style=" font-size:14px;color:#333; margin-top:5px;">总调休数</p>
+        </div>
+
+        <div ng-show="my_lv_balance_data.invalid_num != '0.0' && my_lv_balance_data.invalid_num != '0.00'" ng-class="my_lv_balance_data.invalid_num != '0.0' && my_lv_balance_data.invalid_num != '0.00'? 'lv_balance_cl_show':'lv_balance_cl_hidden'" style="overflow:hidden; float:left;">
+            <span style="background-image:url({{img_leave_balance_dongh_08}}); width:65px; height:65px; display:block;display:block;background-size:100% 100%;background-repeat:no-repeat;margin: 0 auto; display:inline-block; margin:0 0px"><i style="position:absolute;margin:36px -20px;"><img ng-src="{{img_icon_noapprove2}}" width="14" height="14" /></i><div style="font-size:18px;margin: 0 auto; line-height:65px;display: inline-block;color:#53afff;background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(255, 97, 47, 1)), to(rgba(255, 117, 109, 1)));-webkit-background-clip: text;-webkit-text-fill-color: transparent; text-align:center;">{{my_lv_balance_data.invalid_num}}</div>
+
+            </span>
+
+            <p style=" font-size:14px;color:#333; margin-top:5px;">作废数</p>
+        </div>
+
+
+    </div>
+</div>
+
+<!--已用数带有X-->
+
+
+
+
+<!-----------------------------------休假结余----------------------------------------->
+
+
+
+
+
+    </ion-content>
+<!--时间段筛选-->
+<div style="width:100%; background-color:#fff; overflow:hidden; margin:0 auto;padding-bottom:10px;position: absolute;bottom: 0;">
+	<div style="width:320px; overflow:hidden; margin:0 auto;">
+        <div id="start_date_text" style=" float:left; height:49px; line-height:49px; width:134px; text-align:right; margin-right:5px; font-size:14px;" ng-click="start_date_select()">{{my_lv_balance_data.start_date_text}}</div>
+
+        <div style=" float:left; height:49px; line-height:49px;"><img style="margin-top:10px;" ng-src="{{img_leave_balance_time}}" width="39px" height="28px" /></div>
+
+        <div id="end_date_text" style=" float:left; height:49px; line-height:49px; margin-top:0px; margin-left:7px; font-size:14px;" ng-click="end_date_select()">{{my_lv_balance_data.end_date_text}}</div>
+    </div>
+<div style="width: 100%; background-color: #fff; text-align:center; font-size:12px; color:#666; margin-top:-15px; padding-right:2px;">时间段筛选</div>
+</div>
+<!--时间段筛选-->
+</ion-view>
+
+
+

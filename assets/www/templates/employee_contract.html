@@ -1,0 +1,100 @@
+﻿<ion-view hide-back-button="true" style="background-color:#f5f5f5;" title='
+<div style="width:100%;position:fixed; height:62px;line-height:84px; background-color:#53afff;l margin-top:0px;left:0px; top: -20px; background-color: #53afff;z-index:999;"><div id="employeeContractBack" onclick="window.navbarBackClick()" style="width:30px;float:left;margin-top:25px;margin-left:-5px;" >  <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" ><span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>  </div><div id="employeeContractSearch" onclick="window.navbarShowSearch(this.id);" sev_name="employeeContract" style="width:30px;float:right;padding-left:0px;margin-top:25px;" >     <div  style="margin-right:0px;">
+      <i class="ion-ios-search-strong button back-button buttons button-clear button-light ion-ios-arrow-left header-item" style="font-size:20px !important;"></i>
+    </div></div>合同管理</div>
+    <div style="width: 100%;height: 42px;margin-top: 0px;background-color: #53afff;position: absolute;z-index: 999;opacity: 0;text-align: center;line-height: 42px;color: white;display: none" id="employeeContractSearchDiv">
+  <div class="bar bar-header item-input-inset searchclass active" style="background-color: rgb(83, 175, 255);height: 42px;" >
+    <div class="item-input-wrapper" style="margin-top: 0px !important;background-color: #fff;" >
+<div style="width: 100%" >
+      <i class="icon ion-ios-search-strong placeholder-icon" style="position:absolute;left: 20px;top:-12px; margin-top: 12px;"></i>
+        <input  id="employeeContractSearchInput" type="search" placeholder="搜索..." ng-model="search_control.search_val" class="" style="margin-left:10px;width:85%;" sev_name="employeeContract"  onkeydown="window.employeeContractInpKeydown()" onfocus="window.navbarSearchfocus(this.id)" onblur="window.navbarSearchblur(this.id)"/>
+         <div onclick="window.navbarSearchClearValue(this.id)" sev_name="employeeContract" id="employeeContractCloseIonic" class="ion-ios-close" style="position: absolute; right: 10px; font-size: 16px; right:60px;top: 0px;color: #cccccc;display:none;"></div>
+</div>
+    </div>
+    <button class="button button-clear" style="margin-top: 0px !important; color:#fff;margin-right:-5px;" id="employeeContractSearchCancelBtn" sev_name="employeeContract" onclick="window.navbarSearchCancel(this.id)">
+      取消
+    </button>
+  </div>
+</div>
+' cache-view="true" hide-tab-bar ng-controller="employeeContractCtrl">
+<style>
+    .platform-win32.platform-cordova #employeeContractBack{
+      margin-left:-7px;
+    }
+    .platform-android.platform-cordova #employeeContractBack{
+      padding-left:9px !important;
+    }
+</style>
+<ion-header-bar id="employeeContractHeadBar" class="bar-subheader" style="height:70px;padding:0px;width: 100%; " ng-show="search_control.search_val!=''">
+   	 <div class="empl_search_prompt"  ng-click="search()" style="" >
+		 <div>
+		 <img ng-src="{{search_img}}">
+		 <div style="font-size: 17px;height: 30px;line-height: 30px; padding-left: 12px">
+		<span style="padding-right: 8px">搜索</span>		 
+		<span style="color: #53afff;position: absolute;top: 0;bottom: 0;left: 53px;right: 59px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;" ng-bind="search_control.search_val" class="ng-binding">{{search_control.search_val}}</span>
+		 </div>
+		 <div style="font-size: 14px;color: #999999;padding-left: 12px">姓名、工号、职位等</div>
+		 </div>
+	 </div>
+</ion-header-bar>
+
+
+    <ion-content has-bouncing="true" overflow-scroll="false" id="employeeContractContent" style="top:{{content_top}}px;">
+	<div class="empl_search_void ng-hide" style="margin-top:10px;" ng-show="searchState.flag && employeeContractData.length=='0' && search_control.search_val!='' ">
+		<div style="margin: 0 auto;display: table;"><img style="width: 16px;position: relative; top: 3px" ng-src="{{cry}}" src="img/cry.png">
+		  <span style="padding-left: 5px; color: #a7a7a7; font-size: 15px">搜索不到数据,您可换个关键词哦~</span>
+		 </div>
+	</div>
+	<div class="empl_search_default" style="" ng-show="searchNodata.is_search && search_control.search_val==''" class="ng-hide">
+		<img style="width: 143px; margin: 0 auto;display: block; padding-top: 70px" ng-src="{{not_data}}" >
+	</div>
+
+	
+<div id="employeeContractWrap" ng-show="searchState.is_show_wrap">
+    <!--员工(含合同明细字段)-->
+
+	<div  ng-click="employee_contract_detail(item.em,item.flag)"  class="item-avatar-left item" ng-repeat="item in filterItems=(employeeContractData)" style="width:100%;margin-top:10px;">
+		<img ng-src="{{item.img}}">
+		<div>
+			<span style="font-size:16px;color:#333" class="ng-binding">{{item.en}}</span>&nbsp;&nbsp;
+			<span style="font-size:12px;color:#666" class="ng-binding">工号:{{item.st}}</span>
+		</div>
+		<p style="font-size:12px;color:#666" class="ng-binding">{{item.pn}}</p>
+		<div style="float:right;margin-top:-36px;">
+			<label class="ion-ios-arrow-right" style="font-size:20px; color:#ccc"></label>
+		</div>
+       <!--合同明细-->
+        <div ng-hide="item.flag == 0" style="margin-top:4px;margin-left:-60px;margin-top:12px;line-height:23px;border-top:1px dotted #f0f0f0;margin-bottom:-15px;padding-top:7px;padding-bottom: 7px;">
+             <label style="color:#53afff;">{{item.contract_term}}<span class="sign_num" style="color:#999999;">（2008年后第{{item.contract_times_after2008}}次签约）</span></label>
+             <div ng-hide="item.contract_start_date == ''" style="font-size:15px;color:#808080;">
+             <!--<i class="icon ion-android-more-vertical positive" style="color:#53afff;margin-right:-4px;"></i>
+             <i class="icon ion-android-more-vertical positive" style="color:#53afff;"></i>-->
+             <span>
+             	<img ng-src="{{contract_management_directory1}}" style="width:11px; height:17px;" />
+             </span>
+             {{item.contract_start_date}}(合同开始)</div>
+             <div ng-hide="item.contract_end_date == ''" style="font-size:15px;color:#808080;">
+             <!--<i class="icon ion-android-more-vertical positive" style="color:#53afff;margin-right:-4px;"></i>
+             <i class="icon ion-android-more-vertical positive" style="color:#53afff;"></i>-->
+			 <img ng-src="{{contract_management_directory1}}" style="width:11px; height:17px;" />
+             {{item.contract_end_date}}(合同结束)</div>
+        </div>
+       <!--合同明细-->
+	</div>
+    <!--员工-->
+	
+    <div ng-show="employeeContractData.data_ready && end_of_list.status && search_control.search_value==''" style="text-align:center;color:#999; overflow: hidden; font-size:0.32rem; padding-top:20px;">没有更多数据</div>
+    
+    <div ng-show="employeeContractData.data_ready && employeeContractData.length!=0 && search_control.search_value!='' && end_of_list.status" style="text-align:center;color:#999; overflow: hidden; font-size:0.32rem; padding-top:20px;">没有更多数据</div>
+	
+</div>
+    <ion-infinite-scroll
+      ng-if="!end_of_list.status"
+      distance="1%"
+      on-infinite="loadMoreEmployeeData()"
+      immediate-check="false">
+    </ion-infinite-scroll>
+	
+    </ion-content>
+
+</ion-view>

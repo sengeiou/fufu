@@ -1,0 +1,80 @@
+
+<ion-view hide-back-button="false" style="background-color:#f8f8f8;" title="选择员工" ng-controller="holidayPolicyEditEmployeeSelectCtrl" hide-tab-bar id="holidayPolicyEditEmployeeSelect">
+<style>
+.checkbox input:after, .checkbox-icon:after{width: 10px !important;
+    height:6px !important;}
+</style>
+  <style>
+    .bar-footer {
+      bottom: 0 !important;
+    }
+    #holidayPolicyEditEmployeeSelect .holidayPolicyEditEmployeeSelectContent {
+      bottom: 44px;
+
+    }
+    .platform-win32.platform-cordova #holidayPolicyEditEmployeeSelect .holidayPolicyEditEmployeeSelectContent {
+      bottom: 24px;
+    }
+    .platform-android.platform-cordova #holidayPolicyEditEmployeeSelect .holidayPolicyEditEmployeeSelectContent {
+      bottom: 24px;
+    }
+
+  </style>
+  
+	<ion-header-bar class="bar-subheader" style="height:46px;padding:0px;width: 100%; background-color:#f8f8f8; background-image:none;" >
+        <div class="list" style="margin: 10px 12px;">
+        <label class="item item-input" style="border-radius:4px;height:30px;background-color:#fff;border:none;" clear-value-box>
+          <i class="icon ion-ios-search-strong placeholder-icon"></i>
+          <input type="text" placeholder="搜索姓名、工号、职位..." ng-model="search_control.search_val" clear-value-input>
+          <div clear-value-btn style="position: absolute; right: 10px; font-size: 16px; margin-right: 2px; top: 0px;height: 30px;line-height: 30px; color: #cccccc;"></div>
+        </label>
+      </div>
+	</ion-header-bar>
+  
+
+    <ion-nav-buttons side="right">
+      <!--<button class="button button-clear" style="font-size:14px;color:white;" ng-click="holiday_policy_edit_employee_select_save()">选中(<label style="color:#fff">{{holidayPolicyEditEmployeeSelectData.total_checked}}</label>)</button>-->
+      <button id="select_all_employee" class="button button-clear" style="font-size:14px;color:white;" ng-click="select_all_employee()" >全选</button>
+      <button id="deselect_all_employee" class="button button-clear" style="font-size:14px;color:white; display:none;" ng-click="select_all_employee_cancel()" >全不选</button>
+    </ion-nav-buttons>
+    <ion-content ng-class="holidayPolicyEditEmployeeSelectData.show_footer_bar ? 'holidayPolicyEditEmployeeSelectContent': ''" has-bouncing="true" overflow-scroll="false">
+
+      <ion-list>
+        <div ng-show="holidayPolicyEditEmployeeSelectData.data_ready && holidayPolicyEditEmployeeSelectData.data.length==0 && search_control.search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:10px;margin-top: 1px;">暂无数据</div>
+        <div ng-show="filterItems.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:10px;margin-top: 1px;">搜索没有数据</div>
+        <ion-item class="item-avatar-left" collection-item-height="71" collection-item-width="'100%'" collection-repeat="item in filterItems=(holidayPolicyEditEmployeeSelectData.data|dataAndFilter:'st,en,pn,hn':search_control.search_val)">
+          <img ng-src="{{item.img}}">
+          <div>
+              <span style="font-size:16px;color:#333">{{item.en}}</span>&nbsp;&nbsp;
+              <span style="font-size:12px;color:#666">工号:{{item.st}}</span>
+          </div>
+          <p style="font-size:12px;color:#666">
+
+          	<span style="float:left;">{{item.pn}}</span>
+          <span style="color:#53afff;">
+          <img ng-if="item.hn == ''" style=" width:24px; height:24px; float:left; margin-left:5px;" ng-src="{{img_no_policy}}" />
+          <img ng-if="item.hn != ''" style=" width:24px; height:24px; float:left; margin-left:5px;" ng-src="{{img_has_policy}}" /><span>{{item.hn}}</span></span>
+
+          </p>
+
+          <div class="item item-checkbox checkbox-calm" style="float:right;margin-top:-41px;margin-left:10px;border:none;margin-right:-18px;">
+            <label class="checkbox">
+              <input type="checkbox" ng-model="item.ck" ng-checked="item.ck" ng-click="ckItem(item.ck)" style="float:right;">
+            </label>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  <ion-footer-bar ng-if="holidayPolicyEditEmployeeSelectData.show_footer_bar" >
+    <ul style="margin-bottom:0px; width:100%; background-color:#FFF; overflow:hidden; position:fixed; z-index:99999;bottom: 0px; border-top:1px solid#f5f5f5;">
+      <li ng-click="cancel()" class="item" style="float:left; width:50%; border-color: #fff;border-top:2px solid#f5f5f5;padding:10px">
+        <button style="border:0px #fff solid;width:100%; text-align:center;color:#999; font-size:16px; background-color:#fff;">取消</button>
+      </li>
+
+
+      <li ng-click="holiday_policy_edit_employee_select_save()" class="item" style="float:right;width:50%;border-color: #fff;border-top:2px solid#f5f5f5;padding:8px">
+        <button style="border:0px #fff solid;width:100%; text-align:center;color:#53afff; font-size:16px; background-color:#fff;">选中(<label style="color:#53afff">{{holidayPolicyEditEmployeeSelectData.total_checked}}</label>)</button>
+      </li>
+    </ul>
+  </ion-footer-bar>
+</ion-view>

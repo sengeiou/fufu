@@ -1,0 +1,173 @@
+﻿
+<ion-view id="setting_user_admin_view" cache-view="false" style="background-color:#f8f8f8;" title="用户管理" ng-controller="settingUdCtrl" hide-tab-bar>
+<style>
+    #setting_user_admin_view #setting_user_admin_content {
+      top: 112px;
+    }
+    .platform-win32.platform-cordova #setting_user_admin_view #setting_user_admin_content {
+      top: 92px;
+    }
+    .platform-android.platform-cordova #setting_user_admin_view #setting_user_admin_content {
+      top: 92px;
+    }
+
+  </style>
+  
+	<ion-header-bar class="bar-subheader" style="height:46px;padding:0px;width: 100%; background-color:#f8f8f8; background-image:none;" >
+      <div class="list" style="margin:10px 12px;">
+        <label class="item item-input" style="border-radius:4px;height:30px;background-color:#fff;border:none;" clear-value-box>
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="text" placeholder="搜索姓名、工号、职位..." ng-model="search_control.search_val" clear-value-input>
+          <div clear-value-btn style="position: absolute; right: 10px; font-size: 16px; margin-right: 2px; top: 5px;color: #cccccc;"></div>
+        </label>
+      </div>
+	</ion-header-bar>
+  
+    <ion-content id="setting_user_admin_content" has-bouncing="true" overflow-scroll="false">
+
+     <!-- <div class="item row" style="margin-top:10px;margin-bottom:10px;border-bottom:1px solid #f0f0f0;padding-top:15px;padding-bottom:10px;">
+          <div class="col-50" style="margin-left:5%;" ng-click="addUser()">
+            <img src="img/model/add_user@2x.png" style="width:40px;height:40px;float:left;margin-right:12px;">
+            <div style="font-size: 16px;color:#333;">添加用户</div>
+            <div style="font-size: 13px;color:#999;margin-top:5px;">手动录入</div>
+          </div>
+          <div class="col-50" style="margin-left:5%;" ng-click="openModal()">
+            <img src="img/model/import_contact@2x.png" style="width:40px;height:40px;float:left;margin-right:12px;">
+            <div style="font-size: 16px;color:#333;">导入用户</div>
+            <div style="font-size: 13px;color:#999;margin-top:5px;">通讯录导入</div>
+          </div>
+        </div>-->
+
+
+	<!--测试-->
+    <div class="item row" style="margin-bottom:10px;border-bottom:1px solid #f0f0f0;padding-top:15px;padding-bottom:10px;">
+
+    	<a class="col col-33" align="center" style="text-decoration: none; display: inline-block; float: left; padding: 0px;" ng-click="webImport()">
+          <img style="width:50px;height:50px;" ng-src="{{web_end_import}}" >
+          <span style="display:block; font-size:14px;color:#434343;" class="ng-binding">Web端导入</span>
+        </a>
+
+        <a class="col col-33" align="center" style="text-decoration:none;display:inline-block;float:left; padding:0;"  ng-click="openModal()">
+          <img style="width:50px;height:50px;" ng-src="{{address_book_import}}">
+          <span style="display:block; font-size:14px;color:#434343;" class="ng-binding">通讯录导入</span>
+        </a>
+
+        <a class="col col-33" align="center" style="text-decoration:none;display:inline-block;float:left; padding:0;" ng-click="addUser()">
+          <img style="width:50px;height:50px;" ng-src="{{manually_add}}">
+          <span style="display:block; font-size:14px;color:#434343;" class="ng-binding">手动添加</span>
+        </a>
+
+    </div>
+	<!--测试-->
+
+
+      <ion-list>
+        <div ng-show="user_data.data_ready && user_data.length==0 && search_control.search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+
+        <div ng-show="filterItems.length==0 && search_control.search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+        <ion-item id="user_{{item.user_id}}" class="item-avatar-left item-icon-right" collection-repeat="item in filterItems=(user_data|dataAndFilter:'st,en,u_n':search_control.search_val)" style="height:71px;width: 100%;">
+            <img ng-src="{{item.img}}">
+            <div>
+              <span style="color:#333;font-size:17px;">{{item.en}}</span>&nbsp;&nbsp;
+              <span style="font-size:12px;color:#666">工号:{{item.st}}</span>
+            </div>
+            <p style="font-size:12px;color:#999;margin-top:5px;">登录帐号:{{item.u_n}}</p>
+            <!--
+            <i class="icon ion-ios-unlocked-outline" ng-if="item.fg=='0'"></i>
+            <i class="icon ion-ios-locked-outline assertive" ng-if="item.fg=='1'"></i>
+            -->
+            <ion-option-button class="button-assertive" ng-click="setting_user_admin_delete(item.u_n,item.user_id,$index)">删除</ion-option-button>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+
+    <script id="import-contacts-modal.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="navigation_bar">
+          <h1 class="title" style="color:#fff;">通讯录</h1>
+          <button class="button button-clear"  style="font-size:14px;color:white;"  ng-click="closeModal()">关闭</button>
+          <button class="button button-clear" style="font-size:14px;color:white;" ng-click="importAction()">导入</button>
+          <!--<button id="deselect_all_employee" class="button button-clear" style="font-size:14px;color:white;position: absolute;right: 4px;display: none" ng-click="cancel()">全不选</button>-->
+          <!--<button id="select_all_employee" class="button button-clear" style="font-size:14px;color:white;" ng-click="select_all_employee()">全选</button>-->
+        </ion-header-bar>
+        <ion-content>
+          <div class="list" style="margin:10px 12px;">
+            <label class="item item-input" style="border-radius:4px;height:30px;background-color:#fff;border:none;" clear-value-box>
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" placeholder="搜索姓名、工号、职位..." ng-model="search_control.c_search_val" clear-value-input>
+              <div clear-value-btn style="position: absolute; right: 10px; font-size: 16px; margin-right: 2px; top: 5px;color: #cccccc;"></div>
+            </label>
+          </div>
+          <ion-list>
+            <div ng-show="user_data.data_ready && contacts_data.length==0 && search_control.c_search_val==''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+
+            <div ng-show="filterItems.length==0 && search_control.c_search_val!=''" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">搜索没有数据</div>
+            <ion-item  ng-repeat="item in filterItems=(contacts_data|filter:search_control.c_search_val|orderBy:'name')" style="height:71px;">
+              <div style="height:71px;">
+                <p style="font-size:17px;color:#333333">{{item.name}}</p>
+                <p style="font-size:14px;color:#999;margin-top:5px;">{{item.phone}}</p>
+              </div>
+              <div class="item item-checkbox checkbox-calm" style="float:right;margin-top:-70px;margin-right:-20px;margin-left:10px;border:none;">
+                <label class="checkbox">
+                  <input type="checkbox" ng-model="item.ck" ng-checked="item.ck" ng-click="ckItem(item.ck)" style="float:right;">
+                </label>
+              </div>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+        <ion-footer-bar ng-if="contacts_data.show_footer_bar">
+          <ul style="margin-bottom:0px; width:100%; background-color:#FFF; overflow:hidden; position:fixed; z-index:99999;bottom: 0px; border-top:1px solid#f5f5f5;">
+            <li ng-click="cancel()" class="item" style="float:left; width:50%; border-color: #fff;border-top:2px solid#f5f5f5;padding:10px">
+              <button style="border:0px #fff solid;width:100%; text-align:center;color:#999; font-size:16px; background-color:#fff;">取消</button>
+            </li>
+
+
+            <li ng-click="importAction()" class="item" style="float:right;width:50%;border-color: #fff;border-top:2px solid#f5f5f5;padding:8px">
+              <button style="border:0px #fff solid;width:100%; text-align:center;color:#53afff; font-size:16px; background-color:#fff;">导入</button>
+            </li>
+          </ul>
+        </ion-footer-bar>
+      </div>
+    </script>
+
+  <script id="add-contact-modal.html" type="text/ng-template">
+    <div class="modal">
+      <ion-header-bar class="navigation_bar">
+        <h1 class="title" style="color:#fff;">添加用户</h1>
+        <button class="button button-clear"  style="font-size:14px;color:white;"  ng-click="closeAddModal()">关闭</button>
+      </ion-header-bar>
+      <ion-content>
+        <div style="padding-left:10px;font-size: 12px;color:#666666;margin-bottom:5px;margin-top:15px;">
+          请录入用户信息
+        </div>
+        <div class="list list-inset" style="margin-top:5px;margin-bottom:10px;">
+          <label class="item item-input">
+            <input type="text" placeholder="登录帐号(手机号码)" ng-model="user_contact.user_name" />
+          </label>
+          <label class="item item-input">
+            <input type="text" placeholder="员工姓名" ng-model="user_contact.name"/>
+          </label>
+          <label class="item item-input">
+            <input type="text" placeholder="员工编号" ng-model="user_contact.staff_no"/>
+          </label>
+          <label class="item item-input">
+            <input type="text" placeholder="联系电话" ng-model="user_contact.tel"/>
+          </label>
+          <label class="item item-input">
+            <input type="text" placeholder="邮箱地址" ng-model="user_contact.email"/>
+          </label>
+        </div>
+        <div class="padding">
+          <button class="button button-block button-positive" ng-click="saveContact()">保存</button>
+        </div>
+        <div ng-hide="user_contact._flag" style="height:44px;width:100%;color:white;text-align:center;line-height:44px;background-color:#ff6666;opacity:.9;top:-15px;position:fixed;">{{user_contact._message}}</div>
+      </ion-content>
+    </div>
+
+  </script>
+
+
+
+
+
+</ion-view>

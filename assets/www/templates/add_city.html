@@ -1,0 +1,36 @@
+<ion-view title="添加城市" ng-controller="addCityCtrl" hide-nav-bar="true" hide-tab-bar >
+    <style type="text/css">
+    </style>
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light header-item">取消</button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span>添加城市</span>
+        </h1>
+
+        <div class="buttons">
+            <a ng-click="save()">
+                <button class="button back-button buttons button-clear button-light header-item">完成</button>
+            </a>
+        </div>
+	</ion-header-bar>
+
+  	<ion-content has-bouncing="true" overflow-scroll="false" >
+   
+        <ul class="r-list add-device-box" >
+            <li class="ad-item">
+                <div class="ad-item-text ipt" clear-value-box>
+                    <input type="text" placeholder="请输入城市" ng-model="city.name" clear-value-input>
+                    <i clear-value-btn></i>
+                </div>
+            </li>
+        </ul>
+
+  	</ion-content>
+
+</ion-view>
+

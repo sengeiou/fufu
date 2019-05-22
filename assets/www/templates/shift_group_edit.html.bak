@@ -1,0 +1,186 @@
+﻿
+<ion-view style="background-color:#f8f8f8;" title="编辑组别" hide-tab-bar ng-controller="shiftGroupEditCtrl">
+  <style>
+     /*@media (max-width: 640px) {
+        .Shift_management{width:50%}
+
+    }
+    @media (max-width: 768px) {
+        .Shift_management{width:60%}
+
+    }
+    */
+    input::-webkit-input-placeholder,
+    textarea::-webkit-input-placeholder {
+      color: #ccc;
+      padding-top:2.5px;}
+  </style>
+
+  <ion-nav-buttons side="right">
+    <button style="font-size:14px;" class="button button-clear button-light" ng-click="shift_group_edit_save()">保存</button>
+  </ion-nav-buttons>
+
+  <ion-content has-bouncing="true" overflow-scroll="false">
+
+
+    <!--点击编辑名称-->
+    <div id="shift_group_id" style="display: none;">{{shiftGroupEditData.shift_group_id}}</div>
+
+
+
+
+    <div style="width: 100%;height: 45px;background-color: #fff;border-bottom:1px solid #f5f5f5;margin-top: 10px;border-top: 1px solid #fff;">
+      <div style="float:left;">
+        <label style="font-size:16px; color:#333; margin-left:12px; line-height:43px">组织名称</label>
+      </div>
+
+      <div style="float:right;">
+        <i class="icon ion-ios-arrow-right" style="margin-top:10px;margin: 0 12px 0 0px; line-height:43px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:6px"></i>
+      </div>
+
+      <div style="float:right;">
+        <input type="text" id="shift_group_name" style="font-size:16px; color:#333333; margin-right:0px;text-align:right; border:none; -webkit-appearance:none;margin:0px; padding:0px; line-height:43px;" ng-model="shiftGroupEditData.shift_group_name" placeholder="点击编辑名称">
+      </div>
+
+    </div>
+
+
+    <a href="#/home_page/home_menulist/shift_group_add_policy_picker">
+      <div style="width: 100%;height: 44px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+        <div style="float:left;">
+          <label style="font-size:16px; color:#333; margin-left:12px; line-height:43px">班次管理</label>
+        </div>
+
+        <div style="float:right;">
+          <i class="icon ion-ios-arrow-right" style="margin-top:10px;margin: 0 12px 0 0px; line-height:43px;vertical-align:middle;font-size:20px;color:#ccc; margin-left:6px"></i>
+        </div>
+
+
+        <div style="width:55%;float:right; font-size:14px;line-height:44px; margin-right:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-align: right;" id="policy_name_list" ng-style="shiftGroupEditData.policy_name_list.length?colorStyle.c333:colorStyle.cccc" ng-bind="shiftGroupEditData.policy_name_list.length?shiftGroupEditData.policy_name_list:'未设置'">
+        </div>
+
+
+        <textarea ng-hide="true" id="policy_id_list" class="ng-hide" >{{shiftGroupEditData.policy_id_list}}</textarea>
+
+      </div>
+    </a>
+
+
+    <div ng-show="shiftGroupEditData.is_show_sub_bu!='0'" ng-click="sub_bu_select()" style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden; ">
+      <div style="float:left;">
+        <label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">所属单位
+          <div style="border:0; text-align:left; width:80px; color:#53afff; margin-left:12px;"></div>
+        </label>
+
+      </div>
+
+      <div style="float:left;white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:55%;">
+        <span style=" line-height:49px;font-size:16px; color:#53afff;"></span>
+      </div>
+
+      <i class="icon ion-ios-arrow-right" style="margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; float:right;" ></i>
+      <div style="float:right; font-size:14px;line-height:49px; margin-right:5px" ng-style="shiftGroupEditData.sub_bu_value.length?colorStyle.c333:colorStyle.cccc" ng-bind="shiftGroupEditData.sub_bu_value.length?shiftGroupEditData.sub_bu_value:'未选择'">
+
+      </div>
+    </div>
+
+    <div ng-click="set_default_shift()" style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden;">
+      <div style="float:left;">
+        <label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">默认班次
+          <div style="border:0; text-align:left; width:80px; color:#53afff; margin-left:12px;"></div>
+        </label>
+
+      </div>
+
+      <div style="float:left;white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:55%;">
+        <span style=" line-height:49px;font-size:16px; color:#53afff;"></span>
+      </div>
+
+      <i class="icon ion-ios-arrow-right" style="margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; float:right;" ></i>
+      <div style="float:right; font-size:14px;line-height:49px; margin-right:5px" ng-style="shiftGroupEditData.shift_policy_value.length?colorStyle.c333:colorStyle.cccc" ng-bind="shiftGroupEditData.shift_policy_value.length?shiftGroupEditData.shift_policy_value:'未选择'">
+
+      </div>
+    </div>
+
+
+    <p style="font-size:12px; color:#999; margin-left:12px; margin-bottom:15px; margin-top:5px;    padding-right: 12px;">自动对班时未匹配到的日期会使用默认班次</p>
+
+
+
+    <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+      <div style="float:left;">
+        <label style="font-size:14px; color:#666; margin-left:16px; line-height:49px">计算考勤</label>
+      </div>
+      <div style="float:right;">
+        <div style="float: right;margin-top: 8px;">
+
+          <label class="toggle toggle-calm" style=" right:10px;" >
+            <input type="checkbox" ng-model="shiftGroupEditData.cal_at" class="ng-untouched ng-valid ng-dirty ng-valid-parse" >
+            <div class="track">
+              <div class="handle" style=" "></div>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+  <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;margin-bottom:10px;">
+      <div style="float:left;">
+        <label style="font-size:14px; color:#666; margin-left:16px; line-height:49px">允许补签</label>
+      </div>
+      <div style="float:right;">
+        <div style="float: right;margin-top: 8px;">
+          <label class="toggle toggle-calm" style=" right:10px;" >
+            <input id="is_use_work_flow" type="checkbox" ng-model="shiftGroupEditData.allow_retroactive" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+            <div class="track">
+              <div class="handle" style=" "></div>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+      <div style="float:left;">
+        <label style="font-size:14px; color:#666; margin-left:16px; line-height:49px">蓝牙打卡</label>
+      </div>
+      <div style="float:right;">
+        <div style="float: right;margin-top: 8px;">
+          <label class="toggle toggle-calm" style=" right:10px;" >
+            <input id="is_use_work_flow" type="checkbox" ng-model="shiftGroupEditData.bluetooth_sign" class="ng-untouched ng-valid ng-dirty ng-valid-parse" style="">
+            <div class="track">
+              <div class="handle" style=" "></div>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+
+
+    <p style="font-size:12px; color:#999; margin-left:12px; margin-bottom:15px; margin-top:5px;    padding-right: 12px;">需满足：1、员工有排班信息；2、App启动状态；3、手机蓝
+牙功能开启。</p> -->
+
+    
+    <!--sub bu-->
+
+
+
+
+
+    <a class="button button-full button-light icon ion-ios-plus-outline" href="#/home_page/home_menulist/shift_group_edit_employee_select" ng-hide="check_all" style="border-bottom:1px solid #f5f5f5; border-top:1px solid #f5f5f5;font-size:14px;margin-top:0px;padding:5px 0px;">&nbsp;&nbsp;&nbsp;选择员工</a>
+
+    <div style="margin-top:0px;" ng-hide="check_all">
+      <label class="item-input item-stacked-label" style="padding:0px 0px 0px 0px; margin-top:11px;">
+        <span class="input-label" style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px;" aria-label="已选择员工" id="_label-0">已选择员工</span>
+        <textarea ype="text" readonly="true" style="height:190px;background-color:white;border-bottom:1px solid #f5f5f5; color:#333;" id="shift_group_edit_empl_list" placeholder="暂无选择员工..." >{{shiftGroupEditData.employee_name_list}}</textarea>
+        <textarea ng-hide="true" id="shift_group_edit_empl_list_hidden" class="ng-hide" style="">{{shiftGroupEditData.employee_no_list}}</textarea>
+      </label>
+    </div>
+
+
+
+  </ion-content>
+
+</ion-view>
+<!--disabled="disabled"-    readonly="readonly"->

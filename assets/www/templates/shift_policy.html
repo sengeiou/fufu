@@ -1,0 +1,56 @@
+﻿<ion-view style="background-color:#f5f5f5;" title="班次管理" cache-view="false" ng-controller="shiftPolicyCtrl" hide-tab-bar>
+  <ion-nav-buttons side="right">
+    <a class="button button-clear" style="color:white;font-size:14px" href="#/home_page/home_menulist/shift_policy_add">添加</a>
+  </ion-nav-buttons>
+    <ion-content has-bouncing="true" overflow-scroll="false">
+
+      <div ng-show="shiftPolicyData.data_ready && shiftPolicyData.length==0" style="text-align:center;color:#999; overflow: hidden; font-size:12px; padding-top:20px;">暂无数据</div>
+    <!--------第一行-------->
+    <div ng-repeat="item in shiftPolicyData" id="{{'shift_policy_' + item.policy_id}}">
+    	<div style="height:49px; background-color:#fff;margin-top:10px;border-bottom: 1px solid #f5f5f5; border-top:1px solid#f5f5f5;">
+        	<div style="float:left;margin-top: 15px;">
+            	<a style="font-size:16px;color:#333;margin-left:12px;">{{item.policy_name}}</a>
+            </div>
+            <div style="margin-top:10px;width:30px;height:30px; font-size:24px; color:#666; float:right;" ng-click="shift_policy_delete(item.policy_id,item.policy_name)">
+            	<div style="float:right; margin-right:8px;">
+        			<div style="float:right; margin-top:2px">
+                        <img style="width:24px; height:24px; " ng-src="{{fufu_delete}}">
+       				</div>
+				</div>
+            </div>
+        </div>
+        <div style="height:100px;background-color:#fff;border-bottom: 1px solid #f5f5f5;" ng-click="shift_policy_edit(item.policy_id)">
+        	<div style="float:left;margin-left:40px;margin-top:15px ; border-right:1px dotted#bbb; width:39%;padding-bottom: 8px;">
+
+            	<div><div style=" float:left;width:10px; height:10px; background-color:#ccc;border-radius:6px 6px 6px 6px; margin-top:4px;"  ng-hide="item.first_in_need_clock == '1'"></div><div style=" float:left;width:10px; height:10px; background-color:#ff0000;border-radius:6px 6px 6px 6px; margin-top:4px"  ng-hide="item.first_in_need_clock == '0'"></div><a style="font-size:16px;color:#666;margin-left:12px;">{{item.first_in}}</a></div>
+
+                <div style="margin:0px 0;height:20px;"><img style="width:20px; height:36px;padding-bottom:5px" src="{{img_arrow_down}}" /></div>
+
+                <div><div style=" float:left;width:10px; height:10px; background-color:#ccc;border-radius:6px 6px 6px 6px; margin-top:6px" ng-hide="item.first_out_need_clock == '1'"></div><div style=" float:left;width:10px; height:10px; background-color:#ff0000;border-radius:6px 6px 6px 6px; margin-top:4px" ng-hide="item.first_out_need_clock == '0'"></div><a style="font-size:16px;color:#666;margin-left:12px;">{{item.first_out}}</a></div>
+            </div>
+
+            <!--<div style="float:left; border:1px dotted#eee; width:1px; height:60px; margin:5% 18%;"></div>-->
+
+            <div style="float:right;margin-right:40px;margin-top:15px;">
+
+            	<div><div style=" float:left;width:10px; height:10px; background-color:#cccccc;border-radius:6px 6px 6px 6px; margin-top:4px" ng-hide="item.second_in_need_clock == '1'"></div><div style=" float:left;width:10px; height:10px; background-color:#ff0000;border-radius:6px 6px 6px 6px; margin-top:4px" ng-hide="item.second_in_need_clock == '0'"></div><a style="font-size:16px;color:#666;margin-left:12px;">{{item.second_in}}</a></div>
+
+                <div  style="margin:0px 0;
+	height:20px; margin-bottom: 3px; margin-left:0.5px;"><img style="width:20px; height:36px;padding-bottom:5px" src="{{img_arrow_down}}" /></div>
+
+                <div><div style=" float:left;width:10px; height:10px; background-color:#cccccc;border-radius:6px 6px 6px 6px; margin-top:6px" ng-hide="item.second_out_need_clock == '1'"></div><div style=" float:left;width:10px; height:10px; background-color:#ff0000;border-radius:6px 6px 6px 6px; margin-top:4px" ng-hide="item.second_out_need_clock == '0'"></div><a style="font-size:16px;color:#666;margin-left:12px;">{{item.second_out}}</a></div>
+            </div>
+        </div>
+        <div style="height:49px;
+	background-color:#fff;border-bottom: 1px solid #f5f5f5;" ng-click="shift_policy_edit(item.policy_id)">
+        	<div style="float:right; line-height:49px; margin-right:12px; color:#999; font-size:14px;">{{item.work_hours}}h</div>
+        	<div class="Shift management time lower son ion-ios-clock-outline" style="font-size:20px; color:#999; float:right;float:right; margin-right:4px;line-height:49px;">
+
+            </div>
+
+        </div>
+    </div>
+
+    </ion-content>
+
+</ion-view>

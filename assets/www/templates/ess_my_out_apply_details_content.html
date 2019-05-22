@@ -1,0 +1,119 @@
+
+<ion-view style="background-color:#f8f8f8;" title="外出申请单" ng-controller="essMyOutApplyDetailsContentCtrl" hide-tab-bar>
+  <style>
+
+  </style>
+  <ion-nav-buttons side="right" >
+    <div ng-click="cancel()" style="line-height: 34px;font-size: 14px;" ng-show="ess_my_applyDC_data.cancel">撤销</div>
+  </ion-nav-buttons>
+  <ion-content has-bouncing="true" overflow-scroll="false" >
+
+
+
+
+    <script id="ess-my-apply.html" type="text/ng-template">
+      <ion-popover-view class="light padding pop-style" style="background-color:white;width:130px;height:auto;margin-top:20px;">
+        <p><i class="button icon-left button-light button-full" style="border-bottom:1px solid #f8f8f8;" ng-click="filterLvApprove('未完成')"><img style="margin-top:10px;float:left;width:22px;height:22px;" ng-src="{{ss_not_completed}}" />未完成</i></p>
+        <p><i class="button icon-left button-light button-full" style="border-bottom:1px solid #f8f8f8;" ng-click="filterLvApprove('已完成')"><img style="margin-top:10px;float:left;width:22px;height:22px;" ng-src="{{ess_has_been_completed}}" />已完成</i></p>
+        <p><i class="button icon-left button-light button-full" ng-click="filterLvApprove('')"><img style="margin-top:10px;float:left;width:22px;height:22px;" ng-src="{{ess_unhide_all}}" />显示全部</i></p>
+      </ion-popover-view>
+    </script>
+
+
+
+    <div>
+      <div style="width: 100%;height: 130px;background-color: #53AFFF;padding: 18px;">
+        <div style="width:70px;height:70px;border-radius: 150px;margin:0px auto;overflow: hidden">
+          <img ng-src="{{ess_my_applyDC_data.empl_img}}" alt="" style="height:70px; width:70px;"/>
+        </div>
+        <p style="text-align: center;color: white; font-size:16px;margin-top:6px;">外出事项：{{ess_my_applyDC_data.reason}}</p>
+
+      </div>
+
+
+
+
+
+      <div style="overflow: hidden;">
+        <div ng-repeat="item in ess_my_applyDC_data.approver_list" style="">
+          <div style="width: 12%;float: left;margin-top: 10px;">
+            <div style="text-align:center;height: 16px;" ng-if="item.flag=='0'"><img  ng-src="{{icon_apply}}" style="width: 16px;height: 16px;"></div>
+            <div style="text-align:center;height: 81px;" ng-if="item.flag=='0'" id="approver_list_div_{{$index}}"><img  ng-src="{{approval_line}}" style="height:81px;width:1px;" id="approver_list_img_{{$index}}"></div>
+            <div style="text-align:center;height: 16px;" ng-if="item.flag=='2'&&item.action!='已驳回'"><img  ng-src="{{icon_confirm}}" style="width: 16px;height: 16px;"></div>
+            <div style="text-align:center;height: 16px;" ng-if="item.flag=='2'&&item.action=='已驳回'"><img  ng-src="{{icon_noappprove}}" style="width: 16px;height: 16px;"></div>
+            <div style="text-align:center;height: 81px;" ng-if="item.flag=='2'" id="approver_list_div_{{$index}}"><img  ng-src="{{approval_line}}" style="height:81px;width:1px;" id="approver_list_img_{{$index}}"></div>
+            <div style="text-align:center;height: 16px;" ng-if="item.flag=='1'" ><img  ng-src="{{icon_waiting}}" style="width: 16px;height: 16px;"></div>
+            <div style="text-align:center;height: 81px;" ng-if="item.flag=='1'" id="approver_list_div_{{$index}}"><img  ng-src="{{approval_line}}" style="height:81px;width:1px;" id="approver_list_img_{{$index}}"></div>
+            <div style="text-align:center;height: 16px;" ng-if="item.flag=='3'"><img id="approver_list_img{{$index}}"  ng-src="{{icon_wait}}" style="width: 16px;height: 16px;"></div>
+            <div style="text-align:center;height: 81px;" ng-if="item.flag=='3'" id="approver_list_div_{{$index}}"><img  ng-src="{{approval_line}}" style="height:81px;width:1px;" id="approver_list_img_{{$index}}"></div>
+          </div>
+          <div style="width: 84%;float: left;background-color: white;margin-top: 10px;position: relative;border: 1px solid #f5f5f5;" id="approver_list_div{{$index}}">
+            <img ng-src="{{content_left_icon}}" alt="" style="position: absolute;left: -11px;top: 3px;"/>
+            <img ng-src="{{content_left_icon}}" style="position: absolute;top:3px;left:-11px;" alt=""/>
+            <img src="{{item.img}}" alt="" style="width:50px;height:50px;border-radius: 150px;float: left;margin: 10px;"/>
+            <div style="float: right;margin:10px; color:#bbb; font-size:12px;">{{item.action_date}}</div>
+            <div style="margin-top:10px; font-size:17px; color:#333; margin-left:10px;padding-top: 3px;">{{item.name}}</div>
+            <div >
+              <div style=" font-size:14px; color:{{item.color}};margin-top:5px;;">{{item.action}}</div>
+              <div style="margin-left: 50px;margin-top: 5px;margin-bottom: 10px;" ng-show="$first">
+                <div style="width:88%;height: 1px;border-top: 1px solid #f1f1f1;margin-top:10px; margin-bottom:10px;margin-left:20px;"></div>
+                <div style="margin-left:20px;margin-top: 5px;margin-bottom: 10px;overflow: hidden" >
+                  <div ng-if="ess_my_applyDC_data.customers!=''">
+                    <div style="padding-top:5px; overflow:hidden;">
+                      <div style="float: left;width: 70px; font-size:14px; color:#666;">客户名称:</div>
+                      <div style="float: left;width: 60%; font-size:14px; color:#666;" class="ng-binding">{{ess_my_applyDC_data.customers}} </div>
+                    </div>
+                  </div>
+                  <div style="padding-top:5px;overflow: hidden; margin-right:10px;" ng-if="ess_my_applyDC_data.start_time!=''">
+                    <div style="float: left; font-size:14px; color:#666;width:70px;" >开始时间:</div>
+                    <div style="float:left; width:60%;color:#999; font-size:14px; ">{{ess_my_applyDC_data.start_date}} {{ess_my_applyDC_data.start_time}}</div>
+                  </div>
+                  <div style="padding-top:5px;overflow: hidden;">
+                    <div style="float: left; font-size:14px; color:#666;width:70px;"ng-if="ess_my_applyDC_data.end_time!=''">结束时间:</div>
+                    <div style="float:left; width:60%; color:#999; font-size:14px;">{{ess_my_applyDC_data.end_date}} {{ess_my_applyDC_data.end_time}}</div>
+                  </div>
+                  <!--地址-->
+                  <div style="padding-top:5px;overflow: hidden; margin-right:10px;" ng-if="ess_my_applyDC_data.location!=''">
+                      <div style="float: left;font-size:14px; color:#666; width:70px;">地&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp点:</div>
+                      <div style="float:left; width:60%; color:#ff6600; font-size:14px;" ng-click="my_approval_show_map(ess_my_applyDC_data.longitude,ess_my_applyDC_data.latitude,ess_my_applyDC_data.location)">{{ess_my_applyDC_data.location}}<img ng-src="img/icon/map_icon.png" style="height:15px;position: relative;top:3px;left:3px;"  src="{{map_icon}}"></div>
+
+                      <!--<span style="float: left;width: 65%; font-size:14px; color:#666;"><span>{{ess_my_applyDC_Fieldwork_data.location}}</span>-->
+                      <!--<img ng-src="{{map_icon}}" style="height:15px;position: relative;top:3px;left:-3px;" ng-click="my_approval_show_map(ess_my_applyDC_Fieldwork_data.longitude,ess_my_applyDC_Fieldwork_data.latitude,ess_my_applyDC_Fieldwork_data.location)"></span>-->
+                    </div>
+                  <!--地址-->
+                  <div style="padding-top:5px;overflow: hidden;">
+                    <div style="float: left; font-size:14px; color:#666;width:70px;" ng-if="item.apply_remark!=''">备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注:</div>
+                    <div style="float:left; width:60%; color:#999; font-size:14px;">{{item.apply_remark}}</div>
+                  </div>
+                  <div style="padding-top:5px;overflow: hidden;">
+                    <div style="float: left; font-size:14px; color:#666;" ng-show="item.attachment!=''"><span style="float: left">附&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp件:</span><img ng-src="{{item.attachment}}" style="height: 60px;width: 80px;" ng-click="show_img(item.attachment)"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-left: 50px;margin-top: 5px;margin-bottom: 10px;" ng-show="item.attachment!=''||item.approval_remark!=''">
+              <div style="width:88%;height: 1px;border-top: 1px solid #f1f1f1;margin-top:10px; margin-bottom:10px;margin-left:20px;"></div>
+              <div ng-show="item.approval_remark" style="margin-left: 20px;color: {{item.color}};margin-bottom: 10px; font-size:14px;padding-top: 5px;">{{item.approval_remark}}</div>
+            </div>
+          </div>
+          <div ng-init="fireEvent($index,ess_my_applyDC_data.approver_list)"></div>
+        </div>
+      </div>
+</div>
+
+    <div style="width:100%;margin-top:20px; line-height:49px; background-color:#fff; overflow:hidden;border-top:1px solid#f5f5f5; border-bottom:1px solid#f5f5f5;" ng-show="ess_my_applyDC_data.notify_list.length>0">
+      <div style="float:left; width:26%; height:49px">
+        <img ng-src="{{notify}}" alt="" style="width: 30px;height: 30px;float: left;margin-top: 8px;margin-left: 6px;"/>
+        <span style="line-height:49px; margin-left:3px; color:#333; font-size:14px;">知会人</span>
+      </div>
+      <div style="float:right; margin-right:12px; width:70%; height:49px;">
+        <div style="float: right; margin-left:6px;color: #999; font-size:14px;">({{ess_my_applyDC_data.notify_list.length}}人)</div>
+        <div style="float: right;color: #999;width:80%; white-space:nowrap;overflow:hidden;text-overflow:ellipsis; text-align:right; font-size:14px;" id="notify_text"></div>
+      </div>
+    </div>
+
+
+    </ion-content>
+  </ion-view>
+

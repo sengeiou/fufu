@@ -1,0 +1,80 @@
+<ion-view title="编辑" ng-controller="editHolidaysCtrl" hide-nav-bar="true" hide-tab-bar>
+
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+	      <h1 class="title">
+            <span>编辑</span>
+        </h1>
+
+        <div class="buttons">
+            <a ng-click="save()">
+                <button class="button back-button buttons button-clear button-light header-item">保存</button>
+            </a>
+        </div>
+	</ion-header-bar>
+
+    <style type="text/css">
+        .holiday-time img{
+          width: 22px;
+          height: 22px;
+          margin-right: 5px;
+        }
+        .holiday-time > .flex-1{
+          align-items: center;
+          justify-content: flex-end;
+        }
+      </style>
+			
+  	<ion-content has-bouncing="true" overflow-scroll="false">
+
+        <div class="edit-door-box">
+
+          <div class="flex-row edit-door-list" style="margin-top:10px;">
+         
+            <div class="flex-1 flex-row" clear-value-box style="padding-right: 12px;">
+              <input type="text" class="flex-1" placeholder="请填写假期名称" ng-model="editHolidaysData.holiday_name" clear-value-input>
+              <i clear-value-btn></i>
+            </div>
+          </div>
+
+          <div class="flex-row edit-door-list" style="margin-top:10px" on-tap="selectDate('date_from')">
+            <div>开始日期</div>
+            <div class="sdw flex-1" style="text-align: right;">
+              <span ng-class="{'not-value':!editHolidaysData.date_from}" ng-bind="editHolidaysData.date_from?editHolidaysData.date_from:'请选择日期'"></span>
+              <i class="ion-ios-arrow-forward"></i>
+            </div>
+          </div>
+
+          <div class="flex-row edit-door-list" on-tap="selectDate('date_to')">
+            <div>结束日期</div>
+            <div class="sdw flex-1" style="text-align: right;">
+              <span ng-class="{'not-value':!editHolidaysData.date_to}" ng-bind="editHolidaysData.date_to?editHolidaysData.date_to:'请选择日期'"></span>
+              <i class="ion-ios-arrow-forward"></i>
+            </div>
+          </div>
+
+          <div class="flex-row edit-door-list" >
+            <div>开始时间</div>
+            <div class="sdw flex-1 flex-row holiday-time" style="text-align: right;">
+              <div class="flex-1 flex-row" on-tap="selectTime('time_from')" ng-class="{'not-value':!editHolidaysData.time_from}">
+                <img ng-src="{{local_resource + 'resource/holiday/vacation-list-start-time@2x.png'}}" >
+                <span ng-bind="editHolidaysData.time_from?editHolidaysData.time_from:'00:00'"></span>
+              </div>
+              <div class="flex-1 flex-row" on-tap="selectTime('time_to')" ng-class="{'not-value':!editHolidaysData.time_to}">
+                <img ng-src="{{local_resource + 'resource/holiday/vacation-list-end-time@2x.png'}}" >
+                <span ng-bind="editHolidaysData.time_to?editHolidaysData.time_to:'00:00'"></span>
+              </div>
+              <i class="ion-ios-arrow-forward"></i>
+            </div>
+          </div>
+        </div>
+    </ion-content>
+   
+  
+</ion-view>
+

@@ -1,0 +1,79 @@
+﻿<ion-view hide-back-button="true" style="background-color:#f8f8f8;" title='添加公告' ng-controller="homeMessageNoticeCreateCtrl" hide-tab-bar id="homeMessageNoticeCreateCtrl">
+  <style>
+
+    #homeMessageNoticeCreateCtrl .searchclass {
+      position: relative;
+      top: 0px;
+      z-index: 9999;
+      -webkit-transition: opacity .3s ease-in-out;
+      height: 0;
+      opacity: 0;
+      padding: 0px;
+    }
+    #homeMessageNoticeCreateCtrl .searchclass.active {
+      height: 44px;
+      opacity: 1;
+      padding: 10.667px;
+      -webkit-transition: opacity .3s ease-in-out;
+    }
+    .platform-win32.platform-cordova #homeMessageNoticeBack{
+      margin-left:-7px;
+    }
+    .platform-android.platform-cordova #homeMessageNoticeBack{
+      padding-left:10px !important;
+    }
+    .thr_cls{
+      margin-top: 45px;
+    }
+    .two_cls{
+      margin-top: 60px;;
+    }
+
+	#homeMessageNoticeCreateCtrl .scroll{
+	background-color:white;
+	}
+
+	.inp::-webkit-input-placeholder{
+	line-height:150%;
+	font-weight:500;
+	}
+	
+  </style>
+
+    <ion-nav-buttons side="right">
+   <div style="line-height: 34px;font-size: 14px;padding-right:7px;" ng-click="home_message_notice_create_submit()">发布</div>
+  </ion-nav-buttons>
+    <ion-nav-buttons side="left">
+   <div style="line-height: 34px;font-size: 14px;padding-left:7px;" ng-click="home_message_notice_create_cancel()">取消</div>
+  </ion-nav-buttons>
+  <ion-content has-bouncing="true" overflow-scroll="false" style="background-color:white !important;">
+<div style="position:relative;height:{{sroll_height}}px">
+<div style="margin-top:0px;margin-left:15px;margin-right:15px;">
+	<div style="font-size:0.48rem;color:#333333; height:60px;padding-top:13px;">
+	<input id="home_message_notice_create_title" class="inp" type="text" style="width:100%;font-size:0.506666666667rem;color:#a9a9a9;font-weight:500;" placeholder="标题">
+	</div>
+
+	<div style="height:1px;border-top:1px solid #ededed;margin-top:0px;"></div>
+	<div style="margin-top:15px;height:87px;border: 1px dashed #cad4dd;" ng-click="add_cover()" id="add_cover_div">
+	<div style="text-align:center;font-size:0.453333333333rem;color:#cad4dd;margin-top:33px;" ><img ng-src="{{cover_add}}" style="width:18px;height:18px;margin-right:0px;position:relative;top:3px;"> 添加封面</div>
+	</div>
+	<div style="height:194px;overflow:hidden;display:none;" id="have_cover_div" ng-click="add_cover()">
+	<img style="width:100%;height:auto" id="home_message_notice_create_img" >
+	</div>
+
+	<!--<div class="con" contentEditable="true" placeholder="正文" style="-webkit-user-select:text;margin-top:15px;"></div>
+	-->
+	<textarea data-tap-disabled="true" id="home_message_notice_create_content" class="con" oninput="window.notice_create_auto_grow(this)" style="width:100%  ;resize: none;font-size:0.4266666666667rem;max-height:{{textarea_height}}px; height:{{textarea_height}}px; margin-top:10px; border:none;" placeholder="正文"></textarea>
+	
+	
+	
+	
+</div>
+
+
+
+
+<div ng-click="receiver_type_picklist()" style="color:#53afff;position:absolute;bottom:20px;left:15px;height:25px;background-color:#f8f8f8;padding-left:5px;padding-right:6px;border-radius:15px;line-height:23px;border:1px solid #e4e4e4;"><img style="width:14px;height:14px;position:relative;top:3px;" ng-src="{{home_message_earth_icon}}"> <span id="home_message_notice_create_target">全体员工</span></div>
+</div>
+  </ion-content>
+</ion-view>

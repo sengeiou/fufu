@@ -1,0 +1,38 @@
+<ion-view title="编辑节假日类型名称" ng-controller="editHolidayNameCtrl" hide-nav-bar="true" hide-tab-bar>
+
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+	      <h1 class="title">
+            <span>编辑节假日名称</span>
+        </h1>
+
+        <div class="buttons">
+            <a ng-click="save()">
+                <button class="button back-button buttons button-clear button-light header-item">保存</button>
+            </a>
+        </div>
+	</ion-header-bar>
+			
+  	<ion-content has-bouncing="true" overflow-scroll="false">
+        
+          <div class="edit-door-box">
+
+            <div class="flex-row edit-door-list" style="margin-top:10px;">
+           
+              <div class="flex-1 flex-row" clear-value-box style="padding-right: 12px;">
+                <input type="text" class="flex-1" placeholder="请填写假期名称" ng-model="editHolidayNameData.zk_holiday_type_name" clear-value-input>
+                <i clear-value-btn></i>
+              </div>
+            </div>
+            
+          </div>
+    </ion-content>
+   
+   
+</ion-view>
+

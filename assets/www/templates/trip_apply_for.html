@@ -1,0 +1,404 @@
+<ion-view view-title="出差申请" hide-nav-bar="true" hide-tab-bar ng-controller="tripApplyForCtrl" system-setting-to-view-common>
+
+    <style type="text/css">
+    #trip-apply-for-ct > div.scroll{
+        background-image: url(./img/model/trip_apply_bg.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+
+    }
+    .trip-box{
+        width: 100%;
+        padding: {{pd_top_val}}px 15px 0 15px;
+    }
+    .trip-info-box1,
+    .trip-info-box2,
+    .trip-info-box3,
+    .trip-info-box4,
+    .trip-info-box5,
+    .trip-info-box6{
+        background-color: white;
+        border-radius: 5px;
+        margin-bottom: 18px;
+        padding:18px 16px;
+    }
+    .trip-info-box1 > div,
+    .trip-info-box2 > div,
+    .trip-info-box3 > div,
+    .trip-info-box4 > div,
+    .trip-info-box5 > div,
+    .trip-info-box6 > div{
+        font-size: 16px;
+        color: #65707c;
+        padding-bottom: 12px;
+    }
+
+    .trip-info-box2 > textarea,
+    .trip-info-box3 > textarea{
+        width: 100%;
+        resize:none;
+        font-size: 15px;
+        color: #21384d;
+        /*line-height: 25px;*/
+    }
+    .trip-info-box1{
+        padding:0; 
+    }
+    .trip-info-box1 > li{
+        padding:0 14px 0 16px;
+        position:relative;
+        line-height: 50px;
+    }
+    .trip-info-box1 > li > span,
+    .trip-info-box2 > section > span{
+        color: #21384d;
+        font-size: 15px;
+    }
+    .trip-info-box1 > li > img,
+    .trip-info-box1 > li > div > img,
+    .trip-info-box2 > section > img{
+        width: 18px;
+        height: 18px;
+        margin-right: 9px;
+        position: relative;
+        top: 4px;
+    }
+    .trip-info-box1 > li form{
+        display: inline-block;
+        float: right;
+        position: relative;
+        top: 7px;
+        padding-right: 5px;        
+    }
+    .trip-info-box1 > li label{
+        display: inline-block;
+        color: #53afff;
+         text-align: right;
+         position: relative;
+         top: 8px;
+    }
+    .trip-info-box1 > li input{
+        display: inline-block;
+        text-align: right;
+        color: #53afff;
+        width: 50px;
+    }
+    .trip-info-box1 > li:before{
+        content: " ";
+        height: 1px;
+        background-color: #eceff2;
+        bottom: 0;
+        left: 37px;
+        right: 0;
+        position: absolute;
+        display: block;
+    }
+    .trip-info-box1 > li:nth-last-child(1):before{
+      display: none;
+    }
+    .trip-info-box2 > section{
+        line-height: 27px;
+        height: 27px;
+        position: relative;
+        top: -10px;
+        margin-bottom: 12px;
+    }
+
+    .trip-info-box2 > section:before{
+        content: " ";
+        height: 1px;
+        background-color: #eceff2;
+        bottom: -10px;
+        left: -16px;
+        right: -16px;
+        position: absolute;
+        display: block;
+    }
+    .f-r{
+        float: right;
+    }
+    .trip-info-box5 > div > .f-r img,
+    .trip-info-box6 > div > .f-r img{
+        width:15px; height:15px;
+    }
+
+    .trip-info-box5 > div > .f-r span,
+    .trip-info-box6 > div > .f-r span{
+       font-size:13px; color:#a8aeb4;
+    }
+
+    .trip-info-box5 > ion-scroll,
+    .trip-info-box6 > ion-scroll{
+        width: 100%;
+        height: 60px;
+    }
+
+    .trip-info-box5 > ion-scroll .trip-select-staff-item,
+    .trip-info-box6 > ion-scroll .trip-select-staff-item{
+        width:40px; 
+        height: 60px; 
+        margin-right: 10px; 
+        display: inline-block;
+        overflow: hidden;
+
+    }
+    .trip-info-box5 > ion-scroll .scroll,
+    .trip-info-box6 > ion-scroll .scroll{
+        background-color: white;
+    }
+    .trip-info-box5 > ion-scroll .trip-select-staff-item > img,
+    .trip-info-box6 > ion-scroll .trip-select-staff-item > img{
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    .trip-info-box5 > ion-scroll .trip-select-staff-item > span,
+    .trip-info-box6 > ion-scroll .trip-select-staff-item > span{
+        font-size: 11px;
+        color: #21384d;
+        text-align: center;
+        display: block;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+        position: relative;
+        top: -2px;
+    }
+    .fufu-update-images{
+        padding: 0!important; 
+    }
+    
+    .fufu-update-images ul li:nth-child(3n+3){
+        margin-right: 0;
+    }
+    
+    .trip-info-box4{
+        padding-bottom:7px;
+    }
+
+    #trip-header-op{
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: {{pd_top_val-18}}px;
+        background-color: #53afff;
+        z-index: 0;
+        opacity: 0;
+    }
+
+    .flex_box{
+        display: flex;
+        align-items: center;
+    }
+    .trip-info-box1 > li.excision:before{
+        content: " ";
+        left: 0;
+    }
+    .flex_box.xc_btn_box{
+        height: 50px;
+        display: flex;
+        align-items: center;
+    }
+    .flex_box.xc_btn_box > div{
+        line-height: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        flex: 1;
+        justify-content: center;
+        font-size: 15px;
+    }
+    .flex_box.xc_btn_box > div:nth-child(1){
+        border-right: 1px solid #eceff2;
+        color: #53afff;
+    }
+    .flex_box.xc_btn_box > div:nth-child(2){
+        color: #ff5559;
+    }
+    .flex_box.xc_btn_box > div > img{
+        width: 12px;
+        height: 16px;
+        position: relative;
+        top: 0;
+    }
+    .not_sel{
+        color: #aaaaaa!important;
+    }
+    .flex_box textarea{
+        font-size: 15px;
+        /*margin-left: 3px;*/
+    }
+    .notLine{
+        border-right: none!important;
+    }
+    </style>
+
+    <ion-header-bar align-title="center" class="bar-opacity" style="background-color: transparent">
+        <div class="buttons" back-icon-transition>
+            <a ng-click="back()">
+                <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+            </a>
+        </div>
+
+        <h1 class="title">
+            <span style="color:white;">出差申请</span>
+        </h1>
+
+        
+        <div class="buttons">
+            <i class="r-icon r-white_csgl_icon disable-user-behavior ng-hide" ng-show="{{isAdmin}}" on-tap="manageCity()"></i>
+            <i class="r-icon r-white_sz_icon disable-user-behavior ng-hide" ng-show="{{isAdmin}}" on-tap="setting()"></i>
+        </div>
+
+    </ion-header-bar>
+    
+
+    <ion-content id="trip-apply-for-ct" delegate-handle="tripScroll" has-bouncing="false" scroll="true" on-scroll="tripscroll()" style="top:0!important">
+
+         <div class="trip-box">
+
+            <ul class="trip-info-box1" ng-hide="tripApplyForData.trip_detail">
+                <li on-tap="open_city($index)">
+                    <img ng-src="{{local_resource + 'resource/tripapplyfor/city.png'}}" />
+                    <span ng-class="{'not_sel':!trip_detail_item.trip_city}"  ng-bind="trip_detail_item.trip_city?trip_detail_item.trip_city:'请选择出差城市'
+"></span>
+                </li>
+                <li class="flex_box excision">
+                    <div style="width:34px">
+                        <img style="position:absolute;top:9px" ng-src="{{local_resource + 'resource/tripapplyfor/dz1.png'}}" />
+                        <img style="opacity:0" ng-src="{{local_resource + 'resource/tripapplyfor/dz1.png'}}" />
+                    </div>
+                    <textarea style="width: 100%; padding:0;resize:none;" ng-model="trip_detail_item.location" placeholder="请填写详细地址"></textarea>
+                    <!-- <textarea style="line-height:23px; width: 100%; height:53px;padding-top:5px;padding-bottom:5px;resize:none" ng-model="trip_detail_item.location" placeholder="请填写详细地址"></textarea> -->
+                </li>
+                <li>
+                    <img ng-src="{{local_resource + 'resource/tripapplyfor/startTime.png'}}" />
+                    <span>开始时间</span>
+                    <span class="f-r" on-tap="show_start_date($index,trip_detail_item.start_date + ' ' + trip_detail_item.start_time)" ng-bind="trip_detail_item.start_date + ' ' + trip_detail_item.start_time
+"></span>
+                </li>
+                <li>
+                    <img ng-src="{{local_resource + 'resource/tripapplyfor/endTime.png'}}" />
+                    <span>结束时间</span>
+                    <span class="f-r" on-tap="show_end_date($index,trip_detail_item.end_date + ' ' + trip_detail_item.end_time)" ng-bind="trip_detail_item.end_date + ' ' + trip_detail_item.end_time"></span>
+                </li>
+                <li class="excision">
+                    <img ng-src="{{local_resource + 'resource/tripapplyfor/detailedAddress.png'}}" />
+                    <span>行程天数</span>
+                    <img class="f-r" style="width:13px;height:15px;top:15px; margin-right:1px;" ng-src="{{local_resource + 'resource/tripapplyfor/editDay.png'}}" >
+                    <form>
+                        <label class="f-r" style="padding-right:5px" for="trip-day-num">天</label>
+                        <input id="trip-day-num" type="number" min="0" class="f-r" ng-model="trip_detail_item.duration" ng-input="calcApproval($index)">
+                    </form>
+                    
+                </li>
+                <li class="flex_box xc_btn_box">
+                    <div><img ng-src="{{local_resource + 'resource/tripapplyfor/addXc.png'}}"/>添加行程</div>
+                </li>
+            </ul>
+
+            <ul class="trip-info-box1" ng-repeat="trip_detail_item in tripApplyForData.trip_detail">
+                <li on-tap="open_city($index)">
+                    <img ng-src="{{local_resource + 'resource/tripapplyfor/city.png'}}" />
+                    <span ng-class="{'not_sel':!trip_detail_item.trip_city}"  ng-bind="trip_detail_item.trip_city?trip_detail_item.trip_city:'请选择出差城市'
+"></span>
+                </li>
+                <li class="flex_box excision">
+                    <div style="width:{{trip_detail_item.location.length?31:34}}px">
+                        <img style="position:absolute;top:9px" ng-src="{{local_resource + 'resource/tripapplyfor/dz1.png'}}" />
+                        <img style="opacity:0" ng-src="{{local_resource + 'resource/tripapplyfor/dz1.png'}}" />
+                    </div>
+                    <textarea style="width: 100%; padding:0;resize:none;" ng-model="trip_detail_item.location" placeholder="请填写详细地址"></textarea>
+                    <!-- <textarea style="line-height:23px; width: 100%; height:53px;padding-top:5px;padding-bottom:5px;resize:none" ng-model="trip_detail_item.location" placeholder="请填写详细地址"></textarea> -->
+                </li>
+                <li>
+                    <img ng-src="{{local_resource + 'resource/tripapplyfor/startTime.png'}}" />
+                    <span>开始时间</span>
+                    <span class="f-r" on-tap="show_start_date($index,trip_detail_item.start_date + ' ' + trip_detail_item.start_time)" ng-bind="trip_detail_item.start_date + ' ' + trip_detail_item.start_time
+"></span>
+                </li>
+                <li>
+                    <img ng-src="{{local_resource + 'resource/tripapplyfor/endTime.png'}}" />
+                    <span>结束时间</span>
+                    <span class="f-r" on-tap="show_end_date($index,trip_detail_item.end_date + ' ' + trip_detail_item.end_time)" ng-bind="trip_detail_item.end_date + ' ' + trip_detail_item.end_time"></span>
+                </li>
+                <li class="excision">
+                    <img ng-src="{{local_resource + 'resource/tripapplyfor/detailedAddress.png'}}" />
+                    <span>行程天数</span>
+                    <img class="f-r" style="width:13px;height:15px;top:15px; margin-right:1px;" ng-src="{{local_resource + 'resource/tripapplyfor/editDay.png'}}" >
+                    <form>
+                        <label class="f-r" style="padding-right:5px" for="trip-day-num">天</label>
+                        <input id="trip-day-num" type="text" class="f-r" ng-model="trip_detail_item.duration" ng-input="calcApproval($index)">
+                    </form>
+                    
+                </li>
+                <li class="flex_box xc_btn_box">
+                    <div class="ng-hide" on-tap="addXc($index)" ng-show="(tripApplyForData.trip_detail.length-1) == $index" ng-class="{'notLine':0 == $index}"><img ng-src="{{local_resource + 'resource/tripapplyfor/addXc.png'}}"/>添加行程</div>
+                    <div ng-hide="(tripApplyForData.trip_detail.length == 1) && ($index == 0)" on-tap="delXc($index)"><img ng-src="{{local_resource + 'resource/tripapplyfor/delXc.png'}}" />删除行程</div>
+                </li>
+            </ul>
+
+            <div class="trip-info-box3">
+                <div>出差事由</div>
+                <textarea  placeholder="说说你出差的理由" ng-model="tripApplyForData.apply_remark"></textarea>
+            </div>
+
+            <div class="trip-info-box4">
+                <div>上传附件</div>
+                <update-images data="tripApplyForData.attachment" customaddicon="resource/tripapplyfor/addAttachment.png" customsize="{{'3,' + updateImageWidth + ',10'}}"></update-images>
+            </div>
+
+            <div class="trip-info-box5">
+                <div>
+                    <span>审批人</span>
+                    <div class="f-r" ng-show="tripApplyForData.approver_list.length>0&&tripApplyForData.approver_list_flag">
+                        <img ng-src="{{local_resource + 'resource/tripapplyfor/hint.png'}}" >
+                        <span>点击头像删除</span>
+                    </div>
+                </div>
+                <ion-scroll zooming="false" direction="x" scrollbar-x="false">
+                    <div class="trip-select-staff-box" style="width: {{tripApplyForData.approver_list.length*50+54}}px">
+                        <div class="trip-select-staff-item" on-tap="tripApplyForData.is_standard_wf!=1&&tripApplyForData.approver_list.splice($index, 1)" ng-repeat="aitem in tripApplyForData.approver_list" ng-if="aitem.action!='发起申请'&&aitem.action!='修改申请'">
+							<img ng-src="{{aitem.img}}">
+                            <span ng-bind="aitem.name"></span>
+                        </div>
+                     
+                        <div ng-if="tripApplyForData.is_standard_wf!=1" class="trip-select-staff-item" on-tap="selectApprover()" style="position: relative;">
+                            <img ng-src="{{local_resource + 'resource/tripapplyfor/addStaff.png'}}" style="position: absolute;top: 0;">
+                        </div>
+                    </div>
+                </ion-scroll>
+            </div>
+
+            <div class="trip-info-box6" >
+                <div>
+                    <span>知会人</span>
+                    <div class="f-r" ng-show="tripApplyForData.notify_list.length>0&&tripApplyForData.notify_list_flag">
+                        <img  ng-src="{{local_resource + 'resource/tripapplyfor/hint.png'}}" >
+                        <span>点击头像删除</span>
+                    </div>
+                </div>
+                <ion-scroll zooming="false" direction="x" scrollbar-x="false">
+                    <div class="trip-select-staff-box" style="width: {{tripApplyForData.notify_list.length*50+54}}px">
+                        <div class="trip-select-staff-item" on-tap="tripApplyForData.notify_list.splice($index, 1)" ng-repeat="nitem in tripApplyForData.notify_list"
+                        >
+                            <img ng-src="{{nitem.img}}">
+                            <span ng-bind="nitem.name"></span>
+                        </div>
+                        <div class="trip-select-staff-item" on-tap="selectNotified()" style="position: relative;">
+                            <img ng-src="{{local_resource + 'resource/tripapplyfor/addStaff.png'}}" style="position: absolute;top: 0;">
+                        </div>
+                    </div>
+                </ion-scroll>
+            </div>
+
+            <input type="button" on-tap="saveTrip()" style="color: white;text-align: center;background-color: #3ba5ff;width: 100%;height: 44px;border: none;border-radius: 4px; font-size:16px;margin-top: 37px;margin-bottom: 20px;" value="保存">
+         </div>
+    </ion-content> 
+
+    <div id="trip-header-op" ng-style="tripHeader.style"></div>
+   
+</ion-view>

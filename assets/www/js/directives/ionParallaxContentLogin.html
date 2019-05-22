@@ -1,0 +1,102 @@
+﻿<div>
+
+<ion-content has-bouncing="true" on-scroll="ParallaxScroll()" hide-tab-bar style="bottom:0px;">
+    <style type="text/css">
+
+        .swiper-pagination-clickable{display: none;}
+        .swiper-diy-pagination-clickable{
+            position: absolute;
+            left: 0; right: 0;
+            bottom: 10px;
+            z-index: 9999999;
+        }
+        .swiper-diy-pagination-clickable ul{
+            display: table;
+            margin: 0 auto;
+        }
+        .swiper-diy-pagination-clickable li{
+            width: 6px; height: 6px; border-radius: 5px;
+            float: left;
+            margin: 0 5px;
+            background-color: #e8e8e8;
+            opacity: 1;
+        }
+        .swiper-diy-pagination-clickable li.active{
+            opacity: 1;
+          background-color: #53afff;
+        }
+        #ionSlidesBox{
+          /*height: 13.7866666666rem;*/
+          height: 350px;
+          position: relative;
+        }
+        .fixedIonSlidesBox{
+          /*height: 13.7866666666rem;*/
+          height: 350px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999999999999999999999999;
+            transform-origin:center top;
+            -webkit-Transform-origin:center top;
+            display: none;
+        }
+
+        /*.fixedIonSlidesBox img{*/
+            /*width: 7.46666666667rem;*/
+          /*height: 6.133333333rem;*/
+
+        /*}*/
+        .fixedIonSlides-diy-pagination-clickable{
+            position: absolute;
+            left: 0; right: 0;
+            bottom: 10px;
+            z-index: 9999999;
+        }
+        .fixedIonSlides-diy-pagination-clickable ul{
+            display: table;
+            margin: 0 auto;
+        }
+        .fixedIonSlides-diy-pagination-clickable li{
+            width: 6px; height: 6px; border-radius: 5px;
+            float: left;
+            margin: 0 5px;
+            background-color: white;
+            opacity: .3;
+        }
+        .fixedIonSlides-diy-pagination-clickable li.active{
+            opacity: 1;
+        }
+    </style>
+  <div style="height:{{css_vertical}}" id="login_home_navigation_mar_top"></div>
+    <div id="ionSlidesBox">
+        <ion-slides options="options" slider="data.slider">
+            <ion-slide-page ng-repeat="swiperItem in swiper">
+                <div data-index="{{$index}}">
+                <div style="height: 350px;">
+
+                  <div style="text-align: center">
+                    <img ng-src="{{swiperItem.imgUrl}}" style="width: 7.46666666667rem;height: 6.133333333rem;max-width: 280px;max-height: 230px;" />
+                  </div>
+                  <div style="margin-top: 20px;text-align: center;color: #333;font-size: 0.53333333rem;">{{swiperItem.title}}</div>
+                  <div style="margin-top: 15px;text-align: center;color: #999;font-size: 0.373333333rem;">{{swiperItem.text}}</div>
+                </div>
+
+                </div>
+            </ion-slide-page>
+
+        </ion-slides>
+        <div class="swiper-diy-pagination-clickable">
+            <ul>
+                <li ng-repeat="swiperItem in swiper" ng-class="{'active':$index == activeIndex}"></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div ng-transclude></div>
+
+
+</ion-content>
+</div>

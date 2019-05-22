@@ -1,0 +1,99 @@
+
+<ion-view style="background-color:#f8f8f8;" title="自动对班" hide-tab-bar  ng-controller="autoRosCtrl">
+<style>
+    .auto_roster_popup .popup-body{
+      margin-bottom: 0px !important;
+    }
+    .auto_roster_popup .popup{
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      border: none !important;
+    }
+    .auto_roster_popup .popup-head{
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      border: none !important;
+    }
+    .auto_roster_popup .popup-buttons{
+      border-top:1px solid #f5f5f5;
+
+    }
+    .auto_roster_popup .button-dark{
+      border-right:1px solid #f5f5f5;
+      
+    }
+    .auto_roster_popup .button-dark.activated{
+      color: #53afff !important;
+    }
+    .auto_roster_popup .popup{
+      width:7.2rem !important;
+      /*border-radius: 10px;*/
+    }
+</style>
+    <ion-content has-bouncing="true" overflow-scroll="false">
+	  <div ng-show="process_status.process_status=='1'" id="auto_roster_task_in_process_div" style="display:block;height:44px;background-color:#FFFFFF;">
+		<div style="float:left;height:44px;"> 
+			<img ng-src="{{img_task_in_process_icon}}" style="width:22px;height:22px;margin-top:11px;margin-left:12px;margin-right:12px; ">
+		</div>
+	  <p style="line-height:44px;font-size:0.3733333333333rem; color: #333333">本次自动对班还未完成，请耐心等待...</p>
+	  </div>
+	  
+	  <div ng-show="process_status.process_status=='2'" id="auto_roster_task_complete_div" style="display:block;height:44px;background-color:#FFFFFF;">
+		<div style="float:left;height:44px;">
+		  <img ng-src="{{img_task_complete_icon}}" style="width:22px;height:22px;margin-top:11px;margin-left:12px;margin-right:12px; ">
+		</div>
+		<div ng-click="close_process_div()" style="float:right;height:44px;">
+		  <img ng-src="{{img_task_close}}"style="width:22px;height:22px;float:right;margin:11px;">
+		</div>
+	  <p ng-click="redirect_to_result()" style="line-height:44px;font-size:0.3733333333333rem; color: #333333">本次自动对班已完成，去查看排班管理</p>
+	  </div>
+	
+      <div style="margin-top:0px;padding:10px 0px;">
+      <div class="row" style="background-color:#fff;border:1px solid #f0f0f0;font-size:17px;">
+        <div class="item item-input" style="width:45%;border:none;">
+          <!--<input type="date" id="au_ros_f" style="text-align:center;font-size:17px;"/>-->
+          <div id="au_ros_f" style="color:#53afff;line-height: 35px;margin: 0 auto" ng-click="au_ros_f()"></div>
+        </div>
+        <div style="padding-top:7px;width:8%;margin-right:10px;"><img ng-src="{{dates_line}}" style="width:40px;"></div>
+        <div class="item item-input" style="width:45%;border:none;">
+          <!--<input type="date" id="au_ros_t" style="text-align:center;font-size:17px;"/>-->
+          <div id="au_ros_t" style="color:#53afff;line-height: 35px;margin: 0 auto" ng-click="au_ros_t()"></div>
+        </div>
+      </div>
+      <a class="button button-full button-light icon ion-ios-plus-outline" href="#/home_page/auto_roster/modal_empl_list/auto_ros_empl_list/auto_ros_empl_list_hidden"
+      ng-hide="check_all"  style="border-bottom:1px solid #f0f0f0;font-size:14px;margin-top:0px;padding:5px 0px;">&nbsp;&nbsp;&nbsp;选择员工</a>
+      </div>
+	  
+      <ul class="list" style="margin-bottom:0px;">
+        <li class="item item-toggle">
+          全部员工
+          <label class="toggle toggle-calm">
+            <input type="checkbox" ng-model="check_all"  ng-checked="check_all">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+        <li class="item item-toggle">
+          覆盖原有排班
+          <label class="toggle toggle-calm">
+            <input type="checkbox" ng-model="ros_overwrite"  ng-checked="ros_overwrite">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
+       </ul>
+
+      <div style="margin-top:0px;" ng-hide="check_all">
+        <label class="item-input item-stacked-label" style="padding:10px 0px 0px 0px;">
+          <span class="input-label" style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px;">已选择员工</span>
+          <textarea style="height:100px;background-color:white;border-bottom:1px solid #f0f0f0;" id="auto_ros_empl_list" placeholder="暂无选择员工..." readonly="true"></textarea>
+          <textarea ng-hide="true"  id="auto_ros_empl_list_hidden"></textarea>
+        </label>
+      </div>
+      <div style="margin:20px 12px;">
+        <button class="button button-block button-positive" ng-click="runRoster()">开始对班</button>
+      </div>
+    </ion-content>
+</ion-view>

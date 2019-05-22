@@ -1,0 +1,57 @@
+<ion-view title="设置" ng-controller="attendanceDeviceSettingCtrl" hide-nav-bar="true" hide-tab-bar >
+  	<ion-header-bar align-title="center" class="bar-opacity" >
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item"> </button>
+	        </a>
+	    </div>
+
+	    <h1 class="title">
+            <span>设置</span>
+        </h1>
+
+        
+	</ion-header-bar>
+			
+
+  	<ion-content has-bouncing="true" overflow-scroll="false" >
+        <ul class="r-list" style="margin:10px 0;">
+                <li class="ad-item" on-tap="openDeviceName()">
+                    <div class="ad-item-title" style="padding-right:18px;">设备名称</div>
+                    <div class="ad-item-text" ng-bind-html="settingInfo.device_name" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"></div>
+                    <i class="icon ion-ios-arrow-right"></i>
+                </li>
+                <li class="ad-item" on-tap="openTimeZone()">
+                    <div class="ad-item-title" style="padding-right: 48px;">时区</div>
+                    <div class="ad-item-text" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" ng-bind="settingInfo.select_time_zone_text"></div>
+                    <i class="icon ion-ios-arrow-right"></i>
+                </li>
+        </ul>
+		
+		<ul class="r-list" style="margin-bottom:30px;">
+                <li class="ad-item">
+                    <div class="ad-item-title">固件版本</div>
+                    <div class="ad-item-text" ng-bind="settingInfo.device_version" style="padding-right:0; overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-left: 10px;" ></div>
+                </li>
+               <!-- <li class="ad-item">
+                    <div class="ad-item-title">蓝牙状态</div>
+                    <div class="ad-item-text" ng-bind="'正常'" style="padding-right:0" ></div>
+                </li>-->
+                <li class="ad-item" on-tap="net_state()">
+                    <div class="ad-item-title">网络状态</div>
+                    <div class="ad-item-text" ng-bind="settingInfo.net_status=='1'?'正常':settingInfo.net_status=='0'?'异常':''"></div>
+                    <i class="icon ion-ios-arrow-right"></i>
+                </li>
+        </ul>
+
+        <ul class="r-list">
+                <li class="ad-item">
+                    <div class="ad-item-text" style="text-align:center; color:red;" on-tap="
+                    unbundling()">解绑并重置考勤机</div>
+                </li>
+
+        </ul>
+  	</ion-content>
+
+</ion-view>
+

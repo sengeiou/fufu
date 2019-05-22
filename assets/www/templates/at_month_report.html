@@ -1,0 +1,87 @@
+﻿<ion-view cache-view="false" title="月报表" ng-controller="atMonthReportCtrl" hide-tab-bar >
+  <style>
+	.at_month_report_no_data {
+		color:#ccc !important;
+	}
+	.at_month_report_show_bottom {
+		border-bottom:1px solid#f8f8f8 !important;
+	}
+  </style>
+
+<ion-content id="at_month_report_content" style="display:none;background-color:#f8f8f8;">
+
+
+<div class="row" style="background-color:#fff;line-height:44px;padding:0px; border-bottom:1px solid#f5f5f5;">
+	<div ng-click="previous_month()" class="col-20" style="text-align: left;color:#666;padding-left:12px; font-size:14px;line-height:44px;">
+		<div>上一月</div>
+	</div>
+	<div class="col-60">
+		<div class="" style="display: -webkit-box;">
+			<input type="date" id="" style="text-align: center;background-color:#fff;width:120px;font-size:16px;line-height:44px;color:#333;display: none">
+			<div id="" style="color:#333;margin: 0 auto;font-size:16px;" class="ng-binding">{{current_date_text}}</div>
+		</div>
+	</div>
+	<div ng-click="next_month()" class="col-20" style="text-align: right;color:#666;padding-right:12px; font-size:14px;line-height:44px;">
+		<div>下一月</div>
+	</div>
+</div>
+
+<div class="ng-hide" ng-show="!atMonthReportData.has_result" style=" width:100%; text-align:center;">
+	<img style="width:143px;height:110px;margin-top:70px;" ng-src="{{atMonthReportData.no_data_img_src}}" alt="" />
+	<div style="margin-top:20px; font-size:14px; color:#a7a7a7;">{{atMonthReportData.no_data_message}}</div>
+</div>
+
+
+<div class="ng-hide" ng-show="atMonthReportData.has_result" style=" width:100%; overflow:hidden; border-bottom:1px solid#f5f5f5;">
+	<div style="width: 100%; overflow: hidden; background-color:#f8f8f8;">
+		<div style="width:100%; margin:0 auto; overflow:hidden; line-height:36px; height:36px;">
+			<div style="overflow: hidden; float: left; width:34%; line-height:36px; height:36px;">
+				<p style=" font-size:16px;color:#333;margin-left:15px;">工时项目</p>
+			</div>
+
+			<div style="overflow:hidden; float:left; width:21%; line-height:36px; height:36px;">
+				<p style=" font-size:16px;color:#333;margin-left:20px;">时长</p>
+			</div>
+
+			<div style="overflow:hidden; float:left; width:21%; line-height:36px; height:36px;">
+				<p style=" font-size:16px;color:#333;margin-left:20px;">次数</p>
+			</div>
+
+			<div style="overflow: hidden; float: left; width:24%; line-height:36px; height:36px;">
+				<p style=" font-size:16px;color:#333;margin-left:10px;">金额数</p>
+			</div>
+		</div>
+	</div>
+
+
+	<div ng-repeat="items in atMonthReportData.at_result" style="width: 100%; overflow:hidden; background-color: #fff;padding:0 12px;">
+		<div ng-class="{'at_month_report_show_bottom': items.is_show_bottom}" style="width: 100%; overflow:hidden; margin: 0px auto;">
+			<div style="overflow: hidden; float: left; width:8%; line-height:34px; height:34px;">
+				<div style="float:left; margin-top:6px; margin-right:12px;"><img ng-show="items.is_show_img" ng-src="{{items.img_src}}" width="22px" height="22px"></div>
+			</div>
+
+			<div ng-class="{'at_month_report_show_bottom': !items.is_show_bottom}" style="overflow: hidden; float: left; width:26%; line-height:34px; height:34px;">
+				<div style="float:left; font-size:14px; color:#666;">{{items.name}}</div>
+			</div>
+
+		
+			<div ng-class="{'at_month_report_show_bottom': !items.is_show_bottom}" style="overflow:hidden; float:left; width:21%; line-height:34px; height:34px;">
+				<div ng-class="{'at_month_report_no_data': items.duration=='—'}" style="font-size:14px;margin-left:16px; color:#333;">{{items.duration}}</div>
+			</div>
+		
+			<div ng-class="{'at_month_report_show_bottom': !items.is_show_bottom}" style="overflow:hidden; float:left; width:21%; line-height:34px; height:34px;">
+				<div ng-class="{'at_month_report_no_data': items.times=='—'}" style="font-size:14px;margin-left: 30px; color:#333;">{{items.times}}</div>
+			</div>
+		
+			<div ng-class="{'at_month_report_show_bottom': !items.is_show_bottom}" style="overflow: hidden; float: left; width:24%; line-height:34px; height:34px;">
+				<div ng-class="{'at_month_report_no_data': items.amount=='—'}" style="font-size:14px;margin-left:35px; color:#ff6600;">{{items.amount}}</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+</ion-content>
+</ion-view>
+

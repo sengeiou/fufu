@@ -1,0 +1,202 @@
+﻿
+<ion-view title="区域管理"  ng-controller="atZkLocSetDetailCtrl" hide-tab-bar>
+  <div class="row" style="{{style_value}};position:relative;">
+    <div class="col-50 at_loc_active" style="-webkit-flex:0 0 50% !important; width: 50%; height: 100%; float: left; text-align: center; line-height: 51px;font-size: 14px; color: #53afff;border:none;" id="_at_zk_loc_tab1">
+      考勤成员管理
+    </div>
+    <div class="col-50" style="-webkit-flex:0 0 50% !important;width: 50%; height: 100%;  float: left; text-align: center; line-height: 51px; font-size: 14px; color: #808080;" id="_at_zk_loc_tab2">
+      考勤机管理
+    </div>
+	
+
+	
+	
+	<div style="position: absolute;left:0px; width: 50%;height: 2px;background-color: #53afff;bottom:0px;transition: all .3s ease-in-out;" id="_at_zk_loc_tab_animate_div"></div>
+  </div>
+  <ion-content style="margin-top:50px;" has-bouncing="true" overflow-scroll="false">
+
+      <!--sub bu-->
+<div id="_at_zk_loc_wrap" style="position: relative;transition: all .3s ease-in-out;width: 200%;">
+<div id="_at_zk_loc_tab1_div" style="width:50%;padding-top:20px;">   
+   <div id="sub_bu_picklist" ng-show="at_loc_detail_data.is_show_sub_bu!='0'" ng-click="sub_bu_select()" style="height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden; border-top:1px solid #f5f5f5;">
+      	<div style="float:left;">
+        	<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">所属单位
+            <div style="border:0; text-align:left; width:80px; color:#53afff; margin-left:12px;"></div>
+            </label>
+
+            </div>
+
+            <div style="float:left;white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:55%;">
+        	<span style=" line-height:49px;font-size:16px; color:#53afff;"></span>
+            </div>
+
+         <i class="icon ion-ios-arrow-right" style="margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; float:right;" ></i>
+        <div style="float:right; color:#999; font-size:14px;line-height:49px; margin-right:5px">
+			{{at_loc_detail_data.sub_bu_value}}
+        </div>
+      </div>
+
+    <a class="_at_zk_loc_tab1 button button-full button-light icon ion-ios-plus-outline" ng-click="openModal()"
+     style=" border-top:1px solid #f5f5f5; border-bottom:1px solid #f5f5f5;font-size:14px;margin-top:0px;padding:5px 0px;margin-top:20px;">&nbsp;&nbsp;&nbsp;新增员工</a>
+    <ion-list class="_at_zk_loc_tab1">
+      <ion-item class="item-avatar-left" style="height:71px;" ng-repeat="item in at_loc_detail_data.empl_list">
+        <img ng-src="{{item.img}}">
+        <div>
+          <span>{{item.en}}</span>&nbsp;&nbsp;
+          <span style="font-size:12px;color:#666">工号:{{item.st}}</span>
+        </div>
+        <p style="font-size:12px;color:#808080">{{item.pn}}</p>
+      </ion-item>
+    </ion-list>
+</div>
+<div id="_at_zk_loc_tab2_div" style="width: 50%;position: absolute;left: 50%;top:0px;">
+    <a class="_at_zk_loc_tab2 button button-full button-light icon ion-ios-plus-outline" ng-click="openModal2()"
+       style="border-bottom:1px solid #f5f5f5;font-size:14px;padding:5px 0px;margin-top:20px;">&nbsp;&nbsp;&nbsp;选择设备</a>
+    <ul class="list _at_zk_loc_tab2" >
+      <div ng-repeat="item in at_loc_detail_data.dev_list.dev_list" style="margin-top:20px;">
+          <div style="height:50px;background-color:#ffffff;border-bottom:1px solid #f5f5f5; border-top:1px solid #f5f5f5; line-height:50px;">
+
+          <span style="margin-left:12px">设备{{$index+1}}</span>
+          <span style="float:right;font-size:14px; color:#ff3b30; margin-right:12px; overflow:hidden;">解绑</span>
+          <span ng-click="delAtZkLocDev(item.d_name+','+item.d_sn,$index)" style="float:right;"><img style="width:24px; height:24px; margin-top:15px" ng-src="{{fufu_delete02}}"></span>
+          </div>
+        <div style="height:50px;background-color:#ffffff;border-bottom:1px solid #f5f5f5;font-size:16px;padding-top:15px;">
+          <div style="float: left;width:100px;text-align:left;"><label style="padding-left:12px;">设备名称</label><label style="color:#ff3b30;padding-top:-5px;padding-right:20px;">*</label></div><label style="text-align:left;">{{item.d_name}}</label>
+        </div>
+        <div style="height:50px;background-color:#ffffff;border-bottom:1px solid #f5f5f5;font-size:16px;padding-top:15px;">
+          <div style="float: left;width:100px;text-align:left;"><label style="padding-left:12px;">序列号</label><label style="color:#ff3b30;padding-top:-5px;padding-right:20px;">*</label></div><label style="text-align:left;">{{item.d_sn}}</label>
+        </div>
+      </div>
+    </ul>
+	
+	</div>
+	</div>
+  </ion-content>
+
+  <script id="at-zk-empl-list.html" type="text/ng-template">
+    <div class="modal">
+      <ion-header-bar class="navigation_bar">
+        <button class="button button-clear"  style="font-size:14px;color:white;"  ng-click="closeModal()">关闭</button>
+        <h1 class="title" style="color:#fff;">员工列表</h1>
+        <button class="button button-clear zk-select-list" style="font-size:14px;color:white;" ng-click="addZkAtEmpl()">选中(0)</button>
+      </ion-header-bar>
+      <ion-content>
+        <div class="list" style="margin:0;">
+          <label class="item item-input" style="border-radius:4px;height:30px;margin:10px 12px;background-color:#fff;border:none;">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" placeholder="搜索" ng-model="search_val">
+          </label>
+        </div>
+        <ion-list>
+          <ion-item class="item-avatar-left" style="height:71px;" ng-repeat="item in at_zk_empl_list|dataAndFilter:'st,en,pn':search_val" >
+            <img ng-src="{{item.img}}">
+            <span style="color:#333;font-size:17px;">{{item.en}}</span>&nbsp;&nbsp;
+            <span style="font-size:12px;color:#666666">工号:{{item.st}}</span>
+            <p style="font-size:12px;color:#666666">{{item.pn}}</p>
+            <div class="item-checkbox checkbox-calm" style="float:right;margin-top:-41px;margin-left:10px;border:none;margin-right:-18px;">
+              <label class="checkbox">
+                <input type="checkbox" ng-click="saveZkEmpl()" ng-model="item.ck" ng-checked="item.ck" style="float:right;">
+              </label>
+            </div>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </div>
+  </script>
+
+
+  <script id="at-zk-dev-list.html" type="text/ng-template">
+    <div class="modal">
+      <ion-header-bar class="navigation_bar">
+        <button class="button button-clear"  style="font-size:14px;color:white;"  ng-click="closeModal2()">关闭</button>
+        <h1 class="title" style="color:#fff;">考勤机列表</h1>
+        <button class="button button-clear zk-select_dev-list" style="font-size:14px;color:white;" ng-click="selectDevList()">选中(0)</button>
+      </ion-header-bar>
+      <ion-content>
+        <div class="list" style="margin:0;">
+          <label class="item item-input" style="border-radius:4px;height:30px;margin:10px 12px;background-color:#fff;border:none;">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" placeholder="搜索" ng-model="search_val2">
+          </label>
+        </div>
+          <div ng-repeat="item in at_zk_dev_list.dev_list|filter:search_val2">
+            <div ng-if="$index!=0" style="margin-top:10px;"></div>
+            <div style="padding:20px 10px;height:50px;background-color:#ffffff;border-bottom:1px solid #f5f5f5;">
+              设备{{$index+1}}
+
+              <div class="item item-checkbox checkbox-calm" style="float:right;border:none;">
+                <label class="checkbox">
+                  <input type="checkbox" ng-checked="item.ck" ng-click="saveZkDev()" ng-model="item.ck" style="float:right;">
+                </label>
+              </div>
+            </div>
+            <div style="height:50px;background-color:#ffffff;border-bottom:1px solid #f5f5f5;font-size:16px;padding-top:15px;">
+              <div style="float: left;width:100px;text-align:left;"><label style="padding-left:15px;">设备名称</label><label style="color:#ff3b30;padding-top:-5px;padding-right:20px;">*</label></div><label style="text-align:left;">{{item.d_name}}</label>
+            </div>
+
+            <div style="height:50px;background-color:#ffffff;border-bottom:1px solid #f5f5f5;font-size:16px;padding-top:15px;">
+              <div style="float: left;width:100px;text-align:left;"><label style="padding-left:15px;">序列号</label><label style="color:#ff3b30;padding-top:-5px;padding-right:20px;">*</label></div><label style="text-align:left;">{{item.d_sn}}</label>
+            </div>
+            <div style="height:50px;background-color:#ffffff;border-bottom:1px solid #f5f5f5;font-size:16px;padding-right:15px;">
+              <span style="float:right;" ng-click="delZkAtDev(item.d_sn,$index)"><img style="width:24px; height:24px; margin-top:15px" ng-src="{{fufu_delete02}}"><span style="padding-top:15px;float:right;font-size:14px; color:#ff3b30; margin-right:12px; overflow:hidden;">删除</span></span>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+
+
+            <div style="padding:20px 10px;height:50px;background-color:#ffffff;border-bottom:1px solid #f5f5f5;">
+
+
+			 <!--新增代码
+			 <label class="checkbox" style="padding: 0px 7px; float:left">
+              <input type="checkbox" style=" padding: 0px 0px;" class="ng-pristine ng-untouched ng-valid">
+            </label>
+			 -->
+			 <span style="text-align:left;width:55px;float:left;color:#333;background-size:26px;margin-top: 2px;font-size:14px;">新设备</span>
+
+
+              <span ng-click="addAtZkNewDev()" style="text-align:right;width:55px;float:right;color:#53afff;background:url({{zengjia}}) no-repeat 0px -4px;background-size:26px;margin-right:4px;"><label style="padding-top:5px;">新增</label></span>
+            </div>
+            <div style="height:50px;background-color:#ffffff;border-bottom:1px solid #f5f5f5;font-size:16px;padding-top:15px;">
+              <div style="float: left;width:100px;text-align:left;"><label style="padding-left:15px;">设备名称</label><label style="color:#ff3b30;padding-top:-5px;padding-right:20px;">*</label></div><label style="text-align:left;"><input type="text" style="margin-top:-5px;" ng-model="new_dev.d_name"/></label>
+            </div>
+            <div style="height:50px;background-color:#ffffff;border-bottom:1px solid #f5f5f5;font-size:16px;padding-top:15px;">
+              <div style="float: left;width:100px;text-align:left;"><label style="padding-left:15px;">序列号</label><label style="color:#ff3b30;padding-top:-5px;padding-right:20px;">*</label></div><label style="text-align:left;"><input type="text" style="margin-top:-5px;" ng-model="new_dev.d_sn"/></label>
+            </div>
+
+      <div ng-show="at_zk_dev_list.device_is_show_sub_bu!='0'" ng-click="device_sub_bu_select()" style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden; ">
+      	<div style="float:left;">
+        	<label style="color:#333; margin-left:12px; line-height:49px">设备所属单位
+            <div style="border:0; text-align:left; width:80px; color:#53afff; margin-left:12px;"></div>
+            </label>
+
+            </div>
+
+            <div style="float:left;white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:55%;">
+        	<span style=" line-height:49px;font-size:16px; color:#53afff;"></span>
+            </div>
+
+         <i class="icon ion-ios-arrow-right" style="margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc; float:right;" ></i>
+        <div style="float:right; color:#999; font-size:14px;line-height:49px; margin-right:5px">
+			{{at_zk_dev_list.device_sub_bu_value}}
+        </div>
+      </div>
+          </div>
+      </ion-content>
+    </div>
+  </script>
+
+
+
+
+
+
+
+
+
+<!--测试-->
+
+<!--测试-->
+
+
+</ion-view>

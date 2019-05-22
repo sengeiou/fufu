@@ -1,0 +1,347 @@
+
+<ion-view style="background-color:#f8f8f8;" hide-back-button="true" hide-nav-bar="true" title='' hide-tab-bar ng-controller="NewAttandaceEmpListCtrl">
+
+
+<div class="search-popover">
+ <ion-header-bar >
+
+	    <div class="buttons" back-icon-transition>
+	        <a ng-click="back()">
+	            <button class="button back-button buttons button-clear button-light button-icon ion-ios-arrow-left header-item" style="color:#333"> </button>
+	        </a>
+	    </div>
+		
+          <h1 class="title" id="search-device-list-h1">
+            <div clear-value-box style="right: 34px;left: 22px;height:31px;    background-color: #f5f5f5;    position: absolute;    bottom: 6px;overflow:hidden;">
+                <i style="position:absolute;z-index:2;top:-1px;left:4px;" class="icon ion-ios-search-strong placeholder-icon"></i>
+                <input ng-change="search_input_change()" style="width: 100%; position: absolute; top: 0px; padding-left: 32px; background-color: rgb(245, 245, 245); height: 31px;" id="adSearchIpt" type="text" placeholder="搜索姓名、工号、职位..." ng-model="searchObj.str" clear-value-input>
+                <i clear-value-btn style="position:absolute;z-index:2;line-height:32px;right:4px; color: rgb(204, 204, 204);"></i>
+            </div>
+            
+          </h1>
+
+          <div class="buttons" style="line-height:34px;font-size:14px;" on-tap="openSearchPopover()">
+             多选
+          </div>
+
+	</ion-header-bar>
+	</div>
+	<div class="search-popover" ng-class="{'isSearchStr':searchObj.str.length}">
+        <div class="search-msg-bar" on-tap="search()">
+            <i class="r-icon r-search-bar-icon"></i>
+            <div class="search-msg-text">搜索“<span ng-bind="searchObj.str"></span>”</div>
+            <i class="icon ion-ios-arrow-right" style="line-height: 32px;"></i>
+        </div>
+	</div>
+	
+<style>
+    .payroll_cal_popup .popup-body{
+      margin-bottom: 0px !important;
+    }
+    .payroll_cal_popup .popup{
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      border: none !important;
+    }
+    .payroll_cal_popup .popup-head{
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      border: none !important;
+    }
+    .payroll_cal_popup .popup-buttons{
+      border-top:1px solid #f5f5f5;
+
+    }
+    .payroll_cal_popup .button-dark{
+      border-right:1px solid #f5f5f5;
+      
+    }
+    .payroll_cal_popup .button-dark.activated{
+      color: #53afff !important;
+    }
+    .payroll_cal_popup .popup{
+      width:7.2rem !important;
+      /*border-radius: 10px;*/
+    }
+
+	
+
+	
+	.hav_mrg{
+		margin-top:10px;
+	}
+	.triangle_top{
+		border-bottom:6px solid #000;
+		border-top:none;
+		top:-12px;
+	}
+	.triangle_bottom{
+		border-top:6px solid #000 !important;
+		border-bottom:none !important;
+		top:15px !important;
+	}
+	
+ .new_attendace_emp_popup .popup-body{
+      margin-bottom: 0px !important;
+	  padding-top:25px;
+	  padding-bottom:25px;
+    }
+    .new_attendace_emp_popup .popup{
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      border: none !important;
+	  border-radius: 12px !important;
+	  border-bottom-right-radius: 10px !important;
+	  border-bottom-left-radius: 10px !important;
+	  
+    }
+    .new_attendace_emp_popup .popup-head{
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      border: none !important;
+    }
+    .new_attendace_emp_popup .popup-buttons{
+      border-top:1px solid #f5f5f5;
+
+    }
+    .new_attendace_emp_popup .button-dark{
+      border-right:1px solid #f5f5f5;
+      
+    }
+	
+	.new_attendace_emp_popup .button-positive span{
+		color:rgb(51,51,51) !important;
+	} 
+    .new_attendace_emp_popup .button-dark.activated{
+      color: #53afff !important;
+    }
+    .new_attendace_emp_popup .popup{
+      width:7.2rem !important;
+      /*border-radius: 10px;*/
+    }
+	.half_width{
+		width:50% !important;
+	}
+	
+	
+	.platform-ios.platform-cordova:not(.fullscreen) .emp_list_content {
+	  top: 106px;
+	}
+	.platform-android.platform-cordova .emp_list_content {
+	  top: 86px !important;
+	}
+	
+</style>
+
+
+<ion-header-bar class="bar-subheader" style="height:46px;padding:0px;width: 100%; background-color:#fff; background-image:none;height:40px;" ng-show="!searchObj.str.length" >
+<div style="line-height:40px;overflow:hidden;font-size:16px;color:rgb(51,51,51)">
+
+<div style="height:40px;float:left;width:33%;text-align:center;" ng-class="device_function=='3' ? '' : 'half_width'" ng-click="time_filter(time_filter_flag)"><span id="time_filter_span_text">模板状态</span><i id="triangle_left" ng-class="time_filter_flag ? 'ion-arrow-up-b' : 'ion-arrow-down-b' " style="position:relative;margin-left:5px;font-size:12px;"></i> </div>
+<div style="height:40px;float:left;width:33%;text-align:center;" ng-show="device_function=='3'" ng-click="type_filter(state_filter_flag)"><span id="type_filter_span_text">设备功能</span><i  ng-class="type_filter_flag ? 'ion-arrow-up-b' : 'ion-arrow-down-b' " style="position:relative;margin-left:5px;font-size:12px;"></i></div>
+<div style="height:40px;float:left;width:33%;text-align:center;"  ng-class="device_function=='3' ? '' : 'half_width'" ng-click="state_filter(state_filter_flag)"><span id="state_filter_span_text">验证方式</span><i  ng-class="state_filter_flag ? 'ion-arrow-up-b' : 'ion-arrow-down-b' " style="position:relative;margin-left:5px;font-size:12px;"></i></div>
+</div>
+</ion-header-bar>
+<div  ng-show="time_filter_flag" class="ng-hide">
+	<div style="width:100%;background-color:white;position:absolute;top:{{content_top}};z-index:2;">
+	<div style="text-align:center; font-size:0.4rem;color:#000;border-bottom:1px solid #f0f0f0; background-color:rgb(242,242,242);color:rgb(83,175,255); height:48px;line-height:48px;"  ng-click="time_filter_tap('',$event)"  class="time_filter_div">全部</div>
+	<div style="text-align:center;font-size:0.4rem;color:#000;border-bottom:1px solid #f0f0f0; background-color:rgb(247,247,247);height:48px;line-height:48px;"  ng-click="time_filter_tap('not_have_finger',$event)" class="time_filter_div">指纹未录</div>
+	<div style=" text-align:center;font-size:0.4rem;color:#000;border-bottom:1px solid #f0f0f0; background-color:rgb(247,247,247);height:48px;line-height:48px;" ng-click="time_filter_tap('not_have_face',$event)" class="time_filter_div" >人脸未录</div>
+	<div style="text-align:center;font-size:0.4rem;color:#000;border-bottom:1px solid #f0f0f0; background-color:rgb(247,247,247);height:48px;line-height:48px;"  ng-click="time_filter_tap('have_finger',$event)"  class="time_filter_div">指纹已录</div>
+	<div style="text-align:center;font-size:0.4rem;color:#000;border-bottom:1px solid #f0f0f0; background-color:rgb(247,247,247);height:48px;line-height:48px;"  ng-click="time_filter_tap('have_face',$event)"  class="time_filter_div">人脸已录</div>
+	
+	</div>
+
+<div style="width:100%;height:800px;background-color:black;opacity:0.2;z-index:1;position:absolute;top:{{content_top}};" ng-click="hide_time_filter_wrap()"></div>
+</div>
+
+
+<div  ng-show="type_filter_flag" class="ng-hide">
+	<div style="width:100%;background-color:white;position:absolute;top:{{content_top}};z-index:2;">
+	<div style="text-align:center; font-size:0.4rem;color:#000;border-bottom:1px solid #f0f0f0; background-color:rgb(242,242,242);color:rgb(83,175,255); height:48px;line-height:48px;"  ng-click="type_filter_tap('',$event)"  class="type_filter_div">全部</div>
+	<div style="text-align:center;font-size:0.4rem;color:#000;border-bottom:1px solid #f0f0f0; background-color:rgb(247,247,247);height:48px;line-height:48px;"  ng-click="type_filter_tap('2',$event)" class="type_filter_div">门禁</div>
+	<div style=" text-align:center;font-size:0.4rem;color:#000;border-bottom:1px solid #f0f0f0; background-color:rgb(247,247,247);height:48px;line-height:48px;" ng-click="type_filter_tap('1',$event)" class="type_filter_div" >考勤</div>
+	<div style="text-align:center;font-size:0.4rem;color:#000;border-bottom:1px solid #f0f0f0; background-color:rgb(247,247,247);height:48px;line-height:48px;"  ng-click="type_filter_tap('3',$event)"  class="type_filter_div">门禁+考勤</div>
+	
+	</div>
+
+<div style="width:100%;height:800px;background-color:black;opacity:0.2;z-index:1;position:absolute;top:{{content_top}};" ng-click="hide_type_filter_wrap()"></div>
+</div>
+
+
+<div  ng-show="state_filter_flag" class="ng-hide">
+	<div style="width:100%;background-color:white;position:absolute;top:{{content_top}};z-index:2;max-height:192px;overflow:auto;background-color:rgb(247,247,247) ">
+		<div style="text-align:center;font-size:0.4rem;border-bottom:1px solid #f0f0f0; height:48px;line-height:48px; color:{{item.color}}; background-color:{{item.bg_color}}" ng-repeat="item in type_list_data"  ng-click="state_filter_tap(item.key,$event)"  class="state_filter_div">{{item.value}}</div>
+		
+	</div>
+
+	<div style="width:100%;height:800px;background-color:black;opacity:0.2;z-index:1;position:absolute;top:{{content_top}};" ng-click="hide_state_filter_wrap()"></div>
+</div>
+  <ion-content  has-bouncing="true" overflow-scroll="false"  class="emp_list_content">
+    <div ng-show="searchObj.str.length && is_search.flag" class="search-popover">
+		<div class="ng-hide search-device-icon-box" ng-show="!Newattendancedata.emp_list.length && searchObj.state">
+			<img ng-src="{{local_resource + 'img/search_no_data_img.png'}}" >
+			<div>暂无数据</div>
+		</div>
+
+		<div class="ng-hide search-device-icon-box" ng-show="!searchObj.state">
+			<img ng-src="{{local_resource + 'img/search_data_img.png'}}" >
+			<div>搜索数据</div>
+		</div>
+	</div>
+	<div ng-show="!searchObj.str.length || !is_search.flag" style="margin-top:10px;">
+	
+	
+			<div ng-show="Newattendancedata.emp_list.length=='0'" class="search-popover ng-hide">
+				<div class="search-device-icon-box">
+					<img ng-src="{{local_resource + 'img/search_no_data_img.png'}}" >
+					<div>暂无数据</div>
+				</div>
+			</div>
+	
+	
+		<div style="height:70px;background-color:#fff;position:relative;" ng-repeat="item in Newattendancedata.emp_list" ng-click="device_emp_detail(item)">
+			<div style="float:left;margin-right:12px;">	
+				<img style="width:50px;height:50px;border-radius:150%;margin-left:12px;margin-top:10px;" ng-src="{{item.img_src}}">
+			</div>
+			<div style="">
+				<div style="color: #333333;font-size: 16px;line-height: 26px;padding-top: 10px"> <span class="ng-binding" ng-bind="item.employee_name"></span><span style="font-size: 12px; color: #666666; padding-left: 8px;" class="ng-binding">({{item.staff_no}})</span> </div>
+				<div class="b_l ng-binding" style="color: #666666;font-size: 12px;padding-bottom: 13px;" >
+					<span ng-bind="item.dept_name"></span> 
+					<span style="color:#2cd7ad;background-color:#e0f9f3;border-radius:2px;padding-left:5px;padding-right:5px;font-size:12px;margin-left:10px;" ng-show="item.is_access_control==1">门禁</span>  
+					<span style="color:#53afff;background-color:#e5f3ff;border-radius:2px;padding-left:5px;padding-right:5px;font-size:12px;margin-left:5px;" ng-show="item.is_sign_in==1">考勤</span>
+				</div>
+			</div>
+			<div style="position:absolute;right:18px;height:70px;width:44px;top:0px;padding-right:0px;" ng-click="icon_face_tap(item,$event)">
+				 <img ng-show="item.face==1" ng-src="{{icon_face_highlight}}" style="width:24px;height:24px;position:absolute;top:23px;right:10px;" >
+				 <img ng-show="item.face==0" ng-src="{{icon_face_gray}}" style="width:24px;height:24px;position:absolute;top:23px;right:10px;" >
+				 <img ng-show="item.face==0" ng-src="{{mark_add}}" style="width:16px;height:16px;border:1px solid white;border-radius:150%;position:absolute;top:16px;right:2px;">
+			</div>
+			
+			<div style="position:absolute;right:72px;width:44px;height:70px;top:0px;padding-right:0px;" ng-click="icon_fingerprint(item,$event)">
+				 <img ng-show="item.fingerprint_count!=0" ng-src="{{icon_fingerprint_highlight}}" style="width:24px;height:24px;position:absolute;top:23px;right:10px;">
+				 <img ng-show="item.fingerprint_count==0" ng-src="{{icon_fingerprint_gray}}" style="width:24px;height:24px;position:absolute;top:23px;right:10px;">
+				 <img ng-show="item.fingerprint_count==0" ng-src="{{mark_add}}" style="width:16px;height:16px;border:1px solid white;border-radius:150%;position:absolute;top:16px;right:2px;">		 
+				 <div ng-show="item.fingerprint_count!=0" style="background-image:url('{{mark_bg}}'); width:16px;height:16px;border:1px solid white;border-radius:150%;position:absolute;top:16px;right:2px;font-size:12px;color:white;text-align:center;background-size:100%;line-height:12px;" ng-bind="item.fingerprint_count"></div>
+			</div>
+			<div ng-show="!$last" style="height:1px;border-top:1px solid #f0f0f0;position:relative;top:-2px;left:76px;" class=""></div>
+		</div>
+	</div>
+  
+  
+    <ion-infinite-scroll
+      ng-if="!end_of_list.status && normal_load.flag"
+      distance="1%"
+      on-infinite="loadMoreData()"
+      immediate-check="false">
+    </ion-infinite-scroll>
+  
+  </ion-content>
+  
+  
+  
+    <script id="search-device-list-popover.html" type="text/ng-template">
+      <div class="search-popover" ng-class="{'isSearchStr':searchObj.str.length}">
+		  <ion-header-bar align-title="center" class="bar-opacity" >
+				<div on-tap="closeSearchPopover()" class="buttons" back-icon-transition>
+					<a>
+						<div style="color:#333;line-height:35px;font-size:14px;margin-left:7px;">取消 </div>
+					</a>
+				</div>
+
+				<h1 class="title" style="left:80px;right:80px;">
+					<span>员工列表</span>
+				</h1>
+			
+				<div class="buttons"  on-tap="emp_list_delete_all()" style="line-height:35px;font-size:14px;margin-right:2px;">
+					清空
+				</div>
+
+			</ion-header-bar>
+
+			  <ion-content  has-bouncing="true" overflow-scroll="false" style="bottom:44px;">
+			  <div style="margin-top:10px;">
+					<div style="height:70px;background-color:#fff;position:relative;" ng-repeat="item in Newattendancedata.emp_list"  ng-click="selectOption(item, true)">
+
+						
+						<div style="width: 100%;">
+							<label ng-click="selectOption(item, true)" class="checkbox"  style="padding: 24px 12px;float:left;"><input type="checkbox" ng-model="item.checked" ng-checked="item.checked"  class="ng-pristine ng-untouched ng-valid"></label>
+							  <div style="float: left;width: 50px;height: 50px;border-radius: 150px;overflow: hidden;  margin-top:10px;">
+								<img ng-src="{{item.img_src}}" alt="" style="width: 50px;height: 50px;">
+							  </div>
+						  <div style="width: 100%;position:relative;top:12px;margin-left: 112px;">
+								<div>
+								  <div style=" color:#333; font-size:17px; margin-bottom:2px;" class="ng-binding"><span  class="ng-binding" ng-bind="item.employee_name"></span> <span style="font-size:12px;color:#999" ng-bind="'('+item.staff_no+')'" class="ng-binding">({{item.staff_no}})</span> </div>
+								</div>
+								<div style="color: #666;font-size:13px;margin-top:3px;">
+									<span ng-bind="item.dept_name"></span> 
+					<span style="color:#2cd7ad;background-color:#e0f9f3;border-radius:2px;padding-left:5px;padding-right:5px;font-size:12px;margin-left:10px;" ng-show="item.is_access_control==1">门禁</span>  
+					<span style="color:#53afff;background-color:#e5f3ff;border-radius:2px;padding-left:5px;padding-right:5px;font-size:12px;margin-left:5px;" ng-show="item.is_sign_in==1">考勤</span>
+								</div>
+								
+								<div ng-show="!$last" style="height:1px;border-top:1px solid #f0f0f0;position:relative;top:10px;" class=""></div>
+								
+						  </div>
+						</div>
+
+					</div>
+			  </div>
+			  
+			  
+				<ion-infinite-scroll
+				  ng-if="!end_of_list.status && search_show_flag && normal_load.flag"
+				  distance="1%"
+				  on-infinite="loadMoreData()"
+				  immediate-check="false">
+				</ion-infinite-scroll>
+			  </ion-content>
+			  
+		  <div style="position:fixed;bottom:0px;height:44px;font-size:16px;text-align:center;line-height:44px;background-color:#fff;width:100%;color:#ff5d5d;box-shadow:0px -5px 20px 0px rgba(0,0,0,0.05)" ng-click="emp_list_delete()">确认删除</div>
+      </div>
+    </script>
+  
+   	 <script id="my-popover.html" type="text/ng-template">
+      <div style="position: fixed;top: 0;left: 0; right:0; bottom:0">
+            <div class="input-finger-box">
+        <div class="input-finger-head">
+            <img ng-src="{{local_resource + 'img/input_finger_icon.png'}}" >
+            <div>建议使用指腹录入指纹，打卡更精准</div>
+        </div>
+
+        <div class="input-finger-content">
+            <div>请“<span ng-bind-html="inputFingerData.input_finger_name"></span>”录入指纹</div>
+ 
+            <div class="ng-hide input-finger-state0" ng-show="inputFingerData.input_finger_state == 0"><ion-spinner icon="ios-small"></ion-spinner><span style="position:relative; top:-1px;">进行中(<span ng-bind="inputFingerData.step"></span>/3)</span></div>
+
+            <div class="ng-hide input-finger-state1" ng-show="inputFingerData.input_finger_state == 1">
+                <img ng-src="{{local_resource + 'img/fail_icon.png'}}" ><span ng-bind="inputFingerData.input_finger_error_name" style="position:relative; top:-1.5px;"></span>
+            </div>
+
+            <div class="ng-hide input-finger-state2" ng-show="inputFingerData.input_finger_state == 2">
+                <img ng-src="{{local_resource + 'img/success_icon.png'}}" ><span style="position:relative; top:-1px;">录入成功</span> 
+            </div>
+        </div>
+
+        <div class="input-finger-footer ng-hide" ng-show="inputFingerData.input_finger_state == 0" on-tap="cancelFinger()">
+            取消
+        </div>
+
+        <div class="input-finger-footer ng-hide" ng-show="inputFingerData.input_finger_state == 1">
+            <div on-tap="cancelFinger()">取消</div>
+            <div on-tap="resetInputFinger()">重试</div>
+        </div>
+
+        <div class="input-finger-footer ng-hide" ng-show="inputFingerData.input_finger_state == 2 && finger_num==1" on-tap="reload()">
+            我知道了
+        </div>
+		
+        <div class="input-finger-footer ng-hide" ng-show="inputFingerData.input_finger_state == 2 && finger_num==0 ">
+            <div on-tap="reload()">我知道了</div>
+            <div on-tap="continueInputFinger($event)">继续录入</div>
+        </div>
+      </div>
+      </div>
+    </script>
+  
+</ion-view>
+

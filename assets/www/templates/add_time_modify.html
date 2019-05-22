@@ -1,0 +1,85 @@
+
+<ion-view style="background-color:#f8f8f8;" title="添加时间段" cache-view="false" hide-tab-bar>
+  <ion-content ng-controller="addTimeModifyCtrl" has-bouncing="true" overflow-scroll="false">
+
+    <div style="height: 49px;width: 100%;line-height: 49px;border-top: 1px solid #f5f5f5;border-bottom: 1px solid #f5f5f5;margin-top: 10px;background-color: white">
+    <span style="margin-left: 28%; font-size:14px; color:#666;padding-left: 12px;">是否需要打卡</span><span style="margin-left:5%; font-size:14px; color:#666;">是否需要打卡</span>
+    </div>
+    <div style="height: 49px;width: 100%;line-height: 49px;border-bottom: 1px solid #f5f5f5;background-color: white;" ng-repeat="item in add_time_list" >
+   <div style="float: left;margin-left: 12px; width:18%; color:#333; font-size:16px;">时间段{{$index+1}}</div>
+      <div style="float: left;margin-left:10%;font-size: 14px;">
+        <div type="time" value="" style="color: #53afff; width:40px;" id="in_time_id{{$index}}" ng-click="showTime_in($index)">{{item.in}}</div>
+      </div>
+      <div style="float: left;width: 20px;height: 20px;border: 1px solid #ccc;margin-top: 14px; margin-left:5px;" ng-click="in_need_clock(item.in_need_clock,$index)">
+        <div style="position: relative"  ng-show="item.in_need_clock">
+          <i class="icon ion-android-done" style="  font-size:18px;color:#53afff; position:absolute;top:-15px;left:2px; "></i>
+        </div>
+      </div>
+      <div style="float: left;margin-left:10%;font-size: 14px;">
+        <div type="time" value="" style="color: #53afff; width:40px;" id="out_time_id{{$index}}" ng-click="showTime_out($index)">{{item.out}}</div>
+      </div>
+      <div style="float: left;width: 20px;height: 20px;border: 1px solid #ccc;margin-top: 14px; margin-left:5px;" ng-click="out_need_clock(item.out_need_clock,$index)">
+        <div style="position: relative"  ng-show="item.out_need_clock">
+          <i class="icon ion-android-done" style="  font-size:18px;color:#53afff; position:absolute;top:-15px;left:2px; "></i>
+        </div>
+      </div>
+      <div style="float: right;width: 20px;height: 20px;margin-top: 2px;margin-right:18px;position: relative">
+        <!--<img ng-src="{{delete_icon}}" alt="" style="width: 24px;position:absolute;top:8px;" ng-click="delete(item)" ng-show="add_time_list.length=='1'"/>-->
+        <img ng-src="{{delete_icon}}" alt="" style="width: 28px;position:absolute;top:8px;" ng-click="delete(item)" ng-show="$index=='2'||!$last"/>
+        <img ng-src="{{add_icon}}" alt="" style="width: 28px;position:absolute;top:8px;" ng-show="$index!='2'&&$last" ng-click="add()"/>
+      </div>
+    </div>
+    <!--<div style="height: 49px;width: 100%;line-height: 49px;border-bottom: 1px solid #f5f5f5;background-color: white" id="second_content">-->
+      <!--<div style="float: left;margin-left: 12px;" id="second_content_name">时间段2</div>-->
+      <!--<div style="float: left;margin-left: 22px;">-->
+        <!--<input type="time" value="{{Ot_app_data.second_in}}" style="color: #53afff;margin-top: 4px;" id="second_in_time"/>-->
+      <!--</div>-->
+      <!--<div style="float: left;width: 20px;height: 20px;border: 1px solid #a9a9a9;margin-top: 14px;" ng-click="second_in_need_clock(Ot_app_data.second_in_need_clock)">-->
+        <!--<div style="position: relative" id="second_in_need_clock">-->
+          <!--<i class="icon ion-android-done" style="  font-size:18px;color:#53afff; position:absolute;top:-15px;left:2px; "></i>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div style="float: left;margin-left: 22px;">-->
+        <!--<input type="time" value="{{Ot_app_data.second_out}}" style="color: #53afff;margin-top: 4px;"id="second_out_time"/>-->
+      <!--</div>-->
+      <!--<div style="float: left;width: 20px;height: 20px;border: 1px solid #a9a9a9;margin-top: 14px;" ng-click="second_out_need_clock(Ot_app_data.second_out_need_clock)">-->
+        <!--<div style="position: relative" id="second_out_need_clock">-->
+          <!--<i class="icon ion-android-done" style="  font-size:18px;color:#53afff; position:absolute;top:-15px;left:2px; "></i>-->
+        <!--</div>-->
+
+      <!--</div>-->
+      <!--<div style="float: right;width: 20px;height: 20px;margin-top: 5px;margin-right:15px;">-->
+        <!--<img ng-src="{{delete_icon}}" alt="" style="width: 24px;" ng-click="second_delete()"/>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div style="height: 49px;width: 100%;line-height: 49px;border-bottom: 1px solid #f5f5f5;background-color: white" id="ot_content">-->
+      <!--<div style="float: left;margin-left: 12px;" id="ot_content_name">时间段3</div>-->
+      <!--<div style="float: left;margin-left: 22px;">-->
+        <!--<input type="time" value="" style="color: #53afff;margin-top: 4px;" id="ot_in_time"/>-->
+      <!--</div>-->
+      <!--<div style="float: left;width: 20px;height: 20px;border: 1px solid #a9a9a9;margin-top: 14px;" ng-click="ot_in_need_clock(Ot_app_data.ot_in_need_clock)">-->
+        <!--<div style="position: relative" id="ot_in_need_clock">-->
+          <!--<i class="icon ion-android-done" style="  font-size:18px;color:#53afff; position:absolute;top:-15px;left:2px; "></i>-->
+        <!--</div>-->
+
+      <!--</div>-->
+      <!--<div style="float: left;margin-left: 22px;">-->
+        <!--<input type="time" value="" style="color: #53afff;margin-top: 4px;" id="ot_out_time"/>-->
+      <!--</div>-->
+      <!--<div style="float: left;width: 20px;height: 20px;border: 1px solid #a9a9a9;margin-top: 14px;" ng-click="ot_out_need_clock(Ot_app_data.ot_out_need_clock)">-->
+        <!--<div style="position: relative" id="ot_out_need_clock">-->
+          <!--<i class="icon ion-android-done" style="  font-size:18px;color:#53afff; position:absolute;top:-15px;left:2px; "></i>-->
+        <!--</div>-->
+
+      <!--</div>-->
+      <!--<div style="float: right;width: 20px;height: 20px;margin-top: 5px;margin-right:15px;">-->
+        <!--<img ng-src="{{delete_icon}}" alt="" style="width: 24px;" ng-click="ot_delete()"/>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <div class="padding" style="margin-top:10px;">
+      <button class="button button-block button-positive" ng-click="add_time_save()" style="font-size:16px;">确认添加</button>
+    </div>
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,109 @@
+<ion-view style="background-color:#f8f8f8;" title="企业信息" hide-tab-bar>
+  <ion-content ng-controller="companyInfoCtrl" has-bouncing="true" overflow-scroll="false">
+
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      	<div style="float:left;">
+        	<label style="font-size:16px; color:#333; margin-left:14px; line-height:49px; color:#666">注册手机号码</label>
+
+            </div>
+        <div style="float:right;">
+
+
+
+
+        	<div id="company_phone_no" style="font-size:16px; color:#999; margin-right:0px;text-align:right; line-height:49px; margin-right:12px;">{{companyInfoData.phone}}</div>
+            </div>
+
+      </div>
+
+	<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5; overflow:hidden">
+      	<div style="float:left;">
+        	<label style="font-size:16px; color:#333; margin-left:14px; line-height:49px; color:#666">企业名称</label>
+
+            </div>
+        <div style="float:right;">
+
+            <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+        </div>
+
+
+        	<input id="company" style="font-size:16px; color:#999; margin-right:0px;text-align:right; border:none; margin-top:9px;margin-right: 12px;" value="{{companyInfoData.c_n}}">
+            </div>
+
+      </div>
+	<!--
+            <div class="item item-input">
+              <input type="text" placeholder="企业名称" ng-model="companyInfoData.c_n" />
+            </div>
+			-->
+<!--所属行业-->
+ <!--<div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+		<div style="float:left; ">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">所属行业</label>
+		</div>
+
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+
+
+		<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0; float:right; margin-right:0px;">
+
+
+
+        <select id="industry_type"  style="color:#53afff;-webkit-appearance: none;direction: rtl;border:0;border:none; margin-top:9px; background-color:#fff;">
+          <option ng-selected="item.ch" value="{{item.key_}}" ng-repeat="item in companyInfoData.cg_l">{{item.value_}}</option>
+        </select>
+		</label>
+	</div>
+-->
+            </div>
+            <div class="item item-input " style="height:47px;" >
+
+              <div style="height: 47px;width:100%">
+                <div id="company_info_category" style="line-height: 47px;font-size:14px;color: #999" ng-click="side_category()">{{companyInfoData.cg}}</div>
+                <i class="icon ion-ios-arrow-right" style="margin-right: 12px;vertical-align: middle;font-size: 20px;color: #ccc;position: absolute;top: 11px;bottom: 0;right:-5px;"></i>
+              </div>
+            </div>
+<!--所属行业-->
+   <!-- <div style="width: 100%;height: 49px;background-color: #fff;border-bottom:1px solid #f5f5f5;">
+		<div style="float:left; ">
+			<label style="font-size:16px; color:#333; margin-left:12px; line-height:49px">企业规模</label>
+		</div>
+
+        <div style="float:right;">
+        	<i class="icon ion-ios-arrow-right" style="margin-top:10px; margin-right:12px; line-height:49px;vertical-align:middle;font-size:20px;color:#ccc;"></i>
+		</div>
+
+
+		<label class="item-input" style="border-top:0; border-left:0; border-right:0; border-bottom:0; float:right; margin-right:0px;">
+
+        <select id="company_size"  style="color:#53afff;-webkit-appearance: none;direction: rtl;border:0;border:none;margin-top:9px; background-color:#fff;">
+          <option ng-selected="item.ch" value="{{item.key_}}" ng-repeat="item in companyInfoData.c_ct_l">{{item.value_}}</option>
+        </select>
+		</label>
+	</div>
+-->
+            <div class="item item-input "  style="height:47px;">
+
+              <div style="height: 47px;width:100%">
+                <div id="company_empl_num" style="line-height: 47px;font-size:14px;color: #999" ng-click="side_empl_num()">请选择企业规模</div>
+                <i class="icon ion-ios-arrow-right" style="margin-right: 12px;vertical-align: middle;font-size: 20px;color: #ccc;position: absolute;top: 11px;bottom: 0;right:-5px;"></i>
+              </div>
+            </div>
+			
+    <div class="row">
+        <label class="col">
+          <button class="button button-block button-light" style="border:1px solid #eee; background-color:#ff3b30; color:#fff;" ng-click="resignCompany()">注销企业</button>
+        </label>
+        <label class="col">
+          <button class="button button-block button-positive" ng-click="saveCompanyInfo()">保存</button>
+        </label>
+      </div>
+
+
+
+
+      </ion-content>
+</ion-view>

@@ -1,0 +1,89 @@
+﻿<ion-view style="background-color:#f8f8f8;" title="{{_title}}" ng-controller="atTeamRecordDetailCtrl" hide-tab-bar>
+<style>
+.checkbox input:after, .checkbox-icon:after{width: 10px !important;
+    height: 5px !important;
+}
+.at_team_record_detail_first_record{
+	margin-top: 19px;
+}
+
+</style>
+<ion-content has-bouncing="true" overflow-scroll="false">
+
+<!--标题-->
+<!--<div style="width:100%; height:49px; background-color:#fff;border-bottom: 1px solid#f5f5f5; text-align: center;">
+          <input id="record_detail_target_date" type="date" style="text-align: center;background-color:#fff;width:120px;font-size:17px;color:#333; border:0;padding-top:7px;margin: 0 auto; background-color:#fff;"></div>
+</div>
+-->
+
+    <!--日历-->
+<!--<div style="width:100%; height:49px; background-color:#fff;border-bottom: 1px solid#f5f5f5; text-align: center;">-->
+	<!--<div class="item-input"><input id="record_detail_target_date" type="date" value="2016年01月26日" style="text-align: center;background-color:#fff;width:120px;font-size:17px;color:#333; border:0;padding-top:7px; color:#53afff;"></div>-->
+<!--</div>-->
+  <div class="row" style="background-color:#fff;line-height:40px; border-bottom:1px solid#f5f5f5;">
+    <div class="col-20" style="text-align: left;color:#666;padding-left:5px;padding-top: 8px;">
+      <div ng-click="previous_day()" style=" font-size:14px; color:333;">上一周</div>
+    </div>
+    <div style="width:100%; height:49px; background-color:#fff;border-bottom: 0px solid#f5f5f5; text-align: center;">
+    <div class="item-input">
+      <input id="record_detail_target_date" type="date" value="" style="text-align: center;background-color:#fff;width:120px;font-size:17px;color:#333; border:0;padding-top:7px; color:#53afff;display: none">
+      <div id="record_detail_target_date_" style="color:#53afff;line-height: 40px;margin: 0 auto;font-size: 17px;" ng-click="record_detail_target_date_()"></div>
+    </div>
+    </div>
+    <div class="col-20" style="text-align: right;color:#666;padding-right:5px;padding-top: 8px;">
+      <div ng-click="next_day()" style=" font-size:14px; color:333;">下一周</div>
+    </div>
+  </div>
+    <!--日历-->
+
+
+<!--标题-->
+
+<div ng-repeat="item in atTeamRecordDetailData.card_rec">
+    <div style="margin-top:15px; margin-bottom:5px">
+        <span style="color:#666;font-size:12px;margin-bottom:5px;text-indent:12px; margin-left:12px;">{{item.m_d}}-{{item.w}}</span>
+    </div>
+
+	<div style="height:49px;background-color: #fff; width:100%;border-bottom: 1px solid #f5f5f5;border-top: 1px solid#f5f5f5;" ng-show="item.daily_data.length != 0">
+    	<label style="font-size:16px; line-height:49px; margin-left:18px; color:#333;">排班</label>
+        <label style="font-size:16px; line-height:49px; margin-left:36px; color:#333;">打卡</label>
+    </div>
+    <div style="width:100%; overflow:hidden; background-color:#fff;border-bottom: 1px solid #f5f5f5;" ng-show="item.daily_data.length != 0">
+        <div ng-repeat="daily_data in item.daily_data">
+            <div style="width:100%; overflow:hidden; background-color:#fff;">
+            <div style="float:left;width:65px;">
+                <label style="font-size:17px; line-height:49px; margin-left:12px;">{{daily_data.shift}}</label>
+            </div>
+
+            <div style=" float:left; width:13px;">
+                <div ng-show="item.daily_data.length > 1 && !$first" style=" width:1px; height:20px; background-color:#53afff; border-radius:80px;margin-left: 6px;"></div>
+                <div ng-class="$first ? 'at_team_record_detail_first_record' : ''" style=" width:13px; height:13px; background-color:#53afff; border-radius:80px;"></div>
+                <div ng-show="item.daily_data.length > 1 && !$last" style=" width:1px; height:20px; background-color:#53afff; border-radius:80px;margin-left:6px;"></div>
+            </div>
+
+            <div style="float:left;width:60px;">
+                <label style="font-size:16px; line-height:49px; margin-left:14px;">{{daily_data.card}}</label>
+            </div>
+
+            <div ng-show="(daily_data.type == '4'||daily_data.type=='5'||daily_data.type=='6')&&daily_data.mesg!=''" style="border-radius: 51px;padding: 0 20px 20px 20px;height: 22px;text-align:center;	font-size:12px;background-color:#ff3b30; margin-left:0px; float:left; color:#fff; margin-top:13px;text-align: center">{{daily_data.mesg}}</div>
+              <div ng-show="(daily_data.type == '1'||daily_data.type =='2')&&daily_data.mesg!=''" style="border-radius: 51px;padding: 0 20px 20px 20px;height: 22px;text-align:center;	font-size:12px;background-color:#ff6600; margin-left:0px; float:left; color:#fff; margin-top:13px;text-align: center">{{daily_data.mesg}}</div>
+              <div ng-show="(daily_data.type == '3'||daily_data.type =='')&&daily_data.mesg!=''" style="border-radius: 51px;padding: 0 20px 20px 20px;height: 22px;text-align:center;	font-size:12px;background-color:#53afff; margin-left:0px; float:left; color:#fff; margin-top:13px;text-align: center">{{daily_data.mesg}}</div>
+            </div>
+		</div>
+    </div>
+
+    <div>
+        <div style="height:49px;background-color: #fff; width:100%;border-bottom: 1px solid #f5f5f5;border-top: 1px solid#f5f5f5;" ng-show="item.daily_data.length == 0">
+            <label style="font-size:16px; line-height:49px; margin-left:12px; color:#333;">{{item.mesg}}</label>
+        </div>
+    </div>
+
+
+</div>
+
+
+    </ion-content>
+
+</ion-view>
+
+
